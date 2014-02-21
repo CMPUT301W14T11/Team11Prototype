@@ -1,0 +1,13 @@
+package com.example1.locationapp;
+
+import org.joda.time.DateTime;
+
+public class Subcomments extends Comments {
+
+	public Subcomments(int masterid, int subid, DateTime the_date,
+			String comment) {
+		super(masterid, subid, the_date, comment);
+		// TODO Auto-generated constructor stub
+	}
+
+}
