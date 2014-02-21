@@ -54,8 +54,8 @@ public class cutadapter extends ArrayAdapter<Comments>{
         if (custom != null) {
             holder.item1.setText(custom.the_comment);
             holder.item2.setText(custom.subject_comment);
-            holder.item3.setText("Location:"+custom.distance+"");
-            holder.item4.setText(custom.comment_date.toString().subSequence(0, 10));
+            //holder.item3.setText("Location:"+custom.distance+"");
+            //holder.item4.setText(custom.comment_date.toString().subSequence(0, 10));
             //holder.imageview.setVisibility(View.VISIBLE);
         }
         return v;

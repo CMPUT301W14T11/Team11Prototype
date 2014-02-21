@@ -294,7 +294,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
 			
-			System.out.println(id_toReturn.id_for_master+"ddd");
+			System.out.println(id_toReturn.id_for_master+"dddddd");
+			
 			return id_toReturn;
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
@@ -338,11 +339,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 	// testing query, dont use this function
-	public  ElasticSearchSearchResponse<Comments> get_comments(String url)
+	public  void get_comments(String url)
 	{
 	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 	try {
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":99}}}}";
+		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":1,\"lte\":100,\"boost\":2.0}}}}";
 		StringEntity entity = new StringEntity(query);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
@@ -351,13 +352,19 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		
 		// change to elastic search type
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
-		System.out.println("zhennanren374");
+		System.out.println("zhennanren374"+json);
 		ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(json, elasticSearchSearchResponseType);
 		System.out.println("zhennanren376");
-		System.out.println(esResponse+"vvvvvvvvv");
+		
+		for (ElasticSearchResponse<Comments> r : esResponse.getHits())
+		{
+		      	Comments server_comment = r.getSource();
+		      	System.out.println("nnn"+server_comment);
+		      	comment_array.add(server_comment);
+		}
 			
 		
-		return esResponse;
+		
 	} catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -365,7 +372,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	return null;
+	
 		
 	}
 
@@ -385,8 +392,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				System.out.println("okay123");
-				//ESresponse=get_comments("get from server");
-				comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
+				get_comments("get from server");
+				//comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
 				System.out.println("okay1234");
 				return null;
 			}
@@ -396,11 +403,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
 				// loop through  the response
-				/*for (ElasticSearchResponse<Comments> r : ESresponse.getHits())
-				{
-				      	Comments server_comment = r.getSource();
-				      	comment_array.add(server_comment);
-				}*/
+				
 				adapter.notifyDataSetChanged();
 				mPullToRefreshLayout.setRefreshComplete();
 				
