@@ -19,13 +19,9 @@ import org.joda.time.DateTime;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
-
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -35,12 +31,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
-//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchSearchResponse;
-
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
+//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchSearchResponse;
 
 public class MainActivity extends Activity implements OnRefreshListener {
     ListView listview ;
@@ -53,6 +47,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
     int number_of_comments;
     Location current_location;
     GPSTracker gps ;
+    Context content;
+    ProgressDialog dialog1;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -60,6 +56,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		content = this;
+		dialog1 = new ProgressDialog(content);
 		
 		// getting location when app starts, so we can search the database for location, will add use location later
 		gps = new GPSTracker(this);
@@ -81,8 +80,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		
 		total_comments = new ID(0);
 		gson = new Gson();
-		
-		
 		/*
 		// input the ID OBJECT TO SERVER
 		new Thread(new Runnable()
@@ -105,89 +102,71 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}).start();
 		*/
 		// get ID from server
-		
-		new Thread(new Runnable()
+		//using async task to get ID object form server
+		new AsyncTask<Void,Void,Void>()
 		{
-
 			@Override
-			public void run() {
+			protected void onPreExecute() {
 				// TODO Auto-generated method stub
-				System.out.println("ggggggggg");
+				dialog1.setTitle("Loading cause your internet is too slow!");
+				dialog1.show();
+				super.onPreExecute();
+			}
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
 				theid = get_id();
 				number_of_comments = theid.id_for_master;
-				System.out.println("geiba"+number_of_comments);
-			}}).start();
-		final ProgressDialog progressDialog = ProgressDialog.show(this, "Please wait...", "Loading data ...");
-		// let system sleep for 3 second to make sure that the ID object is download from server
-		// if not there will be a bug, i set this to three second cause i think 3 second is right amount of time to send and download
-		// information from school server
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		progressDialog.dismiss();
-		adapter = new cutadapter(MainActivity.this,R.layout.listlayout,comment_array);
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		//add pull to refresh
-				// Now find the PullToRefreshLayout to setup
-			    mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
+				return null;
+				
+			}
 
-			    // Now setup the PullToRefreshLayout
-			    ActionBarPullToRefresh.from(this)
-			            // Mark All Children as pullable
-			            .allChildrenArePullable()
-			            // Set the OnRefreshListener
-			            .listener(this)
-			            // Finally commit the setup to our PullToRefreshLayout
-			            .setup(mPullToRefreshLayout);
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				dialog1.dismiss();
+				super.onPostExecute(result);
 				
 				
-				// done adding pull to refresh
+			}
+
+			
+			
+		}.execute();
+		//async task is done
+		adapter = new cutadapter(MainActivity.this,R.layout.listlayout,comment_array);
+		
+		//add pull to refresh
+		// Now find the PullToRefreshLayout to setup
+		mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
+
+		// Now setup the PullToRefreshLayout
+		ActionBarPullToRefresh.from(this)
+		// Mark All Children as pullable
+		   .allChildrenArePullable()
+		// Set the OnRefreshListener
+		   .listener(this)
+		// Finally commit the setup to our PullToRefreshLayout
+		   .setup(mPullToRefreshLayout);
+		// done adding pull to refresh
 		
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
-		
-		
-		
-		
 	}
-    
-	
-
-	@Override
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		
 		switch (item.getItemId())
 		{
 		case R.id.item1:
+			System.out.println("new is clicked");
 			Intent intent = new Intent ();
-			
-			
 			intent.putExtra("number_of_comments",number_of_comments);
 			intent.setClass(MainActivity.this, EnterCommentsActivity.class);
 			startActivityForResult(intent, 1);
-			
-		case R.id.item2:
-			new Thread(new Runnable (){
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					System.out.println("nanren");
-					get_comments("aksdjfa");
-					System.out.println("bunanren");
-				}
-				
-			}).start();
-			
-		     	
-		}
-		
-		
+			}
 		return super.onOptionsItemSelected(item);
 	}
     
@@ -307,16 +286,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			e.printStackTrace();
 		}
 	return null;
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	/**
@@ -355,7 +324,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		System.out.println("zhennanren374"+json);
 		ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(json, elasticSearchSearchResponseType);
 		System.out.println("zhennanren376");
-		
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits())
 		{
 		      	Comments server_comment = r.getSource();
@@ -392,8 +360,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				System.out.println("okay123");
-				get_comments("get from server");
-				//comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
+				//get_comments("get from server");
+				comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
 				System.out.println("okay1234");
 				return null;
 			}

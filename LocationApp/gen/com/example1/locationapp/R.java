@@ -204,8 +204,7 @@ containing a value of this type.
         public static final int editText1=0x7f04000b;
         public static final int editText2=0x7f04000d;
         public static final int inside=0x7f040004;
-        public static final int item1=0x7f04001b;
-        public static final int item2=0x7f04001a;
+        public static final int item1=0x7f04001a;
         public static final int loca=0x7f040014;
         public static final int number=0x7f040015;
         public static final int outside=0x7f040005;
