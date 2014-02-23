@@ -82,7 +82,7 @@ public class EnterCommentsActivity extends Activity {
         	Toast.makeText(getBaseContext(), "Title is empty! add some words please!", Toast.LENGTH_SHORT).show();
         }
        String subject = subject_edit.getText().toString();
-       final Comments new_comment = new Comments(number,0,new DateTime(),title,subject,location,longitude,latitude);
+       final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude);
     	new Thread(new Runnable() {
 			
 			@Override

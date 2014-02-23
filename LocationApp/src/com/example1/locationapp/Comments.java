@@ -12,19 +12,19 @@ public class Comments implements Serializable{
 	int sub_ID;
 	String the_comment,subject_comment;
 	//Location comment_location;
-	DateTime comment_date;
+	//DateTime comment_date;
 	boolean master_comment;
 	Location comment_location ;
 	double lon ;
 	double lat;
 	double distance;
 	//consturctor for creating a master comment
-	public Comments(int masterid , int subid, DateTime the_date,String title, String subject,Location location,double lon,double lat)
+	public Comments(int masterid , int subid,String title, String subject,Location location,double lon,double lat)
 	{   
 		this.master_ID=masterid;
 		this.sub_ID= subid;
 		//this.comment_location= the_location;
-		this.comment_date=the_date;
+		//this.comment_date=the_date;
 		this.the_comment=title;
 		this.subject_comment=subject;
 		this.master_comment=true;

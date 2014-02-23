@@ -31,6 +31,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
+//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchSearchResponse;
+//import ca.ualberta.cs.CMPUT301.chenlei.Recipe;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 //import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
@@ -80,28 +84,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		
 		total_comments = new ID(0);
 		gson = new Gson();
-		/*
-		// input the ID OBJECT TO SERVER
-		new Thread(new Runnable()
-		{
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					insert(total_comments);
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		}).start();
-		*/
-		// get ID from server
 		//using async task to get ID object form server
 		new AsyncTask<Void,Void,Void>()
 		{
@@ -310,34 +292,42 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	// testing query, dont use this function
 	public  void get_comments(String url)
 	{
-	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
+	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?");
+	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
+	Gson gson1 = new Gson();
 	try {
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":1,\"lte\":100,\"boost\":2.0}}}}";
+		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":1000,\"boost\":2.0}}}}";
+		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		StringEntity entity = new StringEntity(query);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
 		HttpResponse response = httpclient.execute(httpPost);
-		String json = getEntityContent(response);
-		
-		// change to elastic search type
+		String json1 = getEntityContent(response);
+		System.out.println(json1+"result");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
-		System.out.println("zhennanren374"+json);
-		ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(json, elasticSearchSearchResponseType);
-		System.out.println("zhennanren376");
-		for (ElasticSearchResponse<Comments> r : esResponse.getHits())
+		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
+		System.out.println();
+		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
+			Comments recipe = r.getSource();
+			System.err.println(recipe);
+			comment_array.add(recipe);
+		}
+		/*for (ElasticSearchResponse<Comments> r : esResponse.getHits())
 		{
 		      	Comments server_comment = r.getSource();
 		      	System.out.println("nnn"+server_comment);
 		      	comment_array.add(server_comment);
-		}
+		}*/
 			
 		
 		
 	} catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
+		System.out.println("client exe");
 		e.printStackTrace();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
+		System.out.println("IO exe");
 		e.printStackTrace();
 	}
 	
@@ -360,8 +350,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				System.out.println("okay123");
-				//get_comments("get from server");
-				comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
+				get_comments("get from server");
+				//comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
 				System.out.println("okay1234");
 				return null;
 			}
@@ -369,11 +359,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			@Override
 			protected void onPostExecute(Void result) {
 				// TODO Auto-generated method stub
+				adapter.notifyDataSetChanged();
+				mPullToRefreshLayout.setRefreshComplete();
 				super.onPostExecute(result);
 				// loop through  the response
 				
-				adapter.notifyDataSetChanged();
-				mPullToRefreshLayout.setRefreshComplete();
 				
 			}
 
