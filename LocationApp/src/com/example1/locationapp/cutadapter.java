@@ -46,7 +46,7 @@ public class cutadapter extends ArrayAdapter<Comments>{
             holder.item2 = (TextView) v.findViewById(R.id.smalll);
             holder.item3 = (TextView) v.findViewById(R.id.loca);
             holder.item4 = (TextView) v.findViewById(R.id.number);
-            holder.imageview = (ImageView) v.findViewById(R.id.imageView1);
+            holder.imageview = (ImageView) v.findViewById(R.id.imageView88);
             v.setTag(holder);
         }
         else
@@ -61,6 +61,7 @@ public class cutadapter extends ArrayAdapter<Comments>{
             if(custom.comment_image!=null)
             {   holder.imageview.setVisibility(View.VISIBLE);
             	holder.imageview.setImageBitmap(custom.comment_image);
+            	System.out.println("imageset");
             }
             else
             {

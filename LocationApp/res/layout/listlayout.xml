@@ -39,10 +39,10 @@
            android:background="#BABABA" />
         
         <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView88"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
          />
         <LinearLayout 
             android:id="@+id/inside"

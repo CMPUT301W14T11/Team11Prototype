@@ -195,10 +195,10 @@ containing a value of this type.
     }
     public static final class id {
         public static final int LinearLayout1=0x7f040010;
-        public static final int action_listview=0x7f04001f;
-        public static final int action_scrollview=0x7f040021;
-        public static final int action_settings=0x7f040022;
-        public static final int action_webview=0x7f040020;
+        public static final int action_listview=0x7f040020;
+        public static final int action_scrollview=0x7f040022;
+        public static final int action_settings=0x7f040023;
+        public static final int action_webview=0x7f040021;
         public static final int bigg=0x7f04001b;
         public static final int button1=0x7f040015;
         public static final int button2=0x7f040016;
@@ -207,13 +207,14 @@ containing a value of this type.
         public static final int editText1=0x7f040012;
         public static final int editText2=0x7f040014;
         public static final int imageView1=0x7f040017;
+        public static final int imageView88=0x7f04001d;
         public static final int imageViewThumb=0x7f040009;
         public static final int imageViewThumbSmall=0x7f04000a;
         public static final int inside=0x7f040004;
-        public static final int item1=0x7f040023;
+        public static final int item1=0x7f040024;
         public static final int layoutButtons=0x7f04000c;
-        public static final int loca=0x7f04001d;
-        public static final int number=0x7f04001e;
+        public static final int loca=0x7f04001e;
+        public static final int number=0x7f04001f;
         public static final int outside=0x7f040005;
         public static final int progressBar=0x7f04000f;
         public static final int ptr_content=0x7f040006;
