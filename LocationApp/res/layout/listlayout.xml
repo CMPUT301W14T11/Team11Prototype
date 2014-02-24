@@ -32,6 +32,18 @@
             android:maxLines="3"
             android:textColor="#A4A4A4" 
             />
+        
+        <View 
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"       
+           android:background="#BABABA" />
+        
+        <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+         />
         <LinearLayout 
             android:id="@+id/inside"
             android:layout_width="match_parent"
@@ -63,8 +75,7 @@
             android:singleLine="true"
             android:textColor="#A4A4A4" 
             />
-            
-            
+                  
             
         </LinearLayout>
         

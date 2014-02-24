@@ -2,8 +2,7 @@ package com.example1.locationapp;
 
 import java.io.Serializable;
 
-import org.joda.time.DateTime;
-
+import android.graphics.Bitmap;
 import android.location.Location;
 // this is a master comment class
 public class Comments implements Serializable{
@@ -18,6 +17,7 @@ public class Comments implements Serializable{
 	double lon ;
 	double lat;
 	double distance;
+	Bitmap comment_image;
 	//consturctor for creating a master comment
 	public Comments(int masterid , int subid,String title, String subject,Location location,double lon,double lat)
 	{   
@@ -43,6 +43,21 @@ public class Comments implements Serializable{
 		this.master_comment=false;
 	}*/
 	
+	// make a comments with image in them
+	public Comments(int masterid , int subid,String title, String subject,Location location,double lon,double lat,Bitmap bit_map)
+	{   
+		this.master_ID=masterid;
+		this.sub_ID= subid;
+		//this.comment_location= the_location;
+		//this.comment_date=the_date;
+		this.the_comment=title;
+		this.subject_comment=subject;
+		this.master_comment=true;
+		this.comment_location=location;
+		this.lon = lon;
+		this.lat = lat;
+		this.comment_image=bit_map;
+	}
 	
 
 }

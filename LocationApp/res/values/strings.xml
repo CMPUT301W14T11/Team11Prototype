@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_enter_comments">EnterCommentsActivity</string>
     <string name="title_activity_list_view">ListViewActivity</string>
+    <string name="title_activity_chose_image">ChoseImageActivity</string>
 
 </resources>

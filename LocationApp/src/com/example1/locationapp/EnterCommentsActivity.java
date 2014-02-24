@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,29 +25,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.kbeanie.imagechooser.api.ImageChooserManager;
 
 public class EnterCommentsActivity extends Activity {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/testing/";
 	public static final String MASTERCOMMENT = "emouse/";
 	EditText title_edit , subject_edit;
-    Button post_button ;
+    Button post_button,picture_add_button ;
     Location location;
     GPSTracker gps;
+    ImageView imageview;
     int number; 
     double longitude;
     double latitude;
     Gson gson ;
     Context content;
-    
+    Bitmap bitmap;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_comments);
 		// Show the Up button in the action bar.
 		//setupActionBar();
+		imageview = (ImageView) findViewById(R.id.imageView1);
+		picture_add_button = (Button) findViewById(R.id.button2);
 		content = this;
 		//make three new tabs
 		title_edit = (EditText) findViewById(R.id.editText1);
@@ -83,7 +90,15 @@ public class EnterCommentsActivity extends Activity {
         	Toast.makeText(getBaseContext(), "Title is empty! add some words please!", Toast.LENGTH_SHORT).show();
         }
        String subject = subject_edit.getText().toString();
-       final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude);
+       
+       if(bitmap==null)
+       {	   
+         final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude);
+       }
+       else
+       {
+    	 final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude,bitmap);
+       }
     	new AsyncTask<Void,Void,Void>()
     	{   ProgressDialog dialog1= new ProgressDialog(content);
     		@Override
@@ -96,7 +111,17 @@ public class EnterCommentsActivity extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
-				insertMaster(new_comment);
+				if(bitmap==null)
+			       {	   
+			         final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),location,longitude,latitude);
+			         insertMaster(new_comment);
+			       }
+			       else
+			       {  System.out.println("image posted");
+			    	 final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),location,longitude,latitude,bitmap);
+			    	 insertMaster(new_comment);
+			       }
+				
 				return null;
 			}
 			@Override
@@ -181,6 +206,24 @@ public class EnterCommentsActivity extends Activity {
 		}
 		 
 	 }
+	 //chose picture request for picture is 5 
+	 public void addPicture(View view)
+	 {
+		 Intent intent = new Intent(this,ChoseImageActivity.class);
+		 startActivityForResult(intent, 5);
+	 }
+	 @Override
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	     if (resultCode==RESULT_OK)
+	     {   String file = data.getStringExtra("image");
+	    	 System.out.println("haha"+file);
+	    	 
+	    	 bitmap = BitmapFactory.decodeFile(file);
+	    	 imageview.setImageBitmap(bitmap);
+	     }
+	     
+	 }
+	 
 	
 
 }

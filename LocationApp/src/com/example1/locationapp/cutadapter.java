@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.opengl.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class cutadapter extends ArrayAdapter<Comments>{
         public TextView item2; //make a Testview
         public TextView item3;
         public TextView item4;
+        public ImageView imageview;
     }
 
 	@Override
@@ -44,7 +46,7 @@ public class cutadapter extends ArrayAdapter<Comments>{
             holder.item2 = (TextView) v.findViewById(R.id.smalll);
             holder.item3 = (TextView) v.findViewById(R.id.loca);
             holder.item4 = (TextView) v.findViewById(R.id.number);
-            //holder.imageview = (ImageView) v.findViewById(R.id.imageview1);
+            holder.imageview = (ImageView) v.findViewById(R.id.imageView1);
             v.setTag(holder);
         }
         else
@@ -56,7 +58,14 @@ public class cutadapter extends ArrayAdapter<Comments>{
             holder.item2.setText(custom.subject_comment);
             //holder.item3.setText("Location:"+custom.distance+"");
             //holder.item4.setText(custom.comment_date.toString().subSequence(0, 10));
-            //holder.imageview.setVisibility(View.VISIBLE);
+            if(custom.comment_image!=null)
+            {   holder.imageview.setVisibility(View.VISIBLE);
+            	holder.imageview.setImageBitmap(custom.comment_image);
+            }
+            else
+            {
+            	holder.imageview.setVisibility(View.GONE);
+            }
         }
         return v;
     }

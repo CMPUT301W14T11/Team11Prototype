@@ -289,7 +289,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	// testing query,use this function
 	public  void get_comments(String url)
 	{
-	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?");
+	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 	Gson gson1 = new Gson();
 	try {
@@ -300,7 +300,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		httpPost.setEntity(entity);
 		HttpResponse response = httpclient.execute(httpPost);
 		String json1 = getEntityContent(response);
-		System.out.println(json1+"result");
+		System.out.println(json1+"holy");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
 		System.out.println();
