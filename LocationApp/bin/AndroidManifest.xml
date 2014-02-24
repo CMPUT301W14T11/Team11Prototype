@@ -51,6 +51,11 @@
             android:name="com.example1.locationapp.ChoseImageActivity"
             android:label="@string/title_activity_chose_image" >
         </activity>
+        <activity
+            android:name="com.example1.locationapp.PlayTube"
+            android:label="@string/title_activity_play_tube" 
+            android:parentActivityName="com.example1.locationapp.MainActivity">
+        </activity>
     </application>
 
 </manifest>

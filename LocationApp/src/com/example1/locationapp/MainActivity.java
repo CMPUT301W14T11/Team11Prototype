@@ -148,7 +148,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			intent.putExtra("number_of_comments",number_of_comments);
 			intent.setClass(MainActivity.this, EnterCommentsActivity.class);
 			startActivityForResult(intent, 1);
+			break;
+			
+		case R.id.item2:
+			Intent intent2 = new Intent(MainActivity.this,PlayTube.class);
+			startActivity(intent2);
+			break;
 			}
+		
+		
 		return super.onOptionsItemSelected(item);
 	}
     
@@ -289,7 +297,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	// testing query,use this function
 	public  void get_comments(String url)
 	{
-	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
+	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 	Gson gson1 = new Gson();
 	try {

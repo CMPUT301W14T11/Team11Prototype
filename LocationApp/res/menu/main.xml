@@ -4,6 +4,6 @@
     
     
     <item android:id="@+id/item1" android:visible="true" android:enabled="true" android:title="NEW" android:showAsAction="always" android:orderInCategory="1"></item>
-    
+    <item android:id="@+id/item2" android:visible="true" android:enabled="true" android:title="PLAY" android:showAsAction="always" android:orderInCategory="2"></item>
 
 </menu>

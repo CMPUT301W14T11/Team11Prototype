@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 
 public class EnterCommentsActivity extends Activity {
-	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/testing/";
+	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	EditText title_edit , subject_edit;
     Button post_button,picture_add_button ;
