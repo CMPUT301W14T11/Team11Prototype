@@ -9,12 +9,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.joda.time.DateTime;
 
-import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -37,7 +38,7 @@ public class EnterCommentsActivity extends Activity {
     double longitude;
     double latitude;
     Gson gson ;
-    
+    Context content;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class EnterCommentsActivity extends Activity {
 		setContentView(R.layout.activity_enter_comments);
 		// Show the Up button in the action bar.
 		//setupActionBar();
-		
+		content = this;
 		//make three new tabs
 		title_edit = (EditText) findViewById(R.id.editText1);
 		subject_edit = (EditText) findViewById(R.id.editText2);
@@ -83,16 +84,32 @@ public class EnterCommentsActivity extends Activity {
         }
        String subject = subject_edit.getText().toString();
        final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude);
-    	new Thread(new Runnable() {
-			
+    	new AsyncTask<Void,Void,Void>()
+    	{   ProgressDialog dialog1= new ProgressDialog(content);
+    		@Override
+			protected void onPreExecute() {
+				// TODO Auto-generated method stub
+				dialog1.setTitle("Loading cause your internet is too slow!");
+				dialog1.show();
+				super.onPreExecute();
+			}
 			@Override
-			public void run() {
+			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				insertMaster(new_comment);
+				return null;
+			}
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				dialog1.dismiss();
+				super.onPostExecute(result);
+				
 				
 			}
-		}).start();
-    	Toast.makeText(EnterCommentsActivity.this, "Sending!", Toast.LENGTH_LONG).show();
+    		
+    	}.execute();
+       
     	setResult(RESULT_OK);
     	finish();
     }

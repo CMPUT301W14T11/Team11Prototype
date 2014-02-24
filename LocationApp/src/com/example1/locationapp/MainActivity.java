@@ -286,10 +286,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		System.err.println("JSON:"+json);
 		return json;
 	}
-
-
-
-	// testing query, dont use this function
+	// testing query,use this function
 	public  void get_comments(String url)
 	{
 	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?");
@@ -308,20 +305,27 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
 		System.out.println();
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
-			Comments recipe = r.getSource();
-			System.err.println(recipe);
-			comment_array.add(recipe);
-		}
-		/*for (ElasticSearchResponse<Comments> r : esResponse.getHits())
-		{
-		      	Comments server_comment = r.getSource();
-		      	System.out.println("nnn"+server_comment);
-		      	comment_array.add(server_comment);
-		}*/
+			Comments comms = r.getSource();
 			
-		
-		
-	} catch (ClientProtocolException e) {
+			// check weath the comment if already in the arraylist, if not then add it in there
+			int flag=0;
+			for (Comments com : comment_array)
+			{  // turn on the flag if object is already inside the arary
+				if(com.master_ID==comms.master_ID)
+				{
+					flag =1 ;
+					break;
+				}
+			}
+			// if flag not turned on then add the object into the arraylsit
+			if (flag==0)
+			{
+				comment_array.add(comms);
+			}
+			
+		}
+				
+		} catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
 		System.out.println("client exe");
 		e.printStackTrace();
