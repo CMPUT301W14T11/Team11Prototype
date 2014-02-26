@@ -19,6 +19,7 @@ public class Comments implements Serializable{
 	double lat;
 	double distance;
 	Bitmap comment_image;
+	String image_encode;
 	//consturctor for creating a master comment
 	public Comments(int masterid , int subid,String title, String subject,Date the_date,Location location,double lon,double lat)
 	{   
@@ -32,6 +33,7 @@ public class Comments implements Serializable{
 		this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
+		
 	}
 	// constrcutor for creating a sub comment;
 	/*public Comments(int master_commentid,int masterid , int subid, DateTime the_date,String comment,boolean master)
