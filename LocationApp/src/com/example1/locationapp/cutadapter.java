@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,12 +58,15 @@ public class cutadapter extends ArrayAdapter<Comments>{
         if (custom != null) {
             holder.item1.setText(custom.the_comment);
             holder.item2.setText(custom.subject_comment);
-            //holder.item3.setText("Location:"+custom.distance+"");
-            //holder.item4.setText(custom.comment_date.toString().subSequence(0, 10));
+            holder.item3.setText("Location:"+custom.distance+"");
+            holder.item4.setText(custom.comment_date.toString());
             if(custom.comment_image!=null)
-            {   holder.imageview.setVisibility(View.VISIBLE);
-            	holder.imageview.setImageBitmap(custom.comment_image);
-            	System.out.println("imageset");
+            {   
+            	
+            holder.imageview.setVisibility(View.VISIBLE);
+            holder.imageview.setImageBitmap(custom.comment_image);
+            System.out.println("imageset");
+            
             }
             else
             {
@@ -70,6 +75,8 @@ public class cutadapter extends ArrayAdapter<Comments>{
         }
         return v;
     }
+	
+	
 
 
 	}

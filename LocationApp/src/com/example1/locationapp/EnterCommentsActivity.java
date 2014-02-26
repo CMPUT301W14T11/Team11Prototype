@@ -2,6 +2,7 @@ package com.example1.locationapp;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -93,11 +94,11 @@ public class EnterCommentsActivity extends Activity {
        
        if(bitmap==null)
        {	   
-         final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude);
+         final Comments new_comment = new Comments(number,0,title,subject,new Date(),location,longitude,latitude);
        }
        else
        {
-    	 final Comments new_comment = new Comments(number,0,title,subject,location,longitude,latitude,bitmap);
+    	 final Comments new_comment = new Comments(number,0,title,subject,new Date(),location,longitude,latitude,bitmap);
        }
     	new AsyncTask<Void,Void,Void>()
     	{   ProgressDialog dialog1= new ProgressDialog(content);
@@ -113,12 +114,12 @@ public class EnterCommentsActivity extends Activity {
 				// TODO Auto-generated method stub
 				if(bitmap==null)
 			       {	   
-			         final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),location,longitude,latitude);
+			         final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
 			         insertMaster(new_comment);
 			       }
 			       else
 			       {  System.out.println("image posted");
-			    	 final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),location,longitude,latitude,bitmap);
+			    	 final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,bitmap);
 			    	 insertMaster(new_comment);
 			       }
 				
@@ -218,12 +219,36 @@ public class EnterCommentsActivity extends Activity {
 	     {   String file = data.getStringExtra("image");
 	    	 System.out.println("haha"+file);
 	    	 
-	    	 bitmap = BitmapFactory.decodeFile(file);
+	    	 bitmap = ShrinkBitmap(file, 200, 200);
+	    	 
 	    	 imageview.setImageBitmap(bitmap);
 	     }
 	     
 	 }
-	 
+	 // decrease size of the image
+	 Bitmap ShrinkBitmap(String file, int width, int height){
+		   
+	     BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+	        bmpFactoryOptions.inJustDecodeBounds = true;
+	        Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+	         
+	        int heightRatio = (int)Math.ceil(bmpFactoryOptions.outHeight/(float)height);
+	        int widthRatio = (int)Math.ceil(bmpFactoryOptions.outWidth/(float)width);
+	         
+	        if (heightRatio > 1 || widthRatio > 1)
+	        {
+	         if (heightRatio > widthRatio)
+	         {
+	          bmpFactoryOptions.inSampleSize = heightRatio;
+	         } else {
+	          bmpFactoryOptions.inSampleSize = widthRatio;
+	         }
+	        }
+	         
+	        bmpFactoryOptions.inJustDecodeBounds = false;
+	        bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+	     return bitmap;
+	    }
 	
 
 }

@@ -1,8 +1,16 @@
 package com.example1.locationapp;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+* This code has been taken and modified from:
+* https://github.com/rayzhangcl/ESDemo
+*
+* @author Chenlei Zhang - Original Owner
+* @author Ya Zhou Jiang -Minor Editor
+*/
 public class ElasticSearchSearchResponse<T> {
     int took;
     boolean timed_out;
