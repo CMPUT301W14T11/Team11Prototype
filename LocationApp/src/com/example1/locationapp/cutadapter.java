@@ -66,6 +66,7 @@ public class cutadapter extends ArrayAdapter<Comments>{
             //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
             	byte[] imageAsBytes = Base64.decode(custom.image_encode.getBytes(),Base64.DEFAULT);
             	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            	
             	if(bitmap!=null)
                 {
                 	custom.comment_image=bitmap;

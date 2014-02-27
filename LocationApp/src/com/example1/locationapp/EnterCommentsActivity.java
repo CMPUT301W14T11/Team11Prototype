@@ -221,7 +221,8 @@ public class EnterCommentsActivity extends Activity {
 	     if (resultCode==RESULT_OK)
 	     {   String file = data.getStringExtra("image");
 	    	 System.out.println("haha"+file);
-	    	 bitmap=ShrinkBitmap(file, 50, 50);
+	    	 bitmap  = BitmapFactory.decodeFile(file);
+	    	 //bitmap=ShrinkBitmap(file, 50, 50);
 	    	 
 	    	 imageview.setImageBitmap(bitmap);
 	    	 

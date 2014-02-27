@@ -29,6 +29,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 //import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
@@ -121,7 +123,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		//add pull to refresh
 		// Now find the PullToRefreshLayout to setup
 		mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
-
+        
 		// Now setup the PullToRefreshLayout
 		ActionBarPullToRefresh.from(this)
 		// Mark All Children as pullable
@@ -132,7 +134,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		   .setup(mPullToRefreshLayout);
 		// done adding pull to refresh
 		
-		
+		listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
 	}

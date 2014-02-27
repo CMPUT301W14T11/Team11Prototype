@@ -78,6 +78,7 @@ public class ChoseImageActivity extends Activity implements
 		try {
 			pbar.setVisibility(View.VISIBLE);
 			filePath = imageChooserManager.choose();
+			System.out.println("gotiamge"+filePath);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
