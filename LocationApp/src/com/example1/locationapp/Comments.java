@@ -47,7 +47,7 @@ public class Comments implements Serializable{
 	}*/
 	
 	// make a comments with image in them
-	public Comments(int masterid , int subid,String title, String subject,Date the_date,Location location,double lon,double lat,Bitmap bit_map)
+	public Comments(int masterid , int subid,String title, String subject,Date the_date,Location location,double lon,double lat,String encode)
 	{   
 		this.master_ID=masterid;
 		this.sub_ID= subid;
@@ -59,7 +59,7 @@ public class Comments implements Serializable{
 		this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
-		this.comment_image=bit_map;
+		this.image_encode=encode;
 	}
 	
 

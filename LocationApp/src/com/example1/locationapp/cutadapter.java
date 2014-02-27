@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.Visibility;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,18 +61,19 @@ public class cutadapter extends ArrayAdapter<Comments>{
             holder.item2.setText(custom.subject_comment);
             holder.item3.setText("Location:"+custom.distance+"");
             holder.item4.setText(custom.comment_date.toString());
-            if(custom.comment_image!=null)
+            if(custom.image_encode!=null)
             {   
-            	
-            holder.imageview.setVisibility(View.VISIBLE);
-            holder.imageview.setImageBitmap(custom.comment_image);
-            System.out.println("imageset");
+            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
+            	byte[] imageAsBytes = Base64.decode(custom.image_encode.getBytes(),Base64.DEFAULT);
+            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            	if(bitmap!=null)
+                {
+                	custom.comment_image=bitmap;
+                	holder.imageview.setImageBitmap(custom.comment_image);
+                    System.out.println("imageset");            
+                }
+            }
             
-            }
-            else
-            {
-            	holder.imageview.setVisibility(View.GONE);
-            }
         }
         return v;
     }

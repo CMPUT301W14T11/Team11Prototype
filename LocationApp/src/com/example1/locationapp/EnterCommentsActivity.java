@@ -1,5 +1,6 @@
 package com.example1.locationapp;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -21,6 +22,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +32,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.kbeanie.imagechooser.api.ImageChooserManager;
 
 public class EnterCommentsActivity extends Activity {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
@@ -92,14 +93,14 @@ public class EnterCommentsActivity extends Activity {
         }
        String subject = subject_edit.getText().toString();
        
-       if(bitmap==null)
+       /*if(bitmap==null)
        {	   
          final Comments new_comment = new Comments(number,0,title,subject,new Date(),location,longitude,latitude);
        }
        else
        {
     	 final Comments new_comment = new Comments(number,0,title,subject,new Date(),location,longitude,latitude,bitmap);
-       }
+       }*/
     	new AsyncTask<Void,Void,Void>()
     	{   ProgressDialog dialog1= new ProgressDialog(content);
     		@Override
@@ -118,8 +119,10 @@ public class EnterCommentsActivity extends Activity {
 			         insertMaster(new_comment);
 			       }
 			       else
-			       {  System.out.println("image posted");
-			    	 final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,bitmap);
+			       { System.out.println("image posted");
+                         			       
+			         String encode_image= convert_image_to_string(bitmap);
+			    	 final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 			    	 insertMaster(new_comment);
 			       }
 				
@@ -218,37 +221,47 @@ public class EnterCommentsActivity extends Activity {
 	     if (resultCode==RESULT_OK)
 	     {   String file = data.getStringExtra("image");
 	    	 System.out.println("haha"+file);
-	    	 
-	    	 bitmap = ShrinkBitmap(file, 200, 200);
+	    	 bitmap=ShrinkBitmap(file, 50, 50);
 	    	 
 	    	 imageview.setImageBitmap(bitmap);
+	    	 
 	     }
 	     
 	 }
+	 // convert the bitmap image to base64 string
+	 public String  convert_image_to_string(Bitmap bitmap)
+	 {
+		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();  
+		 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+		 byte[] byteArray = byteArrayOutputStream .toByteArray();
+		 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+		return encoded;
+	 }
 	 // decrease size of the image
 	 Bitmap ShrinkBitmap(String file, int width, int height){
-		   
-	     BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-	        bmpFactoryOptions.inJustDecodeBounds = true;
-	        Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
-	         
-	        int heightRatio = (int)Math.ceil(bmpFactoryOptions.outHeight/(float)height);
-	        int widthRatio = (int)Math.ceil(bmpFactoryOptions.outWidth/(float)width);
-	         
-	        if (heightRatio > 1 || widthRatio > 1)
-	        {
-	         if (heightRatio > widthRatio)
-	         {
-	          bmpFactoryOptions.inSampleSize = heightRatio;
-	         } else {
-	          bmpFactoryOptions.inSampleSize = widthRatio;
-	         }
-	        }
-	         
-	        bmpFactoryOptions.inJustDecodeBounds = false;
-	        bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
-	     return bitmap;
-	    }
+
+		 BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+		 bmpFactoryOptions.inJustDecodeBounds = true;
+		 Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+
+		 int heightRatio = (int)Math.ceil(bmpFactoryOptions.outHeight/(float)height);
+		 int widthRatio = (int)Math.ceil(bmpFactoryOptions.outWidth/(float)width);
+
+		 if (heightRatio > 1 || widthRatio > 1)
+		 {
+		 if (heightRatio > widthRatio)
+		 {
+		 bmpFactoryOptions.inSampleSize = heightRatio;
+		 } else {
+		 bmpFactoryOptions.inSampleSize = widthRatio;
+		 }
+		 }
+
+		 bmpFactoryOptions.inJustDecodeBounds = false;
+		 bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+		 return bitmap;
+		 }
+	 
 	
 
 }
