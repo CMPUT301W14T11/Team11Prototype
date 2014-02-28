@@ -14,7 +14,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.joda.time.DateTime;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -26,21 +25,19 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
-
-//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
-//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchSearchResponse;
-//import ca.ualberta.cs.CMPUT301.chenlei.Recipe;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchResponse;
-//import ca.ualberta.cs.CMPUT301.chenlei.ElasticSearchSearchResponse;
+
 
 public class MainActivity extends Activity implements OnRefreshListener {
     ListView listview ;
@@ -55,6 +52,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
     GPSTracker gps ;
     Context content;
     ProgressDialog dialog1;
+    Button load_button;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -62,7 +60,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		//load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
 		
@@ -133,6 +131,27 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		// Finally commit the setup to our PullToRefreshLayout
 		   .setup(mPullToRefreshLayout);
 		// done adding pull to refresh
+		
+		View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footlayout, null, false);
+		footerView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new AsyncTask<Void, Void, Void>()
+				{
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						// TODO Auto-generated method stub
+						get_comments("get some comments man!");
+						return null;
+					}
+					
+				}.execute();
+			}
+		});
+		listview.addFooterView(footerView);
 		
 		listview.setOnItemClickListener(new OnItemClickListener() {
 

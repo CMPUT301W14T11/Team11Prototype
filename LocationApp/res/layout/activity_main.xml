@@ -14,5 +14,12 @@
         android:layout_marginRight="5dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="6dp"/>
- 
+    <!--  
+    <Button 
+        android:id="@+id/refresh_button"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" 
+        android:text="click to load more"
+        />
+    -->
 </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>
