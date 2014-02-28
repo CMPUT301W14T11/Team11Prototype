@@ -20,6 +20,9 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
 import Controller.IDController;
+import Model.Comments;
+import Model.IDModel;
+import Model.UserModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -45,10 +48,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ListView listview ;
     ArrayList<Comments> comment_array;
     cutadapter adapter ;
-    ID total_comments;
+    IDModel total_comments;
     Gson gson;
     HttpClient httpclient;
-    ID theid;
+    IDModel theid;
     int number_of_comments;
     Location current_location;
     GPSTracker gps ;
@@ -56,6 +59,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
+    UserModel user1;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -66,6 +70,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		//load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
+		user1 = new UserModel();
 		
 		// getting location when app starts, so we can search the database for location, will add use location later
 		gps = new GPSTracker(this);
@@ -85,7 +90,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		comment_array = new ArrayList<Comments>();
 		listview = (ListView) findViewById(R.id.ptr_listview1);
 		
-		total_comments = new ID(0);
+		total_comments = new IDModel(0);
 		gson = new Gson();
 		//using async task to get ID object form server
 		new AsyncTask<Void,Void,Void>()
@@ -134,24 +139,43 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// Finally commit the setup to our PullToRefreshLayout
 		   .setup(mPullToRefreshLayout);
 		// done adding pull to refresh
-		// footer
+		// set up footer for the listview
 		View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footlayout, null, false);
 		footerView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				System.out.println("footer clicked");
 				new AsyncTask<Void, Void, Void>()
 				{
+                    
+					@Override
+					protected void onPostExecute(Void result) {
+						// TODO Auto-generated method stub
+						super.onPostExecute(result);
+						dialog1.dismiss();
+					}
+
+					@Override
+					protected void onPreExecute() {
+						// TODO Auto-generated method stub
+						super.onPreExecute();
+						dialog1.setTitle("Loading cause your internet is too slow!");
+						dialog1.show();
+					}
 
 					@Override
 					protected Void doInBackground(Void... params) {
 						// TODO Auto-generated method stub
+						System.out.println("unrun");
 						get_comments("get some comments man!");
+						System.out.println("runned");
 						return null;
 					}
 					
 				}.execute();
+				adapter.notifyDataSetChanged();
 			}
 		});
 		listview.addFooterView(footerView);
@@ -242,7 +266,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	
     // insert object into elasticsearch server
 	@Override
-	public void insert(ID id ) throws IllegalStateException, IOException{
+	public void insert(IDModel id ) throws IllegalStateException, IOException{
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		StringEntity stringentity = null;
 
@@ -274,9 +298,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     
 	// get id object from the server
 	@Override
-	public ID get_id()
+	public IDModel get_id()
 	{   try{
-		ID id_toReturn ;// this is ID object from server
+		IDModel id_toReturn ;// this is ID object from server
 		HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1/?pretty=1");
 		httpget.addHeader("Accept","application/json");
 		
@@ -285,9 +309,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			String json = getEntityContent(response);
 			
 			// We have to tell GSON what type we expect
-			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<ID>>(){}.getType();
+			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<IDModel>>(){}.getType();
 			// Now we expect to get a Recipe response
-			ElasticSearchResponse<ID> esResponse = gson.fromJson(json, elasticSearchResponseType);
+			ElasticSearchResponse<IDModel> esResponse = gson.fromJson(json, elasticSearchResponseType);
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
 			
@@ -420,6 +444,11 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			
 		}.execute();
 		
+		
+	}
+	@Override
+	public void insertMaster(Comments com) {
+		// TODO Auto-generated method stub
 		
 	}
 	

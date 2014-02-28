@@ -1,10 +1,10 @@
-package com.example1.locationapp;
+package Model;
 
-public class ID {
+public class IDModel {
        public int id_for_master;
        public int id_for_sub_comment;
        // constructor for id object
-       public ID(int idMaster)
+       public IDModel(int idMaster)
        {
     	   this.id_for_master=idMaster;
        }

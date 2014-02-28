@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 //import com.example1.locationapp.R.drawable;
 
+import Model.Comments;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;

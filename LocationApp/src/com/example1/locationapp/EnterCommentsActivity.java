@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import Model.Comments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -60,7 +61,7 @@ public class EnterCommentsActivity extends Activity {
 		title_edit = (EditText) findViewById(R.id.editText1);
 		subject_edit = (EditText) findViewById(R.id.editText2);
 		post_button = (Button) findViewById(R.id.button1);
-
+        // get current location of the comments
 	    gps = new GPSTracker(this);
 		if (gps.canGetLocation){
 		location = gps.getLocation();
@@ -89,18 +90,12 @@ public class EnterCommentsActivity extends Activity {
     {   String title = title_edit.getText().toString();
         if ("".equals(title))
         {   
+        	
         	Toast.makeText(getBaseContext(), "Title is empty! add some words please!", Toast.LENGTH_SHORT).show();
+        	
         }
        String subject = subject_edit.getText().toString();
        
-       /*if(bitmap==null)
-       {	   
-         final Comments new_comment = new Comments(number,0,title,subject,new Date(),location,longitude,latitude);
-       }
-       else
-       {
-    	 final Comments new_comment = new Comments(number,0,title,subject,new Date(),location,longitude,latitude,bitmap);
-       }*/
     	new AsyncTask<Void,Void,Void>()
     	{   ProgressDialog dialog1= new ProgressDialog(content);
     		@Override
@@ -114,7 +109,7 @@ public class EnterCommentsActivity extends Activity {
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				if(bitmap==null)
-			       {	   
+			       { 	   
 			         final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
 			         insertMaster(new_comment);
 			       }

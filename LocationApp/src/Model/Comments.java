@@ -1,4 +1,4 @@
-package com.example1.locationapp;
+package Model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,19 +7,19 @@ import android.graphics.Bitmap;
 import android.location.Location;
 // this is a master comment class
 public class Comments implements Serializable{
-	int master_comment_ID;
-	int master_ID;
-	int sub_ID;
-	String the_comment,subject_comment;
+	public int master_comment_ID;
+	public int master_ID;
+	public int sub_ID;
+	public String the_comment,subject_comment;
 	//Location comment_location;
-	Date comment_date;
-	boolean master_comment;
-	Location comment_location ;
-	double lon ;
-	double lat;
-	double distance;
-	Bitmap comment_image;
-	String image_encode;
+	public Date comment_date;
+	public boolean master_comment;
+	public Location comment_location ;
+	public double lon ;
+	public double lat;
+	public double distance;
+	public Bitmap comment_image;
+	public String image_encode;
 	//consturctor for creating a master comment
 	public Comments(int masterid , int subid,String title, String subject,Date the_date,Location location,double lon,double lat)
 	{   
