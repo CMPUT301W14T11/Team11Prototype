@@ -18,6 +18,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+import Controller.CommentController;
+import Controller.IDController;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,7 +41,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
-public class MainActivity extends Activity implements OnRefreshListener {
+public class MainActivity extends Activity implements OnRefreshListener,CommentController,IDController {
     ListView listview ;
     ArrayList<Comments> comment_array;
     cutadapter adapter ;
@@ -132,7 +134,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		// Finally commit the setup to our PullToRefreshLayout
 		   .setup(mPullToRefreshLayout);
 		// done adding pull to refresh
-		
+		// footer
 		View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footlayout, null, false);
 		footerView.setOnClickListener(new OnClickListener() {
 			
@@ -191,7 +193,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
     
 
-    // get result from other actity
+    // get result from other activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -238,7 +240,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
 	
 	
-    // insert object into elasticsearch server	
+    // insert object into elasticsearch server
+	@Override
 	public void insert(ID id ) throws IllegalStateException, IOException{
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		StringEntity stringentity = null;
@@ -267,15 +270,10 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			e.printStackTrace();
 			
 		}
-	
-		
-	
-     
-		
-		         
 	}
     
 	// get id object from the server
+	@Override
 	public ID get_id()
 	{   try{
 		ID id_toReturn ;// this is ID object from server
@@ -324,7 +322,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		System.err.println("JSON:"+json);
 		return json;
 	}
-	// testing query,use this function
+	// get_comments(String url),get master comments form server, this is sorting by location
+	// you dont;t have to use Sting url, you can define your own url in the get_comments(String url) function
+	@Override
 	public  void get_comments(String url)
 	{
 	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
@@ -335,7 +335,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		double lat_lte = current_location.getLatitude()+radius;
 		double lon_gte = current_location.getLongitude()-radius;
 		double lon_lte = current_location.getLongitude()+radius;
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
+		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
 		StringEntity entity = new StringEntity(query);

@@ -32,10 +32,7 @@
             android:textColor="#A4A4A4" 
             />
         
-        <View 
-           android:layout_width="fill_parent"
-           android:layout_height="1dp"       
-           android:background="#BABABA" />
+        
         
         <ImageView
         android:id="@+id/imageView88"

@@ -1,4 +1,4 @@
-package com.example1.locationapp;
+package Model;
 
 import android.location.Location;
 
