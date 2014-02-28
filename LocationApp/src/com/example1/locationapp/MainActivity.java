@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
     Context content;
     ProgressDialog dialog1;
     Button load_button;
-    double radius= 0.01;
+    double radius= 0.1;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -333,7 +333,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	try {
 		double lat_gte = current_location.getLatitude()-radius;
 		double lat_lte = current_location.getLatitude()+radius;
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":2.0}}}}";
+		double lon_gte = current_location.getLongitude()-radius;
+		double lon_lte = current_location.getLongitude()+radius;
+		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
 		StringEntity entity = new StringEntity(query);
