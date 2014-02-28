@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
-    UserModel user1;
+    
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		//load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
-		user1 = new UserModel();
+	
 		
 		// getting location when app starts, so we can search the database for location, will add use location later
 		gps = new GPSTracker(this);
@@ -141,6 +141,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// done adding pull to refresh
 		// set up footer for the listview
 		View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footlayout, null, false);
+		//listview.addFooterView(footerView);
 		footerView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -155,6 +156,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 						// TODO Auto-generated method stub
 						super.onPostExecute(result);
 						dialog1.dismiss();
+						adapter.notifyDataSetChanged();
 					}
 
 					@Override
@@ -171,11 +173,15 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 						System.out.println("unrun");
 						get_comments("get some comments man!");
 						System.out.println("runned");
+						
+						
+						
 						return null;
 					}
 					
 				}.execute();
-				adapter.notifyDataSetChanged();
+				
+				
 			}
 		});
 		listview.addFooterView(footerView);

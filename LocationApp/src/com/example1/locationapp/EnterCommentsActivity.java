@@ -230,7 +230,7 @@ public class EnterCommentsActivity extends Activity {
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();  
 		 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
 		 byte[] byteArray = byteArrayOutputStream .toByteArray();
-		 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+		 String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 		return encoded;
 	 }
 	 // decrease size of the image
