@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
     Context content;
     ProgressDialog dialog1;
     Button load_button;
+    double radius= 0.01;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -76,7 +77,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			gps.showSettingsAlert();
 		}
 		// start a httpclient for connecting to server
-		
+		System.out.println("lat="+current_location.getLatitude());
 		httpclient= new DefaultHttpClient();
 		
 		comment_array = new ArrayList<Comments>();
@@ -330,8 +331,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 	Gson gson1 = new Gson();
 	try {
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":1000,\"boost\":2.0}}}}";
+		double lat_gte = current_location.getLatitude()-radius;
+		double lat_lte = current_location.getLatitude()+radius;
+		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":2.0}}}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
+		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
 		StringEntity entity = new StringEntity(query);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
@@ -393,6 +397,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				System.out.println("okay123");
 				get_comments("get from server");
 				//comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
+				radius= radius+0.01;
 				System.out.println("okay1234");
 				return null;
 			}
