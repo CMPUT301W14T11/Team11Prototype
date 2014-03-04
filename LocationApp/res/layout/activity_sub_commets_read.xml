@@ -9,34 +9,34 @@
     tools:context=".SubCommetsRead" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonSaveSubComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Button" />
+        android:layout_alignParentRight="true" />
+
+    <ListView
+        android:id="@+id/listViewSubComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextSubmitSubComments"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/editTextSubmitSubComments" >
+
+    </ListView>
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editTextSubmitSubComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button1"
+        android:layout_above="@+id/buttonSaveSubComments"
+        android:layout_alignLeft="@+id/buttonSaveSubComments"
+        android:layout_alignRight="@+id/buttonSaveSubComments"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
-
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
-
-    </ListView>
 
 </RelativeLayout>
