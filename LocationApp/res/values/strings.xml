@@ -8,5 +8,6 @@
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="title_activity_chose_image">ChoseImageActivity</string>
     <string name="title_activity_play_tube">PlayTube</string>
+    <string name="title_activity_sub_commets_read">SubCommetsRead</string>
 
 </resources>

@@ -39,6 +39,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -84,7 +86,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			gps.showSettingsAlert();
 		}
 		// start a httpclient for connecting to server
-		System.out.println("lat="+current_location.getLatitude());
+		//System.out.println("lat="+current_location.getLatitude());
 		httpclient= new DefaultHttpClient();
 		
 		comment_array = new ArrayList<Comments>();
@@ -192,11 +194,18 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
+				Intent intent1 = new Intent();
+				intent1.setClass(MainActivity.this, SubCommetsRead.class);
+				MainActivity.this.startActivity(intent1);
+				//Toast.makeText(MainActivity.this,
+		                //listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
+		                //.show();
 				
 			}
 		});
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
+		
 	}
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -249,7 +258,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 					}
 				}
 		}).start();
-            // wait for 0.5 seconds to finish the thread
+            //wait for 0.5 seconds to finish the thread
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

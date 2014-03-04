@@ -195,29 +195,30 @@ containing a value of this type.
     }
     public static final class id {
         public static final int LinearLayout1=0x7f040010;
-        public static final int action_listview=0x7f040023;
-        public static final int action_scrollview=0x7f040025;
-        public static final int action_settings=0x7f040026;
-        public static final int action_webview=0x7f040024;
-        public static final int bigg=0x7f04001e;
+        public static final int action_listview=0x7f040024;
+        public static final int action_scrollview=0x7f040026;
+        public static final int action_settings=0x7f040027;
+        public static final int action_webview=0x7f040025;
+        public static final int bigg=0x7f04001f;
         public static final int button1=0x7f040015;
         public static final int button2=0x7f040016;
         public static final int buttonChooseImage=0x7f04000e;
         public static final int buttonTakePicture=0x7f04000d;
         public static final int editText1=0x7f040012;
         public static final int editText2=0x7f040014;
-        public static final int footer_1=0x7f04001d;
-        public static final int footer_layout=0x7f04001c;
+        public static final int footer_1=0x7f04001e;
+        public static final int footer_layout=0x7f04001d;
         public static final int imageView1=0x7f040017;
-        public static final int imageView88=0x7f040020;
+        public static final int imageView88=0x7f040021;
         public static final int imageViewThumb=0x7f040009;
         public static final int imageViewThumbSmall=0x7f04000a;
         public static final int inside=0x7f040004;
-        public static final int item1=0x7f040027;
-        public static final int item2=0x7f040028;
+        public static final int item1=0x7f040028;
+        public static final int item2=0x7f040029;
         public static final int layoutButtons=0x7f04000c;
-        public static final int loca=0x7f040021;
-        public static final int number=0x7f040022;
+        public static final int listView1=0x7f04001c;
+        public static final int loca=0x7f040022;
+        public static final int number=0x7f040023;
         public static final int outside=0x7f040005;
         public static final int progressBar=0x7f04000f;
         public static final int ptr_content=0x7f040006;
@@ -226,7 +227,7 @@ containing a value of this type.
         public static final int ptr_listview1=0x7f04001a;
         public static final int ptr_progress=0x7f040008;
         public static final int ptr_text=0x7f040007;
-        public static final int smalll=0x7f04001f;
+        public static final int smalll=0x7f040020;
         public static final int spb_interpolator_accelerate=0x7f040000;
         public static final int spb_interpolator_acceleratedecelerate=0x7f040002;
         public static final int spb_interpolator_decelerate=0x7f040003;
@@ -246,9 +247,10 @@ containing a value of this type.
         public static final int activity_list_view=0x7f030002;
         public static final int activity_main=0x7f030003;
         public static final int activity_play_tube=0x7f030004;
-        public static final int default_header=0x7f030005;
-        public static final int footlayout=0x7f030006;
-        public static final int listlayout=0x7f030007;
+        public static final int activity_sub_commets_read=0x7f030005;
+        public static final int default_header=0x7f030006;
+        public static final int footlayout=0x7f030007;
+        public static final int listlayout=0x7f030008;
     }
     public static final class menu {
         public static final int base_menu=0x7f0b0000;
@@ -257,6 +259,7 @@ containing a value of this type.
         public static final int list_view=0x7f0b0003;
         public static final int main=0x7f0b0004;
         public static final int play_tube=0x7f0b0005;
+        public static final int sub_commets_read=0x7f0b0006;
     }
     public static final class string {
         public static final int action_settings=0x7f080005;
@@ -270,6 +273,7 @@ containing a value of this type.
         public static final int title_activity_enter_comments=0x7f080007;
         public static final int title_activity_list_view=0x7f080008;
         public static final int title_activity_play_tube=0x7f08000a;
+        public static final int title_activity_sub_commets_read=0x7f08000b;
     }
     public static final class style {
         /** 
