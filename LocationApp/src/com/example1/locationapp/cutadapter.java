@@ -5,6 +5,7 @@ import java.util.ArrayList;
 //import com.example1.locationapp.R.drawable;
 
 import Model.Comments;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -28,7 +29,14 @@ public class cutadapter extends ArrayAdapter<Comments>{
         this.activity = a;
     }
     
-    public static class ViewHolder{
+ 
+
+
+
+
+
+
+	public static class ViewHolder{
         public TextView item1; //make a Testview
         public TextView item2; //make a Testview
         public TextView item3;
