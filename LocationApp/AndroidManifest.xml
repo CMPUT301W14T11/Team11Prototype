@@ -26,6 +26,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <receiver android:name=".InternetChecker" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                
+            </intent-filter>
+        </receiver>
         <activity
             android:name="com.example1.locationapp.MainActivity"
             android:label="@string/app_name" >
@@ -58,7 +64,8 @@
         </activity>
         <activity
             android:name="com.example1.locationapp.SubCommetsRead"
-            android:label="@string/title_activity_sub_commets_read" >
+            android:label="@string/title_activity_sub_commets_read"
+            android:parentActivityName="com.example1.locationapp.MainActivity" >
         </activity>
         <activity
             android:name="com.example1.locationapp.MainPage"
