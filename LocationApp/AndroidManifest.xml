@@ -60,6 +60,14 @@
             android:name="com.example1.locationapp.SubCommetsRead"
             android:label="@string/title_activity_sub_commets_read" >
         </activity>
+        <activity
+            android:name="com.example1.locationapp.MainPage"
+            android:label="@string/title_activity_main_page" >
+        </activity>
+        <activity
+            android:name="com.example1.locationapp.SignInActivity"
+            android:label="@string/title_activity_sign_in" >
+        </activity>
     </application>
 
 </manifest>
