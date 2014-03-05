@@ -110,14 +110,14 @@ public class EnterCommentsActivity extends Activity {
 				// TODO Auto-generated method stub
 				if(bitmap==null)
 			       { 	   
-			         final Comments new_comment = new Comments(number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
+			         final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
 			         insertMaster(new_comment);
 			       }
 			       else
 			       { System.out.println("image posted");
                          			       
 			         String encode_image= convert_image_to_string(bitmap);
-			    	 final Comments new_comment = new Comments(number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+			    	 final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 			    	 insertMaster(new_comment);
 			       }
 				
