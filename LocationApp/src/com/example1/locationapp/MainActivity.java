@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     Context content;
     ProgressDialog dialog1;
     Button load_button;
-    double radius= 0.1;
+    double radius= 0.01;
     
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
@@ -376,13 +376,13 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		double lon_gte = current_location.getLongitude()-radius;
 		double lon_lte = current_location.getLongitude()+radius;
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		
+		String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : 21, \"lte\" : 22,\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : 21, \"lte\" : 22, \"boost\":0.0}}}}}}";
 		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
 		String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
-		StringEntity entity = new StringEntity(query);
+		StringEntity entity = new StringEntity(query_range);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
 		HttpResponse response = httpclient.execute(httpPost);
@@ -390,8 +390,32 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		System.out.println(json1+"holy");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
-		System.out.println();
-		ArrayList<Comments> latcom = new ArrayList<Comments>();
+		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
+			Comments comms = r.getSource();
+
+			// check weath the comment if already in the arraylist, if not then add it in there
+			int flag=0;
+			for (Comments com : comment_array)
+			{ // turn on the flag if object is already inside the arary
+			if(com.master_ID==comms.master_ID)
+			{
+			flag =1 ;
+			break;
+			}
+			}
+			// if flag not turned on then add the object into the arraylsit
+			if (flag==0)
+			{
+			comment_array.add(comms);
+			}
+
+		}
+
+
+		
+		
+		
+		/*ArrayList<Comments> latcom = new ArrayList<Comments>();
 		ArrayList<Comments> loncom = new ArrayList<Comments>();
 		
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
@@ -464,7 +488,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		{
 			latcom.get(i);
 			loncom.get(i);
-		}
+		}*/
 		
 		
 		
