@@ -250,10 +250,11 @@ containing a value of this type.
         public static final int activity_main=0x7f030003;
         public static final int activity_main_page=0x7f030004;
         public static final int activity_play_tube=0x7f030005;
-        public static final int activity_sub_commets_read=0x7f030006;
-        public static final int default_header=0x7f030007;
-        public static final int footlayout=0x7f030008;
-        public static final int listlayout=0x7f030009;
+        public static final int activity_sign_in=0x7f030006;
+        public static final int activity_sub_commets_read=0x7f030007;
+        public static final int default_header=0x7f030008;
+        public static final int footlayout=0x7f030009;
+        public static final int listlayout=0x7f03000a;
     }
     public static final class menu {
         public static final int base_menu=0x7f0b0000;
@@ -263,7 +264,8 @@ containing a value of this type.
         public static final int main=0x7f0b0004;
         public static final int main_page=0x7f0b0005;
         public static final int play_tube=0x7f0b0006;
-        public static final int sub_commets_read=0x7f0b0007;
+        public static final int sign_in=0x7f0b0007;
+        public static final int sub_commets_read=0x7f0b0008;
     }
     public static final class string {
         public static final int action_settings=0x7f080005;
@@ -278,6 +280,7 @@ containing a value of this type.
         public static final int title_activity_list_view=0x7f080008;
         public static final int title_activity_main_page=0x7f08000c;
         public static final int title_activity_play_tube=0x7f08000a;
+        public static final int title_activity_sign_in=0x7f08000d;
         public static final int title_activity_sub_commets_read=0x7f08000b;
     }
     public static final class style {
