@@ -175,6 +175,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 						// TODO Auto-generated method stub
 						System.out.println("unrun");
 						get_comments("get some comments man!");
+						radius= radius+0.01;
 						System.out.println("runned");
 						
 						
@@ -375,14 +376,12 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		double lat_lte = current_location.getLatitude()+radius;
 		double lon_gte = current_location.getLongitude()-radius;
 		double lon_lte = current_location.getLongitude()+radius;
-<<<<<<< HEAD
+		String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "+lat_gte+", \"lte\" : "+lat_lte+",\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "+lon_gte+", \"lte\" : "+ lon_lte+", \"boost\":0.0}}}}}}";
+		// these are unused query , this is just for testing
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : 21, \"lte\" : 22,\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : 21, \"lte\" : 22, \"boost\":0.0}}}}}}";
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
-		String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-=======
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
->>>>>>> 25537135e7227cd763531a5697bc4f41f06b2c0a
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
+		///String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
@@ -394,7 +393,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		System.out.println(json1+"holy");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
 
@@ -414,62 +413,20 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			comment_array.add(comms);
 			}
 
+		    }
 		}
-
-
-		
-		
-		
-		/*ArrayList<Comments> latcom = new ArrayList<Comments>();
-		ArrayList<Comments> loncom = new ArrayList<Comments>();
-		
-=======
-		System.out.println();
->>>>>>> 25537135e7227cd763531a5697bc4f41f06b2c0a
-		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
-		Comments comms = r.getSource();
-
-		// check weath the comment if already in the arraylist, if not then add it in there
-		int flag=0;
-		for (Comments com : comment_array)
-		{ // turn on the flag if object is already inside the arary
-		if(com.master_ID==comms.master_ID)
-		{
-		flag =1 ;
-		break;
-		}
-		}
-		// if flag not turned on then add the object into the arraylsit
-		if (flag==0)
-		{
-		comment_array.add(comms);
-		}
-<<<<<<< HEAD
-		for(int i =0; i<size;i++)
-		{
-			latcom.get(i);
-			loncom.get(i);
-		}*/
-		
-		
-=======
-
-		}
-
->>>>>>> 25537135e7227cd763531a5697bc4f41f06b2c0a
-		
-		} catch (ClientProtocolException e) {
+      catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
 		System.out.println("client exe");
 		e.printStackTrace();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		System.out.println("IO exe");
-		e.printStackTrace();
+		e.printStackTrace();}
 	}
 	
 		
-	}
+	
 
 
 

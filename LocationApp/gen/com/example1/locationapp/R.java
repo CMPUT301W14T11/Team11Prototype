@@ -217,6 +217,11 @@ containing a value of this type.
         public static final int inside=0x7f040004;
         public static final int item1=0x7f04002a;
         public static final int item2=0x7f04002b;
+        public static final int item3=0x7f04002c;
+        public static final int item4=0x7f04002d;
+        public static final int item5=0x7f04002e;
+        public static final int item6=0x7f04002f;
+        public static final int item7=0x7f040030;
         public static final int layoutButtons=0x7f04000c;
         public static final int listViewSubComments=0x7f04001d;
         public static final int loca=0x7f040024;
