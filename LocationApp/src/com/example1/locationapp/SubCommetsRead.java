@@ -27,7 +27,7 @@ public class SubCommetsRead extends Activity {
 	button1.setText("Submit Sub Comments");
     comment_list = new ArrayList<Comments>();
     // add an example to test the list
-    comment_list.add(new Comments(0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
+    comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
 	ListAdapter = new cutadapter(this, R.layout.listlayout, comment_list);
 	
 	listViewSubComment.setAdapter(ListAdapter);

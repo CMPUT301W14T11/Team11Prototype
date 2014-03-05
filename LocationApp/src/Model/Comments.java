@@ -8,6 +8,7 @@ import android.location.Location;
 // this is a master comment class
 public class Comments implements Serializable{
 	public int master_comment_ID;
+	public int sub_comments_ID;
 	public int master_ID;
 	public int sub_ID;
 	public String the_comment,subject_comment;
@@ -20,10 +21,12 @@ public class Comments implements Serializable{
 	public double distance;
 	public Bitmap comment_image;
 	public String image_encode;
+	public int userID;
 	//consturctor for creating a master comment
-	public Comments(int masterid , int subid,String title, String subject,Date the_date,Location location,double lon,double lat)
+	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,Location location,double lon,double lat)
 	{   
 		this.master_ID=masterid;
+		this.sub_comments_ID=sid;
 		this.sub_ID= subid;
 		//this.comment_location= the_location;
 		this.comment_date=the_date;
@@ -33,6 +36,7 @@ public class Comments implements Serializable{
 		this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
+		this.userID=user_id;
 		
 	}
 	// constrcutor for creating a sub comment;
@@ -47,9 +51,10 @@ public class Comments implements Serializable{
 	}*/
 	
 	// make a comments with image in them
-	public Comments(int masterid , int subid,String title, String subject,Date the_date,Location location,double lon,double lat,String encode)
+	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,Location location,double lon,double lat,String encode)
 	{   
 		this.master_ID=masterid;
+		this.sub_comments_ID=sid;
 		this.sub_ID= subid;
 		//this.comment_location= the_location;
 		this.comment_date=the_date;
@@ -60,6 +65,7 @@ public class Comments implements Serializable{
 		this.lon = lon;
 		this.lat = lat;
 		this.image_encode=encode;
+		this.userID=user_id;
 	}
 	
 

@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.DeadObjectException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -374,8 +375,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		double lat_lte = current_location.getLatitude()+radius;
 		double lon_gte = current_location.getLongitude()-radius;
 		double lon_lte = current_location.getLongitude()+radius;
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
+		
+		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
+		String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
@@ -388,12 +391,15 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
 		System.out.println();
+		ArrayList<Comments> latcom = new ArrayList<Comments>();
+		ArrayList<Comments> loncom = new ArrayList<Comments>();
+		
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
-			
-			// check weath the comment if already in the arraylist, if not then add it in there
+			//latcom.add(comms);
+			// check weather the comment if already in the arraylist, if not then add it in there
 			int flag=0;
-			for (Comments com : comment_array)
+			for (Comments com : latcom)
 			{  // turn on the flag if object is already inside the arary
 				if(com.master_ID==comms.master_ID)
 				{
@@ -404,11 +410,64 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-				comment_array.add(comms);
+				latcom.add(comms);
+				
 			}
 			
 		}
+		System.out.println(latcom.size()+"size");
+		// do another httpPost to get longitule
+		HttpClient httpclient2 = new DefaultHttpClient();
+		HttpPost httpPost2= new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
+		StringEntity entity2 = new StringEntity(query2);
+		httpPost2.setEntity(entity2);
+		HttpResponse response2= httpclient2.execute(httpPost2);
+		String json2 = getEntityContent(response2);
+		System.out.println(json2+"json2");
+		Type elasticSearchSearchResponseType2 = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
+		ElasticSearchSearchResponse<Comments> esResponse2 = gson1.fromJson(json2, elasticSearchSearchResponseType2);
+		System.out.println(esResponse2.toString()+"yoyoyo");
+		for(ElasticSearchResponse<Comments> r : esResponse2.getHits())
+		{
+			Comments comms = r.getSource();
+			System.out.println(comms.toString()+"youmeiyou");
+			//loncom.add(comms);
+			// check weather the comment if already in the arraylist, if not then add it in there
+			int flag=0;
+			for (Comments com : loncom)
+			{  // turn on the flag if object is already inside the arary
+				if(com.master_ID==comms.master_ID)
+				{
+					flag =1 ;
+					break;
+				}
+			}
+			// if flag not turned on then add the object into the arraylsit
+			if (flag==0)
+			{
+				loncom.add(comms);
 				
+			}
+		}
+		System.out.println(loncom.size()+"size2");
+		int size;
+		// sort location
+		if(latcom.size()>=loncom.size())
+		{
+			size=latcom.size();
+		}
+		else
+		{
+			size=loncom.size();
+		}
+		for(int i =0; i<size;i++)
+		{
+			latcom.get(i);
+			loncom.get(i);
+		}
+		
+		
+		
 		} catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
 		System.out.println("client exe");
@@ -467,6 +526,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	
 	
 	
