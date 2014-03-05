@@ -9,5 +9,7 @@
     <string name="title_activity_chose_image">ChoseImageActivity</string>
     <string name="title_activity_play_tube">PlayTube</string>
     <string name="title_activity_sub_commets_read">SubCommetsRead</string>
+    <string name="title_activity_main_page">MainPage</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
 
 </resources>
