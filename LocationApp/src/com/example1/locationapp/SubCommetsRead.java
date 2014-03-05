@@ -49,7 +49,7 @@ public class SubCommetsRead extends Activity {
     private double longitude;
     private double latitude;
     private Gson gson = new Gson();
-    private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
+    //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
