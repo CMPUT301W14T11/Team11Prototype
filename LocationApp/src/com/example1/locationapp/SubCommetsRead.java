@@ -116,14 +116,14 @@ public class SubCommetsRead extends Activity {
 					// TODO Auto-generated method stub
 					if(bitmap==null)
 				       { 	   
-				         final Comments new_comment = new Comments(0,number,0,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
+				         final Comments new_comment = new Comments(0,0,1,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
 				         insertMaster(new_comment);
 				       }
 				       else
 				       { System.out.println("image posted");
 	                         			       
 				         String encode_image= convert_image_to_string(bitmap);
-				    	 final Comments new_comment = new Comments(0,number,0,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+				    	 final Comments new_comment = new Comments(0,0,1,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 				    	 insertMaster(new_comment);
 				       }
 					

@@ -410,6 +410,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		double lon_gte = current_location.getLongitude()-radius;
 		double lon_lte = current_location.getLongitude()+radius;
 		String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "+lat_gte+", \"lte\" : "+lat_lte+",\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "+lon_gte+", \"lte\" : "+ lon_lte+", \"boost\":0.0}}}}}}";
+		String query_range2 = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "+lat_gte+", \"lte\" : "+lat_lte+",\"boost\":0.0 }}},\"must\":{\"match\":{\"sub_comments_ID\":0}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "+lon_gte+", \"lte\" : "+ lon_lte+", \"boost\":0.0}}}}}}";
 		// these are unused query , this is just for testing
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
@@ -418,7 +419,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
-		StringEntity entity = new StringEntity(query_range);
+		StringEntity entity = new StringEntity(query_range2);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
 		HttpResponse response = httpclient.execute(httpPost);
@@ -430,7 +431,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
 
-			// check weath the comment if already in the arraylist, if not then add it in there
+			//check weath the comment if already in the arraylist, if not then add it in there
 			int flag=0;
 			for (Comments com : comment_array)
 			{ // turn on the flag if object is already inside the arary
