@@ -361,6 +361,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 	Gson gson1 = new Gson();
 	try {
+		ArrayList<Comments> lat_object = new ArrayList<Comments>();
+		ArrayList<Comments> lon_object = new ArrayList<Comments>();
 		double lat_gte = current_location.getLatitude()-radius;
 		double lat_lte = current_location.getLatitude()+radius;
 		double lon_gte = current_location.getLongitude()-radius;
