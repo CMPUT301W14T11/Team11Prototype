@@ -20,6 +20,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
 import Controller.IDController;
+import Controller.InternetChecker;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -30,6 +31,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.DeadObjectException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +41,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,8 +62,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     Context content;
     ProgressDialog dialog1;
     Button load_button;
-    double radius= 0.1;
-    
+    double radius= 0.01;
+    //InternetChecker internetChecker;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -67,6 +71,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		
 		//load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
@@ -84,7 +90,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			gps.showSettingsAlert();
 		}
 		// start a httpclient for connecting to server
-		System.out.println("lat="+current_location.getLatitude());
+		//System.out.println("lat="+current_location.getLatitude());
 		httpclient= new DefaultHttpClient();
 		
 		comment_array = new ArrayList<Comments>();
@@ -172,6 +178,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 						// TODO Auto-generated method stub
 						System.out.println("unrun");
 						get_comments("get some comments man!");
+						radius= radius+0.01;
 						System.out.println("runned");
 						
 						
@@ -192,11 +199,20 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
+				int getID = comment_array.get(arg2).master_comment_ID;
+				Intent intent1 = new Intent();
+				intent1.putExtra("masterID", getID);
+				intent1.setClass(MainActivity.this, SubCommetsRead.class);
+				MainActivity.this.startActivity(intent1);
+				//Toast.makeText(MainActivity.this,
+		                //listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
+		                //.show();
 				
 			}
 		});
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
+		
 	}
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -249,7 +265,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 					}
 				}
 		}).start();
-            // wait for 0.5 seconds to finish the thread
+            //wait for 0.5 seconds to finish the thread
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -367,11 +383,16 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		double lat_lte = current_location.getLatitude()+radius;
 		double lon_gte = current_location.getLongitude()-radius;
 		double lon_lte = current_location.getLongitude()+radius;
-		String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
+		String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "+lat_gte+", \"lte\" : "+lat_lte+",\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "+lon_gte+", \"lte\" : "+ lon_lte+", \"boost\":0.0}}}}}}";
+		// these are unused query , this is just for testing
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
+		///String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
+		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
 		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
 		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
 		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
-		StringEntity entity = new StringEntity(query);
+		StringEntity entity = new StringEntity(query_range);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
 		HttpResponse response = httpclient.execute(httpPost);
@@ -379,40 +400,40 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		System.out.println(json1+"holy");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
-		System.out.println();
+//<<<<<<< HEAD
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
-			
+
 			// check weath the comment if already in the arraylist, if not then add it in there
 			int flag=0;
 			for (Comments com : comment_array)
-			{  // turn on the flag if object is already inside the arary
-				if(com.master_ID==comms.master_ID)
-				{
-					flag =1 ;
-					break;
-				}
+			{ // turn on the flag if object is already inside the arary
+			if(com.master_ID==comms.master_ID)
+			{
+			flag =1 ;
+			break;
+			}
 			}
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-				comment_array.add(comms);
+			comment_array.add(comms);
 			}
-			
+
+		    }
 		}
-				
-		} catch (ClientProtocolException e) {
+      catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
 		System.out.println("client exe");
 		e.printStackTrace();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		System.out.println("IO exe");
-		e.printStackTrace();
+		e.printStackTrace();}
 	}
 	
 		
-	}
+	
 
 
 
@@ -459,6 +480,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	
 	
 	

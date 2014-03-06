@@ -57,7 +57,7 @@ public class EnterCommentsActivity extends Activity {
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		picture_add_button = (Button) findViewById(R.id.button2);
 		content = this;
-		//make three new tabs
+		
 		title_edit = (EditText) findViewById(R.id.editText1);
 		subject_edit = (EditText) findViewById(R.id.editText2);
 		post_button = (Button) findViewById(R.id.button1);
@@ -110,14 +110,14 @@ public class EnterCommentsActivity extends Activity {
 				// TODO Auto-generated method stub
 				if(bitmap==null)
 			       { 	   
-			         final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
+			         final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
 			         insertMaster(new_comment);
 			       }
 			       else
 			       { System.out.println("image posted");
                          			       
 			         String encode_image= convert_image_to_string(bitmap);
-			    	 final Comments new_comment = new Comments(number,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+			    	 final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 			    	 insertMaster(new_comment);
 			       }
 				
@@ -215,9 +215,18 @@ public class EnterCommentsActivity extends Activity {
 	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	     if (resultCode==RESULT_OK)
 	     {   String file = data.getStringExtra("image");
-	    	 System.out.println("haha"+file);
-	    	 bitmap  = BitmapFactory.decodeFile(file);
-	    	 //bitmap=ShrinkBitmap(file, 50, 50);
+	         String file2= data.getStringExtra("choseimage");
+	         if (file!=null)
+	         {
+	        	 bitmap  = BitmapFactory.decodeFile(file);
+	        	 System.out.println("haha"+file);
+	         }
+	         else
+	         {
+	        	 bitmap  = BitmapFactory.decodeFile(file2);
+	        	 System.out.println("haha2"+file);
+	         }
+	        
 	    	 
 	    	 imageview.setImageBitmap(bitmap);
 	    	 

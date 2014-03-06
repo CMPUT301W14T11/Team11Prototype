@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.test.suitebuilder.TestSuiteBuilder.FailedToCreateTests;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class ChoseImageActivity extends Activity implements
 	private ProgressBar pbar;
 
 	
-
+    private String filepath2;
 	private String filePath;
 
 	private int chooserType;
@@ -124,6 +125,9 @@ public class ChoseImageActivity extends Activity implements
 				pbar.setVisibility(View.GONE);
 				if (image != null) {
 					textViewFile.setText(image.getFilePathOriginal());
+					filePath= image.getFilePathOriginal();
+					System.out.println(filePath+"theout");
+					filepath2= filePath;
 					imageViewThumbnail.setImageURI(Uri.parse(new File(image
 							.getFileThumbnail()).toString()));
 					imageViewThumbSmall.setImageURI(Uri.parse(new File(image
@@ -172,6 +176,7 @@ public class ChoseImageActivity extends Activity implements
 		// TODO Auto-generated method stub
 		Intent intent = new Intent();
 		intent.putExtra("image", filePath);
+		intent.putExtra("choseimage", filepath2);
 		setResult(RESULT_OK, intent);
 		finish();
 		super.onBackPressed();
