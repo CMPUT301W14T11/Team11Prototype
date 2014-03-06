@@ -250,45 +250,57 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		// when use finish choesing location, get it from playtube_activity
-		if(requestCode==7 && requestCode== RESULT_OK)
+		System.out.println("code is "+requestCode);
+		switch (requestCode)
 		{
-			double lat = data.getDoubleExtra("lat", 0);
-			double lon = data.getDoubleExtra("lon",0);
-			System.out.println("gotitfrom"+lat);
+		case 1:
+			if (resultCode == RESULT_OK)
+			{
+				number_of_comments++;
+				theid.id_for_master=number_of_comments;
+				System.out.println("zhuyuanzhang"+theid.id_for_master);
+				new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						try {
+							insert(theid);
+						} catch (IllegalStateException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+			}).start();
+	            //wait for 0.5 seconds to finish the thread
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				
+			
+		  }
+			break;
+		case 7:
+			
+			if(requestCode== RESULT_OK)
+			{   System.out.println("trytry");   
+				double lat = data.getDoubleExtra("lat", 0);
+				System.out.println("gotitfrom");
+				double lon = data.getDoubleExtra("lon",0);
+				
+			}
+			break;
 		}
 		
 		
-		if (requestCode ==1 && resultCode == RESULT_OK)
-		{
-			number_of_comments++;
-			theid.id_for_master=number_of_comments;
-			System.out.println("zhuyuanzhang"+theid.id_for_master);
-			new Thread(new Runnable(){
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try {
-						insert(theid);
-					} catch (IllegalStateException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-		}).start();
-            //wait for 0.5 seconds to finish the thread
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			
 		
-	  }}
+		}
 
 
 
