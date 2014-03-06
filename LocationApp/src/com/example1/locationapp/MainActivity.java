@@ -229,8 +229,13 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			break;
 			
 		case R.id.item2:
-			Intent intent2 = new Intent(MainActivity.this,PlayTube.class);
-			startActivity(intent2);
+			// this is to start change location activity
+			// request code is 7
+			Intent intent2 = new Intent(MainActivity.this,Playtube.class);
+			intent2.putExtra("lat", current_location.getLatitude());
+			intent2.putExtra("lon", current_location.getLongitude());
+			startActivityForResult(intent2, 7);
+			
 			break;
 			}
 		
@@ -244,6 +249,15 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		// when use finish choesing location, get it from playtube_activity
+		if(requestCode==7 && requestCode== RESULT_OK)
+		{
+			double lat = data.getDoubleExtra("lat", 0);
+			double lon = data.getDoubleExtra("lon",0);
+			System.out.println("gotitfrom"+lat);
+		}
+		
+		
 		if (requestCode ==1 && resultCode == RESULT_OK)
 		{
 			number_of_comments++;
