@@ -47,7 +47,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
+/**this is Main display page for the app*/
 public class MainActivity extends Activity implements OnRefreshListener,CommentController,IDController {
     ListView listview ;
     ArrayList<Comments> comment_array;
