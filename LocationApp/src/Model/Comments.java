@@ -45,7 +45,7 @@ public class Comments implements Serializable{
 		this.master_ID=masterid;
 		this.sub_ID= subid;
 		//this.comment_location= the_location;
-		this.comment_date=the_date;
+		//this.comment_date=the_date;
 		this.the_comment=comment;
 		this.master_comment=false;
 	}*/

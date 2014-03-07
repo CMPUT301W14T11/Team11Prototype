@@ -48,6 +48,11 @@ public class Playtube extends Activity {
 		        .position(arg0)
 		        .title("new location")           
 		        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+				Intent intent = new Intent();
+				intent.putExtra("lat",new_positon.latitude);
+				intent.putExtra("lon",new_positon.longitude);
+				setResult(Playtube.RESULT_OK, intent);
+				
 			}
 		});
 		map.setOnMarkerClickListener(new OnMarkerClickListener() {
@@ -58,7 +63,12 @@ public class Playtube extends Activity {
 				new_positon= arg0.getPosition();
 				
 				System.out.println("markerclicked");
-				
+				Intent intent = new Intent();
+				intent.putExtra("lat",new_positon.latitude);
+				intent.putExtra("lon",new_positon.longitude);
+				setResult(Playtube.RESULT_OK, intent);
+				System.out.println("markerclicked2");
+				finish();
 				return false;
 			}
 		});
@@ -75,12 +85,7 @@ public class Playtube extends Activity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		Intent intent = new Intent();
-		intent.putExtra("lat",new_positon.latitude);
-		intent.putExtra("lon",new_positon.longitude);
-		setResult(RESULT_OK, intent);
-		System.out.println("markerclicked2");
-		finish();
+		
 		
 	}
 	
