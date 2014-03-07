@@ -53,6 +53,7 @@ public class SubCommetsRead extends Activity {
     private HttpClient httpclient;
     private double longitude;
     private double latitude;
+    private int subCoId=1;
     private Gson gson = new Gson();
     double radius= 0.01;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
@@ -149,14 +150,14 @@ public class SubCommetsRead extends Activity {
 					// TODO Auto-generated method stub
 					if(bitmap==null)
 				       { 	   
-				         final Comments new_comment = new Comments(0,0,1,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
+				         final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
 				         insertMaster(new_comment);
 				       }
 				       else
 				       { System.out.println("image posted");
 	                         			       
 				         String encode_image= convert_image_to_string(bitmap);
-				    	 final Comments new_comment = new Comments(0,0,1,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+				    	 final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 				    	 insertMaster(new_comment);
 				       }
 					
@@ -252,20 +253,16 @@ public class SubCommetsRead extends Activity {
 			Comments comms = r.getSource();
 
 			//check weath the comment if already in the arraylist, if not then add it in there
-			int flag=0;
 			for (Comments com : comment_list)
 			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==comms.master_ID)
+			if(com.master_ID==number)
 			{
-			flag =1 ;
-			break;
+			comment_list.add(comms);
+			subCoId++;
 			}
 			}
 			// if flag not turned on then add the object into the arraylsit
-			if (flag==0)
-			{
-			comment_list.add(comms);
-			}
+			
 
 		    }
 		}
