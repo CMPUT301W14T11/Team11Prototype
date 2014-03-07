@@ -199,7 +199,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				int getID = comment_array.get(arg2).master_comment_ID;
+				int getID = comment_array.get(arg2).master_ID;
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);

@@ -68,6 +68,8 @@ public class SubCommetsRead extends Activity {
     httpclient= new DefaultHttpClient();
 	Intent intent = getIntent();
 	number=intent.getIntExtra("masterID", 999999);
+	Toast.makeText(getBaseContext(), number+"", Toast.LENGTH_SHORT).show();
+
     // add an example to test the list
     //comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
 	ListAdapter = new cutadapter(this, R.layout.listlayout, comment_list);
@@ -100,7 +102,7 @@ public class SubCommetsRead extends Activity {
 			
 			
 			
-    number = 0;
+    //number = 0;
     //get comments
 			
     System.out.println("lol"+location);
