@@ -5,7 +5,13 @@ package Model;
 public class Faviourte
 {
 	private String username;
-	private Comments faviourte;
+	private Comments comment;
+	
+	public Faviourte(String username, Comments comment)
+	{
+		this.username=username;
+		this.comment=comment;
+	}
 	
 	public String getUsername()
 	{
@@ -20,17 +26,17 @@ public class Faviourte
 	}
 
 	
-	public Comments getFaviourte()
+	public Comments getComment()
 	{
 	
-		return faviourte;
+		return comment;
 	}
 
 	
 	public void setFaviourte(Comments faviourte)
 	{
 	
-		this.faviourte = faviourte;
+		this.comment = faviourte;
 	}
 	
 
