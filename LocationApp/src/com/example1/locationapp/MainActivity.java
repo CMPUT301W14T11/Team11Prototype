@@ -375,7 +375,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			System.out.println("wocao2");
 			response = httpclient.execute(httpPost);
 			System.out.println("wocao1");
-			httpPost.abort();
+			
 			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -407,7 +407,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			id_toReturn = esResponse.getSource();
 			
 			System.out.println(id_toReturn.id_for_master+"dddddd");
-			httpget.abort();
+			
 			return id_toReturn;
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
@@ -491,7 +491,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			}
 
 		    }
-		httpPost.abort();
+		
 		}
       catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
