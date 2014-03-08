@@ -15,6 +15,19 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
@@ -29,6 +42,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.DeadObjectException;
@@ -71,6 +86,31 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		// checking where there is internet or not, if no internet then exit app
+		final ConnectivityManager connMgr = (ConnectivityManager) this
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        final android.net.NetworkInfo wifi = connMgr
+                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        final android.net.NetworkInfo mobile = connMgr
+                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        
+        /**checking the location 
+         * 
+         */
+        if(wifi.isConnected() || mobile.isConnected())
+        {   System.out.println("connected");
+        	//Toast.makeText(this, "Connected to Internet", Toast.LENGTH_LONG).show();
+        }
+        else
+        {   System.out.println("outout");
+        	Toast.makeText(this, "No Internet!", Toast.LENGTH_LONG).show();
+        	android.os.Process.killProcess(android.os.Process.myPid());
+        	
+        }
+        
+		
 		
 		
 		//load_button = (Button ) findViewById(R.id.refresh_button);
@@ -84,6 +124,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		{
 			current_location = gps.getLocation();
 			System.out.println("can get location");
+			gps.stopUsingGPS();
 		}
 		else
 		{   // if gps is not turned on then , ask user to turn it on 
@@ -317,7 +358,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	public void insert(IDModel id ) throws IllegalStateException, IOException{
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		StringEntity stringentity = null;
-
+        
 		try {
 			stringentity = new StringEntity(gson.toJson(id));
 		} catch (UnsupportedEncodingException e) {
@@ -334,6 +375,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			System.out.println("wocao2");
 			response = httpclient.execute(httpPost);
 			System.out.println("wocao1");
+			httpPost.abort();
+			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			
@@ -364,7 +407,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			id_toReturn = esResponse.getSource();
 			
 			System.out.println(id_toReturn.id_for_master+"dddddd");
-			
+			httpget.abort();
 			return id_toReturn;
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
@@ -448,6 +491,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			}
 
 		    }
+		httpPost.abort();
 		}
       catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block

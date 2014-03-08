@@ -65,7 +65,8 @@ public class EnterCommentsActivity extends Activity {
 	    gps = new GPSTracker(this);
 		if (gps.canGetLocation){
 		location = gps.getLocation();
-		System.out.println(location+"wocao");
+		
+		gps.stopUsingGPS();
 		}
 				
 				

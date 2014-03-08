@@ -96,6 +96,11 @@ public class SubCommetsRead extends Activity {
 	if (gps.canGetLocation){
 	location = gps.getLocation();
 	System.out.println(location+"wocao");
+	gps.stopUsingGPS();
+	}
+	else
+	{
+		gps.showSettingsAlert();
 	}
 			
 			
