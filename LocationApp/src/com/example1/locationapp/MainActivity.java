@@ -33,7 +33,6 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
 import Controller.IDController;
-import Controller.InternetChecker;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -117,7 +116,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		content = this;
 		dialog1 = new ProgressDialog(content);
 	
-		
+		try{
 		// getting location when app starts, so we can search the database for location, will add use location later
 		gps = new GPSTracker(this);
 		if (gps.canGetLocation)
@@ -129,6 +128,11 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		else
 		{   // if gps is not turned on then , ask user to turn it on 
 			gps.showSettingsAlert();
+		}
+		}
+		catch(NullPointerException e)
+		{
+		   Toast.makeText(content, "Can't get location please check gps", Toast.LENGTH_SHORT).show();	
 		}
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
@@ -253,7 +257,24 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		});
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
-		
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				get_comments("get some comments");
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				adapter.notifyDataSetChanged();
+			}
+			
+			
+		}.execute();
 	}
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -314,6 +335,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						catch (RuntimeException e) {
+							// TODO: handle exception
+							Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+						}
 					}
 			}).start();
 	            //wait for 0.5 seconds to finish the thread
@@ -323,6 +348,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}	
+				catch (RuntimeException e) {
+					// TODO: handle exception
+					Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+				}
 				
 			
 		  }
@@ -365,6 +394,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
 		httpPost.setHeader("Accept", "application/json");
 
 		httpPost.setEntity(stringentity);
@@ -384,6 +421,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		} catch (IOException e) {
 			e.printStackTrace();
 			
+		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 	}
     
@@ -418,6 +463,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	      catch (NullPointerException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	    }
+	catch (RuntimeException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	}
 	return null;
 	}
 	
@@ -501,6 +554,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// TODO Auto-generated catch block
 		System.out.println("IO exe");
 		e.printStackTrace();}
+	  catch (NullPointerException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	  }
+	catch (RuntimeException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	}
 	}
 	
 		

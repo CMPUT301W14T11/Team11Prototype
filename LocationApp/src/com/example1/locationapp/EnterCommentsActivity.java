@@ -75,9 +75,15 @@ public class EnterCommentsActivity extends Activity {
 	    number = intent.getIntExtra("number_of_comments", 0);
 				
 	    System.out.println("lol"+location);
-				
-	    longitude = location.getLongitude();
-	    latitude =location.getLatitude();
+		try
+		{
+	      longitude = location.getLongitude();
+	      latitude =location.getLatitude();
+	    }
+		catch (NullPointerException e)
+		{
+			Toast.makeText(content, "Can't get location", Toast.LENGTH_LONG).show();
+		}
 	    gson = new Gson();
 			
 	}
