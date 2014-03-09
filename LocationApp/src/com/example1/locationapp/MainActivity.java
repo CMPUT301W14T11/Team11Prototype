@@ -156,8 +156,20 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			@Override
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
+				try{
+				while(theid==null){
 				theid = get_id();
+				System.out.println("cant get id");
+				}
 				number_of_comments = theid.id_for_master;
+				
+				}
+				catch(NullPointerException e)
+				{
+					System.out.println("can't get id object");
+					
+				}
+				
 				return null;
 				
 			}
@@ -437,7 +449,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	public IDModel get_id()
 	{   try{
 		IDModel id_toReturn ;// this is ID object from server
-		HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1/?pretty=1");
+		HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		httpget.addHeader("Accept","application/json");
 		
 			HttpResponse response = httpclient.execute(httpget);
@@ -450,7 +462,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			ElasticSearchResponse<IDModel> esResponse = gson.fromJson(json, elasticSearchResponseType);
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
-			
+			System.out.println();
 			System.out.println(id_toReturn.id_for_master+"dddddd");
 			
 			return id_toReturn;
