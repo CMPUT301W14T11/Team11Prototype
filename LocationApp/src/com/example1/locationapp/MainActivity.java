@@ -115,7 +115,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		//load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
-	
+		//current_location=(Location)getIntent().getSerializableExtra("location");
 		try{
 		// getting location when app starts, so we can search the database for location, will add use location later
 		gps = new GPSTracker(this);

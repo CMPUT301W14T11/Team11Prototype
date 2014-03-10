@@ -14,6 +14,11 @@ public class UserModel {
     	this.user_location = user_location;
     	this.user_name= user_name;
     }
+    
+    public UserModel()
+    {
+    	
+    }
 
 	
 	public String getUser_name()
