@@ -68,12 +68,12 @@ public class SubCommetsRead extends Activity {
     comment_list = new ArrayList<Comments>();
     httpclient= new DefaultHttpClient();
 	Intent intent = getIntent();
-	number=intent.getIntExtra("masterID", 999999);
+	number=intent.getIntExtra("masterID", 0);
 	Toast.makeText(getBaseContext(), number+"", Toast.LENGTH_SHORT).show();
 
     // add an example to test the list
     //comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
-	ListAdapter = new cutadapter(this, R.layout.listlayout, comment_list);
+	ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout, comment_list);
 	gps = new GPSTracker(this);
 	
 	new AsyncTask<Void, Void, Void>()
@@ -141,7 +141,8 @@ public class SubCommetsRead extends Activity {
 	        	
 	        }else{
 			new AsyncTask<Void,Void,Void>()
-	    	{   ProgressDialog dialog1= new ProgressDialog(content);
+	    	{   
+				ProgressDialog dialog1= new ProgressDialog(content);
 	    		
 	    		@Override
 				protected void onPreExecute() {
@@ -264,6 +265,7 @@ public class SubCommetsRead extends Activity {
 			{
 			comment_list.add(comms);
 			subCoId++;
+			System.out.println(comms+"wocao");
 			}
 			}
 			// if flag not turned on then add the object into the arraylsit
