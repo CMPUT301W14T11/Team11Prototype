@@ -85,7 +85,7 @@
         </activity>
 
         <activity
-            android:name="com.example1.locationapp.SignInActivity"
+            android:name="com.example1.locationapp.NewUserActivity"
             android:label="@string/title_activity_sign_in" >
         </activity>
     </application>

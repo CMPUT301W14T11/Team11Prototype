@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
  
-public class ListViewActivity extends NewUserActivity {
+public class ListViewActivity extends BaseActivity {
      
       @Override
        protected Fragment getSampleFragment() {
