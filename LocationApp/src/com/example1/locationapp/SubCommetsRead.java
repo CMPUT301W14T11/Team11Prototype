@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,7 +75,7 @@ public class SubCommetsRead extends Activity {
     // add an example to test the list
     //comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
 	gps = new GPSTracker(this);
-	
+	ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout, comment_list);
 	new AsyncTask<Void, Void, Void>()
 	{
 
@@ -93,7 +94,7 @@ public class SubCommetsRead extends Activity {
 		}
 		
 	}.execute();
-	ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout, comment_list);
+	
 	content = this;
 	if (gps.canGetLocation){
 		location = gps.getLocation();
@@ -114,8 +115,39 @@ public class SubCommetsRead extends Activity {
 			
     longitude = location.getLongitude();
     latitude =location.getLatitude();
-	
+    View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footlayout, null, false);
+    
+    listViewSubComment.addFooterView(footerView);
+    
 	listViewSubComment.setAdapter(ListAdapter);
+	footerView.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			new AsyncTask<Void, Void, Void>()
+			{
+
+				@Override
+				protected Void doInBackground(Void... params) {
+					// TODO Auto-generated method stub
+					get_comments("get some comments man!");
+					return null;
+				}
+
+				@Override
+				protected void onPostExecute(Void result) {
+					// TODO Auto-generated method stub
+					super.onPostExecute(result);
+					ListAdapter.notifyDataSetChanged();
+				}
+				
+			}.execute();
+		}
+	});
+	
+	
+	
 	button1.setOnClickListener(new MyButton1Listener());
 	
 	}
@@ -162,7 +194,8 @@ public class SubCommetsRead extends Activity {
 				       { System.out.println("image posted");
 	                         			       
 				         String encode_image= convert_image_to_string(bitmap);
-				    	 final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+				    	 final
+				    	 Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 				    	 insertMaster(new_comment);
 				       }
 					
@@ -256,21 +289,14 @@ public class SubCommetsRead extends Activity {
 //<<<<<<< HEAD
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
-
-			//check weath the comment if already in the arraylist, if not then add it in there
-			for (Comments com : comment_list)
-			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==number)
-			{
 			comment_list.add(comms);
-			subCoId++;
-			System.out.println(comms+"qqqqq");
-			}
-			}
-			// if flag not turned on then add the object into the arraylsit
+			System.out.println(comment_list.size()+"jiba");
+			//check weath the comment if already in the arraylist, if not then add it in there
 			
+			// if flag not turned on then add the object into the arraylsit
+		}
 
-		    }
+		    
 		}
       catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
