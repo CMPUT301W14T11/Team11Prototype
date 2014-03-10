@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewUserActivity extends Activity
 {
@@ -29,8 +30,18 @@ public class NewUserActivity extends Activity
 	            Intent intent = new Intent(NewUserActivity.this,
 	                    MainActivity.class);
 	            username = name.getText().toString();
-	            intent.putExtra("name", username);
-	            startActivity(intent);
+	            if (username.equals(""))
+	            {
+	            	Toast.makeText(NewUserActivity.this,
+	                        "Name cannot be null !!!", Toast.LENGTH_SHORT)
+	                        .show();
+	            }
+	            else
+	            {
+	            	intent.putExtra("name", username);
+	 	            startActivity(intent);
+	            }
+	           
 			}
 			
 			});

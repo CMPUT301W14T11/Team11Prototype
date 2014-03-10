@@ -7,12 +7,13 @@ import android.location.Location;
 public class UserModel {
     private String user_name;
     private Location user_location;
-    private ArrayList<Faviourte> faviourte;
+    private ArrayList<Faviourte> faviourte = new ArrayList<Faviourte>();
     
     public UserModel(String user_name, Location user_location)
     {
     	this.user_location = user_location;
     	this.user_name= user_name;
+
     }
     
     public UserModel()

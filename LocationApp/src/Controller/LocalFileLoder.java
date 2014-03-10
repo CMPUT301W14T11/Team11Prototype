@@ -24,12 +24,28 @@ public class LocalFileLoder
 	private Gson gson = new Gson();
 	private Context context;
 	private UserModel um;
+	private boolean fileExist = false;
 	
 	public LocalFileLoder(Context context)
 	{
 		this.context = context;
 	}
 	
+	public void Exist()
+	{
+		 try {
+             FileInputStream fis = context.openFileInput(FILENAME);
+             fileExist=true;
+             
+		 } catch (FileNotFoundException e) {
+             // TODO Auto-generated catch block
+		 }
+	}
+	
+	public boolean exist()
+	{
+		return fileExist;
+	}
 	public UserModel loadFromFile() {      
 		um = new UserModel();
         try {
