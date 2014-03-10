@@ -73,7 +73,6 @@ public class SubCommetsRead extends Activity {
 
     // add an example to test the list
     //comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
-	ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout, comment_list);
 	gps = new GPSTracker(this);
 	
 	new AsyncTask<Void, Void, Void>()
@@ -94,12 +93,12 @@ public class SubCommetsRead extends Activity {
 		}
 		
 	}.execute();
-	
+	ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout, comment_list);
 	content = this;
 	if (gps.canGetLocation){
-	location = gps.getLocation();
-	System.out.println(location+"wocao");
-	gps.stopUsingGPS();
+		location = gps.getLocation();
+		System.out.println(location+"wocao");
+		gps.stopUsingGPS();
 	}
 	else
 	{
@@ -265,7 +264,7 @@ public class SubCommetsRead extends Activity {
 			{
 			comment_list.add(comms);
 			subCoId++;
-			System.out.println(comms+"wocao");
+			System.out.println(comms+"qqqqq");
 			}
 			}
 			// if flag not turned on then add the object into the arraylsit
