@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
  
-public class BaseActivity extends Activity {
+public class NewUserActivity extends Activity {
  
       @Override
       protected void onCreate(Bundle savedInstanceState) {
