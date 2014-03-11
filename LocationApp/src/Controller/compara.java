@@ -10,7 +10,7 @@ public class compara implements Comparator<Comments>{
 	public int compare(Comments lhs, Comments rhs) {
 		// TODO Auto-generated method stub
 		
-		return (int) (lhs.distance-rhs.distance);
+		return (int) (lhs.getDistance()-rhs.getDistance());
 	}
 
 }

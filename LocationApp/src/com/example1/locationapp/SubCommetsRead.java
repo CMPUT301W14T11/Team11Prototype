@@ -227,7 +227,7 @@ public class SubCommetsRead extends Activity {
 						@Override
 						protected Void doInBackground(Void... params) {
 							// TODO Auto-generated method stub
-							id_obj.id_for_master=number;
+							id_obj.setId_for_master(number);
 							try {
 								insert(id_obj);
 							} catch (IllegalStateException e) {
@@ -323,8 +323,8 @@ public class SubCommetsRead extends Activity {
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
 			System.out.println();
-			System.out.println(id_toReturn.id_for_master+"dddddd");
-			id = id_toReturn.id_for_master;
+			
+			id = id_toReturn.getId_for_master();
 			
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
@@ -425,7 +425,7 @@ public class SubCommetsRead extends Activity {
 			int flag=0;
 			for (Comments com : comment_list)
 			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==comms.master_ID)
+			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
 			break;

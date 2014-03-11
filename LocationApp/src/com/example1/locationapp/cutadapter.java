@@ -66,20 +66,20 @@ public class cutadapter extends ArrayAdapter<Comments>{
  
         final Comments custom = entries.get(position);
         if (custom != null) {
-            holder.item1.setText(custom.the_comment);
-            holder.item2.setText(custom.subject_comment);
-            holder.item3.setText("Location:"+custom.distance+"");
-            holder.item4.setText(custom.comment_date.toString());
-            if(custom.image_encode!=null)
+            holder.item1.setText(custom.getThe_comment());
+            holder.item2.setText(custom.getSubject_comment());
+            holder.item3.setText("Location:"+custom.getDistance()+"");
+            holder.item4.setText(custom.getComment_date().toString());
+            if(custom.getImage_encode()!=null)
             {   
             //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-            	byte[] imageAsBytes = Base64.decode(custom.image_encode.getBytes(),Base64.NO_WRAP);
+            	byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
             	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             	
             	if(bitmap!=null)
                 {
-                	custom.comment_image=bitmap;
-                	holder.imageview.setImageBitmap(custom.comment_image);
+                	custom.setComment_image(bitmap);
+                	holder.imageview.setImageBitmap(custom.getComment_image());
                     System.out.println("imageset");            
                 }
             }

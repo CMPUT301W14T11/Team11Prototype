@@ -20,9 +20,11 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
 import Controller.LocalFileLoder;
+import Controller.LocalFileSaver;
 import Controller.compara;
 import Model.Comments;
 import Model.IDModel;
+import Model.UserModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -61,7 +63,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
-
+    LocalFileSaver fileSaver;
     LocalFileLoder fileLoader;
 
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
@@ -100,14 +102,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
         	
         }
         
-        String name = intent.getStringExtra("name");
         
-        fileLoader = new LocalFileLoder(this);
-		if (!name.contentEquals("") && fileLoader.exist()  )
-		{
-			System.out.println("no file");
-			//File new_file = new File();
-		}
 		
 		
 		//load_button = (Button ) findViewById(R.id.refresh_button);
@@ -131,6 +126,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		catch(NullPointerException e)
 		{
 		   Toast.makeText(content, "Can't get location please check gps", Toast.LENGTH_SHORT).show();	
+		}
+		//check user, if name is not null and not file then make a new file
+		String name = intent.getStringExtra("name");
+        fileLoader = new LocalFileLoder(this);
+        fileSaver = new LocalFileSaver(this);
+        fileLoader.Exist();
+		if (!name.contentEquals("") && fileLoader.exist()  )
+		{   UserModel user = new UserModel();
+		    user.setUser_name(name);
+		    user.setUser_location(current_location);
+			fileSaver.saveInFile(user);
 		}
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
@@ -251,7 +257,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				int getID = comment_array.get(arg2).master_ID;
+				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
@@ -303,7 +309,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			Intent intent2 = new Intent(MainActivity.this,Playtube.class);
 			intent2.putExtra("lat", current_location.getLatitude());
 			intent2.putExtra("lon", current_location.getLongitude());
-			startActivityForResult(intent2, 7);
+			startActivityForResult(intent2, 7); 
 			break;
 			}
 		
@@ -502,7 +508,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			int flag=0;
 			for (Comments com : comment_array)
 			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==comms.master_ID)
+			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
 			break;
@@ -511,14 +517,13 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-		      comms.distance= current_location.distanceTo(comms.comment_location);
+		      comms.setDistance(current_location.distanceTo(comms.getComment_location()));
 			  comment_array.add(comms);
-			  
 			}
 			Collections.sort(comment_array, new compara());
 			for(Comments com : comment_array)
 			{
-			  System.out.println("distance:"+com.distance);
+			  System.out.println("distance:"+com.getDistance());
 			}
 		    }
 		
