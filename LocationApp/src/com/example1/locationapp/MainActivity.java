@@ -77,6 +77,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
+    //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
     //InternetChecker internetChecker;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
@@ -85,6 +86,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent intent = getIntent();
 		//theid= new IDModel(0);
 		// checking where there is internet or not, if no internet then exit app
 		final ConnectivityManager connMgr = (ConnectivityManager) this
@@ -258,7 +260,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
-				//MainActivity.this.startActivity(intent1);
+				MainActivity.this.startActivity(intent1);
 				//Toast.makeText(MainActivity.this,
 		                //listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
 		                //.show();

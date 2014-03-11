@@ -137,6 +137,7 @@ public class EnterCommentsActivity extends Activity implements IDController{
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				
+				
 				if(bitmap==null)
 			       {
 			       final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
