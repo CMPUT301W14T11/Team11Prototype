@@ -61,7 +61,11 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
+
     LocalFileLoder fileLoader;
+
+    //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
+
     //InternetChecker internetChecker;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
@@ -70,6 +74,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent intent = getIntent();
 		//theid= new IDModel(0);
 		// checking where there is internet or not, if no internet then exit app
 		final ConnectivityManager connMgr = (ConnectivityManager) this
@@ -94,7 +99,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
         	android.os.Process.killProcess(android.os.Process.myPid());
         	
         }
-        Intent intent = getIntent();
+        
         String name = intent.getStringExtra("name");
         
         fileLoader = new LocalFileLoder(this);
