@@ -1,18 +1,26 @@
 package com.example1.locationapp;
 
+import java.awt.font.NumericShaper;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.fluent.Async;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import Controller.IDController;
 import Model.Comments;
+import Model.IDModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,8 +41,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-public class EnterCommentsActivity extends Activity {
+public class EnterCommentsActivity extends Activity implements IDController{
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	EditText title_edit , subject_edit;
@@ -48,12 +57,14 @@ public class EnterCommentsActivity extends Activity {
     Gson gson ;
     Context content;
     Bitmap bitmap;
+    IDModel id_obj;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_comments);
 		// Show the Up button in the action bar.
 		//setupActionBar();
+		id_obj = new IDModel(0);
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		picture_add_button = (Button) findViewById(R.id.button2);
 		content = this;
@@ -71,9 +82,7 @@ public class EnterCommentsActivity extends Activity {
 				
 				
 	    Intent intent = getIntent();
-				
-	    number = intent.getIntExtra("number_of_comments", 0);
-				
+	    number = 0;
 	    System.out.println("lol"+location);
 		try
 		{
@@ -105,27 +114,42 @@ public class EnterCommentsActivity extends Activity {
        
     	new AsyncTask<Void,Void,Void>()
     	{   ProgressDialog dialog1= new ProgressDialog(content);
-    		@Override
+            @Override
 			protected void onPreExecute() {
 				// TODO Auto-generated method stub
-				dialog1.setTitle("Loading cause your internet is too slow!");
-				dialog1.show();
+				//dialog1.setTitle("Loading cause your internet is too slow!");
+				//dialog1.show();
 				super.onPreExecute();
+				new AsyncTask<Void	,Void	, Void>()
+				{
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						// TODO Auto-generated method stub
+						number = get_id();
+						number++;
+						return null;
+					}
+					
+				}.execute();
 			}
 			@Override
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
+				
 				if(bitmap==null)
-			       { 	   
-			         final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
+			       {
+			       final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
+			  	   System.out.println("this is so cool");
 			         insertMaster(new_comment);
+			       System.out.println("this is so cool2!"+number);
 			       }
 			       else
 			       { System.out.println("image posted");
-                         			       
 			         String encode_image= convert_image_to_string(bitmap);
 			    	 final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 			    	 insertMaster(new_comment);
+			    	 
 			       }
 				
 				return null;
@@ -133,13 +157,32 @@ public class EnterCommentsActivity extends Activity {
 			@Override
 			protected void onPostExecute(Void result) {
 				// TODO Auto-generated method stub
-				dialog1.dismiss();
 				super.onPostExecute(result);
-				
+				new AsyncTask<Void, Void, Void>()
+				{
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						// TODO Auto-generated method stub
+						id_obj.id_for_master=number;
+						try {
+							insert(id_obj);
+						} catch (IllegalStateException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return null;
+					}
+					
+				}.execute();
 				
 			}
     		
     	}.execute();
+       
        
     	setResult(RESULT_OK);
     	finish();
@@ -198,8 +241,9 @@ public class EnterCommentsActivity extends Activity {
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);
 			httpPost.setHeader("Accept","application/json");
-			HttpResponse response = httpclient.execute(httpPost); 
-			
+			HttpResponse response = httpclient.execute(httpPost);
+			System.out.println(response.getStatusLine().toString()+"testing");
+			System.out.println("chenggong "+number);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -273,6 +317,126 @@ public class EnterCommentsActivity extends Activity {
 		 bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
 		 return bitmap;
 		 }
+
+
+
+
+
+	@Override
+	public void insert(IDModel id) throws IllegalStateException, IOException {
+		// TODO Auto-generated method stub
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
+		StringEntity stringentity = null;
+        
+		try {
+			stringentity = new StringEntity(gson.toJson(id));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		httpPost.setHeader("Accept", "application/json");
+
+		httpPost.setEntity(stringentity);
+
+		HttpResponse response = null;
+		
+		try {
+			System.out.println("wocao2");
+			response = httpclient.execute(httpPost);
+			System.out.println("wocao1");
+			
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		
+	}
+
+
+
+
+    
+	@Override
+	public int get_id() {
+		// TODO Auto-generated method stub
+		IDModel id_toReturn ;// this is ID object from server
+		int id = 0;
+		try{
+		//IDModel id_toReturn ;// this is ID object from server
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
+		httpget.addHeader("Accept","application/json");
+		
+			HttpResponse response = httpclient.execute(httpget);
+			
+			String json = getEntityContent(response);
+			
+			// We have to tell GSON what type we expect
+			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<IDModel>>(){}.getType();
+			// Now we expect to get a Recipe response
+			ElasticSearchResponse<IDModel> esResponse = gson.fromJson(json, elasticSearchResponseType);
+			// We get the recipe from it!
+			id_toReturn = esResponse.getSource();
+			System.out.println();
+			System.out.println(id_toReturn.id_for_master+"dddddd");
+			id = id_toReturn.id_for_master;
+			
+			//System.out.println(recipe.toString());
+			//httpget.releaseConnection();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      catch (NullPointerException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	    }
+		  catch (RuntimeException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	}
+	    return id; 
+		
+		
+	}
+	String getEntityContent(HttpResponse response) throws IOException {
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader((response.getEntity().getContent())));
+		String output;
+		System.err.println("Output from Server -> ");
+		String json = "";
+		while ((output = br.readLine()) != null) {
+			System.err.println(output);
+			json += output;
+		}
+		System.err.println("JSON:"+json);
+		return json;
+	}
 	 
 	
 
