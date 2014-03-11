@@ -103,6 +103,7 @@ public class CommentSort {
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		
+		
 		return comment;
 	}
 	
