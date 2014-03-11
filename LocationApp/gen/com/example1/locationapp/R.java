@@ -404,6 +404,7 @@ containing a value of this type.
         public static final int editText1=0x7f040017;
         public static final int editText2=0x7f040019;
         public static final int editTextSubmitSubComments=0x7f040025;
+        public static final int fav=0x7f040038;
         public static final int footer_1=0x7f040027;
         public static final int footer_layout=0x7f040026;
         public static final int guest=0x7f040020;
@@ -436,6 +437,7 @@ containing a value of this type.
         public static final int ptr_progress=0x7f040008;
         public static final int ptr_text=0x7f040007;
         public static final int satellite=0x7f04000b;
+        public static final int save=0x7f040039;
         public static final int smalll=0x7f040029;
         public static final int spb_interpolator_accelerate=0x7f040000;
         public static final int spb_interpolator_acceleratedecelerate=0x7f040002;
