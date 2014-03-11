@@ -60,6 +60,7 @@ public class SubCommetsRead extends Activity {
     private Gson gson = new Gson();
     double radius= 0.01;
     private IDModel id_obj;
+    private int ServerID;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -190,8 +191,9 @@ public class SubCommetsRead extends Activity {
 						@Override
 						protected Void doInBackground(Void... params) {
 							// TODO Auto-generated method stub
-							number = get_id();
-							number++;
+							ServerID = get_id();
+							ServerID++;
+							System.out.println(comment_list.size()+"size"+ServerID);
 							return null;
 						}
 						
@@ -205,6 +207,7 @@ public class SubCommetsRead extends Activity {
 				       { 	   
 				         final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
 				         insertMaster(new_comment);
+				         subCoId++;
 				       }
 				       else
 				       { System.out.println("image posted");
@@ -213,6 +216,7 @@ public class SubCommetsRead extends Activity {
 				    	 final
 				    	 Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 				    	 insertMaster(new_comment);
+				    	 subCoId++;
 				       }
 					
 					return null;
@@ -351,7 +355,7 @@ public class SubCommetsRead extends Activity {
 	public void insertMaster(Comments comm)
 	 {
 		 HttpClient httpclient  = new DefaultHttpClient();
-		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+number);
+		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+ServerID);
 		 try {
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);
@@ -401,14 +405,6 @@ public class SubCommetsRead extends Activity {
 		ArrayList<Comments> lat_object = new ArrayList<Comments>();
 		ArrayList<Comments> lon_object = new ArrayList<Comments>();
 		String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"+number+"}}} }}";
-		// these are unused query , this is just for testing
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
-		///String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
-		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
 		StringEntity entity = new StringEntity(query_range2);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
@@ -438,7 +434,7 @@ public class SubCommetsRead extends Activity {
 			}
 
 		    }
-		System.out.println(comment_list.size()+"size");
+		//System.out.println(comment_list.size()+"size"+ServerID);
 		
 
 		    
