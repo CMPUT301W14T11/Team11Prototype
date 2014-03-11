@@ -289,12 +289,25 @@ public class SubCommetsRead extends Activity {
 //<<<<<<< HEAD
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
-			comment_list.add(comms);
-			System.out.println(comment_list.size()+"jiba");
+
 			//check weath the comment if already in the arraylist, if not then add it in there
-			
+			int flag=0;
+			for (Comments com : comment_list)
+			{ // turn on the flag if object is already inside the arary
+			if(com.master_ID==comms.master_ID)
+			{
+			flag =1 ;
+			break;
+			}
+			}
 			// if flag not turned on then add the object into the arraylsit
-		}
+			if (flag==0)
+			{
+			comment_list.add(comms);
+			}
+
+		    }
+		
 
 		    
 		}
