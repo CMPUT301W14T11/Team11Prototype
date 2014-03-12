@@ -24,6 +24,11 @@ public class LocalFileSaver
 	private Gson gson = new Gson();
 	private Context context;
 	
+	public LocalFileSaver(Context context)
+	{
+		this.context = context;
+	}
+	
 	public void saveInFile(UserModel user) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME,

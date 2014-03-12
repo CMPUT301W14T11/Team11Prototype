@@ -3,36 +3,25 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
-import Controller.IDController;
+import Controller.LocalFileLoder;
+import Controller.LocalFileSaver;
+import Controller.compara;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -41,11 +30,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.DeadObjectException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,12 +44,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
-public class MainActivity extends Activity implements OnRefreshListener,CommentController {
+public class MainActivity extends Activity implements OnRefreshListener,CommentController{
     ListView listview ;
     ArrayList<Comments> comment_array;
     cutadapter adapter ;
@@ -77,6 +63,11 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
+    LocalFileSaver fileSaver;
+    LocalFileLoder fileLoader;
+
+    //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
+
     //InternetChecker internetChecker;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
@@ -85,6 +76,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent intent = getIntent();
 		//theid= new IDModel(0);
 		// checking where there is internet or not, if no internet then exit app
 		final ConnectivityManager connMgr = (ConnectivityManager) this
@@ -110,7 +102,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
         	
         }
         
-		
+        
 		
 		
 		//load_button = (Button ) findViewById(R.id.refresh_button);
@@ -134,6 +126,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		catch(NullPointerException e)
 		{
 		   Toast.makeText(content, "Can't get location please check gps", Toast.LENGTH_SHORT).show();	
+		}
+		//check user, if name is not null and not file then make a new file
+		String name = intent.getStringExtra("name");
+        fileLoader = new LocalFileLoder(this);
+        fileSaver = new LocalFileSaver(this);
+        fileLoader.Exist();
+		if (!name.contentEquals("") && fileLoader.exist()  )
+		{   UserModel user = new UserModel();
+		    user.setUser_name(name);
+		    user.setUser_location(current_location);
+			fileSaver.saveInFile(user);
 		}
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
@@ -254,7 +257,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				int getID = comment_array.get(arg2).master_ID;
+				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
@@ -306,7 +309,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			Intent intent2 = new Intent(MainActivity.this,Playtube.class);
 			intent2.putExtra("lat", current_location.getLatitude());
 			intent2.putExtra("lon", current_location.getLongitude());
-			startActivityForResult(intent2, 7);
+			startActivityForResult(intent2, 7); 
 			break;
 			
 		case R.id.item5:
@@ -503,7 +506,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		System.out.println(json1+"holy");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
-//<<<<<<< HEAD
+
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
 
@@ -511,7 +514,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			int flag=0;
 			for (Comments com : comment_array)
 			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==comms.master_ID)
+			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
 			break;
@@ -520,10 +523,16 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-			comment_array.add(comms);
+		      comms.setDistance(current_location.distanceTo(comms.getComment_location()));
+			  comment_array.add(comms);
 			}
-
+			Collections.sort(comment_array, new compara());
+			for(Comments com : comment_array)
+			{
+			  System.out.println("distance:"+com.getDistance());
+			}
 		    }
+		
 		
 		}
       catch (ClientProtocolException e) {

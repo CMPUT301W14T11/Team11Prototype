@@ -12,6 +12,7 @@ import java.util.Date;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import Model.Comments;
+import Model.IDModel;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -57,6 +59,8 @@ public class SubCommetsRead extends Activity {
     private int subCoId=1;
     private Gson gson = new Gson();
     double radius= 0.01;
+    private IDModel id_obj;
+    private int ServerID;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class SubCommetsRead extends Activity {
 	Intent intent = getIntent();
 	number=intent.getIntExtra("masterID", 0);
 	Toast.makeText(getBaseContext(), number+"", Toast.LENGTH_SHORT).show();
-
+	id_obj = new IDModel(0);
     // add an example to test the list
     //comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new Date(), null, 123, 123, null));
 	gps = new GPSTracker(this);
@@ -181,6 +185,20 @@ public class SubCommetsRead extends Activity {
 					dialog1.setTitle("Loading cause your internet is too slow!");
 					dialog1.show();
 					super.onPreExecute();
+					new AsyncTask<Void	,Void	, Void>()
+					{
+
+						@Override
+						protected Void doInBackground(Void... params) {
+							// TODO Auto-generated method stub
+							ServerID = get_id();
+							ServerID++;
+							System.out.println(comment_list.size()+"size"+ServerID);
+							return null;
+						}
+						
+					}.execute();
+					
 				}
 				@Override
 				protected Void doInBackground(Void... params) {
@@ -189,6 +207,7 @@ public class SubCommetsRead extends Activity {
 				       { 	   
 				         final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
 				         insertMaster(new_comment);
+				         subCoId++;
 				       }
 				       else
 				       { System.out.println("image posted");
@@ -197,6 +216,7 @@ public class SubCommetsRead extends Activity {
 				    	 final
 				    	 Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
 				    	 insertMaster(new_comment);
+				    	 subCoId++;
 				       }
 					
 					return null;
@@ -204,8 +224,27 @@ public class SubCommetsRead extends Activity {
 				@Override
 				protected void onPostExecute(Void result) {
 					// TODO Auto-generated method stub
-					dialog1.dismiss();
 					super.onPostExecute(result);
+					new AsyncTask<Void, Void, Void>()
+					{
+
+						@Override
+						protected Void doInBackground(Void... params) {
+							// TODO Auto-generated method stub
+							id_obj.setId_for_master(number);
+							try {
+								insert(id_obj);
+							} catch (IllegalStateException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							return null;
+						}
+						
+					}.execute();
 					
 					
 				}
@@ -217,10 +256,106 @@ public class SubCommetsRead extends Activity {
 		}
 		}
 	}
+	public void insert(IDModel id) throws IllegalStateException, IOException {
+		// TODO Auto-generated method stub
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
+		StringEntity stringentity = null;
+        
+		try {
+			stringentity = new StringEntity(gson.toJson(id));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		httpPost.setHeader("Accept", "application/json");
+
+		httpPost.setEntity(stringentity);
+
+		HttpResponse response = null;
+		
+		try {
+			System.out.println("wocao2");
+			response = httpclient.execute(httpPost);
+			System.out.println("wocao1");
+			
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		
+	}
+	public int get_id() {
+		// TODO Auto-generated method stub
+		IDModel id_toReturn ;// this is ID object from server
+		int id = 0;
+		try{
+		//IDModel id_toReturn ;// this is ID object from server
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
+		httpget.addHeader("Accept","application/json");
+		
+			HttpResponse response = httpclient.execute(httpget);
+			
+			String json = getEntityContent(response);
+			
+			// We have to tell GSON what type we expect
+			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<IDModel>>(){}.getType();
+			// Now we expect to get a Recipe response
+			ElasticSearchResponse<IDModel> esResponse = gson.fromJson(json, elasticSearchResponseType);
+			// We get the recipe from it!
+			id_toReturn = esResponse.getSource();
+			System.out.println();
+			
+			id = id_toReturn.getId_for_master();
+			
+			//System.out.println(recipe.toString());
+			//httpget.releaseConnection();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      catch (NullPointerException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	    }
+		  catch (RuntimeException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	}
+	    return id; 
+		
+		
+	}
+	
 	public void insertMaster(Comments comm)
 	 {
 		 HttpClient httpclient  = new DefaultHttpClient();
-		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+number);
+		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+ServerID);
 		 try {
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);
@@ -270,14 +405,6 @@ public class SubCommetsRead extends Activity {
 		ArrayList<Comments> lat_object = new ArrayList<Comments>();
 		ArrayList<Comments> lon_object = new ArrayList<Comments>();
 		String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"+number+"}}} }}";
-		// these are unused query , this is just for testing
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
-		///String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-		//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-		//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
-		//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
 		StringEntity entity = new StringEntity(query_range2);
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(entity);
@@ -294,7 +421,7 @@ public class SubCommetsRead extends Activity {
 			int flag=0;
 			for (Comments com : comment_list)
 			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==comms.master_ID)
+			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
 			break;
@@ -307,6 +434,7 @@ public class SubCommetsRead extends Activity {
 			}
 
 		    }
+		//System.out.println(comment_list.size()+"size"+ServerID);
 		
 
 		    

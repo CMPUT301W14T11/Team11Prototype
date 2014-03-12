@@ -137,6 +137,7 @@ public class EnterCommentsActivity extends Activity implements IDController{
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				
+				
 				if(bitmap==null)
 			       {
 			       final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
@@ -164,7 +165,7 @@ public class EnterCommentsActivity extends Activity implements IDController{
 					@Override
 					protected Void doInBackground(Void... params) {
 						// TODO Auto-generated method stub
-						id_obj.id_for_master=number;
+						id_obj.setId_for_master(number);
 						try {
 							insert(id_obj);
 						} catch (IllegalStateException e) {
@@ -400,8 +401,8 @@ public class EnterCommentsActivity extends Activity implements IDController{
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
 			System.out.println();
-			System.out.println(id_toReturn.id_for_master+"dddddd");
-			id = id_toReturn.id_for_master;
+			
+			id = id_toReturn.getId_for_master();
 			
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
