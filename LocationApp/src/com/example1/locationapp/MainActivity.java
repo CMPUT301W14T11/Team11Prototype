@@ -258,7 +258,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
-				//MainActivity.this.startActivity(intent1);
+				MainActivity.this.startActivity(intent1);
 				//Toast.makeText(MainActivity.this,
 		                //listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
 		                //.show();
@@ -308,8 +308,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			intent2.putExtra("lon", current_location.getLongitude());
 			startActivityForResult(intent2, 7);
 			break;
-			}
-		
+			
+		case R.id.item5:
+			Intent intent3 = new Intent(MainActivity.this,Favourite.class);
+			startActivityForResult(intent3, 9);
+			break;
+			
+			
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}

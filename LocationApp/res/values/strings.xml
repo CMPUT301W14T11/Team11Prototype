@@ -11,5 +11,7 @@
     <string name="title_activity_sub_commets_read">SubCommetsRead</string>
     <string name="title_activity_main_page">MainPage</string>
     <string name="title_activity_sign_in">SignInActivity</string>
-	<string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_favourite">Favourite</string>
+
 </resources>
