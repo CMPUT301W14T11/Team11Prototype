@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainPage extends Activity
 {
@@ -32,44 +33,48 @@ public class MainPage extends Activity
 		fl.Exist();
 		if(fl.exist())
 		{
+			
 			user = fl.loadFromFile();
 			if (!user.getUser_name().equals(""))
 			{
 				Intent intent = new Intent(MainPage.this,
 	                    MainActivity.class);
 	            intent.putExtra("name",user.getUser_name());
+	            
 	            startActivity(intent);
 			}
 		}
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_page);
-		
-		newUser = (Button) findViewById(R.id.button1);
-		guest = (Button) findViewById(R.id.guest);
-		
-		
-		guest.setOnClickListener(new OnClickListener() {
-		@Override
-        public void onClick(View arg0) {
-			name ="";
-            Intent intent = new Intent(MainPage.this,
-                    MainActivity.class);
-            intent.putExtra("name", name);
-            startActivity(intent);
-		}
-		
-		});
-		
-		newUser.setOnClickListener(new OnClickListener() {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_main_page);
+			
+			newUser = (Button) findViewById(R.id.button1);
+			guest = (Button) findViewById(R.id.guest);
+			
+			
+			guest.setOnClickListener(new OnClickListener() {
 			@Override
 	        public void onClick(View arg0) {
+				name ="";
 	            Intent intent = new Intent(MainPage.this,
-	                    NewUserActivity.class);
+	                    MainActivity.class);
+	            intent.putExtra("name", name);
 	            startActivity(intent);
 			}
 			
 			});
+			
+			newUser.setOnClickListener(new OnClickListener() {
+				@Override
+		        public void onClick(View arg0) {
+		            Intent intent = new Intent(MainPage.this,
+		                    NewUserActivity.class);
+		            startActivity(intent);
+				}
+				
+				});
+
+		
 		
 		
 		

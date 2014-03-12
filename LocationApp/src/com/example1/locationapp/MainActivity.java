@@ -77,6 +77,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Intent intent = getIntent();
+
 		//theid= new IDModel(0);
 		// checking where there is internet or not, if no internet then exit app
 		final ConnectivityManager connMgr = (ConnectivityManager) this
@@ -128,11 +129,12 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		   Toast.makeText(content, "Can't get location please check gps", Toast.LENGTH_SHORT).show();	
 		}
 		//check user, if name is not null and not file then make a new file
+		
 		String name = intent.getStringExtra("name");
         fileLoader = new LocalFileLoder(this);
         fileSaver = new LocalFileSaver(this);
         fileLoader.Exist();
-		if (!name.contentEquals("") && fileLoader.exist()  )
+		if (!fileLoader.exist())
 		{   UserModel user = new UserModel();
 		    user.setUser_name(name);
 		    user.setUser_location(current_location);
