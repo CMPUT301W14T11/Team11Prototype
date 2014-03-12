@@ -70,10 +70,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     //private LocalFileLoder fileLoader;
     
     
-    //public int mode = 0;
+    public int mode = 0;
 //=======
-    private LocalFileSaver fileSaver = new LocalFileSaver(this);
-    private LocalFileLoder fileLoader = new LocalFileLoder(this);
+    LocalFileSaver fileSaver = new LocalFileSaver(this);
+    LocalFileLoder fileLoader = new LocalFileLoder(this);
     private UserModel user; 
 //>>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
     
