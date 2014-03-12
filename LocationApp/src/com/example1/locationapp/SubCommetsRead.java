@@ -17,28 +17,33 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
+import Controller.LocalFileLoder;
+import Controller.LocalFileSaver;
 import Model.Comments;
+import Model.Faviourte;
 import Model.IDModel;
-import android.location.Location;
-import android.os.AsyncTask;
-import android.os.Bundle;
+import Model.UserModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class SubCommetsRead extends Activity {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
@@ -61,6 +66,10 @@ public class SubCommetsRead extends Activity {
     double radius= 0.01;
     private IDModel id_obj;
     private int ServerID;
+    private LocalFileLoder fileLoder = new LocalFileLoder(this);
+    private LocalFileSaver fileSaver = new LocalFileSaver(this);
+    private UserModel user;
+    //private Comments mainComment;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +83,7 @@ public class SubCommetsRead extends Activity {
     httpclient= new DefaultHttpClient();
 	Intent intent = getIntent();
 	number=intent.getIntExtra("masterID", 0);
+	//mainComment=intent.getExtra("main");
 	Toast.makeText(getBaseContext(), number+"", Toast.LENGTH_SHORT).show();
 	id_obj = new IDModel(0);
     // add an example to test the list
@@ -110,7 +120,9 @@ public class SubCommetsRead extends Activity {
 		gps.showSettingsAlert();
 	}
 			
-			
+		
+	
+	
 			
     //number = 0;
     //get comments
@@ -151,11 +163,36 @@ public class SubCommetsRead extends Activity {
 	});
 	
 	
-	
 	button1.setOnClickListener(new MyButton1Listener());
-	
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		user = fileLoder.loadFromFile();
+		Comments maincom = comment_list.get(0); 
+		switch (item.getItemId())
+		{
+		case R.id.fav:
+			System.out.println("new is clicked");
+			Faviourte favi =  new Faviourte(user.getUser_name(), maincom);
+			for (int i =1;i<comment_list.size();i++)
+				favi.addSubComment(comment_list.get(i));
+			user.addFaviourte(favi);
+			fileSaver.saveInFile(user);
+			break;
+			
+		case R.id.save:
+			// this is to start change location activity
+			// request code is 7
+
+			break;
+			
+		}
+		// TODO Auto-generated method stub
+		return super.onOptionsItemSelected(item);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
@@ -257,7 +294,7 @@ public class SubCommetsRead extends Activity {
 		}
 	}
 	public void insert(IDModel id) throws IllegalStateException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub)
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		StringEntity stringentity = null;
@@ -446,6 +483,9 @@ public class SubCommetsRead extends Activity {
 		System.out.println("IO exe");
 		e.printStackTrace();}
 	}
+	
+	
+	
 }
 
 

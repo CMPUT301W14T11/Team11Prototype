@@ -39,12 +39,16 @@ public class Favourite extends Activity
 		setContentView(R.layout.activity_favourite);
 		matchlist= new ArrayList<Comments>();
 		populateListView();// put the result into the view list. 
-		registerClickCallback(); // to able click the view list.
+		//registerClickCallback(); // to able click the view list.
 	}
 
 	private void populateListView()
 	{
 		user = fl.loadFromFile();
+		
+		Toast.makeText(Favourite.this,
+                "Name cannot be null !!!", Toast.LENGTH_SHORT)
+                .show();
 		String username = user.getUser_name();
 		favourite = user.getFaviourte();
 		int len = favourite.size();

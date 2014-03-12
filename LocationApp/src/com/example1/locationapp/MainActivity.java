@@ -262,6 +262,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
+				//intent1.putExtra("main", comment_array.get(arg2));
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
 				MainActivity.this.startActivity(intent1);
 				//Toast.makeText(MainActivity.this,

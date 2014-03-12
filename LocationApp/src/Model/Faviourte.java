@@ -1,11 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 
 
 public class Faviourte
 {
 	private String username;
 	private Comments comment;
+	private ArrayList<Comments> subcomment = new ArrayList<Comments>();
 	
 	public Faviourte(String username, Comments comment)
 	{
@@ -13,6 +16,15 @@ public class Faviourte
 		this.comment=comment;
 	}
 	
+	public void addSubComment(Comments sub)
+	{
+		subcomment.add(sub);
+	}
+	
+	public ArrayList<Comments> getSubComment()
+	{
+		return subcomment;
+	}
 	public String getUsername()
 	{
 		
