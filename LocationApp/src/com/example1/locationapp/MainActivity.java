@@ -19,9 +19,11 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
+import Controller.CommentSort;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.compara;
+import Controller.datesort;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -50,7 +52,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class MainActivity extends Activity implements OnRefreshListener,CommentController{
     ListView listview ;
-    ArrayList<Comments> comment_array;
+    ArrayList<Comments> comment_array, date_comment_array;
     cutadapter adapter ;
     //IDModel total_comments;
     Gson gson;
@@ -63,9 +65,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
+<<<<<<< HEAD
+    LocalFileSaver fileSaver;
+    LocalFileLoder fileLoader;
+    
+    
+    public int mode = 0;
+=======
     LocalFileSaver fileSaver = new LocalFileSaver(this);
     LocalFileLoder fileLoader = new LocalFileLoder(this);
     private UserModel user; 
+>>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 
     //InternetChecker internetChecker;
@@ -191,6 +201,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			
 		}.execute();*/
 		//async task is done
+
 		adapter = new cutadapter(MainActivity.this,R.layout.listlayout,comment_array);
 		
 		//add pull to refresh
@@ -315,7 +326,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			intent2.putExtra("lon", current_location.getLongitude());
 			startActivityForResult(intent2, 7); 
 			break;
-			
+		case R.id.item3:
+			sortByDate();
+			break;
 		case R.id.item5:
 			Intent intent3 = new Intent(MainActivity.this,Favourite.class);
 			startActivityForResult(intent3, 9);
@@ -615,7 +628,53 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	}
 	
 	
+public void sortByDate(){
+		
+		new AsyncTask<Void, Void, Void>()
+		{
+            
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				dialog1.dismiss();
+				Collections.sort(comment_array,new datesort());
+				Collections.reverse(comment_array);
+				adapter.notifyDataSetChanged();
+			}
+
+			@Override
+			protected void onPreExecute() {
+				// TODO Auto-generated method stub
+				super.onPreExecute();
+				comment_array.clear();
+				dialog1.setTitle("Loading cause your internet is too slow!");
+				dialog1.show();
+			}
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				System.out.println("unrun");
+				get_comments("get some comments man!");
+				
+				radius= radius+0.1;
+				System.out.println("runned");
+				
+				
+				
+				return null;
+			}
+			
+		}.execute();
+
+
+	}
 	
+
+
+
+
 	
 	
 	
