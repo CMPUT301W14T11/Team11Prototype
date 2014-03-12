@@ -313,8 +313,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			intent2.putExtra("lon", current_location.getLongitude());
 			startActivityForResult(intent2, 7); 
 			break;
-			}
-		
+			
+		case R.id.item5:
+			Intent intent3 = new Intent(MainActivity.this,Favourite.class);
+			startActivityForResult(intent3, 9);
+			break;
+			
+			
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}
