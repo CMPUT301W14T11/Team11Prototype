@@ -65,11 +65,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
+<<<<<<< HEAD
     LocalFileSaver fileSaver;
     LocalFileLoder fileLoader;
     
     
     public int mode = 0;
+=======
+    LocalFileSaver fileSaver = new LocalFileSaver(this);
+    LocalFileLoder fileLoader = new LocalFileLoder(this);
+    private UserModel user; 
+>>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 
     //InternetChecker internetChecker;
@@ -135,15 +141,16 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		//check user, if name is not null and not file then make a new file
 		
 		String name = intent.getStringExtra("name");
-        fileLoader = new LocalFileLoder(this);
-        fileSaver = new LocalFileSaver(this);
+        
         fileLoader.Exist();
 		if (!fileLoader.exist())
-		{   UserModel user = new UserModel();
+		{   user = new UserModel();
 		    user.setUser_name(name);
 		    user.setUser_location(current_location);
 			fileSaver.saveInFile(user);
 		}
+		
+		user = fileLoader.loadFromFile();
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
 		httpclient= new DefaultHttpClient();
@@ -324,6 +331,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		case R.id.item5:
 			Intent intent3 = new Intent(MainActivity.this,Favourite.class);
 			startActivityForResult(intent3, 9);
+			break;
+			
+		case R.id.item7:
+			Intent intent7 = new Intent(MainActivity.this,MainPage.class);
+			user.setUser_name("");
+			user.setUser_location(null);
+			fileSaver.saveInFile(user);
+			startActivity(intent7);
 			break;
 			
 			
