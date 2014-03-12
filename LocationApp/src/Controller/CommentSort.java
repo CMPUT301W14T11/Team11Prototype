@@ -71,7 +71,7 @@ public class CommentSort {
 				int flag=0;
 				for (Comments com : comment_array)
 				{ // turn on the flag if object is already inside the arary
-					if(com.master_ID==comms.master_ID)
+					if(com.getMaster_ID()==comms.getMaster_ID())
 					{
 						flag =1;
 						break;
