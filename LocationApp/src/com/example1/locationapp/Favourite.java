@@ -6,31 +6,38 @@ import java.util.ArrayList;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
+import Model.Comments;
 import Model.Faviourte;
 import Model.UserModel;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Favourite extends Activity
 {
-
+    private Context content;
 	private UserModel user;
 	private LocalFileLoder fl =  new LocalFileLoder(this);
-	private LocalFileSaver fs =  new LocalFileSaver();
+	private LocalFileSaver fs =  new LocalFileSaver(this);
 	private ArrayList<Faviourte> favourite;
+	private ArrayList<Comments> matchlist;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 
 		super.onCreate(savedInstanceState);
+		content=this;
 		setContentView(R.layout.activity_favourite);
+		matchlist= new ArrayList<Comments>();
 		populateListView();// put the result into the view list. 
 		registerClickCallback(); // to able click the view list.
 	}
@@ -40,88 +47,27 @@ public class Favourite extends Activity
 		user = fl.loadFromFile();
 		String username = user.getUser_name();
 		favourite = user.getFaviourte();
-		//Comment 
-		
-		
-		/*
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				this,
-				R.layout.data_item,
-				record);
-		
-		ListView list = (ListView) findViewById(R.id.listView1);
-		list.setAdapter(adapter);
-		*/
-		
-		
-		// TODO Auto-generated method stub
-		/*
-		
-		
-		
-		int record_number =0;
-		int size = myIteam.size();
-		String record_name = "";
-		Counter obj = new Counter(record_name,record_number);
-		
-		for (int i = 0; i<size; i++)
-		{
-			record_name = myIteam.get(i);
-			if(record_name != null){
-				obj.setText(record_name);
-				for (int j =0; j<size;j++){
-					String namei = myIteam.get(j);
-					if(obj.getText().equals(namei)){
-						obj.addNumber();
-						myIteam.set(j, null);
-					}
-				}
-				String fin_name = obj.getText();
-				int fin_number = obj.getNumber();
-				Counter abj =new Counter(fin_name,fin_number);
-				orderlist.add(abj);
-				record.add(fin_name +" | "+fin_number);
-				obj.setNumber(0);
-				
-			}
-		}
-		
-	
-		for (int i =0;i<orderlist.size();i++){
-			Counter good = orderlist.get(i);
-			int number_pop = good.getNumber();
-			numberrecord.add(number_pop);
-		}
-		
-		// the bubble sort two list then can get 
-		int n = numberrecord.size();
-		boolean swapped = true;
-		while(swapped){
-			swapped = false;
-			for(int i = 0; i< (n-1);i++){
-				if(numberrecord.get(i) > numberrecord.get(i+1)){
-					int temp = numberrecord.get(i);
-					numberrecord.set(i, numberrecord.get(i+1));
-					numberrecord.set(i+1, temp);
-					
-					String temp1 = record.get(i);
-					record.set(i, record.get(i+1));
-					record.set(i+1, temp1);
-					
-					swapped = true;
-				}
-			}
+		int len = favourite.size();
 			
+		for (int i = 0; i<len; i++)
+		{
+			if (username.equals(favourite.get(i).getUsername()))
+			{
+				matchlist.add(favourite.get(i).getComment());
+			}
 		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+
+		ArrayAdapter<Comments> adapter = new ArrayAdapter<Comments>(
 				this,
-				R.layout.data_item,
-				record);
+				R.layout.listlayout,
+				matchlist);
 		
-		ListView list = (ListView) findViewById(R.id.listView1);
+		ListView list = (ListView) findViewById(R.id.favouritelist);
+
 		list.setAdapter(adapter);
-		*/
+
+		
 	}
 
 	private void registerClickCallback()
