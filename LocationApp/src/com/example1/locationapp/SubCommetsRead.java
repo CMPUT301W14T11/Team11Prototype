@@ -174,12 +174,11 @@ public class SubCommetsRead extends Activity {
 		switch (item.getItemId())
 		{
 		case R.id.fav:
-			System.out.println("new is clicked");
 			Faviourte favi =  new Faviourte(user.getUser_name(), maincom);
 			for (int i =1;i<comment_list.size();i++)
 				favi.addSubComment(comment_list.get(i));
 			user.addFaviourte(favi);
-			fileSaver.saveInFile(user);
+			//fileSaver.saveInFile(user);
 			break;
 			
 		case R.id.save:

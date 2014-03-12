@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 
 import Model.UserModel;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -38,6 +39,7 @@ public class LocalFileSaver
 			//fos.write(new String(date.toString() + " | " + text)
 				//	.getBytes());
 			out.write(json+ "\n");
+			Log.v("JSON======",json);
 			out.close();
 			fos.close();
 		} catch (FileNotFoundException e) {

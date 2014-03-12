@@ -46,9 +46,7 @@ public class Favourite extends Activity
 	{
 		user = fl.loadFromFile();
 		
-		Toast.makeText(Favourite.this,
-                "Name cannot be null !!!", Toast.LENGTH_SHORT)
-                .show();
+		
 		String username = user.getUser_name();
 		favourite = user.getFaviourte();
 		int len = favourite.size();
