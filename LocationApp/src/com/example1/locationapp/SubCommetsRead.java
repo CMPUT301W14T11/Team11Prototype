@@ -169,16 +169,18 @@ public class SubCommetsRead extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		ArrayList<Comments> sub = new ArrayList<Comments>();
 		user = fileLoder.loadFromFile();
-		Comments maincom = comment_list.get(0); 
 		switch (item.getItemId())
 		{
 		case R.id.fav:
-			Faviourte favi =  new Faviourte(user.getUser_name(), maincom);
+			Comments maincom = comment_list.get(0); 
 			for (int i =1;i<comment_list.size();i++)
-				favi.addSubComment(comment_list.get(i));
+				sub.add(comment_list.get(i));
+			
+			Faviourte favi =  new Faviourte(user.getUser_name(), maincom, sub);
 			user.addFaviourte(favi);
-			//fileSaver.saveInFile(user);
+			fileSaver.saveInFile(user);
 			break;
 			
 		case R.id.save:
