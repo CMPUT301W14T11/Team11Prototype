@@ -65,17 +65,19 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
-<<<<<<< HEAD
-    LocalFileSaver fileSaver;
-    LocalFileLoder fileLoader;
+//<<<<<<< HEAD
+    //private LocalFileSaver fileSaver;
+    //private LocalFileLoder fileLoader;
     
     
-    public int mode = 0;
-=======
-    LocalFileSaver fileSaver = new LocalFileSaver(this);
-    LocalFileLoder fileLoader = new LocalFileLoder(this);
+    //public int mode = 0;
+//=======
+    private LocalFileSaver fileSaver = new LocalFileSaver(this);
+    private LocalFileLoder fileLoader = new LocalFileLoder(this);
     private UserModel user; 
->>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
+//>>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
+    
+    
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 
     //InternetChecker internetChecker;
