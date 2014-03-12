@@ -231,7 +231,7 @@ public class SubCommetsRead extends Activity {
 						@Override
 						protected Void doInBackground(Void... params) {
 							// TODO Auto-generated method stub
-							id_obj.setId_for_master(number);
+							id_obj.setId_for_master(ServerID);
 							try {
 								insert(id_obj);
 							} catch (IllegalStateException e) {
@@ -283,9 +283,7 @@ public class SubCommetsRead extends Activity {
 		HttpResponse response = null;
 		
 		try {
-			System.out.println("wocao2");
 			response = httpclient.execute(httpPost);
-			System.out.println("wocao1");
 			
 			
 		} catch (ClientProtocolException e) {
