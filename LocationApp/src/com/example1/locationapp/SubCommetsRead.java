@@ -460,6 +460,7 @@ public class SubCommetsRead extends Activity {
 			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
+			comment_list.add(comms);
 			break;
 			}
 			}
