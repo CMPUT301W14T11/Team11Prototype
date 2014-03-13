@@ -36,7 +36,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyARAcFRaMw-YLCqdJdPbcfdJIz8Wal5FWk" />
+            android:value="AIzaSyBGbgRROzCSZFtTH-BiSN_qBfOXM3bmhpU" />
 
         <receiver android:name="com.example1.locationapp.InternetChecker" >
             <intent-filter>

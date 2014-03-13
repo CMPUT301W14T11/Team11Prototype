@@ -20,6 +20,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
 import Controller.CommentSort;
+import Controller.IDController;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.compara;
@@ -49,13 +50,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-<<<<<<< HEAD
+
 /**this is Main display page for the app*/
 public class MainActivity extends Activity implements OnRefreshListener,CommentController,IDController {
-=======
 
-public class MainActivity extends Activity implements OnRefreshListener,CommentController{
->>>>>>> ad26f039c5adbb18fd9522fce0729a5b86e9363d
+	int location_flag;
     ListView listview ;
     ArrayList<Comments> comment_array, date_comment_array;
     cutadapter adapter ;
@@ -320,7 +319,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		case R.id.item1:
 			System.out.println("new is clicked");
 			Intent intent = new Intent ();
-			
+			intent.putExtra("lat",current_location.getLatitude());
+			intent.putExtra("lon", current_location.getLongitude());
 			intent.setClass(MainActivity.this, EnterCommentsActivity.class);
 			startActivityForResult(intent, 1);
 			break;
@@ -369,13 +369,21 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			
 			break;
 		case 7:
-			
-			if(requestCode== RESULT_OK)
-			{   System.out.println("trytry");   
-				double lat = data.getDoubleExtra("lat", 0);
-				System.out.println("gotitfrom");
-				double lon = data.getDoubleExtra("lon",0);
+			System.out.println("trytry");
+			if(resultCode==RESULT_OK)
+			{   Toast.makeText(content, "Your Location is changed!", Toast.LENGTH_LONG).show();
+				double lat = data.getDoubleExtra("lat", current_location.getLatitude());
 				
+				double lon = data.getDoubleExtra("lon",current_location.getLongitude());
+				
+				System.out.println("current:"+current_location.getLatitude()+"wocao"+current_location.getLongitude());
+				current_location.setLatitude(lat);
+				current_location.setLongitude(lon);
+				System.out.println("new current:"+current_location.getLatitude()+"wocao"+current_location.getLongitude());
+				location_flag=1;
+				comment_array.clear();
+				get_comments("get comments using new locaiton");
+				adapter.notifyDataSetChanged();
 			}
 			break;
 		}
@@ -677,6 +685,16 @@ public void sortByDate(){
 
 
 	}
+@Override
+public void insert(IDModel id) throws IllegalStateException, IOException {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public int get_id() {
+	// TODO Auto-generated method stub
+	return 0;
+}
 	
 
 

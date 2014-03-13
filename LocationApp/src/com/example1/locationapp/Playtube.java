@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.gms.internal.gm;
 import com.google.android.gms.maps.CameraUpdate;
@@ -44,15 +45,11 @@ public class Playtube extends Activity {
 			@Override
 			public void onMapLongClick(LatLng arg0) {
 				// TODO Auto-generated method stub
+				System.out.println("long clicked");
 				map.addMarker(new MarkerOptions()
 		        .position(arg0)
 		        .title("new location")           
-		        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-				Intent intent = new Intent();
-				intent.putExtra("lat",new_positon.latitude);
-				intent.putExtra("lon",new_positon.longitude);
-				setResult(Playtube.RESULT_OK, intent);
-				
+		        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));	
 			}
 		});
 		map.setOnMarkerClickListener(new OnMarkerClickListener() {
@@ -61,13 +58,11 @@ public class Playtube extends Activity {
 			public boolean onMarkerClick(Marker arg0) {
 				// TODO Auto-generated method stub
 				new_positon= arg0.getPosition();
-				
-				System.out.println("markerclicked");
+			    System.out.println("markerclicked");
 				Intent intent = new Intent();
 				intent.putExtra("lat",new_positon.latitude);
 				intent.putExtra("lon",new_positon.longitude);
-				setResult(Playtube.RESULT_OK, intent);
-				System.out.println("markerclicked2");
+				setResult(RESULT_OK, intent);
 				finish();
 				return false;
 			}

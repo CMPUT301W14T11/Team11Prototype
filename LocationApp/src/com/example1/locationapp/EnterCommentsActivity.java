@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -43,7 +44,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class EnterCommentsActivity extends Activity implements IDController{
+public class EnterCommentsActivity extends Activity implements IDController ,Serializable{
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	EditText title_edit , subject_edit;
@@ -73,7 +74,8 @@ public class EnterCommentsActivity extends Activity implements IDController{
 		subject_edit = (EditText) findViewById(R.id.editText2);
 		post_button = (Button) findViewById(R.id.button1);
         // get current location of the comments
-	    gps = new GPSTracker(this);
+	    
+		gps = new GPSTracker(this);
 		if (gps.canGetLocation){
 		location = gps.getLocation();
 		
@@ -82,12 +84,15 @@ public class EnterCommentsActivity extends Activity implements IDController{
 				
 				
 	    Intent intent = getIntent();
+	    latitude = intent.getDoubleExtra("lat", 0);
+	    longitude= intent.getDoubleExtra("lon", 0);
 	    number = 0;
-	    System.out.println("lol"+location);
+	    
 		try
 		{
-	      longitude = location.getLongitude();
-	      latitude =location.getLatitude();
+	      location.setLatitude(latitude);
+	      location.setLongitude(longitude);
+	      System.out.println("cclocation"+latitude+"   "+longitude);
 	    }
 		catch (NullPointerException e)
 		{
