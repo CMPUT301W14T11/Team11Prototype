@@ -3,37 +3,27 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
-import Controller.IDController;
-import Controller.InternetChecker;
+import Controller.CommentSort;
+import Controller.LocalFileLoder;
+import Controller.LocalFileSaver;
+import Controller.compara;
+import Controller.datesort;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -42,11 +32,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.DeadObjectException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,16 +46,20 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+<<<<<<< HEAD
 /**this is Main display page for the app*/
 public class MainActivity extends Activity implements OnRefreshListener,CommentController,IDController {
+=======
+
+public class MainActivity extends Activity implements OnRefreshListener,CommentController{
+>>>>>>> ad26f039c5adbb18fd9522fce0729a5b86e9363d
     ListView listview ;
-    ArrayList<Comments> comment_array;
+    ArrayList<Comments> comment_array, date_comment_array;
     cutadapter adapter ;
-    IDModel total_comments;
+    //IDModel total_comments;
     Gson gson;
     HttpClient httpclient;
     IDModel theid;
@@ -77,7 +69,22 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     Context content;
     ProgressDialog dialog1;
     Button load_button;
-    double radius= 0.01;
+    double radius= 0.1;
+//<<<<<<< HEAD
+    //private LocalFileSaver fileSaver;
+    //private LocalFileLoder fileLoader;
+    
+    
+    public int mode = 0;
+//=======
+    LocalFileSaver fileSaver = new LocalFileSaver(this);
+    LocalFileLoder fileLoader = new LocalFileLoder(this);
+    private UserModel user; 
+//>>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
+    
+    
+    //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
+
     //InternetChecker internetChecker;
     // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
@@ -86,6 +93,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent intent = getIntent();
+
+		//theid= new IDModel(0);
 		// checking where there is internet or not, if no internet then exit app
 		final ConnectivityManager connMgr = (ConnectivityManager) this
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -110,14 +120,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
         	
         }
         
-		
+        
 		
 		
 		//load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
-	
-		
+		//current_location=(Location)getIntent().getSerializableExtra("location");
+		try{
 		// getting location when app starts, so we can search the database for location, will add use location later
 		gps = new GPSTracker(this);
 		if (gps.canGetLocation)
@@ -130,6 +140,24 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		{   // if gps is not turned on then , ask user to turn it on 
 			gps.showSettingsAlert();
 		}
+		}
+		catch(NullPointerException e)
+		{
+		   Toast.makeText(content, "Can't get location please check gps", Toast.LENGTH_SHORT).show();	
+		}
+		//check user, if name is not null and not file then make a new file
+		
+		String name = intent.getStringExtra("name");
+        
+        fileLoader.Exist();
+		if (!fileLoader.exist())
+		{   user = new UserModel();
+		    user.setUser_name(name);
+		    user.setUser_location(current_location);
+			fileSaver.saveInFile(user);
+		}
+		
+		user = fileLoader.loadFromFile();
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
 		httpclient= new DefaultHttpClient();
@@ -137,10 +165,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		comment_array = new ArrayList<Comments>();
 		listview = (ListView) findViewById(R.id.ptr_listview1);
 		
-		total_comments = new IDModel(0);
+		
 		gson = new Gson();
 		//using async task to get ID object form server
-		new AsyncTask<Void,Void,Void>()
+		/*new AsyncTask<Void,Void,Void>()
 		{
 			@Override
 			protected void onPreExecute() {
@@ -152,8 +180,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			@Override
 			protected Void doInBackground(Void... params) {
 				// TODO Auto-generated method stub
-				theid = get_id();
-				number_of_comments = theid.id_for_master;
+				try{
+				
+				    number_of_comments = get_id();
+				    theid.id_for_master=number_of_comments;
+				}
+				catch(NullPointerException e)
+				{
+					System.out.println("can't get id object");
+					
+				}
+				
 				return null;
 				
 			}
@@ -169,8 +206,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 
 			
 			
-		}.execute();
+		}.execute();*/
 		//async task is done
+
 		adapter = new cutadapter(MainActivity.this,R.layout.listlayout,comment_array);
 		
 		//add pull to refresh
@@ -219,7 +257,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 						// TODO Auto-generated method stub
 						System.out.println("unrun");
 						get_comments("get some comments man!");
-						radius= radius+0.01;
+						radius= radius+0.1;
 						System.out.println("runned");
 						
 						
@@ -240,9 +278,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				int getID = comment_array.get(arg2).master_ID;
+				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
+				//intent1.putExtra("main", comment_array.get(arg2));
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
 				MainActivity.this.startActivity(intent1);
 				//Toast.makeText(MainActivity.this,
@@ -253,7 +292,24 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		});
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
-		
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				get_comments("get some comments");
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				adapter.notifyDataSetChanged();
+			}
+			
+			
+		}.execute();
 	}
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -264,7 +320,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		case R.id.item1:
 			System.out.println("new is clicked");
 			Intent intent = new Intent ();
-			intent.putExtra("number_of_comments",number_of_comments);
+			
 			intent.setClass(MainActivity.this, EnterCommentsActivity.class);
 			startActivityForResult(intent, 1);
 			break;
@@ -275,11 +331,26 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			Intent intent2 = new Intent(MainActivity.this,Playtube.class);
 			intent2.putExtra("lat", current_location.getLatitude());
 			intent2.putExtra("lon", current_location.getLongitude());
-			startActivityForResult(intent2, 7);
-			
+			startActivityForResult(intent2, 7); 
 			break;
-			}
-		
+		case R.id.item3:
+			sortByDate();
+			break;
+		case R.id.item5:
+			Intent intent3 = new Intent(MainActivity.this,Favourite.class);
+			startActivityForResult(intent3, 9);
+			break;
+			
+		case R.id.item7:
+			Intent intent7 = new Intent(MainActivity.this,MainPage.class);
+			user.setUser_name("");
+			user.setUser_location(null);
+			fileSaver.saveInFile(user);
+			startActivity(intent7);
+			break;
+			
+			
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}
@@ -295,37 +366,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		switch (requestCode)
 		{
 		case 1:
-			if (resultCode == RESULT_OK)
-			{
-				number_of_comments++;
-				theid.id_for_master=number_of_comments;
-				System.out.println("zhuyuanzhang"+theid.id_for_master);
-				new Thread(new Runnable(){
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						try {
-							insert(theid);
-						} catch (IllegalStateException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-			}).start();
-	            //wait for 0.5 seconds to finish the thread
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				
 			
-		  }
 			break;
 		case 7:
 			
@@ -354,7 +395,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	
 	
     // insert object into elasticsearch server
-	@Override
+	/*@Override
 	public void insert(IDModel id ) throws IllegalStateException, IOException{
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		StringEntity stringentity = null;
@@ -364,6 +405,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		httpPost.setHeader("Accept", "application/json");
 
@@ -375,7 +424,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			System.out.println("wocao2");
 			response = httpclient.execute(httpPost);
 			System.out.println("wocao1");
-			httpPost.abort();
+			
 			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -385,14 +434,24 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			e.printStackTrace();
 			
 		}
-	}
+		catch (NullPointerException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+		catch (RuntimeException e) {
+			// TODO: handle exception
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+		}
+	}*/
     
 	// get id object from the server
-	@Override
-	public IDModel get_id()
-	{   try{
-		IDModel id_toReturn ;// this is ID object from server
-		HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1/?pretty=1");
+	/*@Override
+	public int get_id()
+	{   IDModel id_toReturn ;// this is ID object from server
+		int id = 0;
+		try{
+		//IDModel id_toReturn ;// this is ID object from server
+		HttpGet httpget = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/lab111/1");
 		httpget.addHeader("Accept","application/json");
 		
 			HttpResponse response = httpclient.execute(httpget);
@@ -405,10 +464,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			ElasticSearchResponse<IDModel> esResponse = gson.fromJson(json, elasticSearchResponseType);
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
-			
+			System.out.println();
 			System.out.println(id_toReturn.id_for_master+"dddddd");
-			httpget.abort();
-			return id_toReturn;
+			id = id_toReturn.id_for_master;
+			
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
 		} catch (ClientProtocolException e) {
@@ -418,8 +477,16 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	return null;
+	      catch (NullPointerException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	    }
+		  catch (RuntimeException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 	}
+	    return id; 
+	}*/
 	
 	/**
 	 * get the http response and return json string
@@ -467,10 +534,11 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		httpPost.setEntity(entity);
 		HttpResponse response = httpclient.execute(httpPost);
 		String json1 = getEntityContent(response);
+		System.out.println(response.getStatusLine().toString()+"status");
 		System.out.println(json1+"holy");
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
-//<<<<<<< HEAD
+
 		for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 			Comments comms = r.getSource();
 
@@ -478,7 +546,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			int flag=0;
 			for (Comments com : comment_array)
 			{ // turn on the flag if object is already inside the arary
-			if(com.master_ID==comms.master_ID)
+			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
 			break;
@@ -487,11 +555,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-			comment_array.add(comms);
+		      comms.setDistance(current_location.distanceTo(comms.getComment_location()));
+			  comment_array.add(comms);
 			}
-
+			Collections.sort(comment_array, new compara());
+			for(Comments com : comment_array)
+			{
+			  System.out.println("distance:"+com.getDistance());
+			}
 		    }
-		httpPost.abort();
+		
+		
 		}
       catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
@@ -501,6 +575,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		// TODO Auto-generated catch block
 		System.out.println("IO exe");
 		e.printStackTrace();}
+	  catch (NullPointerException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	  }
+	catch (RuntimeException e) {
+		// TODO: handle exception
+		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+	}
 	}
 	
 		
@@ -524,7 +606,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				System.out.println("okay123");
 				get_comments("get from server");
 				//comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
-				radius= radius+0.01;
+				radius= radius+0.1;
 				System.out.println("okay1234");
 				return null;
 			}
@@ -553,7 +635,53 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	}
 	
 	
+public void sortByDate(){
+		
+		new AsyncTask<Void, Void, Void>()
+		{
+            
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				dialog1.dismiss();
+				Collections.sort(comment_array,new datesort());
+				Collections.reverse(comment_array);
+				adapter.notifyDataSetChanged();
+			}
+
+			@Override
+			protected void onPreExecute() {
+				// TODO Auto-generated method stub
+				super.onPreExecute();
+				comment_array.clear();
+				dialog1.setTitle("Loading cause your internet is too slow!");
+				dialog1.show();
+			}
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				System.out.println("unrun");
+				get_comments("get some comments man!");
+				
+				radius= radius+0.1;
+				System.out.println("runned");
+				
+				
+				
+				return null;
+			}
+			
+		}.execute();
+
+
+	}
 	
+
+
+
+
 	
 	
 	
