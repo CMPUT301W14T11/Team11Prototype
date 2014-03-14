@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
+import Controller.SubCommentController;
 import Model.Comments;
 import Model.Faviourte;
 import Model.IDModel;
@@ -69,6 +70,8 @@ public class SubCommetsRead extends Activity {
     private LocalFileLoder fileLoder = new LocalFileLoder(this);
     private LocalFileSaver fileSaver = new LocalFileSaver(this);
     private UserModel user;
+    private Comments comment1;
+    private SubCommentController subController = new SubCommentController(comment1);
     //private Comments mainComment;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
 	@Override
@@ -244,7 +247,7 @@ public class SubCommetsRead extends Activity {
 					if(bitmap==null)
 				       { 	   
 				         final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
-				         insertMaster(new_comment);
+				         subController.insertMaster(new_comment, ServerID);
 				         subCoId++;
 				       }
 				       else
@@ -253,7 +256,7 @@ public class SubCommetsRead extends Activity {
 				         String encode_image= convert_image_to_string(bitmap);
 				    	 final
 				    	 Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
-				    	 insertMaster(new_comment);
+				    	 subController.insertMaster(new_comment,ServerID);
 				    	 subCoId++;
 				       }
 					
@@ -388,28 +391,7 @@ public class SubCommetsRead extends Activity {
 		
 	}
 	
-	public void insertMaster(Comments comm)
-	 {
-		 HttpClient httpclient  = new DefaultHttpClient();
-		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+ServerID);
-		 try {
-			StringEntity data = new StringEntity(gson.toJson(comm));
-			httpPost.setEntity(data);
-			httpPost.setHeader("Accept","application/json");
-			HttpResponse response = httpclient.execute(httpPost); 
-			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-	 }
+	
 	public String  convert_image_to_string(Bitmap bitmap)
 	 {
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();  
