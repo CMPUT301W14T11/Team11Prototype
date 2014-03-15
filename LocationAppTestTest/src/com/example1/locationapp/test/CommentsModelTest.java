@@ -1,9 +1,11 @@
 package com.example1.locationapp.test;
 
+import android.test.ActivityInstrumentationTestCase2;
 import Model.Comments;
+import Model.IDModel;
 import junit.framework.TestCase;
 
-public class CommentsModelTest extends TestCase {
+public class CommentsModelTest extends ActivityInstrumentationTestCase2 <IDModel>{
 
 	
 	Comments comments ;
