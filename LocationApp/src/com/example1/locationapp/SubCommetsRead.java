@@ -71,11 +71,7 @@ public class SubCommetsRead extends Activity {
     private LocalFileSaver fileSaver = new LocalFileSaver(this);
     private UserModel user;
     private Comments comment1;
-<<<<<<< HEAD
-    private int mergetest = 111;
-=======
-    private int ggggtest = 1;
->>>>>>> 0b0bd1e975045c383ca737ff2f7ee8307975d9a9
+
     private SubCommentController subController = new SubCommentController(comment1);
     //private Comments mainComment;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
