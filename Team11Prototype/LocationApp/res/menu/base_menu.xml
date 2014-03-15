@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+    <!--
+    You can change this as your requrement. I use this menu Item to navigate bettween
+    fragments. So I can show how ListView,WebView & ScrollView works with
+    ActionBar Pull To Refresh Library
+      -->
+ 
+    <item android:id="@+id/action_listview"
+          android:title="ListView"
+          android:showAsAction="ifRoom|withText" />
+ 
+    <item android:id="@+id/action_webview"
+          android:title="WebView"
+          android:showAsAction="ifRoom|withText" />
+ 
+        <item android:id="@+id/action_scrollview"
+          android:title="ScrollVIew"
+          android:showAsAction="ifRoom|withText" />
+ 
+</menu>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uk.co.senab.actionbarpulltorefresh.library">
+ 
+    <!-- set the minimum sdk version to 11 -->
+     <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+ 
+    <application />
+</manifest>

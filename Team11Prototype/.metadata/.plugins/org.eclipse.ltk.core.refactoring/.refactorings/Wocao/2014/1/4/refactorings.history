@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 6 elements from project &apos;Wocao&apos;&#x0A;- Original project: &apos;Wocao&apos;&#x0A;- Original elements:&#x0A;     gson-2.2.4-javadoc.jar&#x0A;     gson-2.2.4-sources.jar&#x0A;     gson-2.2.4.jar&#x0A;     joda-time-2.3-javadoc.jar&#x0A;     joda-time-2.3-sources.jar&#x0A;     joda-time-2.3.jar" description="Delete elements" element1="libs/gson-2.2.4.jar" element2="libs/joda-time-2.3-sources.jar" element3="libs/joda-time-2.3.jar" element4="libs/gson-2.2.4-javadoc.jar" element5="libs/gson-2.2.4-sources.jar" element6="libs/joda-time-2.3-javadoc.jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="6" stamp="1390690901864" subPackages="false" version="1.0"/>
+</session>

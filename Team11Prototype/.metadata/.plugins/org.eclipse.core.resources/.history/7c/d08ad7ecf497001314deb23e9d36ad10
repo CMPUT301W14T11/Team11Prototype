@@ -1,0 +1,6 @@
+package com.example1.locationapp;
+
+public class ID {
+       public id_for_master;
+       public id_for_sub_comment;
+}
