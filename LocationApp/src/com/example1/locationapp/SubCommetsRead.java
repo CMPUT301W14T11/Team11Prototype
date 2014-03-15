@@ -71,7 +71,11 @@ public class SubCommetsRead extends Activity {
     private LocalFileSaver fileSaver = new LocalFileSaver(this);
     private UserModel user;
     private Comments comment1;
+<<<<<<< HEAD
     private int mergetest = 111;
+=======
+    private int ggggtest = 1;
+>>>>>>> 0b0bd1e975045c383ca737ff2f7ee8307975d9a9
     private SubCommentController subController = new SubCommentController(comment1);
     //private Comments mainComment;
     //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
@@ -177,12 +181,12 @@ public class SubCommetsRead extends Activity {
 		case R.id.fav:
 			user = new UserModel();
 			user = fileLoder.loadFromFile();
-			Comments maincom = comment_list.get(0); 
+			//Comments maincom = comment_list.get(0); 
 			//for (int i =1;i<comment_list.size();i++)
 				//sub.add(comment_list.get(i));
 			
-			FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
-			user.addFaviourte(favi);
+			//FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
+			//user.addFaviourte(favi);
 			fileSaver.saveInFile(user);
 			break;
 			
