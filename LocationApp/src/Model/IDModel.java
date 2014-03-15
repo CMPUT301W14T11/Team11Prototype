@@ -11,7 +11,7 @@ public class IDModel {
 	public int getId_for_master() {
 		return id_for_master;
 	}
-	/*
+	
 	public void setId_for_master(int id_for_master) {
 		this.id_for_master = id_for_master;
 	}
