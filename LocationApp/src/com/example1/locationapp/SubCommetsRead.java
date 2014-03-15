@@ -123,12 +123,6 @@ public class SubCommetsRead extends Activity {
 		gps.showSettingsAlert();
 	}
 			
-		
-	
-	
-			
-    //number = 0;
-    //get comments
 			
     System.out.println("lol"+location);
 			
@@ -168,7 +162,10 @@ public class SubCommetsRead extends Activity {
 	
 	button1.setOnClickListener(new MyButton1Listener());
 	}
-	
+	/**
+	 * there are two sub-munu list which is using for saving favourite and another is 
+	 * using for save, it will help us save the comments and sub-comments in the file.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
