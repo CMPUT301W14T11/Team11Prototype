@@ -21,7 +21,7 @@ import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.SubCommentController;
 import Model.Comments;
-import Model.Faviourte;
+import Model.FavouriteModel;
 import Model.IDModel;
 import Model.UserModel;
 import android.app.Activity;
@@ -173,20 +173,25 @@ public class SubCommetsRead extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		ArrayList<Comments> sub = new ArrayList<Comments>();
-		user = fileLoder.loadFromFile();
+		//user = fileLoder.loadFromFile();
 		switch (item.getItemId())
 		{
 		case R.id.fav:
+			user = new UserModel();
+			user = fileLoder.loadFromFile();
 			Comments maincom = comment_list.get(0); 
-			for (int i =1;i<comment_list.size();i++)
-				sub.add(comment_list.get(i));
+			//for (int i =1;i<comment_list.size();i++)
+				//sub.add(comment_list.get(i));
 			
-			Faviourte favi =  new Faviourte(user.getUser_name(), maincom, sub);
+			FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
 			user.addFaviourte(favi);
 			fileSaver.saveInFile(user);
 			break;
 			
 		case R.id.save:
+			user = new UserModel();
+			user = fileLoder.loadFromFile();
+			fileSaver.saveInFile(user);
 			// this is to start change location activity
 			// request code is 7
 

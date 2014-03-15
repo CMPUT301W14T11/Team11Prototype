@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 
 
-public class Faviourte
+public class FavouriteModel
 {
 	private String username;
 	private Comments comment;
 	private ArrayList<Comments> subcomment = new ArrayList<Comments>();
 	
-	public Faviourte(String username, Comments comment, ArrayList<Comments> subcomment)
+	public FavouriteModel(String username, Comments comment, ArrayList<Comments> subcomment)
 	{
 		this.username=username;
 		this.comment=comment;

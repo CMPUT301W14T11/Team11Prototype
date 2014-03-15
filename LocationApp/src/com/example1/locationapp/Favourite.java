@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Model.Comments;
-import Model.Faviourte;
+import Model.FavouriteModel;
 import Model.UserModel;
 import android.app.Activity;
 import android.content.Context;
@@ -26,7 +26,7 @@ public class Favourite extends Activity
 	private UserModel user;
 	private LocalFileLoder fl =  new LocalFileLoder(this);
 	private LocalFileSaver fs =  new LocalFileSaver(this);
-	private ArrayList<Faviourte> favourite;
+	private ArrayList<FavouriteModel> favourite;
 	private ArrayList<Comments> matchlist;
 	
 	
