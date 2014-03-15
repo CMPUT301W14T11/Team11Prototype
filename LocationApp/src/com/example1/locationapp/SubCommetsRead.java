@@ -2,9 +2,6 @@ package com.example1.locationapp;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -36,7 +33,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,7 +99,7 @@ public class SubCommetsRead extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			comment_list = get_comments(comment_list);
+			get_comments("get some comments man!");
 			return null;
 		}
 
@@ -154,8 +150,7 @@ public class SubCommetsRead extends Activity {
 				@Override
 				protected Void doInBackground(Void... params) {
 					// TODO Auto-generated method stub
-					comment_list=new ArrayList<Comments>();
-					comment_list=get_comments(comment_list);
+					get_comments("get some comments man!");
 					return null;
 				}
 
@@ -182,53 +177,23 @@ public class SubCommetsRead extends Activity {
 		switch (item.getItemId())
 		{
 		case R.id.fav:
-			try{
-				FileOutputStream fafos = openFileOutput("savefa.txt", Context.MODE_PRIVATE);
-				user = new UserModel();
-				user = fileLoder.loadFromFile();
-				Comments maincom = comment_list.get(0); 
+			user = new UserModel();
+			user = fileLoder.loadFromFile();
+			Comments maincom = comment_list.get(0); 
+			//for (int i =1;i<comment_list.size();i++)
+				//sub.add(comment_list.get(i));
 			
-				FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
-				user.addFaviourte(favi);
-				Gson gson = new Gson();
-				String json =  gson.toJson(user);
-				fafos.write(json.getBytes());
-				fafos.write("\n".getBytes());
-				fafos.close();
-			}catch (FileNotFoundException e){
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
+			user.addFaviourte(favi);
+			fileSaver.saveInFile(user);
 			break;
 			
 		case R.id.save:
-			try{
-				String ss ="";
-				Gson gson = new Gson();
-				FileInputStream fis = openFileInput("savefa.txt");
-				BufferedReader er = new BufferedReader(new InputStreamReader(fis));
-				ss= er.readLine();
-				Log.v("PRNT JSON",ss);
-				while (ss != null ){
-					UserModel user_save = gson.fromJson(ss,UserModel.class);
-					//String texti = datas.getText();
-					//myIteam.add(texti);
-					ss= er.readLine();
-				}
-			}
-			catch (FileNotFoundException e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}catch (IOException e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-			
+			user = new UserModel();
+			user = fileLoder.loadFromFile();
+			fileSaver.saveInFile(user);
+			// this is to start change location activity
+			// request code is 7
 
 			break;
 			
@@ -454,7 +419,7 @@ public class SubCommetsRead extends Activity {
 		return json;
 	}
 	
-	public  ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1)
+	public  void get_comments(String url)
 	{
 	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
@@ -477,25 +442,25 @@ public class SubCommetsRead extends Activity {
 
 			//check weath the comment if already in the arraylist, if not then add it in there
 			int flag=0;
-			for (Comments com : comment_list1)
+			for (Comments com : comment_list)
 			{ // turn on the flag if object is already inside the arary
 			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
-			comment_list1.add(comms);
+			comment_list.add(comms);
 			break;
 			}
 			}
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-			comment_list1.add(comms);
+			comment_list.add(comms);
 			}
 
 		    }
 		//System.out.println(comment_list.size()+"size"+ServerID);
 		
-		//return comment_list1;
+
 		    
 		}
       catch (ClientProtocolException e) {
@@ -506,7 +471,6 @@ public class SubCommetsRead extends Activity {
 		// TODO Auto-generated catch block
 		System.out.println("IO exe");
 		e.printStackTrace();}
-	return comment_list1;
 	}
 	
 	
