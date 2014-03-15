@@ -25,8 +25,7 @@ public class CommentsModelTest extends ActivityInstrumentationTestCase2<EnterCom
 	
 	public void testComments()
 	{
-		comments.getDistance();
-		assertEquals(0, comments.getMaster_ID());
+
 	}
 
 	protected void tearDown() throws Exception {

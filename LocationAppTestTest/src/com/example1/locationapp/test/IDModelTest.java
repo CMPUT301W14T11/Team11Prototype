@@ -1,5 +1,7 @@
 package com.example1.locationapp.test;
 
+import java.util.ArrayList;
+
 import com.example1.locationapp.EnterCommentsActivity;
 import com.example1.locationapp.MainActivity;
 import com.example1.locationapp.SubCommetsRead;
@@ -26,23 +28,30 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 		// TODO Auto-generated constructor stub
 	}
 
-	Comments comment1, comment2;
-	IDModel idmodel;
-	SubCommentController eca =  new SubCommentController(comment1);
-	SubCommetsRead scr =  new SubCommetsRead();
+	Comments comment1, comment2 ;
+	SubCommetsRead iDModel = new SubCommetsRead();
+	SubCommentController subCon= new SubCommentController(comment1);
+	int matchCheck;
 
 	
 	protected void setUp() throws Exception { 
 		super.setUp();
-		comment1 = new Comments(0, 0, 0, 0, null, null, null, null, 0, 0);
+		comment1 = new Comments(0, 0, 0, 0, null, "IDMODEL", null, null, 0, 0,null);
+		comment2 = new Comments(0, 0, 1, 0, null, "IDMODEL", null, null, 0, 0,null);
 
-		eca.insertMaster(comment1, 0);
+		subCon.insertMaster(comment1, 0);
+		matchCheck = iDModel.get_id() + 1;
+		subCon.insertMaster(comment2, 1);
+		
 	}
-	
-	public void testGetId_for_master()
+	/**
+	 * for method insertMater(comment, number),comment is the comment insert to server
+	 * number is total comment 
+	 */
+	public void testGetIDMethod()
 	{
 
-		assertEquals(0, scr.get_id());
+		assertEquals(matchCheck, iDModel.get_id());
 
 	}
 

@@ -7,7 +7,7 @@ import android.location.Location;
 public class UserModel {
     private String user_name;
     private Location user_location;
-    private ArrayList<Faviourte> faviourte = new ArrayList<Faviourte>();
+    private ArrayList<FavouriteModel> faviourte = new ArrayList<FavouriteModel>();
     
     public UserModel(String user_name, Location user_location)
     {
@@ -18,7 +18,8 @@ public class UserModel {
     
     public UserModel()
     {
-    	
+    	user_name = "";
+    	user_location=null;
     }
 
 	public String getUser_name()
@@ -49,13 +50,13 @@ public class UserModel {
 	}
 
 	
-	public ArrayList<Faviourte> getFaviourte()
+	public ArrayList<FavouriteModel> getFaviourte()
 	{
 	
 		return faviourte;
 	}
 	
-	public void addFaviourte(Faviourte f)
+	public void addFaviourte(FavouriteModel f)
 	{
 		faviourte.add(f);
 	}

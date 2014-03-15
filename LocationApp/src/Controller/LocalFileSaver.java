@@ -34,13 +34,14 @@ public class LocalFileSaver
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME,
 					Context.MODE_PRIVATE);
-			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+			//BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 			String json = gson.toJson(user);
 			//fos.write(new String(date.toString() + " | " + text)
 				//	.getBytes());
-			out.write(json+ "\n");
+			fos.write(json.getBytes());
+			fos.write("\n".getBytes());
 			Log.v("JSON======",json);
-			out.close();
+			//out.close();
 			fos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 
 import Model.UserModel;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -52,10 +53,11 @@ public class LocalFileLoder
                 FileInputStream fis = context.openFileInput(FILENAME);
                 BufferedReader in = new BufferedReader(new InputStreamReader(fis));
                 String line = in.readLine();
-                while (line != null) {
+                Log.v("output>>>>>>>>>>>>>>",line);
+                //while (line != null) {
                 	um = gson.fromJson(line, UserModel.class);                       
-                        line = in.readLine();
-                }
+                 //   line = in.readLine();
+                //}
 
         } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
