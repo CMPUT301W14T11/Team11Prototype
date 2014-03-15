@@ -150,6 +150,7 @@ public class SubCommetsRead extends Activity {
 				@Override
 				protected Void doInBackground(Void... params) {
 					// TODO Auto-generated method stub
+					comment_list=new ArrayList<Comments>();
 					comment_list=get_comments(comment_list);
 					return null;
 				}
