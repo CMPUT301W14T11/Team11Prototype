@@ -1,7 +1,0 @@
-package com.example1.locationapp;
-
-import ca.ualberta.cs.CMPUT301.chenlei.ESClient;
-
-public class Ela extends ESClient{
-
-}

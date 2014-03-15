@@ -1,5 +1,0 @@
-ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.jdt.ui.presentation
-ColorsAndFontsPreferencePage.selectedElement=Forg.eclipse.jdt.ui.editors.textfont
-eclipse.preferences.version=1
-org.eclipse.jface.textfont=1|Monospace|12.0|0|GTK|1|;
-org.eclipse.ui.commands=<?xml version\="1.0" encoding\="UTF-8"?>\n<org.eclipse.ui.commands>\n<keyBinding contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="ALT+SHIFT+A R"/>\n<keyBinding commandId\="com.android.ide.eclipse.adt.launch.LaunchShortcut.run" contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+Q"/>\n</org.eclipse.ui.commands>
