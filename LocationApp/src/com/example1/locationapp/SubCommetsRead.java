@@ -452,14 +452,8 @@ public class SubCommetsRead extends Activity {
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-<<<<<<< HEAD
-	
 
-			comment_list1.add(comms);
-
-=======
 			comment_list.add(comms);
->>>>>>> cc9424ba7ebde56d835d69b21de1b53f65cb4437
 			}
 
 		    }

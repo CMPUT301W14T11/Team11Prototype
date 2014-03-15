@@ -15,12 +15,6 @@ public class IDModel {
 	public void setId_for_master(int id_for_master) {
 		this.id_for_master = id_for_master;
 	}
-	/*
-	public int getId_for_sub_comment() {
-		return id_for_sub_comment;
-	}
-	public void setId_for_sub_comment(int id_for_sub_comment) {
-		this.id_for_sub_comment = id_for_sub_comment;
-	}*/
+
      
 }

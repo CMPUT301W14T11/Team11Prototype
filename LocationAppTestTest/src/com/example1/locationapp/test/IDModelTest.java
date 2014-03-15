@@ -27,21 +27,13 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 		super(SubCommetsRead.class);
 		// TODO Auto-generated constructor stub
 	}
-
-	Comments comment1, comment2 ;
-	SubCommetsRead iDModel = new SubCommetsRead();
-	SubCommentController subCon= new SubCommentController(comment1);
-	int matchCheck;
-
+	private int testModel = 2;
+	private IDModel model = new IDModel(testModel);
 	
 	protected void setUp() throws Exception { 
 		super.setUp();
-		comment1 = new Comments(0, 0, 0, 0, null, "IDMODEL", null, null, 0, 0,null);
-		comment2 = new Comments(0, 0, 1, 0, null, "IDMODEL", null, null, 0, 0,null);
+		
 
-		subCon.insertMaster(comment1, 0);
-		matchCheck = iDModel.get_id() + 1;
-		subCon.insertMaster(comment2, 1);
 		
 	}
 	/**
@@ -51,7 +43,20 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 	public void testGetIDMethod()
 	{
 
-		assertEquals(matchCheck, iDModel.get_id());
+		IDModel getTest = new IDModel(testModel);
+		assertEquals("2 should equal to 2",2, getTest.getId_for_master());
+
+	}
+	/**
+	 * for method insertMater(comment, number),comment is the comment insert to server
+	 * number is total comment 
+	 */
+	public void testSetIDMethod()
+	{
+		IDModel setTest = new IDModel(testModel);
+		setTest.setId_for_master(testModel+1);
+
+		assertEquals("3 should equal to 3",3, setTest.getId_for_master());
 
 	}
 
