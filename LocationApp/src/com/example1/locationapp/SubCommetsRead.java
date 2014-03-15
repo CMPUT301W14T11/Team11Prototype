@@ -2,6 +2,9 @@ package com.example1.locationapp;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -33,6 +36,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -178,23 +182,53 @@ public class SubCommetsRead extends Activity {
 		switch (item.getItemId())
 		{
 		case R.id.fav:
-			user = new UserModel();
-			user = fileLoder.loadFromFile();
-			Comments maincom = comment_list.get(0); 
-			//for (int i =1;i<comment_list.size();i++)
-				//sub.add(comment_list.get(i));
+			try{
+				FileOutputStream fafos = openFileOutput("savefa.txt", Context.MODE_PRIVATE);
+				user = new UserModel();
+				user = fileLoder.loadFromFile();
+				Comments maincom = comment_list.get(0); 
 			
-			FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
-			user.addFaviourte(favi);
-			fileSaver.saveInFile(user);
+				FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
+				user.addFaviourte(favi);
+				Gson gson = new Gson();
+				String json =  gson.toJson(user);
+				fafos.write(json.getBytes());
+				fafos.write("\n".getBytes());
+				fafos.close();
+			}catch (FileNotFoundException e){
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			break;
 			
 		case R.id.save:
-			user = new UserModel();
-			user = fileLoder.loadFromFile();
-			fileSaver.saveInFile(user);
-			// this is to start change location activity
-			// request code is 7
+			try{
+				String ss ="";
+				Gson gson = new Gson();
+				FileInputStream fis = openFileInput("savefa.txt");
+				BufferedReader er = new BufferedReader(new InputStreamReader(fis));
+				ss= er.readLine();
+				Log.v("PRNT JSON",ss);
+				while (ss != null ){
+					UserModel user_save = gson.fromJson(ss,UserModel.class);
+					//String texti = datas.getText();
+					//myIteam.add(texti);
+					ss= er.readLine();
+				}
+			}
+			catch (FileNotFoundException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}catch (IOException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
 
 			break;
 			

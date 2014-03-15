@@ -164,9 +164,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		}
 
 		
-		user = fileLoader.loadFromFile();
-		fileSaver.saveInFile(user);
-		user = fileLoader.loadFromFile();
+		//user = fileLoader.loadFromFile();
+		//fileSaver.saveInFile(user);
+		//user = fileLoader.loadFromFile();
 		//fileSaver.saveInFile(user);
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
