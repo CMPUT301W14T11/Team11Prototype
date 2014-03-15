@@ -99,7 +99,7 @@ public class SubCommetsRead extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			get_comments("get some comments man!");
+			comment_list = get_comments(comment_list);
 			return null;
 		}
 
@@ -150,7 +150,8 @@ public class SubCommetsRead extends Activity {
 				@Override
 				protected Void doInBackground(Void... params) {
 					// TODO Auto-generated method stub
-					get_comments("get some comments man!");
+					comment_list=new ArrayList<Comments>();
+					comment_list=get_comments(comment_list);
 					return null;
 				}
 
@@ -419,7 +420,7 @@ public class SubCommetsRead extends Activity {
 		return json;
 	}
 	
-	public  void get_comments(String url)
+	public  ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1)
 	{
 	HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 	//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
@@ -442,25 +443,25 @@ public class SubCommetsRead extends Activity {
 
 			//check weath the comment if already in the arraylist, if not then add it in there
 			int flag=0;
-			for (Comments com : comment_list)
+			for (Comments com : comment_list1)
 			{ // turn on the flag if object is already inside the arary
 			if(com.getMaster_ID()==comms.getMaster_ID())
 			{
 			flag =1 ;
-			comment_list.add(comms);
+			comment_list1.add(comms);
 			break;
 			}
 			}
 			// if flag not turned on then add the object into the arraylsit
 			if (flag==0)
 			{
-			comment_list.add(comms);
+			comment_list1.add(comms);
 			}
 
 		    }
 		//System.out.println(comment_list.size()+"size"+ServerID);
 		
-
+		//return comment_list1;
 		    
 		}
       catch (ClientProtocolException e) {
@@ -471,6 +472,7 @@ public class SubCommetsRead extends Activity {
 		// TODO Auto-generated catch block
 		System.out.println("IO exe");
 		e.printStackTrace();}
+	return comment_list1;
 	}
 	
 	
