@@ -4,30 +4,71 @@ import java.util.ArrayList;
 
 import Controller.SubCommentController;
 import Model.Comments;
+import android.provider.Settings.System;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.SubCommetsRead;
 
 public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommetsRead> {
-	private Comments cc;
-	private SubCommetsRead subComments; //= new SubCommetsRead();
-	//private SubCommentController subCont = new SubCommentController(cc);
-	private ArrayList<Comments>comTest;
-	//Comments comm ;
 	public SubCommentsTest() {
 		super(SubCommetsRead.class);
+		// TODO Auto-generated constructor stub
 	}
 
+
+	Comments comments ;
+	SubCommetsRead subc = new SubCommetsRead();
+	ArrayList<Comments> comm = new ArrayList<Comments>();
+	SubCommentController subCon= new SubCommentController(comments);
 	protected void setUp() throws Exception {
 		super.setUp();
-		comTest = new ArrayList<Comments>();
-		//comm = new Comments(0, 0, 0, 0, null, null, null, null, 0, 0);
+		comments = new Comments(0, 0, 0, 0, "hello", "sub", null, null, 0, 0,null);
+		subCon.insertMaster(comments, 0);
 	}
-	public void subGetInsertCommentsTest(){
-		//subCont.insertMaster(comm, 0);
-		comTest=subComments.get_comments(comTest);
-		System.out.println("bag"+comTest);
-		assertNotNull(comTest);
-		
+	/*
+	* Tests if we can get ID of the above comments;
+	*/
+	public void testSubComments()
+	{
+		assertEquals(0, comments.getMaster_ID());
+	}
+	/*
+	* Tests if get_id() function can be used to find out the amount of comments, the number should not be 0 after insert a subcomments
+	*/
+	public void testGetID()
+	{
+		assertNotSame(0, subc.get_id());
+	}
+	/*
+	* Tests if we can get ID of the above comments;
+	*/
+	public void testGetSubComments()
+	{
+		//comm=subc.get_comments(comm);
+		//assertNotSame(0,comm.size());
+	}
+	public void testGetSub_comments_id(){
+		assertEquals(0,comments.getSub_comments_ID());
+	}
+	public void testGetSub_ID(){
+		assertEquals(0, comments.getSub_ID());
+	}
+	public void testTheComment(){
+		assertEquals("hello", comments.getThe_comment());
+	}
+	public void testSubject_comment(){
+		assertEquals("sub", comments.getSubject_comment());
+	}
+	public void testDate(){
+		assertEquals(null,comments.getComment_date());
+	}
+	public void testLocation(){
+		assertEquals(null,comments.getComment_location());
+	}
+	public void testGetDistance(){
+		assertEquals(0,comments.getDistance());
+	}
+	protected void tearDown() throws Exception {
+		super.tearDown();
 	}
 }
