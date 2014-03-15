@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+    
+    
+    <item android:id="@+id/item1" android:visible="true" android:enabled="true" android:title="NEW" android:showAsAction="always" android:orderInCategory="1"></item>
+    <item android:id="@+id/item2" android:visible="true" android:enabled="true" android:title="Location" android:showAsAction="always" android:orderInCategory="2"></item>
+    <item android:id="@+id/item3" android:title="sort by date" android:showAsAction="never"></item>
+    <item android:id="@+id/item4" android:title="sort by pic" android:showAsAction="never"></item>
+    <item android:id="@+id/item5" android:showAsAction="never" android:title="my favourite"></item>
+    <item android:id="@+id/item6" android:title="my save" android:showAsAction="never"></item>
+    <item android:id="@+id/item7" android:title="logout" android:showAsAction="never"></item>
+
+</menu>

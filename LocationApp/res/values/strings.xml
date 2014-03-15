@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LocationApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_enter_comments">EnterCommentsActivity</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
+    <string name="title_activity_chose_image">ChoseImageActivity</string>
+    <string name="title_activity_play_tube">PlayTube</string>
+    <string name="title_activity_sub_commets_read">SubCommetsRead</string>
+    <string name="title_activity_main_page">MainPage</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_favourite">Favourite</string>
+
+</resources>

@@ -1,0 +1,15 @@
+package com.example1.locationapp;
+
+import android.location.Location;
+
+public class user {
+    String user_name;
+    String user_pwd;
+    Location user_location;
+    int user_ID;
+    public user
+	
+	
+	
+	
+}
