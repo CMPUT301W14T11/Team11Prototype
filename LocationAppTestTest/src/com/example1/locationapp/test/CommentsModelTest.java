@@ -3,17 +3,15 @@ package com.example1.locationapp.test;
 import com.example1.locationapp.MainActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.AndroidTestCase;
 import Model.Comments;
-import junit.framework.TestCase;
 
 public class CommentsModelTest extends ActivityInstrumentationTestCase2<MainActivity>{
 
 	
 	
 
-	public CommentsModelTest(Class<MainActivity> activityClass) {
-		super(activityClass);
+	public CommentsModelTest() {
+		super(MainActivity.class);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +19,6 @@ public class CommentsModelTest extends ActivityInstrumentationTestCase2<MainActi
 	protected void setUp() throws Exception {
 		super.setUp();
 		comments = new Comments(0, 0, 0, 0, null, null, null, null, 0, 0);
-		
 	}
 	
 	public void testComments()
