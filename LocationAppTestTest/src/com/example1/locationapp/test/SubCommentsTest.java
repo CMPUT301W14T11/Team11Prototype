@@ -27,21 +27,21 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 		comments = new Comments(0, 0, 0, 0, "hello", "sub", date, null, 0, 0,null);
 		subCon.insertMaster(comments, 0);
 	}
-	/*
+	/**
 	* Tests if we can get ID of the above comments;
 	*/
 	public void testSubComments()
 	{
 		assertEquals(0, comments.getMaster_ID());
 	}
-	/*
+	/**
 	* Tests if get_id() function can be used to find out the amount of comments, the number should not be 0 after insert a subcomments
 	*/
 	public void testGetID()
 	{
 		assertNotSame(0, subc.get_id());
 	}
-	/*
+	/**
 	* Tests if we can get ID of the above comments;
 	*/
 	public void testGetSubComments()

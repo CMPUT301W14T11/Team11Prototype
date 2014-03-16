@@ -38,10 +38,12 @@ public class Favourite extends Activity
 		content=this;
 		setContentView(R.layout.activity_favourite);
 		matchlist= new ArrayList<Comments>();
-		populateListView();// put the result into the view list. 
-		//registerClickCallback(); // to able click the view list.
+		populateListView();
 	}
-
+    /** 
+     * load the comment and sub-comment from the local saving file, and the result
+     * into the list of view.
+     */
 	private void populateListView()
 	{
 		user = fl.loadFromFile();
@@ -71,7 +73,9 @@ public class Favourite extends Activity
 
 		
 	}
-
+/**
+ * is working for when you click the list of view.
+ */
 	private void registerClickCallback()
 	{
 		ListView list = (ListView) findViewById(R.id.favouritelist);

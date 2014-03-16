@@ -54,10 +54,10 @@ public class LocalFileLoder
                 BufferedReader in = new BufferedReader(new InputStreamReader(fis));
                 String line = in.readLine();
                 Log.v("output>>>>>>>>>>>>>>",line);
-                //while (line != null) {
+                while (line != null) {
                 	um = gson.fromJson(line, UserModel.class);                       
-                 //   line = in.readLine();
-                //}
+                    line = in.readLine();
+                }
 
         } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
