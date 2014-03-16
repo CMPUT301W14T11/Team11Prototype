@@ -14,7 +14,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.test.ActivityInstrumentationTestCase2;
 
-
+/**
+ * in this IDModelTest getId_for_master() and setId_for_mater() will be
+ * tested.
+ * @author qyu4
+ *
+ */
 
 public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead>{
 
@@ -31,14 +36,11 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 	private IDModel model = new IDModel(testModel);
 	
 	protected void setUp() throws Exception { 
-		super.setUp();
-		
-
-		
+		super.setUp();	
 	}
 	/**
-	 * for method insertMater(comment, number),comment is the comment insert to server
-	 * number is total comment 
+	 * Initialize testModel as 2 and initialize a IDModel with 2.
+	 * getID will be checked correct if getId_for_master returns 2.
 	 */
 	public void testGetIDMethod()
 	{
@@ -48,8 +50,9 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 
 	}
 	/**
-	 * for method insertMater(comment, number),comment is the comment insert to server
-	 * number is total comment 
+	 * Initialize testModel as 2 and initialize a IDModel with 2.
+	 * using setId_forMaster method to set an id to be testModel+1. 
+	 * if getId_for_master is correct, then getId_for_master will return 3.
 	 */
 	public void testSetIDMethod()
 	{
