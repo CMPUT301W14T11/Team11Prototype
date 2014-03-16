@@ -1,6 +1,7 @@
 package com.example1.locationapp.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import Controller.SubCommentController;
 import Model.Comments;
@@ -20,9 +21,10 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 	SubCommetsRead subc = new SubCommetsRead();
 	ArrayList<Comments> comm = new ArrayList<Comments>();
 	SubCommentController subCon= new SubCommentController(comments);
+	Date date = new Date();
 	protected void setUp() throws Exception {
 		super.setUp();
-		comments = new Comments(0, 0, 0, 0, "hello", "sub", null, null, 0, 0,null);
+		comments = new Comments(0, 0, 0, 0, "hello", "sub", date, null, 0, 0,null);
 		subCon.insertMaster(comments, 0);
 	}
 	/*
@@ -47,27 +49,45 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 		//comm=subc.get_comments(comm);
 		//assertNotSame(0,comm.size());
 	}
+	/*
+	* Tests if we can get Sub comments ID of the above comments;
+	*/
 	public void testGetSub_comments_id(){
 		assertEquals(0,comments.getSub_comments_ID());
 	}
+	/*
+	* Tests if we can get SubID of the above comments;
+	*/
 	public void testGetSub_ID(){
 		assertEquals(0, comments.getSub_ID());
 	}
+	/*
+	* Tests if we can the title of the above comments;
+	*/
 	public void testTheComment(){
 		assertEquals("hello", comments.getThe_comment());
 	}
+	/*
+	* Tests if we can get the subject of the above comments;
+	*/
 	public void testSubject_comment(){
 		assertEquals("sub", comments.getSubject_comment());
 	}
+	/*
+	* Tests if we can get Date of the above comments;
+	*/
 	public void testDate(){
-		assertEquals(null,comments.getComment_date());
+		assertEquals(date,comments.getComment_date());
 	}
+	/*
+	* Tests if we can get location of the above comments;
+	*/
 	public void testLocation(){
 		assertEquals(null,comments.getComment_location());
 	}
-	public void testGetDistance(){
-		assertEquals(0,comments.getDistance());
-	}
+	/*
+	* Tests if we can get Distance of the above comments;
+	*/
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
