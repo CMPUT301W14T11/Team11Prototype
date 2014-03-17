@@ -21,6 +21,7 @@ import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.SubCommentController;
 import Model.Comments;
+import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.IDModel;
 import Model.UserModel;
@@ -178,12 +179,15 @@ public class SubCommetsRead extends Activity {
 		case R.id.fav:
 			user = new UserModel();
 			user = fileLoder.loadFromFile();
+			FavouriteComment fc = new FavouriteComment();
+			fc.setText(comment_list.get(0).getThe_comment());
+			fc.setTitle(comment_list.get(0).getSubject_comment());
 			//Comments maincom = comment_list.get(0); 
 			//for (int i =1;i<comment_list.size();i++)
 				//sub.add(comment_list.get(i));
 			
-			//FavouriteModel favi =  new FavouriteModel(user.getUser_name(), maincom, sub);
-			//user.addFaviourte(favi);
+			FavouriteModel favi =  new FavouriteModel(user.getUser_name(),fc, null);
+			user.addFaviourte(favi);
 			fileSaver.saveInFile(user);
 			break;
 			

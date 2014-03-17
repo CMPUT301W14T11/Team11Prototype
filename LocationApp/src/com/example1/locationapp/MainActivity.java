@@ -155,6 +155,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		}
 		else
 		{
+			user = new UserModel();
 			user = fileLoader.loadFromFile();
 			 user.setUser_name(name);
 			   // user.setUser_location(current_location);
@@ -162,10 +163,10 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		}
 
 		
-		//user = fileLoader.loadFromFile();
-		//fileSaver.saveInFile(user);
-		//user = fileLoader.loadFromFile();
-		//fileSaver.saveInFile(user);
+		user = fileLoader.loadFromFile();
+		fileSaver.saveInFile(user);
+		user = fileLoader.loadFromFile();
+		fileSaver.saveInFile(user);
 		// start a httpclient for connecting to server
 		//System.out.println("lat="+current_location.getLatitude());
 		httpclient= new DefaultHttpClient();

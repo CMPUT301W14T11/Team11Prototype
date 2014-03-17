@@ -2,19 +2,11 @@ package Model;
 
 import java.util.ArrayList;
 
-import android.location.Location;
-
 public class UserModel {
-    private String user_name;
+    
    //private Location user_location;
     private ArrayList<FavouriteModel> faviourte = new ArrayList<FavouriteModel>();
-    
-    public UserModel(String user_name, Location user_location)
-    {
-    	//this.user_location = user_location;
-    	this.user_name= user_name;
-
-    }
+    private String user_name;
     
     public UserModel()
     {

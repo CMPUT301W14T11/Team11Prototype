@@ -7,22 +7,22 @@ import java.util.ArrayList;
 public class FavouriteModel
 {
 	private String username;
-	private Comments comment;
-	private ArrayList<Comments> subcomment = new ArrayList<Comments>();
+	private FavouriteComment comment;
+	private ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
 	
-	public FavouriteModel(String username, Comments comment, ArrayList<Comments> subcomment)
+	public FavouriteModel(String username, FavouriteComment comment, ArrayList<FavouriteComment> subcomment)
 	{
 		this.username=username;
 		this.comment=comment;
 		this.subcomment=subcomment;
 	}
 	
-	/*public void addSubComment(Comments sub)
+	public void addSubComment(FavouriteComment sub)
 	{
 		subcomment.add(sub);
 	}
-	*/
-	public ArrayList<Comments> getSubComment()
+	
+	public ArrayList<FavouriteComment> getSubComment()
 	{
 		return subcomment;
 	}
@@ -39,14 +39,14 @@ public class FavouriteModel
 	}
 
 	
-	public Comments getComment()
+	public FavouriteComment getComment()
 	{
 	
 		return comment;
 	}
 
 	
-	public void setFaviourte(Comments faviourte)
+	public void setFaviourte(FavouriteComment faviourte)
 	{
 	
 		this.comment = faviourte;

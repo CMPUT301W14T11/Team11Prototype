@@ -17,10 +17,7 @@ public class LocalFileLoder
 {
 
 	private static final String FILENAME = "fav1.sav";
-	/**
-	 * @uml.property  name="counter"
-	 * @uml.associationEnd  
-	 */
+
 
 	private Gson gson = new Gson();
 	private Context context;

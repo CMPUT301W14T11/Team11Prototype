@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
-import Model.Comments;
+import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.UserModel;
 import android.app.Activity;
@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +26,12 @@ public class Favourite extends Activity
 	private LocalFileLoder fl =  new LocalFileLoder(this);
 	private LocalFileSaver fs =  new LocalFileSaver(this);
 	private ArrayList<FavouriteModel> favourite;
-	private ArrayList<Comments> matchlist;
-	
+    private ArrayList<FavouriteComment> matchlist;
+    private FavouriteComment fc;
+	//private ArrayList<String> matchlist = new ArrayList<String>();
+	//private ArrayAdapter<String> adapter;
+	private CustomAdapter adapter;
+	private ListView list;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -37,7 +40,8 @@ public class Favourite extends Activity
 		super.onCreate(savedInstanceState);
 		content=this;
 		setContentView(R.layout.activity_favourite);
-		matchlist= new ArrayList<Comments>();
+		matchlist= new ArrayList<FavouriteComment>();
+		
 		populateListView();
 	}
     /** 
@@ -46,31 +50,31 @@ public class Favourite extends Activity
      */
 	private void populateListView()
 	{
+		user = new UserModel();
 		user = fl.loadFromFile();
+		
+		
+		
+		list = (ListView) findViewById(R.id.favouritelist);
+
 		
 		
 		String username = user.getUser_name();
 		favourite = user.getFaviourte();
 		int len = favourite.size();
-			
+		
 		for (int i = 0; i<len; i++)
 		{
 			if (username.equals(favourite.get(i).getUsername()))
 			{
 				matchlist.add(favourite.get(i).getComment());
+				//matchlist.add(favourite.get(i).getUsername());
+				
 			}
 		}
-		
 
-		ArrayAdapter<Comments> adapter = new ArrayAdapter<Comments>(
-				this,
-				R.layout.listlayout,
-				matchlist);
-		
-		ListView list = (ListView) findViewById(R.id.favouritelist);
-
+		adapter = new CustomAdapter(this, R.layout.listlayout, matchlist);
 		list.setAdapter(adapter);
-
 		
 	}
 /**

@@ -16,13 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 // custom listview adapter for making a listview adapter
-public class cutadapter extends ArrayAdapter<Comments>{
-	private ArrayList<Comments> entries;
+public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
+	private ArrayList<FavouriteComment> fc;
     private Activity activity;
  
-    public cutadapter(Activity a, int textViewResourceId, ArrayList<Comments> entries) {
+    public CustomAdapter(Activity a, int textViewResourceId, ArrayList<FavouriteComment> entries) {
         super(a, textViewResourceId, entries);
-        this.entries = entries;
+        this.fc = entries;
         this.activity = a;
     }
     
@@ -55,25 +55,25 @@ public class cutadapter extends ArrayAdapter<Comments>{
         else
             holder=(ViewHolder)v.getTag();
  
-        final Comments custom = entries.get(position);
+        final FavouriteComment custom = fc.get(position);
         if (custom != null) {
-            holder.item1.setText(custom.getThe_comment());
-            holder.item2.setText(custom.getSubject_comment());
-            holder.item3.setText("Location:"+custom.getDistance()+"");
-            holder.item4.setText(custom.getComment_date().toString());
-            if(custom.getImage_encode()!=null)
-            {   
-            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-            	byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
-            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-            	
-            	if(bitmap!=null)
-                {
-                	custom.setComment_image(bitmap);
-                	holder.imageview.setImageBitmap(custom.getComment_image());
-                    System.out.println("imageset");            
-                }
-            }
+            holder.item1.setText(custom.getTitle());
+            holder.item2.setText(custom.getText());
+           // holder.item3.setText("Location:"+custom.getDistance()+"");
+           // holder.item4.setText(custom.getComment_date().toString());
+//            if(custom.getTitle()!=null)
+//            {   
+//            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
+//            	byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
+//            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+//            	
+//            	if(bitmap!=null)
+//                {
+//                	custom.setComment_image(bitmap);
+//                	holder.imageview.setImageBitmap(custom.getComment_image());
+//                    System.out.println("imageset");            
+//                }
+//            }
             
         }
         return v;
@@ -87,5 +87,6 @@ public class cutadapter extends ArrayAdapter<Comments>{
     
  
     
+
 
 
