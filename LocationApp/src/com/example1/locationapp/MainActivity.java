@@ -3,7 +3,6 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +18,6 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
-import Controller.CommentSort;
 import Controller.IDController;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
@@ -152,14 +150,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		if (!fileLoader.exist())
 		{   user = new UserModel();
 		    user.setUser_name(name);
-		    user.setUser_location(current_location);
+		    //user.setUser_location(current_location);
 			fileSaver.saveInFile(user);
 		}
 		else
 		{
 			user = fileLoader.loadFromFile();
 			 user.setUser_name(name);
-			    user.setUser_location(current_location);
+			   // user.setUser_location(current_location);
 				fileSaver.saveInFile(user);
 		}
 
@@ -355,7 +353,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		case R.id.item7:
 			Intent intent7 = new Intent(MainActivity.this,MainPage.class);
 			user.setUser_name("");
-			user.setUser_location(null);
+			//user.setUser_location(null);
 			fileSaver.saveInFile(user);
 			startActivity(intent7);
 			break;
