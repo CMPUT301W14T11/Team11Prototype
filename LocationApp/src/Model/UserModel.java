@@ -8,6 +8,7 @@ public class UserModel {
     private ArrayList<FavouriteModel> faviourte = new ArrayList<FavouriteModel>();
     private String user_name;
     
+ 
     public UserModel()
     {
     	user_name = "";
