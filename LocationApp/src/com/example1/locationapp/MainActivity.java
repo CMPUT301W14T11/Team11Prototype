@@ -67,23 +67,13 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
-//<<<<<<< HEAD
-    //private LocalFileSaver fileSaver;
-    //private LocalFileLoder fileLoader;
-    
-    
+
     public int mode = 0;
-//=======
+
     LocalFileSaver fileSaver = new LocalFileSaver(this);
     LocalFileLoder fileLoader = new LocalFileLoder(this);
-    private UserModel user; 
-//>>>>>>> 3432a6bad123258955bb26884ad307d3bab0b2e9
-    
-    
-    //private EnterCommentsActivity callEnterComments = new EnterCommentsActivity();
+    private UserModel user;
 
-    //InternetChecker internetChecker;
-    // request code for startActivityForResult are:
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
     private PullToRefreshLayout mPullToRefreshLayout;
 	@Override
@@ -176,46 +166,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		
 		
 		gson = new Gson();
-		//using async task to get ID object form server
-		/*new AsyncTask<Void,Void,Void>()
-		{
-			@Override
-			protected void onPreExecute() {
-				// TODO Auto-generated method stub
-				dialog1.setTitle("Loading cause your internet is too slow!");
-				dialog1.show();
-				super.onPreExecute();
-			}
-			@Override
-			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
-				try{
-				
-				    number_of_comments = get_id();
-				    theid.id_for_master=number_of_comments;
-				}
-				catch(NullPointerException e)
-				{
-					System.out.println("can't get id object");
-					
-				}
-				
-				return null;
-				
-			}
-
-			@Override
-			protected void onPostExecute(Void result) {
-				// TODO Auto-generated method stub
-				dialog1.dismiss();
-				super.onPostExecute(result);
-				
-				
-			}
-
-			
-			
-		}.execute();*/
+		
 		//async task is done
 
 		adapter = new cutadapter(MainActivity.this,R.layout.listlayout,comment_array);
