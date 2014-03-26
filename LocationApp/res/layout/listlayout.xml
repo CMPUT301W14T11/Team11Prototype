@@ -40,6 +40,7 @@
         android:layout_height="match_parent"
         android:visibility="visible"
          />
+        
         <LinearLayout 
             android:id="@+id/inside"
             android:layout_width="match_parent"

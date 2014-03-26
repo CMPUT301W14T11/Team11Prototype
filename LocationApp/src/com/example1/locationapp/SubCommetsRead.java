@@ -254,7 +254,8 @@ public class SubCommetsRead extends Activity {
 					// TODO Auto-generated method stub
 					if(bitmap==null)
 				       { 	   
-				         final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude);
+						user = fileLoder.loadFromFile();
+				         final Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,user.getUser_name());
 				         subController.insertMaster(new_comment, ServerID);
 				         subCoId++;
 				       }
@@ -263,7 +264,7 @@ public class SubCommetsRead extends Activity {
 	                         			       
 				         String encode_image= convert_image_to_string(bitmap);
 				    	 final
-				    	 Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+				    	 Comments new_comment = new Comments(0,number,subCoId,0,editText.getText().toString(),editText.getText().toString(),new Date(),location,longitude,latitude,encode_image, user.getUser_name());
 				    	 subController.insertMaster(new_comment,ServerID);
 				    	 subCoId++;
 				       }
