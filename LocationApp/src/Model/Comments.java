@@ -22,8 +22,9 @@ public class Comments implements Serializable{
 	private Bitmap comment_image;
 	private String image_encode;
 	private int userID;
+	private String userName;
 	//consturctor for creating a master comment
-	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,Location location,double lon,double lat)
+	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,Location location,double lon,double lat, String userName)
 	{   
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
@@ -37,6 +38,7 @@ public class Comments implements Serializable{
 		this.lon = lon;
 		this.lat = lat;
 		this.userID=user_id;
+		this.userName = userName; 
 		
 	}
 	// constrcutor for creating a sub comment;
@@ -51,7 +53,7 @@ public class Comments implements Serializable{
 	}*/
 	
 	// make a comments with image in them
-	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,Location location,double lon,double lat,String encode)
+	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,Location location,double lon,double lat,String encode, String userName)
 	{   
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
@@ -66,6 +68,14 @@ public class Comments implements Serializable{
 		this.lat = lat;
 		this.image_encode=encode;
 		this.userID=user_id;
+		this.userName = userName;
+	}
+
+	
+	public String getUserName()
+	{
+	
+		return userName;
 	}
 
 	public int getMaster_comment_ID() {

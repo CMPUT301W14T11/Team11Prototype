@@ -1,6 +1,5 @@
 package com.example1.locationapp;
 
-import java.awt.font.NumericShaper;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,15 +12,16 @@ import java.util.Date;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.fluent.Async;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.IDController;
+import Controller.LocalFileLoder;
 import Model.Comments;
 import Model.IDModel;
+import Model.UserModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -59,6 +59,8 @@ public class EnterCommentsActivity extends Activity implements IDController ,Ser
     Context content;
     Bitmap bitmap;
     IDModel id_obj;
+    private LocalFileLoder fl = new LocalFileLoder(this);
+    private UserModel user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -145,7 +147,8 @@ public class EnterCommentsActivity extends Activity implements IDController ,Ser
 				
 				if(bitmap==null)
 			       {
-			       final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude);
+					user = fl.loadFromFile();
+			       final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude, user.getUser_name());
 			  	   System.out.println("this is so cool");
 			         insertMaster(new_comment);
 			       System.out.println("this is so cool2!"+number);
@@ -153,7 +156,7 @@ public class EnterCommentsActivity extends Activity implements IDController ,Ser
 			       else
 			       { System.out.println("image posted");
 			         String encode_image= convert_image_to_string(bitmap);
-			    	 final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image);
+			    	 final Comments new_comment = new Comments(0,number,0,0,title_edit.getText().toString(),subject_edit.getText().toString(),new Date(),location,longitude,latitude,encode_image, user.getUser_name());
 			    	 insertMaster(new_comment);
 			    	 
 			       }
