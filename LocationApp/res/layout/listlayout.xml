@@ -41,7 +41,12 @@
         android:visibility="visible"
          />
         
- 
+        <LinearLayout 
+            android:id="@+id/inside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#ffffff">
             
             <TextView  
             android:id="@+id/loca"
@@ -69,7 +74,7 @@
             />
                   
             
-    
+        </LinearLayout>
         
          
  
