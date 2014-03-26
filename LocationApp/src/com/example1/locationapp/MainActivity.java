@@ -258,10 +258,19 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			@Override
 			public boolean onLongClick(View v) {
 				// TODO Auto-generated method stub
-				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(content);
 				String items[]={"Edit Comment","Add Tags"};
 				
-				builder.create().show();
+				builder.setItems(items, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
 				return false;
 			}
 		});
