@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example1.locationapp.TagActivity$PlaceholderFragment" >
+
+    <TextView
+        android:id="@+id/tagtextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tags" />
+
+    <EditText
+        android:id="@+id/tagedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginRight="75dp"
+        android:layout_marginTop="95dp"
+        android:hint="Enter tags"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/tagbutton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editText1"
+        android:text="Enter"
+        android:onClick="enter" />
+
+    <Button
+        android:id="@+id/tagbutton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Done"
+        android:onClick="done" />
+
+</RelativeLayout>

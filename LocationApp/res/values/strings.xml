@@ -13,5 +13,6 @@
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_favourite">Favourite</string>
+    <string name="title_activity_tag">TagActivity</string>
 
 </resources>

@@ -44,6 +44,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -253,19 +254,29 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				
 			}
 		});
-		listview.setOnLongClickListener(new OnLongClickListener() {
-			
+		listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+
 			@Override
-			public boolean onLongClick(View v) {
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					final int arg2, long arg3) {
 				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
 				String items[]={"Edit Comment","Add Tags"};
-				
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
+						switch (which)
+						{
+						case 0:
+							break;
+						case 1:
+							Intent intent = new Intent();
+							intent.setClass(MainActivity.this, TagActivity.class);
+							startActivityForResult(intent, 1258);
+							break;
+						}
 						
 					}
 				});
@@ -274,6 +285,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				return false;
 			}
 		});
+		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
 		new AsyncTask<Void, Void, Void>() {

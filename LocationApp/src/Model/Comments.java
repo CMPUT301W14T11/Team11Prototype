@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.graphics.Bitmap;
@@ -23,6 +24,15 @@ public class Comments implements Serializable{
 	private String image_encode;
 	private int userID;
 	private String userName;
+	private ArrayList<String> TagsList= new ArrayList<String>();
+	public ArrayList<String> getTagsList() {
+		return TagsList;
+	}
+
+	public void setTagsList(ArrayList<String> tagsList) {
+		TagsList = tagsList;
+	}
+
 	//consturctor for creating a master comment
 	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,Location location,double lon,double lat, String userName)
 	{   

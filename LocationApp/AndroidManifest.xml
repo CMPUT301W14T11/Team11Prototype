@@ -91,6 +91,14 @@
             android:name="com.example1.locationapp.Favourite"
             android:label="@string/title_activity_favourite" >
         </activity>
+        <activity
+            android:name="com.example1.locationapp.TagActivity"
+            android:label="@string/title_activity_tag"
+            android:parentActivityName="com.example1.locationapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example1.locationapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

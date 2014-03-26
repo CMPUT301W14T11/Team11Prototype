@@ -346,6 +346,11 @@ containing a value of this type.
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -391,45 +396,46 @@ containing a value of this type.
     public static final class id {
         public static final int LinearLayout1=0x7f040015;
         public static final int Submit=0x7f040022;
-        public static final int action_listview=0x7f04002e;
-        public static final int action_scrollview=0x7f040030;
-        public static final int action_settings=0x7f040031;
-        public static final int action_webview=0x7f04002f;
-        public static final int bigg=0x7f040029;
+        public static final int action_listview=0x7f040034;
+        public static final int action_scrollview=0x7f040036;
+        public static final int action_settings=0x7f040037;
+        public static final int action_webview=0x7f040035;
+        public static final int bigg=0x7f04002f;
         public static final int button1=0x7f04001a;
         public static final int button2=0x7f04001b;
         public static final int buttonChooseImage=0x7f040013;
         public static final int buttonSaveSubComments=0x7f040024;
         public static final int buttonTakePicture=0x7f040012;
+        public static final int container=0x7f040027;
         public static final int editText1=0x7f040017;
         public static final int editText2=0x7f040019;
         public static final int editTextSubmitSubComments=0x7f040026;
-        public static final int fav=0x7f040039;
+        public static final int fav=0x7f04003f;
         public static final int favouritelist=0x7f04001d;
-        public static final int footer_1=0x7f040028;
-        public static final int footer_layout=0x7f040027;
+        public static final int footer_1=0x7f040029;
+        public static final int footer_layout=0x7f040028;
         public static final int guest=0x7f040021;
         public static final int hybrid=0x7f04000d;
         public static final int imageView1=0x7f04001c;
-        public static final int imageView88=0x7f04002b;
+        public static final int imageView88=0x7f040031;
         public static final int imageViewThumb=0x7f04000e;
         public static final int imageViewThumbSmall=0x7f04000f;
         public static final int inside=0x7f040004;
-        public static final int item1=0x7f040032;
-        public static final int item2=0x7f040033;
-        public static final int item3=0x7f040034;
-        public static final int item4=0x7f040035;
-        public static final int item5=0x7f040036;
-        public static final int item6=0x7f040037;
-        public static final int item7=0x7f040038;
+        public static final int item1=0x7f040038;
+        public static final int item2=0x7f040039;
+        public static final int item3=0x7f04003a;
+        public static final int item4=0x7f04003b;
+        public static final int item5=0x7f04003c;
+        public static final int item6=0x7f04003d;
+        public static final int item7=0x7f04003e;
         public static final int layoutButtons=0x7f040011;
         public static final int listViewSubComments=0x7f040025;
-        public static final int loca=0x7f04002c;
+        public static final int loca=0x7f040032;
         public static final int map=0x7f040023;
         public static final int namedisplay=0x7f040016;
         public static final int none=0x7f040009;
         public static final int normal=0x7f04000a;
-        public static final int number=0x7f04002d;
+        public static final int number=0x7f040033;
         public static final int outside=0x7f040005;
         public static final int progressBar=0x7f040014;
         public static final int ptr_content=0x7f040006;
@@ -439,13 +445,18 @@ containing a value of this type.
         public static final int ptr_progress=0x7f040008;
         public static final int ptr_text=0x7f040007;
         public static final int satellite=0x7f04000b;
-        public static final int save=0x7f04003a;
-        public static final int smalll=0x7f04002a;
+        public static final int save=0x7f040040;
+        public static final int smalll=0x7f040030;
         public static final int spb_interpolator_accelerate=0x7f040000;
         public static final int spb_interpolator_acceleratedecelerate=0x7f040002;
         public static final int spb_interpolator_decelerate=0x7f040003;
         public static final int spb_interpolator_linear=0x7f040001;
+        public static final int tagbutton1=0x7f04002d;
+        public static final int tagbutton2=0x7f04002e;
+        public static final int tagedit=0x7f04002b;
+        public static final int tagtextView1=0x7f04002a;
         public static final int terrain=0x7f04000c;
+        public static final int textView1=0x7f04002c;
         public static final int textView2=0x7f040018;
         public static final int textViewFile=0x7f040010;
     }
@@ -464,9 +475,11 @@ containing a value of this type.
         public static final int activity_new_user=0x7f030006;
         public static final int activity_play_tube=0x7f030007;
         public static final int activity_sub_commets_read=0x7f030008;
-        public static final int default_header=0x7f030009;
-        public static final int footlayout=0x7f03000a;
-        public static final int listlayout=0x7f03000b;
+        public static final int activity_tag=0x7f030009;
+        public static final int default_header=0x7f03000a;
+        public static final int footlayout=0x7f03000b;
+        public static final int fragment_tag=0x7f03000c;
+        public static final int listlayout=0x7f03000d;
     }
     public static final class menu {
         public static final int base_menu=0x7f0b0000;
@@ -479,6 +492,7 @@ containing a value of this type.
         public static final int play_tube=0x7f0b0007;
         public static final int sign_in=0x7f0b0008;
         public static final int sub_commets_read=0x7f0b0009;
+        public static final int tag=0x7f0b000a;
     }
     public static final class string {
         public static final int action_settings=0x7f08001f;
@@ -591,6 +605,7 @@ containing a value of this type.
         public static final int title_activity_play_tube=0x7f080024;
         public static final int title_activity_sign_in=0x7f080027;
         public static final int title_activity_sub_commets_read=0x7f080025;
+        public static final int title_activity_tag=0x7f08002a;
     }
     public static final class style {
         /** 
