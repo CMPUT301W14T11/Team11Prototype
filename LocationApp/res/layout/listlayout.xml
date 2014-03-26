@@ -40,41 +40,27 @@
         android:layout_height="match_parent"
         android:visibility="visible"
          />
-        
-        <LinearLayout 
-            android:id="@+id/inside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#ffffff">
-            
-            <TextView  
-            android:id="@+id/loca"
-            android:layout_width="match_parent" 
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:layout_weight="1"
-            android:textColor="#A4A4A4" 
-            >
-        </TextView>
         <View 
            android:layout_width="fill_parent"
            android:layout_height="1dp"       
            android:background="#BABABA" />
-        
-        
-        
-        <TextView
-            android:id="@+id/number"
+        <RelativeLayout 
+            android:id="@+id/inside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:textColor="#A4A4A4" 
-            />
-                  
-            
-        </LinearLayout>
+            android:layout_marginBottom="0dip">
+            <TextView 
+                android:id="@+id/loca"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView 
+                android:id="@+id/number"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
         
          
  
