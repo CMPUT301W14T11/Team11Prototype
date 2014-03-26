@@ -27,8 +27,10 @@ import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -39,6 +41,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -248,6 +251,18 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		                //listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
 		                //.show();
 				
+			}
+		});
+		listview.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				String items[]={"Edit Comment","Add Tags"};
+				
+				builder.create().show();
+				return false;
 			}
 		});
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
