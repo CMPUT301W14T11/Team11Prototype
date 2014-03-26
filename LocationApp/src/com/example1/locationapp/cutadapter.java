@@ -61,9 +61,16 @@ public class cutadapter extends ArrayAdapter<Comments>{
         	DecimalFormat format = new DecimalFormat("###.#");
             holder.item1.setText(custom.getThe_comment());
             holder.item2.setText(custom.getSubject_comment());
-            
             holder.item3.setText(format.format(custom.getDistance())+"m");
-            holder.item4.setText(custom.getUserName());
+            if(custom.getUserName()==null)
+         	{
+         		holder.item4.setText("Guest");
+         	}
+            else
+            {
+            	holder.item4.setText(custom.getUserName());
+            }
+            
             if(custom.getImage_encode()!=null)
             {   
             //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
