@@ -398,7 +398,6 @@ containing a value of this type.
         public static final int Submit=0x7f050022;
         public static final int action_listview=0x7f050033;
         public static final int action_scrollview=0x7f050035;
-        public static final int action_search=0x7f050037;
         public static final int action_settings=0x7f050036;
         public static final int action_webview=0x7f050034;
         public static final int bigg=0x7f05002e;
@@ -432,6 +431,7 @@ containing a value of this type.
         public static final int listViewSubComments=0x7f050025;
         public static final int loca=0x7f050031;
         public static final int map=0x7f050023;
+        public static final int menu_item_search=0x7f050037;
         public static final int namedisplay=0x7f050016;
         public static final int none=0x7f050009;
         public static final int normal=0x7f05000a;

@@ -29,6 +29,7 @@ import Model.UserModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -379,7 +381,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			
 			break;
 		case 7:
-			System.out.println("trytry");
+			
 			if(resultCode==RESULT_OK)
 			{   Toast.makeText(content, "Your Location is changed!", Toast.LENGTH_LONG).show();
 				double lat = data.getDoubleExtra("lat", current_location.getLatitude());
@@ -413,10 +415,18 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		MenuItem searchItem = menu.findItem(R.id.action_search);
-		//SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-		SearchView searchView =(SearchView) menu.findItem(R.id.action_search).getActionView();
+		super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        if(null!=searchManager )
+        {   
+         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        }
+        
+        //searchView.setIconifiedByDefault(false);
 		return true;
 	}
 	
