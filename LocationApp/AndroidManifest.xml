@@ -61,7 +61,10 @@
         <activity
             android:name="com.example1.locationapp.MainActivity"
             android:label="@string/title_activity_main" >
-            
+            <!-- need to add meta for search -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchActivity" />
         </activity>
         <activity
             android:name="com.example1.locationapp.EnterCommentsActivity"
@@ -107,7 +110,8 @@
         </activity>
         <activity
             android:name="com.example1.locationapp.SearchActivity"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search"
+            android:parentActivityName="com.example1.locationapp.MainActivity" >
             <!-- add search function -->
             <intent-filter >
 	         <action android:name="android.intent.action.SEARCH" />

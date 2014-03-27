@@ -1,9 +1,14 @@
 package com.example1.locationapp;
 
+import java.util.ArrayList;
+
+
+import Model.Comments;
+
 import android.app.Fragment;
-import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,16 +18,23 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 public class SearchActivity extends MainActivity {
-
+    cutadapter adapter;
+    ArrayList<Comments> comment_list;
+    ListView listview2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
-
+        System.out.println("set on content");
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		listview2 =(ListView) findViewById(R.id.search_list);
+		comment_list = new ArrayList<Comments>();
+		
+		adapter = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
+		listview2.setAdapter(adapter);
 		handleIntent(getIntent());
 	}
 
@@ -38,6 +50,9 @@ public class SearchActivity extends MainActivity {
 	private void handleIntent(Intent intent) {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
+			System.out.println("query is:"+query);
+			
+			
 			doSearch(query);
 		}
 	}
@@ -46,6 +61,15 @@ public class SearchActivity extends MainActivity {
 		// get a Cursor, prepare the ListAdapter
 		// and set it
 		System.out.println("search is on");
+		new AsyncTask<Void, Void,Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				
+				return null;
+			}
+		};
 	}
 
 	@Override
