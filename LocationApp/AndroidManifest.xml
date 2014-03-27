@@ -56,6 +56,14 @@
         <activity
             android:name="com.example1.locationapp.MainActivity"
             android:label="@string/title_activity_main" >
+            
+            <intent-filter>
+            <action android:name="android.intent.action.SEARCH" />
+        </intent-filter>
+        <meta-data android:name="android.app.searchable"
+                   android:resource="@xml/searchable"/>
+            
+            
         </activity>
         <activity
             android:name="com.example1.locationapp.EnterCommentsActivity"

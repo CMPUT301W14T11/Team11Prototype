@@ -36,17 +36,18 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -402,6 +403,9 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		MenuItem searchItem = menu.findItem(R.id.action_search);
+		//SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		SearchView searchView =(SearchView) menu.findItem(R.id.action_search).getActionView();
 		return true;
 	}
 	
