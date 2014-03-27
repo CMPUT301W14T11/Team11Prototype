@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class SearchActivity extends ListActivity {
+public class SearchActivity extends MainActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class SearchActivity extends ListActivity {
 	private void doSearch(String queryStr) {
 		// get a Cursor, prepare the ListAdapter
 		// and set it
+		System.out.println("search is on");
 	}
 
 	@Override

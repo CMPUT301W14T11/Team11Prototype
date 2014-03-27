@@ -156,6 +156,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 					insertMaster(new_comment);
 					System.out.println("this is so cool2!" + number);
 				} else {
+					user = fl.loadFromFile();
 					System.out.println("image posted");
 					String encode_image = convert_image_to_string(bitmap);
 					final Comments new_comment = new Comments(0, number, 0, 0,

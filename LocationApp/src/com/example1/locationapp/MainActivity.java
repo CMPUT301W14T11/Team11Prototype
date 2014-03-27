@@ -309,8 +309,8 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
+        System.out.println("idis"+item.getItemId());
+        switch (item.getItemId()) {
 		case R.id.item1:
 			System.out.println("new is clicked");
 			user = fileLoader.loadFromFile();
@@ -353,10 +353,11 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			startActivity(intent7);
 			break;
 		case R.id.menu_item_search:
-			System.out.println("search requested");
-
+			System.out.println("omgomg");
+            onSearchRequested();
+            
 			System.out.println("search requested2");
-			break;
+			return true;
 
 		}
 
@@ -414,15 +415,18 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-		SearchView searchView = (SearchView) searchItem.getActionView();
+		
+		//MenuItem searchItem = menu.findItem(R.id.menu_item_search);
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		if (null != searchManager) {
+		SearchView searchView = (SearchView) menu.findItem(R.id.menu_item_search).getActionView();
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		/*if (null != searchManager) {
 			searchView.setSearchableInfo(searchManager
 					.getSearchableInfo(getComponentName()));
-		}
+		}*/
 
-		// searchView.setIconifiedByDefault(false);
+		searchView.setIconifiedByDefault(true);
+		searchView.setSubmitButtonEnabled(true);
 		return true;
 	}
 

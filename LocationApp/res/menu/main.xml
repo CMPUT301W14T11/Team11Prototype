@@ -1,20 +1,52 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
- <item
+    <item
         android:id="@+id/menu_item_search"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
         android:showAsAction="always"
-        android:title="Search"
-        >
+        android:title="Search">
     </item>
-    
-    <item android:id="@+id/item1" android:visible="true" android:enabled="true" android:title="NEW" android:showAsAction="always" android:orderInCategory="1"></item>
-    <item android:id="@+id/item2" android:visible="true" android:enabled="true" android:title="Location" android:showAsAction="always" android:orderInCategory="2"></item>
-    <item android:id="@+id/item3" android:title="sort by date" android:showAsAction="never"></item>
-    <item android:id="@+id/item4" android:title="sort by pic" android:showAsAction="never"></item>
-    <item android:id="@+id/item5" android:showAsAction="never" android:title="my favourite"></item>
-    <item android:id="@+id/item6" android:title="my save" android:showAsAction="never"></item>
-    <item android:id="@+id/item7" android:title="logout" android:showAsAction="never"></item>
+    <item
+        android:id="@+id/item1"
+        android:enabled="true"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="NEW"
+        android:visible="true">
+    </item>
+    <item
+        android:id="@+id/item2"
+        android:enabled="true"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="Location"
+        android:visible="true">
+    </item>
+    <item
+        android:id="@+id/item3"
+        android:showAsAction="never"
+        android:title="sort by date">
+    </item>
+    <item
+        android:id="@+id/item4"
+        android:showAsAction="never"
+        android:title="sort by pic">
+    </item>
+    <item
+        android:id="@+id/item5"
+        android:showAsAction="never"
+        android:title="my favourite">
+    </item>
+    <item
+        android:id="@+id/item6"
+        android:showAsAction="never"
+        android:title="my save">
+    </item>
+    <item
+        android:id="@+id/item7"
+        android:showAsAction="never"
+        android:title="logout">
+    </item>
 
 </menu>
