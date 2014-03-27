@@ -354,7 +354,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			break;
 		case R.id.menu_item_search:
 			System.out.println("search requested");
-			
+
 			System.out.println("search requested2");
 			break;
 
@@ -479,7 +479,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					+ ", \"lte\" : "
 					+ lon_lte
 					+ ", \"boost\":0.0}}}}}}";
-			
+
 			StringEntity entity = new StringEntity(query_range2);
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setEntity(entity);
