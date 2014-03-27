@@ -9,7 +9,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+/**
+ * NewUserActivity take user input user name
+ * allowing user to continue to use the application.
+ * in particular, user can post, edit, tag and etc. comments
+ * 
+ * @author qyu4
+ *
+ */
 public class NewUserActivity extends Activity
 {
 

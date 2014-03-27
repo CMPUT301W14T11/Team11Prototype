@@ -20,6 +20,13 @@ import com.kbeanie.imagechooser.api.ChosenImage;
 import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 
+/**
+ * ChoseImageActivity has two functionalities taking pictures and choose image
+ * from local file;
+ * 
+ * @author qyu4
+ * 
+ */
 public class ChoseImageActivity extends Activity implements
 		ImageChooserListener {
 
@@ -33,8 +40,7 @@ public class ChoseImageActivity extends Activity implements
 
 	private ProgressBar pbar;
 
-	
-    private String filepath2;
+	private String filepath2;
 	private String filePath;
 
 	private int chooserType;
@@ -43,7 +49,7 @@ public class ChoseImageActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chose_image);
-        
+
 		Button buttonTakePicture = (Button) findViewById(R.id.buttonTakePicture);
 		buttonTakePicture.setOnClickListener(new OnClickListener() {
 
@@ -68,7 +74,6 @@ public class ChoseImageActivity extends Activity implements
 		pbar = (ProgressBar) findViewById(R.id.progressBar);
 		pbar.setVisibility(View.GONE);
 
-
 	}
 
 	private void chooseImage() {
@@ -79,7 +84,7 @@ public class ChoseImageActivity extends Activity implements
 		try {
 			pbar.setVisibility(View.VISIBLE);
 			filePath = imageChooserManager.choose();
-			System.out.println("gotiamge"+filePath);
+			System.out.println("gotiamge" + filePath);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -95,7 +100,7 @@ public class ChoseImageActivity extends Activity implements
 		try {
 			pbar.setVisibility(View.VISIBLE);
 			filePath = imageChooserManager.choose();
-			
+
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -125,9 +130,9 @@ public class ChoseImageActivity extends Activity implements
 				pbar.setVisibility(View.GONE);
 				if (image != null) {
 					textViewFile.setText(image.getFilePathOriginal());
-					filePath= image.getFilePathOriginal();
-					System.out.println(filePath+"theout");
-					filepath2= filePath;
+					filePath = image.getFilePathOriginal();
+					System.out.println(filePath + "theout");
+					filepath2 = filePath;
 					imageViewThumbnail.setImageURI(Uri.parse(new File(image
 							.getFileThumbnail()).toString()));
 					imageViewThumbSmall.setImageURI(Uri.parse(new File(image
@@ -135,27 +140,23 @@ public class ChoseImageActivity extends Activity implements
 				}
 			}
 		});
-		
-		/*new AsyncTask<Void, Void, Void>()
-		{
 
-			@Override
-			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
-				pbar.setVisibility(View.GONE);
-				if (image != null) {
-					textViewFile.setText(image.getFilePathOriginal());
-					imageViewThumbnail.setImageURI(Uri.parse(new File(image
-							.getFileThumbnail()).toString()));
-					imageViewThumbSmall.setImageURI(Uri.parse(new File(image
-							.getFileThumbnailSmall()).toString()));
-				}
-				
-				return null;
-			}
-			
-		}.execute();*/
-		
+		/*
+		 * new AsyncTask<Void, Void, Void>() {
+		 * 
+		 * @Override protected Void doInBackground(Void... params) { // TODO
+		 * Auto-generated method stub pbar.setVisibility(View.GONE); if (image
+		 * != null) { textViewFile.setText(image.getFilePathOriginal());
+		 * imageViewThumbnail.setImageURI(Uri.parse(new File(image
+		 * .getFileThumbnail()).toString()));
+		 * imageViewThumbSmall.setImageURI(Uri.parse(new File(image
+		 * .getFileThumbnailSmall()).toString())); }
+		 * 
+		 * return null; }
+		 * 
+		 * }.execute();
+		 */
+
 	}
 
 	@Override
@@ -170,24 +171,22 @@ public class ChoseImageActivity extends Activity implements
 			}
 		});
 	}
-    
+
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
+
 		Intent intent = new Intent();
 		intent.putExtra("image", filePath);
 		intent.putExtra("choseimage", filepath2);
 		setResult(RESULT_OK, intent);
 		finish();
 		super.onBackPressed();
-		
-		
-		
+
 	}
 
 	@Override
 	public void onDestroy() {
-		
+
 		super.onDestroy();
 	}
 

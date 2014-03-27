@@ -13,7 +13,11 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
-//open source code from http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
+/**
+ * open source code from http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
+ * @author qyu4
+ *
+ */
 
 public class GPSTracker extends Service implements LocationListener{
 
@@ -188,31 +192,31 @@ public class GPSTracker extends Service implements LocationListener{
     
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

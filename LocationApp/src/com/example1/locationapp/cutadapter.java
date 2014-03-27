@@ -16,7 +16,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-// custom listview adapter for making a listview adapter
+/**
+ *  custom listview adapter for making a listview adapter
+ * @author qyu4
+ *
+ */
 public class cutadapter extends ArrayAdapter<Comments>{
 	private ArrayList<Comments> entries;
     private Activity activity;

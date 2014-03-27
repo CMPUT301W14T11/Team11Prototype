@@ -54,8 +54,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
-/**this is Main display page for the app*/
+/**
+ * this is Main display page for the app
+ * which shows main comments of the application
+ * and 
+ * @author qyu4
+ *
+ */
 public class MainActivity extends Activity implements OnRefreshListener,CommentController,IDController {
 
 	int location_flag;
@@ -197,14 +202,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				System.out.println("footer clicked");
 				new AsyncTask<Void, Void, Void>()
 				{
                     
 					@Override
 					protected void onPostExecute(Void result) {
-						// TODO Auto-generated method stub
+						
 						super.onPostExecute(result);
 						dialog1.dismiss();
 						adapter.notifyDataSetChanged();
@@ -212,7 +217,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 
 					@Override
 					protected void onPreExecute() {
-						// TODO Auto-generated method stub
+						
 						super.onPreExecute();
 						dialog1.setTitle("Loading cause your internet is too slow!");
 						dialog1.show();
@@ -220,7 +225,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						// TODO Auto-generated method stub
+						
 						System.out.println("unrun");
 						get_comments("get some comments man!");
 						radius= radius+0.1;
@@ -243,7 +248,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
+				
 				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
@@ -261,14 +266,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					final int arg2, long arg3) {
-				// TODO Auto-generated method stub
+				
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
 				String items[]={"Edit Comment","Add Tags"};
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
+						
 						switch (which)
 						{
 						case 0:
@@ -295,14 +300,14 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
+				
 				get_comments("get some comments");
 				return null;
 			}
 
 			@Override
 			protected void onPostExecute(Void result) {
-				// TODO Auto-generated method stub
+				
 				super.onPostExecute(result);
 				adapter.notifyDataSetChanged();
 			}
@@ -312,7 +317,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	}
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+		
 		
 		switch (item.getItemId())
 		{
@@ -371,7 +376,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     // get result from other activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		// when use finish choesing location, get it from playtube_activity
 		System.out.println("code is "+requestCode);
@@ -440,15 +445,15 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		try {
 			stringentity = new StringEntity(gson.toJson(id));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		catch (RuntimeException e) {
-			// TODO: handle exception
+			
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		httpPost.setHeader("Accept", "application/json");
@@ -472,11 +477,11 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			
 		}
 		catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		catch (RuntimeException e) {
-			// TODO: handle exception
+			
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 	}*/
@@ -508,18 +513,18 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 			//System.out.println(recipe.toString());
 			//httpget.releaseConnection();
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	      catch (NullPointerException e) {
-		// TODO: handle exception
+		
 		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 	    }
 		  catch (RuntimeException e) {
-		// TODO: handle exception
+		
 		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 	}
 	    return id; 
@@ -605,19 +610,19 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		
 		}
       catch (ClientProtocolException e) {
-		// TODO Auto-generated catch block
+		
 		System.out.println("client exe");
 		e.printStackTrace();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
+		
 		System.out.println("IO exe");
 		e.printStackTrace();}
 	  catch (NullPointerException e) {
-		// TODO: handle exception
+		
 		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 	  }
 	catch (RuntimeException e) {
-		// TODO: handle exception
+		
 		Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 	}
 	}
@@ -629,17 +634,17 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 
 	@Override
 	public void onRefreshStarted(View view) {
-		// TODO Auto-generated method stub
+		
 		new AsyncTask<Void,Void,Void>()
 		{   ElasticSearchSearchResponse<Comments> ESresponse;
 			@Override
 			protected void onPreExecute() {
-				// TODO Auto-generated method stub
+				
 				super.onPreExecute();
 			}
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
+				
 				System.out.println("okay123");
 				get_comments("get from server");
 				//comment_array.add(new Comments(0,0,new DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));		
@@ -650,7 +655,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 
 			@Override
 			protected void onPostExecute(Void result) {
-				// TODO Auto-generated method stub
+				
 				adapter.notifyDataSetChanged();
 				mPullToRefreshLayout.setRefreshComplete();
 				super.onPostExecute(result);
@@ -667,7 +672,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 	}
 	@Override
 	public void insertMaster(Comments com) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -679,7 +684,7 @@ public void sortByDate(){
             
 			@Override
 			protected void onPostExecute(Void result) {
-				// TODO Auto-generated method stub
+				
 				super.onPostExecute(result);
 				dialog1.dismiss();
 				Collections.sort(comment_array,new datesort());
@@ -689,7 +694,7 @@ public void sortByDate(){
 
 			@Override
 			protected void onPreExecute() {
-				// TODO Auto-generated method stub
+				
 				super.onPreExecute();
 				comment_array.clear();
 				dialog1.setTitle("Loading cause your internet is too slow!");
@@ -698,7 +703,7 @@ public void sortByDate(){
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
+				
 				System.out.println("unrun");
 				get_comments("get some comments man!");
 				
@@ -716,12 +721,12 @@ public void sortByDate(){
 	}
 @Override
 public void insert(IDModel id) throws IllegalStateException, IOException {
-	// TODO Auto-generated method stub
+	
 	
 }
 @Override
 public int get_id() {
-	// TODO Auto-generated method stub
+	
 	return 0;
 }
 	

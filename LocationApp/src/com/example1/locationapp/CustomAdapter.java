@@ -15,7 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-// custom listview adapter for making a listview adapter
+/**
+ *  custom listview adapter for making a listview adapter
+ * @author qyu4
+ *
+ */
 public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 	private ArrayList<FavouriteComment> fc;
     private Activity activity;
@@ -37,7 +41,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		View v = convertView;
         ViewHolder holder;
         if (v == null) {
