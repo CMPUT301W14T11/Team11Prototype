@@ -4,6 +4,7 @@ import java.io.File;
 
 import Controller.LocalFileLoder;
 import Model.UserModel;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,9 @@ public class MainPage extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		//hide the action bar
+		ActionBar actionBar = getActionBar();
+		actionBar.hide();
 		// Determin if the file exist
 		fl.Exist();
 		if (fl.exist()) {
