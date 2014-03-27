@@ -71,7 +71,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     ProgressDialog dialog1;
     Button load_button;
     double radius= 0.1;
-
+    int index=0;
     public int mode = 0;
 
     LocalFileSaver fileSaver = new LocalFileSaver(this);
@@ -274,6 +274,7 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 						case 1:
 							Intent intent = new Intent();
 							intent.setClass(MainActivity.this, TagActivity.class);
+							index= arg2;
 							startActivityForResult(intent, 1258);
 							break;
 						}
@@ -383,6 +384,12 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 				adapter.notifyDataSetChanged();
 			}
 			break;
+		case 1258:
+			if(resultCode==RESULT_OK)
+			{   
+				comment_array.get(index).setTagsList(data.getStringArrayListExtra("TagArray"));
+				
+			}
 		}
 		
 		

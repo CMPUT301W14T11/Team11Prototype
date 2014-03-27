@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,11 +25,6 @@ public class TagActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tag);
-
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
 		taglist = new ArrayList<String>();
 		editText= (EditText) findViewById(R.id.tagedit);
 		enterbutton= (Button) findViewById(R.id.tagbutton1);
@@ -38,22 +34,31 @@ public class TagActivity extends Activity {
 	//click enter will add tags
 	public void enter(View v)
 	{
-		String tag = "ee";
-		//editText.getText();
+		
+		String tag = editText.getText().toString();
 		if(tag.equals(""))
 		{
 			Toast.makeText(getApplicationContext(), "Tags can't be empty!", Toast.LENGTH_SHORT).show();
 		}
 		else
-		{
+		{   String text1="";
 			taglist.add(tag);
-			textview.setText(taglist.get(taglist.size()-1));
+			
+			for(String text : taglist)
+			{
+				text1=text1+text+", ";
+			}
+			textview.setText("Tags:"+text1);
+			editText.setText(null);
 		}
 	}
 	//click done will go back to MainActivity
 	public void done(View v)
 	{
-		
+		Intent intent = new Intent();
+		intent.putExtra("TagArray", taglist);
+		setResult(RESULT_OK, intent);
+		finish();
 	}
 
 	@Override
