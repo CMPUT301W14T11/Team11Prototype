@@ -36,7 +36,6 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,8 +74,8 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
     int index=0;
     public int mode = 0;
 
-    LocalFileSaver fileSaver = new LocalFileSaver(this);
-    LocalFileLoder fileLoader = new LocalFileLoder(this);
+    private LocalFileSaver fileSaver = new LocalFileSaver(this);
+    private LocalFileLoder fileLoader = new LocalFileLoder(this);
     private UserModel user;
 
     // "1" for enterCommentActivity, so it will bring you to comment entering activity
@@ -317,11 +316,23 @@ public class MainActivity extends Activity implements OnRefreshListener,CommentC
 		{
 		case R.id.item1:
 			System.out.println("new is clicked");
-			Intent intent = new Intent ();
-			intent.putExtra("lat",current_location.getLatitude());
-			intent.putExtra("lon", current_location.getLongitude());
-			intent.setClass(MainActivity.this, EnterCommentsActivity.class);
-			startActivityForResult(intent, 1);
+			user = fileLoader.loadFromFile();
+			if (user.getUser_name().equals(""))
+			{
+				Toast.makeText(MainActivity.this,
+		                "You don not have right to post a comment", Toast.LENGTH_SHORT)
+		                .show();
+			}
+			else
+			{
+				Intent intent = new Intent ();
+				intent.putExtra("lat",current_location.getLatitude());
+				intent.putExtra("lon", current_location.getLongitude());
+				intent.setClass(MainActivity.this, EnterCommentsActivity.class);
+				startActivityForResult(intent, 1);
+				break;
+			}
+			
 			break;
 			
 		case R.id.item2:
