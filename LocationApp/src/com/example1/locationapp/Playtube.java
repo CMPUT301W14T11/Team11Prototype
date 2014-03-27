@@ -1,6 +1,5 @@
 package com.example1.locationapp;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -20,48 +19,55 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+/**
+ * This class is to change location on the bit map in the application;
+ * @author qyu4
+ *
+ */
 public class Playtube extends Activity {
-    GoogleMap map ;
-    double lat,lon;
-    LatLng lat_and_long , new_positon;
-    CameraUpdate camUpdate;
-    MarkerOptions option;
+	GoogleMap map;
+	double lat, lon;
+	LatLng lat_and_long, new_positon;
+	CameraUpdate camUpdate;
+	MarkerOptions option;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play_tube);
 		Intent intent = getIntent();
-		lat=intent.getDoubleExtra("lat", 0);
-		lon=intent.getDoubleExtra("long", 0);
+		lat = intent.getDoubleExtra("lat", 0);
+		lon = intent.getDoubleExtra("long", 0);
 		// get the map from the map fragment
-		lat_and_long = new LatLng(lat,lon);
+		lat_and_long = new LatLng(lat, lon);
 		camUpdate = CameraUpdateFactory.newLatLng(lat_and_long);
 		option = new MarkerOptions();
-	    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-	    map.animateCamera(camUpdate);
-	    map.setOnMapLongClickListener(new OnMapLongClickListener() {
-			
+		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+		map.animateCamera(camUpdate);
+		map.setOnMapLongClickListener(new OnMapLongClickListener() {
+
 			@Override
 			public void onMapLongClick(LatLng arg0) {
-				// TODO Auto-generated method stub
+				
 				System.out.println("long clicked");
 				map.addMarker(new MarkerOptions()
-		        .position(arg0)
-		        .title("new location")           
-		        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));	
+						.position(arg0)
+						.title("new location")
+						.icon(BitmapDescriptorFactory
+								.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 			}
 		});
 		map.setOnMarkerClickListener(new OnMarkerClickListener() {
-			
+
 			@Override
 			public boolean onMarkerClick(Marker arg0) {
-				// TODO Auto-generated method stub
-				new_positon= arg0.getPosition();
-			    System.out.println("markerclicked");
+				
+				new_positon = arg0.getPosition();
+				System.out.println("markerclicked");
 				Intent intent = new Intent();
-				intent.putExtra("lat",new_positon.latitude);
-				intent.putExtra("lon",new_positon.longitude);
+				intent.putExtra("lat", new_positon.latitude);
+				intent.putExtra("lon", new_positon.longitude);
 				setResult(RESULT_OK, intent);
 				finish();
 				return false;
@@ -78,11 +84,9 @@ public class Playtube extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
+		
 		super.onBackPressed();
-		
-		
+
 	}
-	
 
 }
