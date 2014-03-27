@@ -14,5 +14,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_favourite">Favourite</string>
     <string name="title_activity_tag">TagActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

@@ -37,6 +37,10 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBGbgRROzCSZFtTH-BiSN_qBfOXM3bmhpU" />
+        <!-- add meta data for search -->
+        <meta-data
+	      android:name="android.app.default_searchable"
+	      android:value=".SampleActivity" /> 
 
         <receiver android:name="com.example1.locationapp.InternetChecker" >
             <intent-filter>
@@ -56,14 +60,16 @@
         <activity
             android:name="com.example1.locationapp.MainActivity"
             android:label="@string/title_activity_main" >
-            
             <intent-filter>
-            <action android:name="android.intent.action.SEARCH" />
-        </intent-filter>
-        <meta-data android:name="android.app.searchable"
-                   android:resource="@xml/searchable"/>
-            
-            
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <!-- added search function to mainactivity -->
+            <intent-filter >
+	         <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name="com.example1.locationapp.EnterCommentsActivity"
@@ -106,6 +112,21 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example1.locationapp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example1.locationapp.SearchActivity"
+            android:label="@string/title_activity_search" >
+            <!-- add search function -->
+            <intent-filter >
+	         <action android:name="android.intent.action.SEARCH" />
+	      </intent-filter>
+	      <intent-filter >
+	         <action android:name="android.intent.action.VIEW" />
+	      </intent-filter>
+	      <meta-data
+	         android:name="android.app.searchable"
+	         android:resource="@xml/searchable" />
+	      <!-- added search function --> 
         </activity>
     </application>
 
