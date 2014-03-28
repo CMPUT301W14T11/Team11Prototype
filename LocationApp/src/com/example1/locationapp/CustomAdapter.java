@@ -1,5 +1,6 @@
 package com.example1.locationapp;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import Model.Comments;
@@ -61,23 +62,32 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
  
         final FavouriteComment custom = fc.get(position);
         if (custom != null) {
+        	DecimalFormat format = new DecimalFormat("###.#");
             holder.item1.setText(custom.getTitle());
             holder.item2.setText(custom.getText());
-           // holder.item3.setText("Location:"+custom.getDistance()+"");
-           // holder.item4.setText(custom.getComment_date().toString());
-//            if(custom.getTitle()!=null)
-//            {   
-//            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-//            	byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
-//            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-//            	
-//            	if(bitmap!=null)
-//                {
-//                	custom.setComment_image(bitmap);
-//                	holder.imageview.setImageBitmap(custom.getComment_image());
-//                    System.out.println("imageset");            
-//                }
-//            }
+            holder.item3.setText(format.format(custom.getDistance())+"m");
+            
+            if(custom.getUserName()==null)
+         	{
+         		holder.item4.setText("Guest");
+         	}
+            else
+            {
+            	holder.item4.setText(custom.getUserName());
+            }
+            
+            if(custom.getImage()!=null)
+            {   
+            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
+            	byte[] imageAsBytes = Base64.decode(custom.getImage().getBytes(),Base64.NO_WRAP);
+            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            	
+            	if(bitmap!=null)
+                {
+                	holder.imageview.setImageBitmap(bitmap);
+                    System.out.println("imageset");            
+                }
+            }
             
         }
         return v;

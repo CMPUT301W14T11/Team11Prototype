@@ -27,21 +27,6 @@ public class UserModel {
 	
 		this.user_name = user_name;
 	}
-
-	
-//	public Location getUser_location()
-//	{
-//	
-//		return user_location;
-//	}
-//
-//	
-//	public void setUser_location(Location user_location)
-//	{
-//	
-//		this.user_location = user_location;
-//	}
-
 	
 	public ArrayList<FavouriteModel> getFaviourte()
 	{
