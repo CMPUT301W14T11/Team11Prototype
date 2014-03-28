@@ -9,6 +9,17 @@ public class FavouriteComment
 	private String text;
 	private String comment_image;
 	private String userName;
+	private double distance;
+	
+	public void setDistance(double distance)
+	{
+		this.distance = distance;
+	}
+	
+	public double getDistance()
+	{
+		return distance;
+	}
 
 	public void setUserName(String userName)
 	{

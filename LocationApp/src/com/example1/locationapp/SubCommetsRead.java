@@ -198,6 +198,7 @@ public class SubCommetsRead extends Activity {
 				fc.setText(comment_list.get(0).getThe_comment());
 				fc.setTitle(comment_list.get(0).getSubject_comment());
 				fc.setImage(comment_list.get(0).getImage_encode());
+				fc.setDistance(comment_list.get(0).getDistance());
 
 				
 				// Comments maincom = comment_list.get(0);

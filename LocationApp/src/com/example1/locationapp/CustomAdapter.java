@@ -1,5 +1,6 @@
 package com.example1.locationapp;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import Model.Comments;
@@ -61,9 +62,10 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
  
         final FavouriteComment custom = fc.get(position);
         if (custom != null) {
+        	DecimalFormat format = new DecimalFormat("###.#");
             holder.item1.setText(custom.getTitle());
             holder.item2.setText(custom.getText());
-            //holder.item3.setText();
+            holder.item3.setText(format.format(custom.getDistance())+"m");
             
             if(custom.getUserName()==null)
          	{
