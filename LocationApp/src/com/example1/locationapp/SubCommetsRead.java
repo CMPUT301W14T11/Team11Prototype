@@ -235,100 +235,111 @@ public class SubCommetsRead extends Activity {
 		@Override
 		public void onClick(View v) {
 			
-			String title = editText.getText().toString();
-			radius = radius + 0.01;
-			if ("".equals(title)) {
-
+			user = fileLoder.loadFromFile();
+			if (user.getUser_name().equals(""))
+			{
 				Toast.makeText(getBaseContext(),
-						"Title is empty! add some words please!",
+						"Guest cannot add comments!!!",
 						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				String title = editText.getText().toString();
+				radius = radius + 0.01;
+				if ("".equals(title)) {
 
-			} else {
-				new AsyncTask<Void, Void, Void>() {
-					ProgressDialog dialog1 = new ProgressDialog(content);
+					Toast.makeText(getBaseContext(),
+							"Title is empty! add some words please!",
+							Toast.LENGTH_SHORT).show();
 
-					@Override
-					protected void onPreExecute() {
-						
-						dialog1.setTitle("Loading cause your internet is too slow!");
-						dialog1.show();
-						super.onPreExecute();
-						new AsyncTask<Void, Void, Void>() {
+				} else {
+					new AsyncTask<Void, Void, Void>() {
+						ProgressDialog dialog1 = new ProgressDialog(content);
 
-							@Override
-							protected Void doInBackground(Void... params) {
-								
-								ServerID = get_id();
-								ServerID++;
-								System.out.println(comment_list.size() + "size"
-										+ ServerID);
-								return null;
-							}
+						@Override
+						protected void onPreExecute() {
+							
+							dialog1.setTitle("Loading cause your internet is too slow!");
+							dialog1.show();
+							super.onPreExecute();
+							new AsyncTask<Void, Void, Void>() {
 
-						}.execute();
+								@Override
+								protected Void doInBackground(Void... params) {
+									
+									ServerID = get_id();
+									ServerID++;
+									System.out.println(comment_list.size() + "size"
+											+ ServerID);
+									return null;
+								}
 
-					}
+							}.execute();
 
-					@Override
-					protected Void doInBackground(Void... params) {
-						
-						if (bitmap == null) {
-							user = fileLoder.loadFromFile();
-							final Comments new_comment = new Comments(0,
-									number, subCoId, 0, editText.getText()
-											.toString(), editText.getText()
-											.toString(), new Date(), location,
-									longitude, latitude, user.getUser_name());
-							subController.insertMaster(new_comment, ServerID);
-							subCoId++;
-						} else {
-							System.out.println("image posted");
-
-							String encode_image = convert_image_to_string(bitmap);
-							final Comments new_comment = new Comments(0,
-									number, subCoId, 0, editText.getText()
-											.toString(), editText.getText()
-											.toString(), new Date(), location,
-									longitude, latitude, encode_image,
-									user.getUser_name());
-							subController.insertMaster(new_comment, ServerID);
-							subCoId++;
 						}
 
-						return null;
-					}
+						@Override
+						protected Void doInBackground(Void... params) {
+							
+							if (bitmap == null) {
+								user = fileLoder.loadFromFile();
+								final Comments new_comment = new Comments(0,
+										number, subCoId, 0, editText.getText()
+												.toString(), editText.getText()
+												.toString(), new Date(), location,
+										longitude, latitude, user.getUser_name());
+								subController.insertMaster(new_comment, ServerID);
+								subCoId++;
+							} else {
+								System.out.println("image posted");
 
-					@Override
-					protected void onPostExecute(Void result) {
-						
-						super.onPostExecute(result);
-						new AsyncTask<Void, Void, Void>() {
-
-							@Override
-							protected Void doInBackground(Void... params) {
-								
-								id_obj.setId_for_master(ServerID);
-								try {
-									insert(id_obj);
-								} catch (IllegalStateException e) {
-									
-									e.printStackTrace();
-								} catch (IOException e) {
-									
-									e.printStackTrace();
-								}
-								return null;
+								String encode_image = convert_image_to_string(bitmap);
+								final Comments new_comment = new Comments(0,
+										number, subCoId, 0, editText.getText()
+												.toString(), editText.getText()
+												.toString(), new Date(), location,
+										longitude, latitude, encode_image,
+										user.getUser_name());
+								subController.insertMaster(new_comment, ServerID);
+								subCoId++;
 							}
 
-						}.execute();
+							return null;
+						}
 
-					}
+						@Override
+						protected void onPostExecute(Void result) {
+							
+							super.onPostExecute(result);
+							new AsyncTask<Void, Void, Void>() {
 
-				}.execute();
+								@Override
+								protected Void doInBackground(Void... params) {
+									
+									id_obj.setId_for_master(ServerID);
+									try {
+										insert(id_obj);
+									} catch (IllegalStateException e) {
+										
+										e.printStackTrace();
+									} catch (IOException e) {
+										
+										e.printStackTrace();
+									}
+									return null;
+								}
 
-				setResult(RESULT_OK);
-				finish();
+							}.execute();
+
+						}
+
+					}.execute();
+
+					setResult(RESULT_OK);
+					finish();
+				}
 			}
+			
 		}
 	}
 
