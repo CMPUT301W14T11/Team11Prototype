@@ -1,8 +1,10 @@
 package Model;
 
+import java.io.Serializable;
+
 import android.graphics.Bitmap;
 
-public class CommentUser {
+public class CommentUser implements Serializable{
 
 	    private String name;
 	    private String age;

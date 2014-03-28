@@ -3,7 +3,6 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,7 +65,8 @@ import com.google.gson.reflect.TypeToken;
  */
 public class MainActivity extends Activity implements OnRefreshListener,
 		CommentController, IDController {
-    SearchView sec_search;
+	CommentUser someuser;
+	SearchView sec_search;
 	int location_flag;
 	ListView listview;
 	ArrayList<Comments> comment_array, date_comment_array;
@@ -357,6 +357,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		case R.id.item99:
 			final String UserName = user.getUser_name();
 			System.out.println("name is:"+UserName);
+			
 			new AsyncTask<Void,Void,Void>()
 			{
 
@@ -364,6 +365,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 				protected Void doInBackground(Void... params) {
 					try{// TODO Auto-generated method stub
 					Gson gson = new Gson();
+					
 					HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
 					String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
 					StringEntity entity;
@@ -377,23 +379,33 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
 							json1, elasticSearchSearchResponseType);
 					int flag = 0;
+					
 					for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
 					{   // get some result, then flag is 1
+						someuser = r.getSource();
 						flag=1;
+						break;
 					}
 					System.out.println(json1+"profilehehe");
 					
-					switch (flag)
+					if (flag==0)
 					{
-					case 0:
-						//no result
+					
+						//no result, result code 12345
 						Intent intent = new Intent();
+						intent.putExtra("username",UserName);
 						intent.setClass(content, NewProfileActivity.class);
 						startActivityForResult(intent, 12345);
-						break;
-					case 1:
-						// have result
-						break;
+					
+					}
+					if (flag==1)
+					{
+						// have result , result code 939
+						Intent intent_profile = new Intent();
+						intent_profile.setClass(content, ProfileActivity.class);
+						Bundle bundle = new Bundle();
+						intent_profile.putExtra("name",someuser);
+						startActivityForResult(intent_profile, 939);
 					}
 					
 					}

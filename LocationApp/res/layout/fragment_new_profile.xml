@@ -20,21 +20,23 @@
 
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView121"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/imageView1"
         android:layout_below="@+id/imageView1"
         android:layout_marginTop="17dp"
         android:layout_alignParentLeft="true"
-        android:text="Name" />
+        android:text="Info"
+        android:textStyle="bold"
+        android:singleLine="true" />
 
     <EditText
-        android:id="@+id/EditText02"
+        android:id="@+id/EditText020"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView5"
-        android:layout_alignLeft="@+id/EditText01"
+        android:layout_alignLeft="@+id/EditText010"
         android:ems="10"
         android:inputType="textPersonName" />
     <requestFocus />
@@ -42,8 +44,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/EditText01"
-        android:layout_alignRight="@+id/textView1"
+        android:layout_alignBottom="@+id/EditText010"
+        android:layout_alignRight="@+id/textView121"
         android:layout_alignParentLeft="true"
         android:text="Age" />
 
@@ -52,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView5"
-        android:layout_below="@+id/EditText01"
+        android:layout_below="@+id/EditText010"
         android:layout_marginTop="62dp"
         android:layout_alignParentLeft="true"
         android:text="LinkedIn" />
@@ -61,17 +63,17 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText01"
+        android:layout_below="@+id/EditText010"
         android:layout_marginTop="17dp"
         android:layout_alignParentLeft="true"
         android:text="facebook" />
 
     <EditText
-        android:id="@+id/EditText04"
+        android:id="@+id/EditText040"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView3"
-        android:layout_alignLeft="@+id/EditText03"
+        android:layout_alignLeft="@+id/EditText030"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -80,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textView4"
-        android:layout_below="@+id/EditText05"
+        android:layout_below="@+id/EditText050"
         android:layout_marginTop="24dp"
         android:layout_alignParentLeft="true"
         android:text="Email" />
@@ -95,22 +97,22 @@
         android:layout_alignParentLeft="true"
         android:text="Phone" />
 
-    <EditText
-        android:id="@+id/editText1"
+    <TextView
+        android:id="@+id/editText10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBottom="@+id/textView121"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/textView5"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        
+        />
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/EditText010"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/editText10"
+        android:layout_below="@+id/editText10"
         android:ems="10"
         android:inputType="textPersonName" >
 
@@ -118,29 +120,29 @@
     </EditText>
 
     <EditText
-        android:id="@+id/EditText03"
+        android:id="@+id/EditText030"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText02"
-        android:layout_below="@+id/EditText02"
+        android:layout_alignLeft="@+id/EditText020"
+        android:layout_below="@+id/EditText020"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/EditText05"
+        android:id="@+id/EditText050"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_alignLeft="@+id/EditText04"
+        android:layout_alignLeft="@+id/EditText040"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editText20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView6"
-        android:layout_alignLeft="@+id/EditText05"
+        android:layout_alignLeft="@+id/EditText050"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -152,6 +154,7 @@
         android:layout_below="@+id/textView6"
         android:layout_marginTop="43dp"
         android:background="#66FF66"
+        android:onClick="upload_profile"
         android:text="Create"
         android:textColor="#FFFFFF" />
 
