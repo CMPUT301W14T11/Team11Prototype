@@ -180,8 +180,6 @@ public class SubCommetsRead extends Activity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		ArrayList<Comments> sub = new ArrayList<Comments>();
-		// user = fileLoder.loadFromFile();
 		switch (item.getItemId()) {
 		case R.id.fav:
 			user = new UserModel();
@@ -195,18 +193,26 @@ public class SubCommetsRead extends Activity {
 			else
 			{
 				FavouriteComment fc = new FavouriteComment();
+				ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
 				fc.setText(comment_list.get(0).getThe_comment());
 				fc.setTitle(comment_list.get(0).getSubject_comment());
 				fc.setImage(comment_list.get(0).getImage_encode());
 				fc.setDistance(comment_list.get(0).getDistance());
 
 				
-				// Comments maincom = comment_list.get(0);
-				// for (int i =1;i<comment_list.size();i++)
-				// sub.add(comment_list.get(i));
+				for (int i =1;i<comment_list.size();i++)
+				{
+					FavouriteComment sub = new FavouriteComment();
+					sub.setText(comment_list.get(i).getThe_comment());
+					sub.setTitle(comment_list.get(i).getSubject_comment());
+					sub.setImage(comment_list.get(i).getImage_encode());
+					sub.setDistance(comment_list.get(i).getDistance());
+					subcomment.add(sub);
+				}
+					
 
 				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
-						null);
+						subcomment);
 				user.addFaviourte(favi);
 				fileSaver.saveInFile(user);
 			}
