@@ -7,8 +7,19 @@ public class FavouriteComment
 {
 	private String title;
 	private String text;
-	private Bitmap comment_image;
+	private String comment_image;
+	private String userName;
 
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
+	
+	public String getUserName()
+	{
+		return userName;
+	}
+	
 	public String getTitle()
 	{
 	
@@ -31,6 +42,16 @@ public class FavouriteComment
 	{
 	
 		this.text = text;
+	}
+	
+	public void setImage(String image)
+	{
+		this.comment_image = image;
+	}
+	
+	public String getImage()
+	{
+		return comment_image;
 	}
 	
 	

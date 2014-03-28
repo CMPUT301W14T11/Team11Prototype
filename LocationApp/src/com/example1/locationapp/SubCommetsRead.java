@@ -197,6 +197,9 @@ public class SubCommetsRead extends Activity {
 				FavouriteComment fc = new FavouriteComment();
 				fc.setText(comment_list.get(0).getThe_comment());
 				fc.setTitle(comment_list.get(0).getSubject_comment());
+				fc.setImage(comment_list.get(0).getImage_encode());
+
+				
 				// Comments maincom = comment_list.get(0);
 				// for (int i =1;i<comment_list.size();i++)
 				// sub.add(comment_list.get(i));
