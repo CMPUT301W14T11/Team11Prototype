@@ -3,6 +3,7 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +24,7 @@ import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.compara;
 import Controller.datesort;
+import Model.CommentUser;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -64,7 +66,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class MainActivity extends Activity implements OnRefreshListener,
 		CommentController, IDController {
-
+    SearchView sec_search;
 	int location_flag;
 	ListView listview;
 	ArrayList<Comments> comment_array, date_comment_array;
@@ -352,22 +354,77 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			fileSaver.saveInFile(user);
 			startActivity(intent7);
 			break;
+		case R.id.item99:
+			final String UserName = user.getUser_name();
+			System.out.println("name is:"+UserName);
+			new AsyncTask<Void,Void,Void>()
+			{
+
+				@Override
+				protected Void doInBackground(Void... params) {
+					try{// TODO Auto-generated method stub
+					Gson gson = new Gson();
+					HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
+					String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
+					StringEntity entity;
+					entity = new StringEntity(query_profile);
+					httppost.setHeader("Accept", "application/json");
+					httppost.setEntity(entity);
+					HttpResponse response = httpclient.execute(httppost);
+					String json1 = getEntityContent(response);
+					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
+					}.getType();
+					ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
+							json1, elasticSearchSearchResponseType);
+					int flag = 0;
+					for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
+					{   // get some result, then flag is 1
+						flag=1;
+					}
+					System.out.println(json1+"profilehehe");
+					
+					switch (flag)
+					{
+					case 0:
+						//no result
+						Intent intent = new Intent();
+						intent.setClass(content, NewProfileActivity.class);
+						startActivityForResult(intent, 12345);
+						break;
+					case 1:
+						// have result
+						break;
+					}
+					
+					}
+					 catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return null;
+				}
+				
+			}.execute();
+			break;
 		case R.id.menu_item_search:
-			System.out.println("omgomg");
+			
             onSearchRequested();
-            
-			System.out.println("search requested2");
-			return true;
+            return true;
 
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
 
+
+
 	// get result from other activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        
 		super.onActivityResult(requestCode, resultCode, data);
 		// when use finish choesing location, get it from playtube_activity
 		System.out.println("code is " + requestCode);
@@ -427,6 +484,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 		searchView.setIconifiedByDefault(true);
 		searchView.setSubmitButtonEnabled(true);
+		
 		return true;
 	}
 

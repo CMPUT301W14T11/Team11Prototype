@@ -24,6 +24,11 @@
         android:visible="true">
     </item>
     <item
+        android:id="@+id/item99"
+        android:showAsAction="never"
+        android:title="My Profile">
+    </item>
+    <item
         android:id="@+id/item3"
         android:showAsAction="never"
         android:title="sort by date">

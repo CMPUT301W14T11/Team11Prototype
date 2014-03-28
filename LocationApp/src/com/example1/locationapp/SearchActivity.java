@@ -2,25 +2,25 @@ package com.example1.locationapp;
 
 import java.util.ArrayList;
 
-
 import Model.Comments;
-
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class SearchActivity extends MainActivity {
-    cutadapter adapter;
+public class SearchActivity extends Activity {
+    cutadapter adapter2;
     ArrayList<Comments> comment_list;
     ListView listview2;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,9 +32,11 @@ public class SearchActivity extends MainActivity {
 		}
 		listview2 =(ListView) findViewById(R.id.search_list);
 		comment_list = new ArrayList<Comments>();
+		adapter2 = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
+		listview2.setAdapter(adapter2);
+		//ArrayList<String> list = new ArrayList<String>();
+		//ArrayAdapter<String> st_ada = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 		
-		adapter = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
-		listview2.setAdapter(adapter);
 		handleIntent(getIntent());
 	}
 
@@ -54,22 +56,20 @@ public class SearchActivity extends MainActivity {
 			
 			
 			doSearch(query);
+			
 		}
+		//listview2.setAdapter(adapter);
 	}
 
 	private void doSearch(String queryStr) {
 		// get a Cursor, prepare the ListAdapter
 		// and set it
+		listview2 =(ListView) findViewById(R.id.search_list);
+		comment_list = new ArrayList<Comments>();
+		adapter2 = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
+		listview2.setAdapter(adapter2);
 		System.out.println("search is on");
-		new AsyncTask<Void, Void,Void>() {
-
-			@Override
-			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
-				
-				return null;
-			}
-		};
+		
 	}
 
 	@Override
