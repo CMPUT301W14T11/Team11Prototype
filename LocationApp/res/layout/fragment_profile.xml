@@ -65,6 +65,7 @@
             android:id="@+id/textView188"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dip"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -72,6 +73,7 @@
             android:id="@+id/textView388"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dip"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -80,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large Text"
+            android:layout_marginLeft="50dip"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -87,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large Text"
+            android:layout_marginLeft="50dip"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -94,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large Text"
+            android:layout_marginLeft="50dip"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -101,6 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large Text"
+            android:layout_marginLeft="50dip"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 

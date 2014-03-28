@@ -14,25 +14,31 @@ import android.widget.TextView;
 
 public class ProfileActivity extends Activity {
     CommentUser goduser;
-    TextView textview2,textview3,textview4,textview5,textview6;
+    TextView textview1,textview2,textview3,textview4,textview5,textview6;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_profile);
+		setContentView(R.layout.fragment_profile);
 
-		if (savedInstanceState == null) {
+		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 		Intent intent = getIntent();
 		goduser= (CommentUser) intent.getSerializableExtra("name");
-		TextView textview1 = (TextView) findViewById(R.id.textView188);
+		textview1 = (TextView) findViewById(R.id.textView188);
 		textview2 = (TextView) findViewById(R.id.textView388);
 		textview3 = (TextView) findViewById(R.id.textView288);
 		textview4 = (TextView) findViewById(R.id.textView588);
 		textview5 = (TextView) findViewById(R.id.textView488);
 		textview6 = (TextView) findViewById(R.id.textView688);
-		textview1.setText("wocao");
+		textview1.setText(goduser.getName());
+		textview2.setText(goduser.getAge());
+		textview3.setText(goduser.getFacebook());
+		textview4.setText(goduser.getLinkedIn());
+		textview5.setText(goduser.getPhone());
+		textview6.setText(goduser.getEmail());
+		
 	}
 
 	@Override
