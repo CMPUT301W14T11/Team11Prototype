@@ -186,17 +186,27 @@ public class SubCommetsRead extends Activity {
 		case R.id.fav:
 			user = new UserModel();
 			user = fileLoder.loadFromFile();
-			FavouriteComment fc = new FavouriteComment();
-			fc.setText(comment_list.get(0).getThe_comment());
-			fc.setTitle(comment_list.get(0).getSubject_comment());
-			// Comments maincom = comment_list.get(0);
-			// for (int i =1;i<comment_list.size();i++)
-			// sub.add(comment_list.get(i));
+			if (user.getUser_name().equals(""))
+			{
+				Toast.makeText(SubCommetsRead.this,
+						"You don not have right to add a fav",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				FavouriteComment fc = new FavouriteComment();
+				fc.setText(comment_list.get(0).getThe_comment());
+				fc.setTitle(comment_list.get(0).getSubject_comment());
+				// Comments maincom = comment_list.get(0);
+				// for (int i =1;i<comment_list.size();i++)
+				// sub.add(comment_list.get(i));
 
-			FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
-					null);
-			user.addFaviourte(favi);
-			fileSaver.saveInFile(user);
+				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
+						null);
+				user.addFaviourte(favi);
+				fileSaver.saveInFile(user);
+			}
+			
 			break;
 
 		case R.id.save:
