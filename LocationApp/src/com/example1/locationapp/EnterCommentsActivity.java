@@ -2,11 +2,13 @@ package com.example1.locationapp;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -22,6 +24,7 @@ import Controller.LocalFileLoder;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -29,8 +32,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.util.Base64;
 import android.view.Menu;
@@ -54,6 +60,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 		Serializable {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
+	File photoFile;
 	EditText title_edit, subject_edit;
 	Button post_button, picture_add_button;
 	Location location;
@@ -66,6 +73,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 	Context content;
 	Bitmap bitmap;
 	IDModel id_obj;
+	String mCurrentPhotoPath;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private UserModel user;
 
@@ -269,12 +277,61 @@ public class EnterCommentsActivity extends Activity implements IDController,
 
 	// chose picture request for picture is 5
 	public void addPicture(View view) {
+		//orginnal take picture
 		Intent intent = new Intent(this, ChoseImageActivity.class);
 		startActivityForResult(intent, 5);
+		//originnal take picture
+		/*int REQUEST_IMAGE_CAPTURE = 200;
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    // Ensure that there's a camera activity to handle the intent
+	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	        // Create the File where the photo should go
+	        photoFile = null;
+	        try {
+	            photoFile = createImageFile();
+	        } catch (IOException ex) {
+	            // Error occurred while creating the File
+	            System.out.println("file saving error");
+	        }
+	        // Continue only if the File was successfully created
+	        if (photoFile != null) {
+	            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+	                    Uri.fromFile(photoFile));
+	            
+	            startActivityForResult(takePictureIntent,200);
+	        }
+	    }*/
 	}
 
+	private File createImageFile() throws IOException {
+	    // Create an image file name
+		
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    String imageFileName = "JPEG_" + timeStamp + "_";
+	    File storageDir = Environment.getExternalStoragePublicDirectory(
+	            Environment.DIRECTORY_PICTURES);
+	    File image = File.createTempFile(
+	        imageFileName,  /* prefix */
+	        ".jpg",         /* suffix */
+	        storageDir      /* directory */
+	    );
+
+	    // Save a file: path for use with ACTION_VIEW intents
+	    mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+	    return image;
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		/*if (requestCode==200 && resultCode==RESULT_OK)
+		{   System.out.println("absulute path is:"+mCurrentPhotoPath);
+			bitmap = BitmapFactory.decodeFile(photoFile.getAbsoluteFile().getAbsolutePath());
+			
+			//Bundle extras = data.getExtras();
+			//Bitmap imageBitmap = (Bitmap) extras.get("data");
+			
+			imageview.setImageBitmap(bitmap);
+			
+		}*/
 		if (resultCode == RESULT_OK) {
 			String file = data.getStringExtra("image");
 			String file2 = data.getStringExtra("choseimage");

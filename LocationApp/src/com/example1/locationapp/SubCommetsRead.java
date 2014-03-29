@@ -340,13 +340,13 @@ public class SubCommetsRead extends Activity {
 								}
 
 							}.execute();
-
+                        dialog1.dismiss();
 						}
 
 					}.execute();
 
 					setResult(RESULT_OK);
-					finish();
+					
 				}
 			}
 			

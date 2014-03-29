@@ -15,6 +15,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />
+    <!-- <Button 
+        android:id="@+id/picturebutton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Pic"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        /> -->
 
     <ListView
         android:id="@+id/listViewSubComments"
