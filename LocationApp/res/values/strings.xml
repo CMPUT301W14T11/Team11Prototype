@@ -17,5 +17,6 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_new_profile">NewProfileActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_edit">EditActivity</string>
 
 </resources>

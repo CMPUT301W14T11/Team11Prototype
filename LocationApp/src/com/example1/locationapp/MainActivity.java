@@ -270,6 +270,21 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 						switch (which) {
 						case 0:
+							String CheckName = user.getUser_name();
+							final Comments SelectedComment = comment_array.get(arg2);
+							if(SelectedComment.getUserName().equals(CheckName))
+							{   //request for edit, request code is 18
+								System.out.println("edit my comment");
+								Intent intent = new Intent();
+								intent.setClass(content, EditActivity.class);
+								intent.putExtra("id", SelectedComment.getMaster_ID());
+								
+								startActivityForResult(intent,1912);
+							}
+							else
+							{
+								Toast.makeText(content,"You can only edit your own comment",Toast.LENGTH_SHORT).show();
+							}
 							break;
 						case 1:
 							Intent intent = new Intent();
@@ -565,7 +580,9 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			}.getType();
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
 					json1, elasticSearchSearchResponseType);
-
+            // new version of array sorting
+			System.out.println("array clear");
+	        comment_array.clear();
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 				Comments comms = r.getSource();
 

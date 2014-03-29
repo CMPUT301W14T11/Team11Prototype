@@ -136,6 +136,10 @@
             android:name="com.example1.locationapp.ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name="com.example1.locationapp.EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
     </application>
 
 </manifest>
