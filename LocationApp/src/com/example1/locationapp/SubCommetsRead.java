@@ -40,6 +40,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -82,9 +84,6 @@ public class SubCommetsRead extends Activity {
 	private SubCommentController subController = new SubCommentController(
 			comment1);
 
-	// private Comments mainComment;
-	// private EnterCommentsActivity callEnterComments = new
-	// EnterCommentsActivity();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -143,7 +142,47 @@ public class SubCommetsRead extends Activity {
 				R.layout.footlayout, null, false);
 
 		listViewSubComment.addFooterView(footerView);
+		/*listViewSubComment.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+				boolean mIsLoadingNewData=false;
+				final boolean needLoading =!mIsLoadingNewData&& firstVisibleItem + visibleItemCount >= ListAdapter.getCount() - 1;
+			    mIsLoadingNewData=true;
+			    if(needLoading)
+			    {
+			    	
+			    	new AsyncTask<Void, Void, Void>()
+			    	{
 
+						@Override
+						protected Void doInBackground(Void... params) {
+							// TODO Auto-generated method stub
+							comment_list.clear();
+							get_comments("get comments");
+							return null;
+						}
+
+						@Override
+						protected void onPostExecute(Void result) {
+							// TODO Auto-generated method stub
+							super.onPostExecute(result);
+							ListAdapter.notifyDataSetChanged();
+						}
+			    		
+			    	}.execute();
+			    	
+			    }
+			}
+		});*/
 		listViewSubComment.setAdapter(ListAdapter);
 		footerView.setOnClickListener(new OnClickListener() {
 
@@ -155,7 +194,7 @@ public class SubCommetsRead extends Activity {
 					@Override
 					protected Void doInBackground(Void... params) {
 						
-						comment_list = new ArrayList<Comments>();
+						comment_list.clear();
 						get_comments("get some comments man!");
 						return null;
 					}
