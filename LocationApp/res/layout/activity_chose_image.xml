@@ -54,13 +54,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Take Picture" />
+            android:background="#66FF66"
+            android:textColor="#FFFFFF"
+            android:text="Take Picture"
+            android:layout_marginRight="4dip" />
 
         <Button
             android:id="@+id/buttonChooseImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#3399FF"
+        	android:textColor="#FFFFFF"
             android:text="Choose Image" />
     </LinearLayout>
 

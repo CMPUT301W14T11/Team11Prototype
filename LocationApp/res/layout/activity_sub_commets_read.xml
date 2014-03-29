@@ -14,6 +14,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#66FF66"
+        android:textColor="#FFFFFF"
         android:layout_alignParentRight="true" />
     <!-- <Button 
         android:id="@+id/picturebutton"
@@ -28,7 +30,7 @@
         android:id="@+id/listViewSubComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editTextSubmitSubComments"
+        android:layout_above="@+id/buttonSaveSubComments"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/buttonSaveSubComments" >
@@ -50,6 +52,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#3399FF"
+        android:textColor="#FFFFFF"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="Pic"
