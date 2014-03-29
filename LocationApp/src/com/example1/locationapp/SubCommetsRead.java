@@ -298,7 +298,10 @@ public class SubCommetsRead extends Activity {
 						bitmap = BitmapFactory.decodeFile(file2);
 						System.out.println("haha2" + file);
 					}
-
+					if(bitmap!=null)
+					{
+						Toast.makeText(SubCommetsRead.this, "Picture added", Toast.LENGTH_SHORT).show();
+					}
 					//imageview.setImageBitmap(bitmap);
 					break;
 				}
