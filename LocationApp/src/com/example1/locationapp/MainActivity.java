@@ -96,6 +96,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ActionBar bar = getActionBar();
+		
 		bar.setDisplayShowTitleEnabled(false);
 		Intent intent = getIntent();
 		// checking where there is internet or not, if no internet then exit app

@@ -3,8 +3,9 @@
     <item
         android:id="@+id/menu_item_search"
         android:actionViewClass="android.widget.SearchView"
-        android:icon="@android:drawable/ic_menu_search"
+        
         android:showAsAction="always"
+        android:icon="@drawable/magnifying_glass"
         android:title="Search">
     </item>
     <item
@@ -12,6 +13,7 @@
         android:enabled="true"
         android:orderInCategory="1"
         android:showAsAction="always"
+        android:icon="@drawable/pen_1"
         android:title="NEW"
         android:visible="true">
     </item>
@@ -20,6 +22,7 @@
         android:enabled="true"
         android:orderInCategory="2"
         android:showAsAction="always"
+        android:icon="@drawable/pin_2"
         android:title="Location"
         android:visible="true">
     </item>
@@ -40,7 +43,9 @@
     </item>
     <item
         android:id="@+id/item5"
-        android:showAsAction="never"
+        android:showAsAction="never|withText"
+        android:icon="@drawable/heart"
+        
         android:title="my favourite">
     </item>
     <item
