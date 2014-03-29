@@ -11,9 +11,9 @@
     <Button
         android:id="@+id/buttonSaveSubComments"
         android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />
     <!-- <Button 
         android:id="@+id/picturebutton"
@@ -31,7 +31,7 @@
         android:layout_above="@+id/editTextSubmitSubComments"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editTextSubmitSubComments" >
+        android:layout_alignRight="@+id/buttonSaveSubComments" >
 
     </ListView>
 
@@ -39,12 +39,20 @@
         android:id="@+id/editTextSubmitSubComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonSaveSubComments"
-        android:layout_alignLeft="@+id/buttonSaveSubComments"
-        android:layout_alignRight="@+id/buttonSaveSubComments"
-        android:ems="10" >
+        android:layout_alignBaseline="@+id/buttonSaveSubComments"
+        android:layout_alignBottom="@+id/buttonSaveSubComments"
+        android:layout_toLeftOf="@+id/buttonSaveSubComments"
+        android:layout_toRightOf="@+id/button1"
+        android:ems="10" />
 
-        <requestFocus />
-    </EditText>
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Pic"
+        android:onClick="picture" />
 
 </RelativeLayout>

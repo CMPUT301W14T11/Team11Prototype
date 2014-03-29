@@ -30,6 +30,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -91,7 +92,7 @@ public class SubCommetsRead extends Activity {
 		listViewSubComment = (ListView) findViewById(R.id.listViewSubComments);
 		editText = (EditText) findViewById(R.id.editTextSubmitSubComments);
 		button1 = (Button) findViewById(R.id.buttonSaveSubComments);
-		button1.setText("Submit Sub Comments");
+		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
@@ -239,7 +240,39 @@ public class SubCommetsRead extends Activity {
 		getMenuInflater().inflate(R.menu.sub_commets_read, menu);
 		return true;
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==RESULT_OK)
+		{
+			switch(requestCode)
+			{
+				case 2828:
+					String file = data.getStringExtra("image");
+					String file2 = data.getStringExtra("choseimage");
+					if (file != null) {
+						bitmap = BitmapFactory.decodeFile(file);
+						System.out.println("haha" + file);
+					} else {
+						bitmap = BitmapFactory.decodeFile(file2);
+						System.out.println("haha2" + file);
+					}
 
+					//imageview.setImageBitmap(bitmap);
+					break;
+				}
+					
+		}
+		
+	}
+
+	public void picture(View v)
+	{
+		Intent intent = new Intent(this, ChoseImageActivity.class);
+		startActivityForResult(intent,2828);
+	}
 	class MyButton1Listener implements OnClickListener {
 
 		@Override
@@ -341,6 +374,8 @@ public class SubCommetsRead extends Activity {
 
 							}.execute();
                         dialog1.dismiss();
+                        bitmap=null;
+                        editText.setText("");
 						}
 
 					}.execute();
