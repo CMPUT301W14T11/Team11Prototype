@@ -3,19 +3,18 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import Model.Comments;
-import Model.IDModel;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -122,6 +121,34 @@ public class EditActivity extends Activity {
         	{
 
     			@Override
+				protected void onPreExecute() {
+					// TODO Auto-generated method stub
+					super.onPreExecute();
+					new AsyncTask<Void,Void,Void>()
+					{
+
+						@Override
+						protected Void doInBackground(Void... params) {
+							// TODO Auto-generated method stub
+							HttpClient httpclient = new DefaultHttpClient();
+							HttpDelete httpDelete = new HttpDelete("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+id);
+							httpDelete.addHeader("Accept","application/json");
+							try {
+								HttpResponse responsedelete = httpclient.execute(httpDelete);
+							} catch (ClientProtocolException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							return null;
+						}
+						
+					}.execute();
+				}
+
+				@Override
 				protected void onPostExecute(Void result) {
 					// TODO Auto-generated method stub
 					super.onPostExecute(result);
@@ -132,36 +159,22 @@ public class EditActivity extends Activity {
 				@Override
     			protected Void doInBackground(Void... params) {
     				// TODO Auto-generated method stub
-    				HttpClient httpclient = new DefaultHttpClient();
-    	    		HttpPost httpPost = new HttpPost(
-    	    				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+id);
+    				try{
+					HttpClient httpclient = new DefaultHttpClient();
+					
+					
+					// delete
+    	    		HttpPut httpPost = new HttpPut("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+id);
     	    		StringEntity stringentity = null;
-
-    	    		try {
-    	    			Gson gson = new Gson();
-    	    			stringentity = new StringEntity(gson.toJson(newcomments));
-    	    		} catch (UnsupportedEncodingException e) {
-
-    	    			e.printStackTrace();
-    	    		} catch (NullPointerException e) {
-
-    	    			
-    	    		} catch (RuntimeException e) {
-
-    	    			
-    	    		}
+                    Gson gson = new Gson();
+    	    		stringentity = new StringEntity(gson.toJson(newcomments));
     	    		httpPost.setHeader("Accept", "application/json");
-
     	    		httpPost.setEntity(stringentity);
-
     	    		HttpResponse response = null;
-
-    	    		try {
-    	    			
-    	    			response = httpclient.execute(httpPost);
-    	    			
-
-    	    		} catch (ClientProtocolException e) {
+    	    		response = httpclient.execute(httpPost);
+    	    		System.out.println("put response:"+response.getStatusLine());
+    	    		}
+    	    		 catch (ClientProtocolException e) {
     	    			e.printStackTrace();
 
     	    		} catch (IOException e) {
@@ -173,7 +186,7 @@ public class EditActivity extends Activity {
     	    		} catch (RuntimeException e) {
 
     	    			
-    	    		}
+    	    		} 
     	    	
 
     				return null;
