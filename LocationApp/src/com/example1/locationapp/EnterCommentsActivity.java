@@ -10,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -24,19 +26,18 @@ import Controller.LocalFileLoder;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.net.Uri;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.util.Base64;
 import android.view.Menu;
@@ -128,7 +129,32 @@ public class EnterCommentsActivity extends Activity implements IDController,
 
 		}
 		String subject = subject_edit.getText().toString();
+		final ConnectivityManager connMgr = (ConnectivityManager) EnterCommentsActivity.this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+		final android.net.NetworkInfo wifi = connMgr
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		final android.net.NetworkInfo mobile = connMgr
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		if(!wifi.isConnected() || !mobile.isConnected())
+		{
+			Toast.makeText(getApplicationContext(), "No internet right now, Comement will be send later",Toast.LENGTH_LONG).show();
+			SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPref.edit();
+			Set<String> the_set = new HashSet<String>();
+			the_set.add(title);
+			the_set.add(subject);
+			if(bitmap!=null)
+			{
+				String encode = convert_image_to_string(bitmap);
+				the_set.add(encode);
+			}
+			editor.putStringSet("comments",the_set);
+			editor.commit();
+			finish();
+		}
+		
 		new AsyncTask<Void, Void, Void>() {
 			ProgressDialog dialog1 = new ProgressDialog(content);
 
