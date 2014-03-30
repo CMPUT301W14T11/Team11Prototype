@@ -240,7 +240,7 @@ public class SubCommetsRead extends Activity {
 			{
 				for (int i=0; i<user.getFaviourte().size(); i++)
 				{
-					if (user.getFaviourte().get(i).getID()==number)
+					if (user.getFaviourte().get(i).getID()==number && user.getFaviourte().get(i).getUsername().equals(user.getUser_name()))
 					{
 						saved=true;
 					}
