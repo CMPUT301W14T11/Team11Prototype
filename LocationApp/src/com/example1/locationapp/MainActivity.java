@@ -263,7 +263,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					final int arg2, long arg3) {
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
-				String items[] = { "Edit Comment", "Add Tags" };
+				String items[] = { "Edit Comment", "Add Tags","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 
 					@Override
@@ -293,6 +293,87 @@ public class MainActivity extends Activity implements OnRefreshListener,
 									TagActivity.class);
 							index = arg2;
 							startActivityForResult(intent, 1258);
+							break;
+						case 2:
+							final String name = comment_array.get(arg2).getUserName();
+							new AsyncTask<Void, Void, Void>()
+							{
+								@Override
+								protected void onPostExecute(Void result) {
+									// TODO Auto-generated method stub
+									super.onPostExecute(result);
+									if (flag==0)
+									{
+										AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+										builder.setTitle("User has did not create profile");
+										builder.setMessage("User is very lazy");
+										builder.setCancelable(true);
+										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												// TODO Auto-generated method stub
+												dialog.cancel();
+												
+											}
+										});
+										AlertDialog adialog = builder.create();
+										adialog.show();
+									}
+								}
+								int flag = 0;
+								@Override
+								protected Void doInBackground(Void... params) {
+									// TODO Auto-generated method stub
+									try{// TODO Auto-generated method stub
+										Gson gson = new Gson();
+										
+										HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
+										String query_profile = "{\"query\":{\"match\":{\"name\":\""+name+"\"}}}";
+										StringEntity entity;
+										entity = new StringEntity(query_profile);
+										httppost.setHeader("Accept", "application/json");
+										httppost.setEntity(entity);
+										HttpResponse response = httpclient.execute(httppost);
+										String json1 = getEntityContent(response);
+										Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
+										}.getType();
+										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
+												json1, elasticSearchSearchResponseType);
+										
+										
+										for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
+										{   // get some result, then flag is 1
+											someuser = r.getSource();
+											flag=1;
+											break;
+										}
+										System.out.println(json1+"profilehehe");
+										
+										
+										if (flag==1)
+										{
+											// have result , result code 939
+											Intent intent_profile = new Intent();
+											intent_profile.setClass(content, ProfileActivity.class);
+											Bundle bundle = new Bundle();
+											intent_profile.putExtra("name",someuser);
+											startActivityForResult(intent_profile, 939);
+										}
+										
+										}
+										 catch (ClientProtocolException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										return null;
+									
+								}
+								
+							}.execute();
 							break;
 						}
 
