@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class UserModel {
     
-   //private Location user_location;
     private ArrayList<FavouriteModel> faviourte = new ArrayList<FavouriteModel>();
     private String user_name;
     
@@ -12,7 +11,6 @@ public class UserModel {
     public UserModel()
     {
     	user_name = "";
-    	//user_location=null;
     }
 
 	public String getUser_name()

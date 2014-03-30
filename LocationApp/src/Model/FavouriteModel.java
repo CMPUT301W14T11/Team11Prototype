@@ -9,12 +9,23 @@ public class FavouriteModel
 	private String username;
 	private FavouriteComment comment;
 	private ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
+	private int id;
 	
 	public FavouriteModel(String username, FavouriteComment comment, ArrayList<FavouriteComment> subcomment)
 	{
 		this.username=username;
 		this.comment=comment;
 		this.subcomment=subcomment;
+	}
+	
+	public void setID(int id)
+	{
+		this.id = id;
+	}
+	
+	public int getID()
+	{
+		return id;
 	}
 	
 	public void addSubComment(FavouriteComment sub)

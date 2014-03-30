@@ -9,6 +9,7 @@ import Model.FavouriteModel;
 import Model.UserModel;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Favourite class is used to show all the user's favorite 
@@ -32,8 +34,6 @@ public class Favourite extends Activity {
 	private ArrayList<FavouriteModel> favourite;
 	private ArrayList<FavouriteComment> matchlist;
 	private FavouriteComment fc;
-	// private ArrayList<String> matchlist = new ArrayList<String>();
-	// private ArrayAdapter<String> adapter;
 	private CustomAdapter adapter;
 	private ListView list;
 
@@ -44,9 +44,32 @@ public class Favourite extends Activity {
 		content = this;
 		setContentView(R.layout.activity_favourite);
 		matchlist = new ArrayList<FavouriteComment>();
+		
+//		list.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//
+//				int getID = comment_array.get(arg2).getMaster_ID();
+//				Intent intent1 = new Intent();
+//				intent1.putExtra("masterID", getID);
+//				// intent1.putExtra("main", comment_array.get(arg2));
+//				intent1.setClass(Favourite.this, SubCommetsRead.class);
+//				Favourite.this.startActivity(intent1);
+//				// Toast.makeText(MainActivity.this,
+//				// listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
+//				// .show();
+//
+//			}
+//		});
 
 		populateListView();
+		
+		
 	}
+	
+	
 
 	/**
 	 * load the comment and sub-comment from the local saving file, and the

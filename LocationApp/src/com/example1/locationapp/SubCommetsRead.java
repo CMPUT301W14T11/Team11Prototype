@@ -229,6 +229,7 @@ public class SubCommetsRead extends Activity {
 		case R.id.fav:
 			user = new UserModel();
 			user = fileLoder.loadFromFile();
+			boolean saved=false;
 			if (user.getUser_name().equals(""))
 			{
 				Toast.makeText(SubCommetsRead.this,
@@ -237,29 +238,48 @@ public class SubCommetsRead extends Activity {
 			}
 			else
 			{
-				FavouriteComment fc = new FavouriteComment();
-				ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
-				fc.setText(comment_list.get(0).getThe_comment());
-				fc.setTitle(comment_list.get(0).getSubject_comment());
-				fc.setImage(comment_list.get(0).getImage_encode());
-				fc.setDistance(comment_list.get(0).getDistance());
-
-				
-				for (int i =1;i<comment_list.size();i++)
+				for (int i=0; i<user.getFaviourte().size(); i++)
 				{
-					FavouriteComment sub = new FavouriteComment();
-					sub.setText(comment_list.get(i).getThe_comment());
-					sub.setTitle(comment_list.get(i).getSubject_comment());
-					sub.setImage(comment_list.get(i).getImage_encode());
-					sub.setDistance(comment_list.get(i).getDistance());
-					subcomment.add(sub);
+					if (user.getFaviourte().get(i).getID()==number)
+					{
+						saved=true;
+					}
 				}
+				
+				if (saved == true)
+				{
+					Toast.makeText(SubCommetsRead.this,
+							"You already saved this comment",
+							Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					FavouriteComment fc = new FavouriteComment();
+					ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
+					fc.setText(comment_list.get(0).getThe_comment());
+					fc.setTitle(comment_list.get(0).getSubject_comment());
+					fc.setImage(comment_list.get(0).getImage_encode());
+					fc.setDistance(comment_list.get(0).getDistance());
 					
+					
+					for (int i =1;i<comment_list.size();i++)
+					{
+						FavouriteComment sub = new FavouriteComment();
+						sub.setText(comment_list.get(i).getThe_comment());
+						sub.setTitle(comment_list.get(i).getSubject_comment());
+						sub.setImage(comment_list.get(i).getImage_encode());
+						sub.setDistance(comment_list.get(i).getDistance());
+						subcomment.add(sub);
+					}
+						
 
-				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
-						subcomment);
-				user.addFaviourte(favi);
-				fileSaver.saveInFile(user);
+					FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
+							subcomment);
+					favi.setID(number);
+					user.addFaviourte(favi);
+					fileSaver.saveInFile(user);
+				}
+				
 			}
 			
 			break;
