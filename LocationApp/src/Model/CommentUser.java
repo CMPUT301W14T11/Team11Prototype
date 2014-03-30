@@ -14,11 +14,28 @@ public class CommentUser implements Serializable{
 	    private String Email;
 	    private Bitmap picture;
 	    private String imageEncode;
-	    
+	    private String bio;
+	    private String ProfileEncode;
 	    public CommentUser()
 	    {
 	    	
 	    }
+	    
+	    public String getProfileEncode() {
+			return ProfileEncode;
+		}
+
+		public void setProfileEncode(String profileEncode) {
+			ProfileEncode = profileEncode;
+		}
+
+		public String getBio() {
+			return bio;
+		}
+		public void setBio(String bio) {
+			this.bio = bio;
+		}
+	    
 	    
 		public String getName() {
 			return name;

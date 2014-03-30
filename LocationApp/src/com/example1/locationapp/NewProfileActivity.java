@@ -14,42 +14,86 @@ import Model.CommentUser;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 public class NewProfileActivity extends Activity {
-    EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail;
+    EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
+    ImageView imageview;
     Button CreateButton;
     HttpClient httpclient;
-    
     String theUsername;
+    String filepath;
+    Bitmap bitmap;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_profile);
+		setContentView(R.layout.fragment_new_profile);
 
-		if (savedInstanceState == null) {
+		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 		Intent intent = getIntent();
 		theUsername= intent.getStringExtra("username");
 		httpclient = new DefaultHttpClient();
-		
+		imageview = (ImageView) findViewById(R.id.imageView1);
+		imageview.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//get image , requestcode is 654
+				Intent intent = new Intent();
+				intent.setClass(getApplicationContext(),ChoseImageActivity.class);
+				startActivityForResult(intent, 654);
+			}
+		});
 		
 	}
-    /**Upload user profile to the server
+	
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==RESULT_OK)
+		{
+			switch(requestCode)
+			{
+				case 654:
+					String file = data.getStringExtra("image");
+					String file2 = data.getStringExtra("choseimage");
+					if (file != null) {
+						bitmap = BitmapFactory.decodeFile(file);
+						System.out.println("haha" + file);
+					} else {
+						bitmap = BitmapFactory.decodeFile(file2);
+						System.out.println("haha2" + file);
+					}
+
+					imageview.setImageBitmap(bitmap);
+					
+					break;
+			}
+		}
+		
+	}
+
+	/**Upload user profile to the server
      * 
      * @param v
      */
@@ -60,6 +104,7 @@ public class NewProfileActivity extends Activity {
 	Elinkedin = (EditText) findViewById(R.id.EditText040);
 	Ephone = (EditText) findViewById(R.id.EditText050);
 	Eemail = (EditText) findViewById(R.id.editText20);
+	Ebio = (EditText) findViewById(R.id.editText1);
 	CreateButton = (Button) findViewById(R.id.new_profile_button);
 		final CommentUser NewUser =new CommentUser();
 		NewUser.setAge(Eage.getText().toString());
@@ -68,6 +113,11 @@ public class NewProfileActivity extends Activity {
 		NewUser.setLinkedIn(Elinkedin.getText().toString());
 		NewUser.setPhone(Ephone.getText().toString());
 		NewUser.setEmail(Eemail.getText().toString());
+		NewUser.setBio(Ebio.getText().toString());
+		if(bitmap!=null)
+		{
+			NewUser.setImageEncode(new EnterCommentsActivity().convert_image_to_string(bitmap));
+		}
 		UUID NewID = UUID.randomUUID();
 		final String string_ID = NewID.toString();
 		   final Gson gson = new Gson();
@@ -101,6 +151,7 @@ public class NewProfileActivity extends Activity {
 				return null;
 			}}.execute();
 	Toast.makeText(NewProfileActivity.this, "Profile created", Toast.LENGTH_SHORT).show();
+	bitmap = null;
 	finish();
 	}
 	@Override

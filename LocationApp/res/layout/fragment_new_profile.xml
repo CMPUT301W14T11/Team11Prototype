@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/common_signin_btn_icon_dark" />
+        android:src="@drawable/user" />
 
 
     <TextView
@@ -146,13 +146,30 @@
         android:ems="10"
         android:inputType="textEmailAddress" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="23dp"
+        android:text="Biography" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignLeft="@+id/editText20"
+        android:ems="10" />
+
     <Button
         android:id="@+id/new_profile_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_below="@+id/textView6"
-        android:layout_marginTop="43dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="16dp"
         android:background="#66FF66"
         android:onClick="upload_profile"
         android:text="Create"

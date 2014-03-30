@@ -87,6 +87,7 @@ public class cutadapter extends ArrayAdapter<Comments>{
                 	holder.imageview.setImageBitmap(custom.getComment_image());
                     System.out.println("imageset");            
                 }
+            	
             }
             
         }

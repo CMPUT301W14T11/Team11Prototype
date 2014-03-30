@@ -4,17 +4,21 @@ import Model.CommentUser;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProfileActivity extends Activity {
     CommentUser goduser;
-    TextView textview1,textview2,textview3,textview4,textview5,textview6;
+    TextView textview1,textview2,textview3,textview4,textview5,textview6,textview7;
+    ImageView imageview;
+    Bitmap bitmap;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,12 +36,14 @@ public class ProfileActivity extends Activity {
 		textview4 = (TextView) findViewById(R.id.textView588);
 		textview5 = (TextView) findViewById(R.id.textView488);
 		textview6 = (TextView) findViewById(R.id.textView688);
+		textview7 = (TextView) findViewById(R.id.textView8);
 		textview1.setText(goduser.getName());
 		textview2.setText(goduser.getAge());
 		textview3.setText(goduser.getFacebook());
 		textview4.setText(goduser.getLinkedIn());
 		textview5.setText(goduser.getPhone());
 		textview6.setText(goduser.getEmail());
+		textview7.setText(goduser.getBio());
 		
 	}
 

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -20,6 +21,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.SubCommentController;
+import Controller.SubCommentSort;
+import Controller.compara;
 import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
@@ -119,6 +122,7 @@ public class SubCommetsRead extends Activity {
 			protected void onPostExecute(Void result) {
 				
 				super.onPostExecute(result);
+				Collections.sort(comment_list, new SubCommentSort());
 				ListAdapter.notifyDataSetChanged();
 			}
 
@@ -203,6 +207,7 @@ public class SubCommetsRead extends Activity {
 					protected void onPostExecute(Void result) {
 						
 						super.onPostExecute(result);
+						Collections.sort(comment_list, new SubCommentSort());
 						ListAdapter.notifyDataSetChanged();
 					}
 

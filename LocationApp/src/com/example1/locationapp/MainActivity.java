@@ -279,7 +279,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 								Intent intent = new Intent();
 								intent.setClass(content, EditActivity.class);
 								intent.putExtra("id", SelectedComment.getMaster_ID());
-								
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 								startActivityForResult(intent,1912);
 							}
 							else
@@ -365,6 +365,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 		case R.id.item7:
 			Intent intent7 = new Intent(MainActivity.this, MainPage.class);
+			intent7.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			user.setUser_name("");
 			// user.setUser_location(null);
 			fileSaver.saveInFile(user);
@@ -582,11 +583,11 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
 					json1, elasticSearchSearchResponseType);
             // new version of array sorting
-			System.out.println("array clear");
-	        comment_array.clear();
+			
+			
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 				Comments comms = r.getSource();
-
+				
 				// check weath the comment if already in the arraylist, if not
 				// then add it in there
 				int flag = 0;
@@ -623,7 +624,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		} catch (RuntimeException e) {
 
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 	}
 
