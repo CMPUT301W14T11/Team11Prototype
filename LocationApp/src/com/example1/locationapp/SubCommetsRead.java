@@ -260,7 +260,7 @@ public class SubCommetsRead extends Activity {
 					fc.setTitle(comment_list.get(0).getSubject_comment());
 					fc.setImage(comment_list.get(0).getImage_encode());
 					fc.setDistance(comment_list.get(0).getDistance());
-					
+					fc.setUserName(comment_list.get(0).getUserName());
 					
 					for (int i =1;i<comment_list.size();i++)
 					{
@@ -269,6 +269,7 @@ public class SubCommetsRead extends Activity {
 						sub.setTitle(comment_list.get(i).getSubject_comment());
 						sub.setImage(comment_list.get(i).getImage_encode());
 						sub.setDistance(comment_list.get(i).getDistance());
+						sub.setUserName(comment_list.get(i).getUserName());
 						subcomment.add(sub);
 					}
 						
