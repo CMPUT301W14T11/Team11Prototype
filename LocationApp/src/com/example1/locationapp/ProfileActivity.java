@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +46,14 @@ public class ProfileActivity extends Activity {
 		textview5.setText(goduser.getPhone());
 		textview6.setText(goduser.getEmail());
 		textview7.setText(goduser.getBio());
-		
+		imageview = (ImageView) findViewById(R.id.imageimage11);
+		if(goduser.getImageEncode()!=null)
+		{
+		byte[] imageAsBytes = Base64.decode(goduser.getImageEncode().getBytes(),Base64.NO_WRAP);
+    	bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+    	imageview.setImageBitmap(bitmap);
+    	bitmap=null;
+		}
 	}
 
 	@Override
