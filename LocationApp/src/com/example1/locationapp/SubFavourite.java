@@ -45,7 +45,7 @@ public class SubFavourite extends Activity
 		user = new UserModel();
 		user = fl.loadFromFile();
 
-		list = (ListView) findViewById(R.id.favouritelist);
+		list = (ListView) findViewById(R.id.listViewSubComments);
 
 		FavouriteModel fm = null;
 		for (int i=0; i<user.getFaviourte().size(); i++)
