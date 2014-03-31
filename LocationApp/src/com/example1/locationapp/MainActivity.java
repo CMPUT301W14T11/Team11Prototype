@@ -3,6 +3,7 @@ package com.example1.locationapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,7 @@ import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -49,6 +51,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -276,11 +279,64 @@ public class MainActivity extends Activity implements OnRefreshListener,
 							if(SelectedComment.getUserName().equals(CheckName))
 							{   //request for edit, request code is 18
 								System.out.println("edit my comment");
-								Intent intent = new Intent();
+								/*Intent intent = new Intent();
 								intent.setClass(content, EditActivity.class);
 								intent.putExtra("id", SelectedComment.getMaster_ID());
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-								startActivityForResult(intent,1912);
+								startActivityForResult(intent,1912);*/
+								final Dialog dialogui = new Dialog(content);
+								dialogui.setContentView(R.layout.dialogui);
+								dialogui.setTitle("Edit my comment");
+								dialogui.show();
+								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
+								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
+								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
+								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+								Changebutton.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										comment_array.get(arg2).setThe_comment(titleedit.getText().toString());
+										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
+										comment_array.get(arg2).setSubject_comment(subjectedit.getText().toString());
+										adapter.notifyDataSetChanged();
+										dialogui.dismiss();
+										
+										new AsyncTask<Void,Void,Void>()
+										{
+
+											@Override
+											protected Void doInBackground(
+													Void... params) {
+												// TODO Auto-generated method stub
+												HttpClient httpclient = new DefaultHttpClient();
+												HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_array.get(arg2).getMaster_ID());
+												try {
+													StringEntity data = new StringEntity(gson.toJson(comment_array.get(arg2)));
+													httpPost.setEntity(data);
+													httpPost.setHeader("Accept", "application/json");
+													HttpResponse response = httpclient.execute(httpPost);
+													System.out.println(response.getStatusLine().toString() + "testing");
+													
+												} catch (UnsupportedEncodingException e) {
+
+													e.printStackTrace();
+												} catch (ClientProtocolException e) {
+
+													e.printStackTrace();
+												} catch (IOException e) {
+
+													e.printStackTrace();
+												}
+												return null;
+											}
+											
+										}.execute();
+										
+										Toast.makeText(content,"Comment has changed",Toast.LENGTH_SHORT).show();
+									}
+								});
 							}
 							else
 							{

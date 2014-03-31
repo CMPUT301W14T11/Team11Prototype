@@ -23,14 +23,18 @@ import Controller.LocalFileSaver;
 import Controller.SubCommentController;
 import Controller.SubCommentSort;
 import Controller.compara;
+import Model.CommentUser;
 import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.IDModel;
 import Model.UserModel;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,8 +47,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -63,6 +70,7 @@ public class SubCommetsRead extends Activity {
 	public static final String MASTERCOMMENT = "emouse/";
 	private ListView listViewSubComment;
 	private EditText editText;
+	private int index;
 	private Button button1;
 	private cutadapter ListAdapter;
 	private ArrayList<Comments> comment_list;
@@ -76,6 +84,7 @@ public class SubCommetsRead extends Activity {
 	private double latitude;
 	private int subCoId = 1;
 	private Gson gson = new Gson();
+	private CommentUser someuser;
 	double radius = 0.01;
 	private IDModel id_obj;
 	private int ServerID;
@@ -146,6 +155,187 @@ public class SubCommetsRead extends Activity {
 				R.layout.footlayout, null, false);
 
 		listViewSubComment.addFooterView(footerView);
+		listViewSubComment.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					final int position, long id) {
+				// TODO Auto-generated method stub
+				AlertDialog.Builder builder = new AlertDialog.Builder(content);
+				String items[] = { "Edit Comment", "Add Tags","View profile" };
+				builder.setItems(items, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						switch (which) {
+						case 0:
+							String CheckName = user.getUser_name();
+							final Comments SelectedComment = comment_list.get(position);
+							if(SelectedComment.getUserName().equals(CheckName))
+							{   //request for edit, request code is 18
+								System.out.println("edit my comment");
+								/*Intent intent = new Intent();
+								intent.setClass(content, EditActivity.class);
+								intent.putExtra("id", SelectedComment.getMaster_ID());
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+								startActivityForResult(intent,1912);*/
+								final Dialog dialogui = new Dialog(content);
+								dialogui.setContentView(R.layout.dialogui);
+								dialogui.setTitle("Edit my comment");
+								dialogui.show();
+								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
+								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
+								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
+								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+								Changebutton.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										comment_list.get(position).setThe_comment(titleedit.getText().toString());
+										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
+										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
+										ListAdapter.notifyDataSetChanged();
+										dialogui.dismiss();
+										
+										new AsyncTask<Void,Void,Void>()
+										{
+
+											@Override
+											protected Void doInBackground(
+													Void... params) {
+												// TODO Auto-generated method stub
+												HttpClient httpclient = new DefaultHttpClient();
+												HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_list.get(position).getMaster_ID());
+												try {
+													StringEntity data = new StringEntity(gson.toJson(comment_list.get(position)));
+													httpPost.setEntity(data);
+													httpPost.setHeader("Accept", "application/json");
+													HttpResponse response = httpclient.execute(httpPost);
+													System.out.println(response.getStatusLine().toString() + "testing");
+													
+												} catch (UnsupportedEncodingException e) {
+
+													e.printStackTrace();
+												} catch (ClientProtocolException e) {
+
+													e.printStackTrace();
+												} catch (IOException e) {
+
+													e.printStackTrace();
+												}
+												return null;
+											}
+											
+										}.execute();
+										
+										Toast.makeText(content,"Comment has changed",Toast.LENGTH_SHORT).show();
+									}
+								});
+							}
+							else
+							{
+								Toast.makeText(content,"You can only edit your own comment",Toast.LENGTH_SHORT).show();
+							}
+							break;
+						case 1:
+							Intent intent = new Intent();
+							intent.setClass(SubCommetsRead.this,
+									TagActivity.class);
+							index = position;
+							startActivityForResult(intent, 1258);
+							break;
+						case 2:
+							final String name = comment_list.get(position).getUserName();
+							new AsyncTask<Void, Void, Void>()
+							{
+								@Override
+								protected void onPostExecute(Void result) {
+									// TODO Auto-generated method stub
+									super.onPostExecute(result);
+									if (flag==0)
+									{
+										AlertDialog.Builder builder = new AlertDialog.Builder(SubCommetsRead.this);
+										builder.setTitle("User has did not create profile");
+										builder.setMessage("User is very lazy");
+										builder.setCancelable(true);
+										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												// TODO Auto-generated method stub
+												dialog.cancel();
+												
+											}
+										});
+										AlertDialog adialog = builder.create();
+										adialog.show();
+									}
+								}
+								int flag = 0;
+								@Override
+								protected Void doInBackground(Void... params) {
+									// TODO Auto-generated method stub
+									try{// TODO Auto-generated method stub
+										Gson gson = new Gson();
+										
+										HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
+										String query_profile = "{\"query\":{\"match\":{\"name\":\""+name+"\"}}}";
+										StringEntity entity;
+										entity = new StringEntity(query_profile);
+										httppost.setHeader("Accept", "application/json");
+										httppost.setEntity(entity);
+										HttpResponse response = httpclient.execute(httppost);
+										String json1 = getEntityContent(response);
+										Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
+										}.getType();
+										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
+												json1, elasticSearchSearchResponseType);
+										
+										
+										for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
+										{   // get some result, then flag is 1
+											someuser = r.getSource();
+											flag=1;
+											break;
+										}
+										System.out.println(json1+"profilehehe");
+										
+										
+										if (flag==1)
+										{
+											// have result , result code 939
+											Intent intent_profile = new Intent();
+											intent_profile.setClass(content, ProfileActivity.class);
+											Bundle bundle = new Bundle();
+											intent_profile.putExtra("name",someuser);
+											startActivityForResult(intent_profile, 939);
+										}
+										
+										}
+										 catch (ClientProtocolException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										return null;
+									
+								}
+								
+							}.execute();
+							break;
+						}
+
+					}
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				return false;
+			}
+		});
 		/*listViewSubComment.setOnScrollListener(new OnScrollListener() {
 			
 			@Override

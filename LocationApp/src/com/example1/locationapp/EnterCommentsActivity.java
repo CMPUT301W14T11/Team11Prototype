@@ -129,7 +129,8 @@ public class EnterCommentsActivity extends Activity implements IDController,
 
 		}
 		String subject = subject_edit.getText().toString();
-		final ConnectivityManager connMgr = (ConnectivityManager) EnterCommentsActivity.this
+		// do not delete this comment, it might be usefull
+		/*final ConnectivityManager connMgr = (ConnectivityManager) EnterCommentsActivity.this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		final android.net.NetworkInfo wifi = connMgr
@@ -153,7 +154,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 			editor.putStringSet("comments",the_set);
 			editor.commit();
 			finish();
-		}
+		}*/
 		
 		new AsyncTask<Void, Void, Void>() {
 			ProgressDialog dialog1 = new ProgressDialog(content);
