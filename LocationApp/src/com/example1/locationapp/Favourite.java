@@ -45,26 +45,23 @@ public class Favourite extends Activity {
 		setContentView(R.layout.activity_favourite);
 		matchlist = new ArrayList<FavouriteComment>();
 		
-//		list.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//
-//				int getID = comment_array.get(arg2).getMaster_ID();
-//				Intent intent1 = new Intent();
-//				intent1.putExtra("masterID", getID);
-//				// intent1.putExtra("main", comment_array.get(arg2));
-//				intent1.setClass(Favourite.this, SubCommetsRead.class);
-//				Favourite.this.startActivity(intent1);
-//				// Toast.makeText(MainActivity.this,
-//				// listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
-//				// .show();
-//
-//			}
-//		});
+
 
 		populateListView();
+		
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+				int getID = matchlist.get(arg2).getID();
+				Intent intent1 = new Intent();
+				intent1.putExtra("masterID", getID);
+				intent1.setClass(Favourite.this, SubFavourite.class);
+				Favourite.this.startActivity(intent1);
+			}
+		});
 		
 		
 	}
@@ -88,8 +85,6 @@ public class Favourite extends Activity {
 		for (int i = 0; i < len; i++) {
 			if (username.equals(favourite.get(i).getUsername())) {
 				matchlist.add(favourite.get(i).getComment());
-				// matchlist.add(favourite.get(i).getUsername());
-
 			}
 		}
 

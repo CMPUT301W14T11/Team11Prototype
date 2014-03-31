@@ -451,6 +451,7 @@ public class SubCommetsRead extends Activity {
 					fc.setImage(comment_list.get(0).getImage_encode());
 					fc.setDistance(comment_list.get(0).getDistance());
 					fc.setUserName(comment_list.get(0).getUserName());
+					fc.setID(number);
 					
 					for (int i =1;i<comment_list.size();i++)
 					{

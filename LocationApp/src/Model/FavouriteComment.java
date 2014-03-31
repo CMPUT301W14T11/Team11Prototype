@@ -10,6 +10,17 @@ public class FavouriteComment
 	private String comment_image;
 	private String userName;
 	private double distance;
+	private int id;
+	
+	public void setID(int id)
+	{
+		this.id = id;
+	}
+	
+	public int getID()
+	{
+		return id;
+	}
 	
 	public void setDistance(double distance)
 	{

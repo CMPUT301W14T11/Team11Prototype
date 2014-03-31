@@ -771,9 +771,15 @@ containing a value of this type.
         public static final int activity_profile=0x7f03000a;
         public static final int activity_search=0x7f03000b;
         public static final int activity_sub_commets_read=0x7f03000c;
+<<<<<<< HEAD
         public static final int activity_tag=0x7f03000d;
         public static final int default_header=0x7f03000e;
         public static final int dialogui=0x7f03000f;
+=======
+        public static final int activity_sub_favourite=0x7f03000d;
+        public static final int activity_tag=0x7f03000e;
+        public static final int default_header=0x7f03000f;
+>>>>>>> 977c8d344067f1634ece7a749a0ba5de264c67eb
         public static final int footlayout=0x7f030010;
         public static final int fragment_edit=0x7f030011;
         public static final int fragment_new_profile=0x7f030012;
@@ -797,7 +803,8 @@ containing a value of this type.
         public static final int search=0x7f0c000b;
         public static final int sign_in=0x7f0c000c;
         public static final int sub_commets_read=0x7f0c000d;
-        public static final int tag=0x7f0c000e;
+        public static final int sub_favourite=0x7f0c000e;
+        public static final int tag=0x7f0c000f;
     }
     public static final class string {
         public static final int action_settings=0x7f09001f;
@@ -914,6 +921,7 @@ containing a value of this type.
         public static final int title_activity_search=0x7f09002b;
         public static final int title_activity_sign_in=0x7f090027;
         public static final int title_activity_sub_commets_read=0x7f090025;
+        public static final int title_activity_sub_favourite=0x7f09002f;
         public static final int title_activity_tag=0x7f09002a;
     }
     public static final class style {
