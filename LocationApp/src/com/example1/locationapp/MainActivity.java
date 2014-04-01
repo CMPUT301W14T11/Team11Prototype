@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		} else {
 			System.out.println("outout");
 			Toast.makeText(this, "No Internet!", Toast.LENGTH_LONG).show();
-			android.os.Process.killProcess(android.os.Process.myPid());
+			//android.os.Process.killProcess(android.os.Process.myPid());
 
 		}
 
