@@ -22,7 +22,6 @@ import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.SubCommentController;
 import Controller.SubCommentSort;
-import Controller.compara;
 import Model.CommentUser;
 import Model.Comments;
 import Model.FavouriteComment;
@@ -47,9 +46,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
@@ -105,6 +101,8 @@ public class SubCommetsRead extends Activity {
 		button1 = (Button) findViewById(R.id.buttonSaveSubComments);
 		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
+		
+		
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);
@@ -124,6 +122,8 @@ public class SubCommetsRead extends Activity {
 			protected Void doInBackground(Void... params) {
 				
 				get_comments("get some comments man!");
+				subCoId=comment_list.size()+1;
+			
 				return null;
 			}
 
@@ -387,7 +387,6 @@ public class SubCommetsRead extends Activity {
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						
 						comment_list.clear();
 						get_comments("get some comments man!");
 						return null;
@@ -604,6 +603,7 @@ public class SubCommetsRead extends Activity {
 										user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
+								
 							}
 
 							return null;

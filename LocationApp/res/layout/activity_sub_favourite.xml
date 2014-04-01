@@ -8,15 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SubCommetsRead" >
 
-    <Button
-        android:id="@+id/buttonSaveSubComments"
-        android:layout_width="wrap_content"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#66FF66"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentRight="true" />
+    
     <!-- <Button 
         android:id="@+id/picturebutton"
         android:layout_height="wrap_content"
@@ -37,26 +29,8 @@
 
     </ListView>
 
-    <EditText
-        android:id="@+id/editTextSubmitSubComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonSaveSubComments"
-        android:layout_alignBottom="@+id/buttonSaveSubComments"
-        android:layout_toLeftOf="@+id/buttonSaveSubComments"
-        android:layout_toRightOf="@+id/button1"
-        android:ems="10" />
+    
 
-    <Button
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#3399FF"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Pic"
-        android:onClick="picture" />
+    
 
 </RelativeLayout>

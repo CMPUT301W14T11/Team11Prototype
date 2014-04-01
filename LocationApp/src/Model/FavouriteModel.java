@@ -18,6 +18,11 @@ public class FavouriteModel
 		this.subcomment=subcomment;
 	}
 	
+	public void clean()
+	{
+		subcomment.clear();
+	}
+	
 	public void setID(int id)
 	{
 		this.id = id;
