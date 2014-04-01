@@ -12,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -626,8 +627,31 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			if (resultCode == RESULT_OK) {
 				comment_array.get(index).setTagsList(
 						data.getStringArrayListExtra("TagArray"));
-
-			}
+				new AsyncTask<Void, Void, Void>()
+				{
+					
+					@Override
+					protected Void doInBackground(Void... params) {
+						// TODO Auto-generated method stub
+						try
+						{
+						HttpClient httpclient = new DefaultHttpClient();
+						HttpPut httpPost = new HttpPut("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_array.get(index).getMaster_ID()+"/");
+						StringEntity stringentity = null;
+						stringentity = new StringEntity(gson.toJson(comment_array.get(index)));
+						httpPost.setHeader("Accept", "application/json");
+						httpPost.setEntity(stringentity);
+						HttpResponse response = httpclient.execute(httpPost);
+						}
+						catch(Exception e)
+						{
+							
+						}
+						return null;
+					}
+					
+				}.execute();
+				}
 		}
 
 	}

@@ -1,42 +1,51 @@
 package com.example1.locationapp;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import Model.Comments;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class SearchActivity extends Activity {
     cutadapter adapter2;
     ArrayList<Comments> comment_list;
     ListView listview2;
-    
+    HttpClient httpclient;
+    Gson gson;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search);
-        System.out.println("set on content");
-		if (savedInstanceState == null) {
+		setContentView(R.layout.fragment_search);
+        
+		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		listview2 =(ListView) findViewById(R.id.search_list);
-		comment_list = new ArrayList<Comments>();
-		adapter2 = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
-		listview2.setAdapter(adapter2);
-		//ArrayList<String> list = new ArrayList<String>();
-		//ArrayAdapter<String> st_ada = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-		
+		}*/
+		ActionBar bar = getActionBar();
+		bar.setTitle("Search Result");
+		httpclient = new DefaultHttpClient();
+		gson = new Gson();
 		handleIntent(getIntent());
 	}
 
@@ -66,9 +75,44 @@ public class SearchActivity extends Activity {
 		// and set it
 		listview2 =(ListView) findViewById(R.id.search_list);
 		comment_list = new ArrayList<Comments>();
+		
+		
 		adapter2 = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
 		listview2.setAdapter(adapter2);
-		System.out.println("search is on");
+		new AsyncTask<Void,Void,Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				try
+				{
+				HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
+				String query_range2 = "{\"query\":{  }}";
+				StringEntity entity = new StringEntity(query_range2);
+				httpPost.setHeader("Accept", "application/json");
+				httpPost.setEntity(entity);
+				HttpResponse response = httpclient.execute(httpPost);
+				String json1 = new MainActivity().getEntityContent(response);
+				System.out.println(response.getStatusLine().toString() + "status");
+				System.out.println(json1 + "holy");
+				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
+				}.getType();
+				ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(
+						json1, elasticSearchSearchResponseType);
+				for (ElasticSearchResponse<Comments> r : esResponse.getHits())
+				{
+					
+				}
+				
+				}
+				catch(Exception e)
+				{
+					
+				}
+				return null;
+			}
+		}.execute();
+		
 		
 	}
 
