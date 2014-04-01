@@ -14,10 +14,15 @@ public class PicSort implements Comparator<Comments>{
 		{
 			result =lhs.getImage_encode().compareTo(rhs.getImage_encode()); 
 		}
-		else
+		if(lhs.getImage_encode()!=null && rhs.getImage_encode()==null)
+		{
+			result = 1;
+		}
+		if(lhs.getImage_encode()==null && rhs.getImage_encode()!=null)
 		{
 			result = -1;
 		}
+		
 		
 		return result;
 	}

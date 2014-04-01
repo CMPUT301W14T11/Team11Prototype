@@ -191,6 +191,7 @@ public class Favourite extends Activity {
 						comment.add(comms);
 					}
 					
+					//Using for sort the subcomments
 					Collections.sort(comment, new CommentComparator());
 					
 					for (int i1=0; i1<comment.size(); i1++)
