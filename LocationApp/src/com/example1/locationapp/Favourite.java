@@ -1,23 +1,42 @@
 package com.example1.locationapp;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
+import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.UserModel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Favourite class is used to show all the user's favorite 
@@ -36,7 +55,7 @@ public class Favourite extends Activity {
 	private FavouriteComment fc;
 	private CustomAdapter adapter;
 	private ListView list;
-
+	private HttpClient httpclient;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,24 +63,46 @@ public class Favourite extends Activity {
 		content = this;
 		setContentView(R.layout.activity_favourite);
 		matchlist = new ArrayList<FavouriteComment>();
-		
-
-
-		populateListView();
-		
-		list.setOnItemClickListener(new OnItemClickListener() {
+		user = new UserModel();
+		user = fl.loadFromFile();
+		httpclient = new DefaultHttpClient();
+		new AsyncTask<Void, Void, Void>() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-
-				int getID = matchlist.get(arg2).getID();
-				Intent intent1 = new Intent();
-				intent1.putExtra("masterID", getID);
-				intent1.setClass(Favourite.this, SubFavourite.class);
-				Favourite.this.startActivity(intent1);
+			protected Void doInBackground(Void... params) {
+				
+				get_comments("get some comments man!");
+				return null;
 			}
-		});
+
+			@Override
+			protected void onPostExecute(Void result)
+			{
+
+				populateListView();
+				
+				list.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+							long arg3) {
+
+						int getID = matchlist.get(arg2).getID();
+						Intent intent1 = new Intent();
+						intent1.putExtra("masterID", getID);
+						intent1.setClass(Favourite.this, SubFavourite.class);
+						Favourite.this.startActivity(intent1);
+					}
+				});
+				super.onPostExecute(result);
+			}
+		}.execute();
+
+		
+		
+		
+		
+		
 		
 		
 	}
@@ -73,11 +114,11 @@ public class Favourite extends Activity {
 	 * result into the list of view.
 	 */
 	private void populateListView() {
-		user = new UserModel();
-		user = fl.loadFromFile();
+		
 
 		list = (ListView) findViewById(R.id.favouritelist);
-
+		user = new UserModel();
+		user = fl.loadFromFile();
 		String username = user.getUser_name();
 		favourite = user.getFaviourte();
 		int len = favourite.size();
@@ -114,6 +155,105 @@ public class Favourite extends Activity {
 		});
 
 	}
+	
+	public void get_comments(String url) {
+		HttpPost httpPost = new HttpPost(
+				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
+		// HttpGet httpGet = new
+		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
+		Gson gson1 = new Gson();
+		
+		try {
+			
+			for (int i=0; i<user.getFaviourte().size(); i++)
+			{
+				if (user.getUser_name().equals(user.getFaviourte().get(i).getUsername()))
+				{
+					Log.v("hahaha",""+user.getFaviourte().get(i).getID());
+					String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
+							+ user.getFaviourte().get(i).getID() + "}}} }}";
+					StringEntity entity = new StringEntity(query_range2);
+					httpPost.setHeader("Accept", "application/json");
+					httpPost.setEntity(entity);
+					HttpResponse response = httpclient.execute(httpPost);
+					String json1 = getEntityContent(response);
+					
+					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
+					}.getType();
+					ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
+							json1, elasticSearchSearchResponseType);
+					// <<<<<<< HEAD\
+					int num = 0;
+					user.getFaviourte().get(i).clean();
+					ArrayList<Comments> comment = new ArrayList<Comments>();
+					for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
+						Comments comms = r.getSource();
+						comment.add(comms);
+					}
+					
+					Collections.sort(comment, new CommentComparator());
+					
+					for (int i1=0; i1<comment.size(); i1++)
+					{
+						if (num==0)
+						{
+							user.getFaviourte().get(i).getComment().setDistance(comment.get(i1).getDistance());
+							user.getFaviourte().get(i).getComment().setImage(comment.get(i1).getImage_encode());
+							user.getFaviourte().get(i).getComment().setText(comment.get(i1).getSubject_comment());
+							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
+							num++;
+						}
+						
+						
+						
+						FavouriteComment fc = new FavouriteComment();
+						fc.setDistance(comment.get(i1).getDistance());
+						fc.setImage(comment.get(i1).getImage_encode());
+						fc.setText(comment.get(i1).getSubject_comment());
+						fc.setTitle(comment.get(i1).getThe_comment());
+						fc.setUserName(comment.get(i1).getUserName());
+						user.getFaviourte().get(i).addSubComment(fc);
+						
+						fs.saveInFile(user);
+					}
+				}
+			}
+			
+		} catch (ClientProtocolException e) {
+			
+			System.out.println("client exe");
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			System.out.println("IO exe");
+			e.printStackTrace();
+		}
+	}
+	
+	String getEntityContent(HttpResponse response) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(response.getEntity().getContent())));
+		String output;
+		System.err.println("Output from Server -> ");
+		String json = "";
+		while ((output = br.readLine()) != null) {
+			System.err.println(output);
+			json += output;
+		}
+		System.err.println("JSON:" + json);
+		return json;
+	}
+	
+	/**
+	 * The comparator of Comments ID
+	 * Used to sort the Comments
+	 */
+	public static class CommentComparator implements Comparator<Comments> {
+	      @Override
+	      public int compare(Comments s, Comments t) {
+	         return s.getSub_comments_ID()-t.getSub_comments_ID();
+	      }
+	  }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
