@@ -23,6 +23,7 @@ import Controller.CommentController;
 import Controller.IDController;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
+import Controller.PicSort;
 import Controller.compara;
 import Controller.datesort;
 import Model.CommentUser;
@@ -496,6 +497,9 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		case R.id.item3:
 			sortByDate();
 			break;
+		case R.id.item4:
+			sortByPicture();
+			break;
 		case R.id.item5:
 			Intent intent3 = new Intent(MainActivity.this, Favourite.class);
 			startActivityForResult(intent3, 9);
@@ -831,7 +835,18 @@ public class MainActivity extends Activity implements OnRefreshListener,
 	public void insertMaster(Comments com) {
 
 	}
-
+	public void sortByPicture()
+	{
+		try
+		{
+		Collections.sort(comment_array, new PicSort());
+		adapter.notifyDataSetChanged();
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
 	public void sortByDate() {
 
 		new AsyncTask<Void, Void, Void>() {
