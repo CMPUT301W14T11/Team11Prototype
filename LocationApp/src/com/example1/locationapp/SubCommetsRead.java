@@ -101,6 +101,8 @@ public class SubCommetsRead extends Activity {
 		button1 = (Button) findViewById(R.id.buttonSaveSubComments);
 		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
+		
+		
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);
@@ -120,6 +122,8 @@ public class SubCommetsRead extends Activity {
 			protected Void doInBackground(Void... params) {
 				
 				get_comments("get some comments man!");
+				subCoId=comment_list.size()+1;
+			
 				return null;
 			}
 
