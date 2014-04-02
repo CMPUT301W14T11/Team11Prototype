@@ -101,19 +101,19 @@ public class CommentSort {
 			
 			}
 	      catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
+
 			System.out.println("client exe");
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			System.out.println("IO exe");
 			e.printStackTrace();}
 		  catch (NullPointerException e) {
-			// TODO: handle exception
+
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		  }
 		catch (RuntimeException e) {
-			// TODO: handle exception
+
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		

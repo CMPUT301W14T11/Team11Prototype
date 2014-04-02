@@ -298,7 +298,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 									
 									@Override
 									public void onClick(View v) {
-										// TODO Auto-generated method stub
 										comment_array.get(arg2).setThe_comment(titleedit.getText().toString());
 										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
 										comment_array.get(arg2).setSubject_comment(subjectedit.getText().toString());
@@ -311,7 +310,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 											@Override
 											protected Void doInBackground(
 													Void... params) {
-												// TODO Auto-generated method stub
 												HttpClient httpclient = new DefaultHttpClient();
 												HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_array.get(arg2).getMaster_ID());
 												try {
@@ -358,7 +356,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 							{
 								@Override
 								protected void onPostExecute(Void result) {
-									// TODO Auto-generated method stub
 									super.onPostExecute(result);
 									if (flag==0)
 									{
@@ -370,7 +367,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												// TODO Auto-generated method stub
 												dialog.cancel();
 												
 											}
@@ -382,8 +378,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 								int flag = 0;
 								@Override
 								protected Void doInBackground(Void... params) {
-									// TODO Auto-generated method stub
-									try{// TODO Auto-generated method stub
+									try{
 										Gson gson = new Gson();
 										
 										HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
@@ -421,10 +416,8 @@ public class MainActivity extends Activity implements OnRefreshListener,
 										
 										}
 										 catch (ClientProtocolException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										} catch (IOException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 										return null;
@@ -530,7 +523,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 				@Override
 				protected Void doInBackground(Void... params) {
-					try{// TODO Auto-generated method stub
+					try{
 					Gson gson = new Gson();
 					
 					HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
@@ -577,10 +570,8 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					
 					}
 					 catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					return null;
@@ -644,7 +635,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					
 					@Override
 					protected Void doInBackground(Void... params) {
-						// TODO Auto-generated method stub
 						try
 						{
 						HttpClient httpclient = new DefaultHttpClient();

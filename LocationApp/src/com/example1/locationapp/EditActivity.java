@@ -57,7 +57,6 @@ public class EditActivity extends Activity {
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
 				
 				
 				try {
@@ -128,7 +127,6 @@ public class EditActivity extends Activity {
 
     			@Override
 				protected void onPreExecute() {
-					// TODO Auto-generated method stub
 					super.onPreExecute();
 					new AsyncTask<Void,Void,Void>()
 					{
@@ -142,10 +140,8 @@ public class EditActivity extends Activity {
 							try {
 								HttpResponse responsedelete = httpclient.execute(httpDelete);
 							} catch (ClientProtocolException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							return null;
@@ -156,7 +152,6 @@ public class EditActivity extends Activity {
 
 				@Override
 				protected void onPostExecute(Void result) {
-					// TODO Auto-generated method stub
 					super.onPostExecute(result);
 					Toast.makeText(EditActivity.this, "Comment Updated", Toast.LENGTH_SHORT).show();
 					finish();
@@ -164,7 +159,6 @@ public class EditActivity extends Activity {
 
 				@Override
     			protected Void doInBackground(Void... params) {
-    				// TODO Auto-generated method stub
     				try{
 					HttpClient httpclient = new DefaultHttpClient();
 					

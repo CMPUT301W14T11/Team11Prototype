@@ -158,7 +158,7 @@ public class ChoseImageActivity extends Activity implements
 		/*
 		 * new AsyncTask<Void, Void, Void>() {
 		 * 
-		 * @Override protected Void doInBackground(Void... params) { // TODO
+		 * @Override protected Void doInBackground(Void... params) {
 		 * Auto-generated method stub pbar.setVisibility(View.GONE); if (image
 		 * != null) { textViewFile.setText(image.getFilePathOriginal());
 		 * imageViewThumbnail.setImageURI(Uri.parse(new File(image
@@ -206,9 +206,11 @@ public class ChoseImageActivity extends Activity implements
 
 		super.onDestroy();
 	}
-
-	// Should be called if for some reason the ImageChooserManager is null (Due
-	// to destroying of activity for low memory situations)
+	/**
+	 Should be called if for some reason the ImageChooserManager is null (Due
+	 
+	 to destroying of activity for low memory situations)
+	 */
 	private void reinitializeImageChooser() {
 		imageChooserManager = new ImageChooserManager(this, chooserType,
 				"myfolder", true);

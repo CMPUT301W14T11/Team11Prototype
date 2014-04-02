@@ -62,7 +62,6 @@ public class NewProfileActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				//get image , requestcode is 654
 				Intent intent = new Intent();
 				intent.setClass(getApplicationContext(),ChoseImageActivity.class);
@@ -74,7 +73,6 @@ public class NewProfileActivity extends Activity {
 	
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode==RESULT_OK)
 		{
@@ -132,7 +130,6 @@ public class NewProfileActivity extends Activity {
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
 				try{
 					   HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/"+string_ID);
 						//String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
@@ -148,10 +145,8 @@ public class NewProfileActivity extends Activity {
 						HttpResponse response = httpclient.execute(httpPost);
 					    System.out.println(response.getStatusLine().toString() + "testing");
 						} catch (ClientProtocolException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 				return null;

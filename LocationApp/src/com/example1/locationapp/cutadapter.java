@@ -42,7 +42,6 @@ public class cutadapter extends ArrayAdapter<Comments>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View v = convertView;
         ViewHolder holder;
         if (v == null) {

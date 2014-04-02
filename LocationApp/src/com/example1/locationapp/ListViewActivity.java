@@ -85,15 +85,16 @@ public class ListViewActivity extends BaseActivity {
 
 		}
 
+		/**
+		 * Set the List Adapter to display the sample items
+		 */
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 
 			super.onActivityCreated(savedInstanceState);
 
 			adapter = new ArrayAdapter<String>(getActivity(),
-					android.R.layout.simple_list_item_1, list);
-
-			// Set the List Adapter to display the sample items
+			android.R.layout.simple_list_item_1, list);
 			setListAdapter(adapter);
 			setListShownNoAnimation(true);
 		}
