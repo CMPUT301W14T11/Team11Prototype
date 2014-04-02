@@ -13,6 +13,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
+/**
+ * This activity for user's off line's sub-comments.
+ * @author zuo2
+ *
+ */
 
 public class SubFavourite extends Activity
 {

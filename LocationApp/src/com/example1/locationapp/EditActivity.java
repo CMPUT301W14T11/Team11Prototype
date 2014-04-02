@@ -32,7 +32,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
+/**
+ * EditActivity is using for user who want to edit his/her own 
+ * comments.
+ * @author zuo2
+ *
+ */
 public class EditActivity extends Activity {
 	EditText title , subject;
 	Button location, submit;

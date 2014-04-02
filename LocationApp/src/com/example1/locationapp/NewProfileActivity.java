@@ -31,6 +31,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+/**
+ * This activity is using for create the profile of a user 
+ * then other user can check each other's information in the profile.
+ * @author zuo2
+ *
+ */
 public class NewProfileActivity extends Activity {
     EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
     ImageView imageview;

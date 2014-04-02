@@ -38,11 +38,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Favourite class is used to show all the user's favorite 
- * comments
- * 
- * @author qyu4
- * 
+ * Favorite is for user saving their favorite comment when you phone is off line 
+ * you can also view the favorite part. 
+ * in the favorite comments it also contain the sub-comments.
+ * @author zuo2
+ *
  */
 public class Favourite extends Activity {
 	private Context content;

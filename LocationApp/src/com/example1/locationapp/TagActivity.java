@@ -16,6 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+/**
+ * This acitvity for user add Tag in the app.
+ * @author zuo2
+ *
+ */
 public class TagActivity extends Activity {
     ArrayList<String> taglist;
     EditText editText;
