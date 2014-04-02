@@ -158,6 +158,10 @@ public class Favourite extends Activity {
 		});
 
 	}
+	/**
+	 * Refresh the favorite comments everytime when that comments have some change. (when the phone connect the internet).
+	 * @param url
+	 */
 	
 	public void get_comments(String url) {
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
