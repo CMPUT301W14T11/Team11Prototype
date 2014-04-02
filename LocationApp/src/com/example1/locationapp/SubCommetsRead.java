@@ -630,7 +630,10 @@ public class SubCommetsRead extends Activity {
 								replyFloor =1;
 								
 							}
+							
+							
 							startActivity(getIntent());
+							SubCommetsRead.this.finish();
 							return null;
 						}
 
@@ -782,6 +785,15 @@ public class SubCommetsRead extends Activity {
 		}
 		System.err.println("JSON:" + json);
 		return json;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent = new Intent();
+		intent.setClass(SubCommetsRead.this, MainActivity.class);
+		
 	}
 
 	public void get_comments(String url) {
