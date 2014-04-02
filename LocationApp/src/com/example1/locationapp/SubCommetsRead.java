@@ -20,7 +20,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
-import Controller.SubCommentController;
+import Controller.SubCommentModel;
 import Controller.SubCommentSort;
 import Model.CommentUser;
 import Model.Comments;
@@ -94,7 +94,7 @@ public class SubCommetsRead extends Activity {
 	private String subCommentsTitle;
 	private int replyFloor=0;
 
-	private SubCommentController subController = new SubCommentController(
+	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
 
 	@Override
@@ -120,7 +120,7 @@ public class SubCommetsRead extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				
-				get_comments("get some comments man!");
+				comment_list =subModel.get_comments(comment_list, number,httpclient);
 				subCoId=comment_list.size()+1;
 				return null;
 			}
@@ -180,13 +180,9 @@ public class SubCommetsRead extends Activity {
 							String CheckName = user.getUser_name();
 							final Comments SelectedComment = comment_list.get(position);
 							if(SelectedComment.getUserName().equals(CheckName))
-							{   //request for edit, request code is 18
+							{  
 								System.out.println("edit my comment");
-								/*Intent intent = new Intent();
-								intent.setClass(content, EditActivity.class);
-								intent.putExtra("id", SelectedComment.getMaster_ID());
-								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-								startActivityForResult(intent,1912);*/
+							
 								final Dialog dialogui = new Dialog(content);
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
@@ -289,7 +285,7 @@ public class SubCommetsRead extends Activity {
 										httppost.setHeader("Accept", "application/json");
 										httppost.setEntity(entity);
 										HttpResponse response = httpclient.execute(httppost);
-										String json1 = getEntityContent(response);
+										String json1 = subModel.getEntityContent(response);
 										Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
 										}.getType();
 										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
@@ -336,59 +332,19 @@ public class SubCommetsRead extends Activity {
 				return false;
 			}
 		});
-		/*listViewSubComment.setOnScrollListener(new OnScrollListener() {
-			
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-				
-			}
-			
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-
-				boolean mIsLoadingNewData=false;
-				final boolean needLoading =!mIsLoadingNewData&& firstVisibleItem + visibleItemCount >= ListAdapter.getCount() - 1;
-			    mIsLoadingNewData=true;
-			    if(needLoading)
-			    {
-			    	
-			    	new AsyncTask<Void, Void, Void>()
-			    	{
-
-						@Override
-						protected Void doInBackground(Void... params) {
-				
-							comment_list.clear();
-							get_comments("get comments");
-							return null;
-						}
-
-						@Override
-						protected void onPostExecute(Void result) {
-			
-							super.onPostExecute(result);
-							ListAdapter.notifyDataSetChanged();
-						}
-			    		
-			    	}.execute();
-			    	
-			    }
-			}
-		});*/
+	
 		listViewSubComment.setAdapter(ListAdapter);
 		footerView.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
-				
+				editText.setHint("reply to 1");
 				new AsyncTask<Void, Void, Void>() {
-
+					
 					@Override
 					protected Void doInBackground(Void... params) {
 						comment_list.clear();
-						get_comments("get some comments man!");
+						comment_list=subModel.get_comments(comment_list, number,httpclient);
+						
 						return null;
 					}
 
@@ -598,7 +554,7 @@ public class SubCommetsRead extends Activity {
 										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
-								subController.insertMaster(new_comment, ServerID);
+								subModel.insertMaster(new_comment, ServerID);
 								subCoId++;
 								replyFloor =0;
 							} else {
@@ -610,7 +566,7 @@ public class SubCommetsRead extends Activity {
 												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());
-								subController.insertMaster(new_comment, ServerID);
+								subModel.insertMaster(new_comment, ServerID);
 								subCoId++;
 								replyFloor =0;
 								
@@ -631,7 +587,7 @@ public class SubCommetsRead extends Activity {
 									
 									id_obj.setId_for_master(ServerID);
 									try {
-										insert(id_obj);
+										subModel.insert(id_obj,content);
 									} catch (IllegalStateException e) {
 										
 										e.printStackTrace();
@@ -658,50 +614,6 @@ public class SubCommetsRead extends Activity {
 		}
 	}
 
-	public void insert(IDModel id) throws IllegalStateException, IOException {
-		
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/testing/lab111/1");
-		StringEntity stringentity = null;
-
-		try {
-			stringentity = new StringEntity(gson.toJson(id));
-		} catch (UnsupportedEncodingException e) {
-			
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		} catch (RuntimeException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		}
-		httpPost.setHeader("Accept", "application/json");
-
-		httpPost.setEntity(stringentity);
-
-		HttpResponse response = null;
-
-		try {
-			response = httpclient.execute(httpPost);
-
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (NullPointerException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		} catch (RuntimeException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		}
-
-	}
-
 	public int get_id() {
 		
 		IDModel id_toReturn;// this is ID object from server
@@ -715,7 +627,7 @@ public class SubCommetsRead extends Activity {
 
 			HttpResponse response = httpclient.execute(httpget);
 
-			String json = getEntityContent(response);
+			String json = subModel.getEntityContent(response);
 
 			// We have to tell GSON what type we expect
 			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<IDModel>>() {
@@ -756,19 +668,7 @@ public class SubCommetsRead extends Activity {
 		return encoded;
 	}
 
-	String getEntityContent(HttpResponse response) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				(response.getEntity().getContent())));
-		String output;
-		System.err.println("Output from Server -> ");
-		String json = "";
-		while ((output = br.readLine()) != null) {
-			System.err.println(output);
-			json += output;
-		}
-		System.err.println("JSON:" + json);
-		return json;
-	}
+
 	
 	@Override
 	public void onBackPressed() {
@@ -778,61 +678,6 @@ public class SubCommetsRead extends Activity {
 		
 	}
 
-	public void get_comments(String url) {
-		HttpPost httpPost = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-		// HttpGet httpGet = new
-		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
-		Gson gson1 = new Gson();
-		try {
-			ArrayList<Comments> lat_object = new ArrayList<Comments>();
-			ArrayList<Comments> lon_object = new ArrayList<Comments>();
-			String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
-					+ number + "}}} }}";
-			StringEntity entity = new StringEntity(query_range2);
-			httpPost.setHeader("Accept", "application/json");
-			httpPost.setEntity(entity);
-			HttpResponse response = httpclient.execute(httpPost);
-			String json1 = getEntityContent(response);
-			System.out.println(json1 + "holy");
-			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
-			}.getType();
-			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
-					json1, elasticSearchSearchResponseType);
-			// <<<<<<< HEAD
-			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
-				Comments comms = r.getSource();
-
-				// check weath the comment if already in the arraylist, if not
-				// then add it in there
-				int flag = 0;
-				for (Comments com : comment_list) { // turn on the flag if
-													// object is already inside
-													// the arary
-					if (com.getMaster_ID() == comms.getMaster_ID()) {
-						flag = 1;
-						comment_list.add(comms);
-						break;
-					}
-				}
-				// if flag not turned on then add the object into the arraylsit
-				if (flag == 0) {
-
-					comment_list.add(comms);
-				}
-
-			}
-			// System.out.println(comment_list.size()+"size"+ServerID);
-
-		} catch (ClientProtocolException e) {
-			
-			System.out.println("client exe");
-			e.printStackTrace();
-		} catch (IOException e) {
-			
-			System.out.println("IO exe");
-			e.printStackTrace();
-		}
-	}
+	
 
 }

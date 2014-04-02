@@ -3,7 +3,7 @@ package com.example1.locationapp.test;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Controller.SubCommentController;
+import Controller.SubCommentModel;
 import Model.Comments;
 import android.provider.Settings.System;
 import android.test.ActivityInstrumentationTestCase2;
@@ -20,7 +20,7 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 	Comments comments ;
 	SubCommetsRead subc = new SubCommetsRead();
 	ArrayList<Comments> comm = new ArrayList<Comments>();
-	SubCommentController subCon= new SubCommentController(comments);
+	SubCommentModel subCon= new SubCommentModel(comments);
 	Date date = new Date();
 	protected void setUp() throws Exception {
 		super.setUp();
