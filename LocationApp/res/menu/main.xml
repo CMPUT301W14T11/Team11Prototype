@@ -34,29 +34,29 @@
     <item
         android:id="@+id/item3"
         android:showAsAction="never"
-        android:title="sort by date">
+        android:title="Sort By Date">
     </item>
     <item
         android:id="@+id/item4"
         android:showAsAction="never"
-        android:title="sort by pic">
+        android:title="Sort By Picture">
     </item>
     <item
         android:id="@+id/item5"
         android:showAsAction="never|withText"
         android:icon="@drawable/heart"
         
-        android:title="my favourite">
+        android:title="My Favourite">
     </item>
     <item
         android:id="@+id/item6"
         android:showAsAction="never"
-        android:title="my save">
+        android:title="My Save">
     </item>
     <item
         android:id="@+id/item7"
         android:showAsAction="never"
-        android:title="logout">
+        android:title="Logout">
     </item>
 
 </menu>

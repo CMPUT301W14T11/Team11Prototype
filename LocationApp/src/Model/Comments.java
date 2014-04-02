@@ -20,7 +20,7 @@ public class Comments implements Serializable{
 	private double lon ;
 	private double lat;
 	private double distance;
-	private Bitmap comment_image;
+	//private Bitmap comment_image;
 	private String image_encode;
 	private int userID;
 	private String userName;
@@ -184,13 +184,13 @@ public class Comments implements Serializable{
 		this.distance = distance;
 	}
 
-	public Bitmap getComment_image() {
+	/*public Bitmap getComment_image() {
 		return comment_image;
 	}
 
 	public void setComment_image(Bitmap comment_image) {
 		this.comment_image = comment_image;
-	}
+	}*/
 
 	public String getImage_encode() {
 		return image_encode;
