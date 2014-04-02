@@ -54,6 +54,7 @@ public class Favourite extends Activity {
 	private CustomAdapter adapter;
 	private ListView list;
 	private HttpClient httpclient;
+	private int code;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,8 @@ public class Favourite extends Activity {
 		user = new UserModel();
 		user = fl.loadFromFile();
 		httpclient = new DefaultHttpClient();
+		Intent intent = getIntent();
+		code = intent.getIntExtra("code", 0);
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
@@ -96,14 +99,7 @@ public class Favourite extends Activity {
 				super.onPostExecute(result);
 			}
 		}.execute();
-
-		
-		
-		
-		
-		
-		
-		
+	
 	}
 	
 	
@@ -123,7 +119,7 @@ public class Favourite extends Activity {
 		int len = favourite.size();
 
 		for (int i = 0; i < len; i++) {
-			if (username.equals(favourite.get(i).getUsername())) {
+			if (username.equals(favourite.get(i).getUsername()) && favourite.get(i).getCode() == code) {
 				matchlist.add(favourite.get(i).getComment());
 			}
 		}
@@ -156,15 +152,14 @@ public class Favourite extends Activity {
 	}
 	
 	public void get_comments(String url) {
-		HttpPost httpPost = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
+		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		
 		try {
 			
 			for (int i=0; i<user.getFaviourte().size(); i++)
 			{
-				if (user.getUser_name().equals(user.getFaviourte().get(i).getUsername()) && user.getFaviourte().get(i).getCode()==0)
+				if (user.getUser_name().equals(user.getFaviourte().get(i).getUsername()) && user.getFaviourte().get(i).getCode()== code)
 				{
 					String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
 							+ user.getFaviourte().get(i).getID() + "}}} }}";
@@ -200,9 +195,7 @@ public class Favourite extends Activity {
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
 							num++;
 						}
-						
-						
-						
+										
 						FavouriteComment fc = new FavouriteComment();
 						fc.setDistance(comment.get(i1).getDistance());
 						fc.setImage(comment.get(i1).getImage_encode());

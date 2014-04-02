@@ -500,11 +500,20 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		case R.id.item4:
 			sortByPicture();
 			break;
+			
 		case R.id.item5:
 			Intent intent3 = new Intent(MainActivity.this, Favourite.class);
+			intent3.putExtra("code", 0);
 			startActivityForResult(intent3, 9);
 			break;
-
+		
+		case R.id.item6:
+			Intent intent6 = new Intent(MainActivity.this, Favourite.class);
+			intent6.putExtra("code", 1);
+			//startActivityForResult(intent6, 9);
+			startActivity(intent6);
+			break;
+			
 		case R.id.item7:
 			Intent intent7 = new Intent(MainActivity.this, MainPage.class);
 			intent7.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
