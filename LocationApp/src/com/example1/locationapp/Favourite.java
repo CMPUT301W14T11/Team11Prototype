@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -26,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,6 +54,7 @@ public class Favourite extends Activity {
 	private CustomAdapter adapter;
 	private ListView list;
 	private HttpClient httpclient;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -159,17 +158,14 @@ public class Favourite extends Activity {
 	public void get_comments(String url) {
 		HttpPost httpPost = new HttpPost(
 				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-		// HttpGet httpGet = new
-		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		
 		try {
 			
 			for (int i=0; i<user.getFaviourte().size(); i++)
 			{
-				if (user.getUser_name().equals(user.getFaviourte().get(i).getUsername()))
+				if (user.getUser_name().equals(user.getFaviourte().get(i).getUsername()) && user.getFaviourte().get(i).getCode()==0)
 				{
-					Log.v("hahaha",""+user.getFaviourte().get(i).getID());
 					String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
 							+ user.getFaviourte().get(i).getID() + "}}} }}";
 					StringEntity entity = new StringEntity(query_range2);
@@ -191,6 +187,7 @@ public class Favourite extends Activity {
 						comment.add(comms);
 					}
 					
+					//Using for sort the subcomments
 					Collections.sort(comment, new CommentComparator());
 					
 					for (int i1=0; i1<comment.size(); i1++)
@@ -244,16 +241,6 @@ public class Favourite extends Activity {
 		return json;
 	}
 	
-	/**
-	 * The comparator of Comments ID
-	 * Used to sort the Comments
-	 */
-	public static class CommentComparator implements Comparator<Comments> {
-	      @Override
-	      public int compare(Comments s, Comments t) {
-	         return s.getSub_comments_ID()-t.getSub_comments_ID();
-	      }
-	  }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
