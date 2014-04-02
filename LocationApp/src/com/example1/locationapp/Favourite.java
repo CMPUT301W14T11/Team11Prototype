@@ -46,25 +46,20 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class Favourite extends Activity {
-	private Context content;
 	private UserModel user;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private LocalFileSaver fs = new LocalFileSaver(this);
 	private ArrayList<FavouriteModel> favourite;
 	private ArrayList<FavouriteComment> matchlist;
-	private FavouriteComment fc;
 	private CustomAdapter adapter;
 	private ListView list;
 	private HttpClient httpclient;
 	private int code;
-	private double latitude;
-	private double longitude;
 	private Location current_location;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		content = this;
 		setContentView(R.layout.activity_favourite);
 		matchlist = new ArrayList<FavouriteComment>();
 		user = new UserModel();
@@ -78,8 +73,6 @@ public class Favourite extends Activity {
 		
 		Intent intent = getIntent();
 		code = intent.getIntExtra("code", 0);
-		latitude = intent.getDoubleExtra("latitude", 0);
-		longitude = intent.getDoubleExtra("longitude", 0);
 		
 		ActionBar bar = getActionBar();
 		if (code == 0)
