@@ -48,11 +48,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -89,6 +91,8 @@ public class SubCommetsRead extends Activity {
 	private LocalFileSaver fileSaver = new LocalFileSaver(this);
 	private UserModel user;
 	private Comments comment1;
+	private String subCommentsTitle;
+	private int replyFloor=1;
 
 	private SubCommentController subController = new SubCommentController(
 			comment1);
@@ -125,7 +129,6 @@ public class SubCommetsRead extends Activity {
 				
 				get_comments("get some comments man!");
 				subCoId=comment_list.size()+1;
-			
 				return null;
 			}
 
@@ -157,6 +160,17 @@ public class SubCommetsRead extends Activity {
 				R.layout.footlayout, null, false);
 
 		listViewSubComment.addFooterView(footerView);
+		editText.setHint("reply to 1");
+		listViewSubComment.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				replyFloor = arg2+1;
+				editText.setHint("reply to "+replyFloor);
+			}
+		});
 		listViewSubComment.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
@@ -469,8 +483,8 @@ public class SubCommetsRead extends Activity {
 			{
 				FavouriteComment fc = new FavouriteComment();
 				ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
-				fc.setText(comment_list.get(0).getThe_comment());
-				fc.setTitle(comment_list.get(0).getSubject_comment());
+				fc.setText(comment_list.get(0).getSubject_comment());
+				fc.setTitle(comment_list.get(0).getThe_comment());
 				fc.setImage(comment_list.get(0).getImage_encode());
 				fc.setDistance(comment_list.get(0).getDistance());
 				fc.setUserName(comment_list.get(0).getUserName());
@@ -479,8 +493,8 @@ public class SubCommetsRead extends Activity {
 				for (int i =1;i<comment_list.size();i++)
 				{
 					FavouriteComment sub = new FavouriteComment();
-					sub.setText(comment_list.get(i).getThe_comment());
-					sub.setTitle(comment_list.get(i).getSubject_comment());
+					sub.setText(comment_list.get(i).getSubject_comment());
+					sub.setTitle(comment_list.get(i).getThe_comment());
 					sub.setImage(comment_list.get(i).getImage_encode());
 					sub.setDistance(comment_list.get(i).getDistance());
 					sub.setUserName(comment_list.get(i).getUserName());
@@ -593,29 +607,30 @@ public class SubCommetsRead extends Activity {
 						protected Void doInBackground(Void... params) {
 							
 							if (bitmap == null) {
+								subCommentsTitle=subCoId+". Relpy to ";
 								user = fileLoder.loadFromFile();
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, editText.getText()
-												.toString(), editText.getText()
+										number, subCoId, 0, (subCommentsTitle+" "+replyFloor).toString(), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
+								replyFloor =1;
 							} else {
 								System.out.println("image posted");
-
+								subCommentsTitle=subCoId+". Relpy to ";
 								String encode_image = convert_image_to_string(bitmap);
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, editText.getText()
-												.toString(), editText.getText()
+										number, subCoId, 0, (subCommentsTitle+" "+replyFloor), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
+								replyFloor =1;
 								
 							}
-
+							startActivity(getIntent());
 							return null;
 						}
 
