@@ -11,6 +11,24 @@ public class FavouriteComment
 	private String userName;
 	private double distance;
 	private int id;
+	private double latitude, longitude;
+	
+	
+	public void setLocation(double latitude, double longitude)
+	{
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+	
+	public double getLatitude()
+	{
+		return latitude;
+	}
+	
+	public double getLongitude()
+	{
+		return longitude;
+	}
 	
 	public void setID(int id)
 	{

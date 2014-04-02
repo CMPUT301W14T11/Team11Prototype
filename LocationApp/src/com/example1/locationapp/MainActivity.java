@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 	HttpClient httpclient;
 	IDModel theid;
 	int number_of_comments;
-	Location current_location;
+	private Location current_location;
 	GPSTracker gps;
 	Context content;
 	ProgressDialog dialog1;
@@ -510,7 +510,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		case R.id.item6:
 			Intent intent6 = new Intent(MainActivity.this, Favourite.class);
 			intent6.putExtra("code", 1);
-			//startActivityForResult(intent6, 9);
 			startActivity(intent6);
 			break;
 			
