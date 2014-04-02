@@ -1,6 +1,8 @@
 package com.example1.locationapp;
 
+import Controller.LocalFileLoder;
 import Model.CommentUser;
+import Model.UserModel;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * for user owner or other user to watch the information of the user.
@@ -77,6 +80,21 @@ public class ProfileActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			LocalFileLoder loader = new LocalFileLoder(getApplicationContext());
+			UserModel user = loader.loadFromFile();
+			String username = user.getUser_name();
+			if(username.equals(textview1.getText()))
+			{
+				Intent intent = new Intent();
+				intent.setClass(getApplicationContext(), NewProfileActivity.class);
+				intent.putExtra("username",user.getUser_name());
+				startActivity(intent);
+				ProfileActivity.this.finish();
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), "Can't edit other people's profile", Toast.LENGTH_SHORT).show();
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

@@ -267,7 +267,7 @@ public class SubCommetsRead extends Activity {
 									{
 										AlertDialog.Builder builder = new AlertDialog.Builder(SubCommetsRead.this);
 										builder.setTitle("User has did not create profile");
-										builder.setMessage("User is very lazy");
+										builder.setMessage("Please check back later");
 										builder.setCancelable(true);
 										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
 											
