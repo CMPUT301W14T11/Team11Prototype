@@ -63,14 +63,13 @@ public class InternetChecker extends BroadcastReceiver {
 					int id;
 					@Override
 					protected void onPreExecute() {
-						// TODO Auto-generated method stub
 						super.onPreExecute();
 						new AsyncTask<Void, Void, Void>()
 						{
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								// TODO Auto-generated method stub
+
 								id = new EnterCommentsActivity().get_id();
 								System.out.println("got some masterid "+id);
 								return null;
@@ -81,7 +80,7 @@ public class InternetChecker extends BroadcastReceiver {
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						// TODO Auto-generated method stub
+			
 						return null;
 					}
 				}.execute();

@@ -88,7 +88,6 @@ public class SearchActivity extends Activity {
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
 				try
 				{
 				HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");

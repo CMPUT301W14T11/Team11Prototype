@@ -8,7 +8,6 @@ public class PicSort implements Comparator<Comments>{
 
 	@Override
 	public int compare(Comments lhs, Comments rhs) {
-		// TODO Auto-generated method stub
 		int result =0;
 		if(lhs.getImage_encode()!=null && rhs.getImage_encode()!=null)
 		{
