@@ -6,13 +6,13 @@
         android:id="@+id/fav"
         android:orderInCategory="1"
         android:showAsAction="never"
-        android:title="add to fav"/>
+        android:title="Add to Favourite"/>
     
     <item
         android:id="@+id/save"
         android:orderInCategory="2"
         android:showAsAction="never"
-        android:title="save this thread"/>
+        android:title="Save Comment"/>
     
     
 

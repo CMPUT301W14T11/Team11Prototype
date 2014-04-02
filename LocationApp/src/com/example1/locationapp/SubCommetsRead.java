@@ -416,71 +416,14 @@ public class SubCommetsRead extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.fav:
-			user = new UserModel();
-			user = fileLoder.loadFromFile();
-			boolean saved=false;
-			if (user.getUser_name().equals(""))
-			{
-				Toast.makeText(SubCommetsRead.this,
-						"You don not have right to add a fav",
-						Toast.LENGTH_SHORT).show();
-			}
-			else
-			{
-				for (int i=0; i<user.getFaviourte().size(); i++)
-				{
-					if (user.getFaviourte().get(i).getID()==number && user.getFaviourte().get(i).getUsername().equals(user.getUser_name()))
-					{
-						saved=true;
-					}
-				}
-				
-				if (saved == true)
-				{
-					Toast.makeText(SubCommetsRead.this,
-							"You already saved this comment",
-							Toast.LENGTH_SHORT).show();
-				}
-				else
-				{
-					FavouriteComment fc = new FavouriteComment();
-					ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
-					fc.setText(comment_list.get(0).getThe_comment());
-					fc.setTitle(comment_list.get(0).getSubject_comment());
-					fc.setImage(comment_list.get(0).getImage_encode());
-					fc.setDistance(comment_list.get(0).getDistance());
-					fc.setUserName(comment_list.get(0).getUserName());
-					fc.setID(number);
-					
-					for (int i =1;i<comment_list.size();i++)
-					{
-						FavouriteComment sub = new FavouriteComment();
-						sub.setText(comment_list.get(i).getThe_comment());
-						sub.setTitle(comment_list.get(i).getSubject_comment());
-						sub.setImage(comment_list.get(i).getImage_encode());
-						sub.setDistance(comment_list.get(i).getDistance());
-						sub.setUserName(comment_list.get(i).getUserName());
-						subcomment.add(sub);
-					}
-						
-
-					FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
-							subcomment);
-					favi.setID(number);
-					user.addFaviourte(favi);
-					fileSaver.saveInFile(user);
-				}
-				
-			}
+			
+			faviSaving(0);
 			
 			break;
 
 		case R.id.save:
-			user = new UserModel();
-			user = fileLoder.loadFromFile();
-			fileSaver.saveInFile(user);
-			// this is to start change location activity
-			// request code is 7
+			
+			faviSaving(1);
 
 			break;
 
@@ -489,6 +432,71 @@ public class SubCommetsRead extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Save the Faviourite comments into the local file
+	 * @param code - used to determine between faviourite and saving
+	 */
+	public void faviSaving(int code)
+	{
+		user = new UserModel();
+		user = fileLoder.loadFromFile();
+		boolean saved=false;
+		if (user.getUser_name().equals(""))
+		{
+			Toast.makeText(SubCommetsRead.this,
+					"Guest cannot add this comment",
+					Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			for (int i=0; i<user.getFaviourte().size(); i++)
+			{
+				if (user.getFaviourte().get(i).getID()==number && user.getFaviourte().get(i).getUsername().equals(user.getUser_name()) && user.getFaviourte().get(i).getCode() == code)
+				{
+					saved=true;
+				}
+			}
+			
+			if (saved == true)
+			{
+				Toast.makeText(SubCommetsRead.this,
+						"You already saved this comment",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				FavouriteComment fc = new FavouriteComment();
+				ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
+				fc.setText(comment_list.get(0).getThe_comment());
+				fc.setTitle(comment_list.get(0).getSubject_comment());
+				fc.setImage(comment_list.get(0).getImage_encode());
+				fc.setDistance(comment_list.get(0).getDistance());
+				fc.setUserName(comment_list.get(0).getUserName());
+				fc.setID(number);
+				
+				for (int i =1;i<comment_list.size();i++)
+				{
+					FavouriteComment sub = new FavouriteComment();
+					sub.setText(comment_list.get(i).getThe_comment());
+					sub.setTitle(comment_list.get(i).getSubject_comment());
+					sub.setImage(comment_list.get(i).getImage_encode());
+					sub.setDistance(comment_list.get(i).getDistance());
+					sub.setUserName(comment_list.get(i).getUserName());
+					subcomment.add(sub);
+				}
+					
+
+				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
+						subcomment);
+				favi.setID(number);
+				favi.setCode(code);
+				user.addFaviourte(favi);
+				fileSaver.saveInFile(user);
+			}
+			
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
