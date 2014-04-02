@@ -106,14 +106,14 @@ public class EnterCommentsActivity extends Activity implements IDController,
 		longitude = intent.getDoubleExtra("lon", 0);
 		number = 0;
 
-		try {
+		/*try {
 			location.setLatitude(latitude);
 			location.setLongitude(longitude);
 			System.out.println("cclocation" + latitude + "   " + longitude);
 		} catch (NullPointerException e) {
 			Toast.makeText(content, "Can't get location", Toast.LENGTH_LONG)
 					.show();
-		}
+		}*/
 		gson = new Gson();
 
 	}
@@ -186,7 +186,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 					final Comments new_comment = new Comments(0, number, 0, 0,
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),
-							location, longitude, latitude, user.getUser_name());
+							location.getLongitude(),location.getLatitude(), user.getUser_name());
 					System.out.println("this is so cool");
 					insertMaster(new_comment);
 					System.out.println("this is so cool2!" + number);
@@ -197,7 +197,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 					final Comments new_comment = new Comments(0, number, 0, 0,
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),
-							location, longitude, latitude, encode_image,
+							location.getLongitude(),location.getLatitude(), encode_image,
 							user.getUser_name());
 					insertMaster(new_comment);
 

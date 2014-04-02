@@ -85,9 +85,11 @@ public class CommentSort {
 				}
 				// if flag not turned on then add the object into the arraylsit
 				if (flag==0)
-				{
-			      comms.setDistance(current_location.distanceTo(comms.getComment_location()));
-			      date_comment_array.add(comms);
+				{	
+				  float DistanceResult [] = new float[10]; 
+				  current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+				  comms.setDistance(DistanceResult[0]);
+				  date_comment_array.add(comms);
 				}
 				Collections.sort(date_comment_array, new compara());
 				for(Comments com : date_comment_array)

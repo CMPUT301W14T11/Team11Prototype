@@ -597,7 +597,7 @@ public class SubCommetsRead extends Activity {
 								final Comments new_comment = new Comments(0,
 										number, subCoId, 0, editText.getText()
 												.toString(), editText.getText()
-												.toString(), new Date(), location,
+												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
@@ -608,7 +608,7 @@ public class SubCommetsRead extends Activity {
 								final Comments new_comment = new Comments(0,
 										number, subCoId, 0, editText.getText()
 												.toString(), editText.getText()
-												.toString(), new Date(), location,
+												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
