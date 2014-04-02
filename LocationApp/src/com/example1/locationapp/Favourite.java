@@ -24,6 +24,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -56,6 +57,7 @@ public class Favourite extends Activity {
 	private ListView list;
 	private HttpClient httpclient;
 	private int code;
+	private double latitude, longitude;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class Favourite extends Activity {
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		code = intent.getIntExtra("code", 0);
+		latitude = intent.getDoubleExtra("latitude", 0);
+		longitude = intent.getDoubleExtra("longitude", 0);
 		
 		ActionBar bar = getActionBar();
 		if (code == 0)
@@ -197,7 +201,7 @@ public class Favourite extends Activity {
 					{
 						if (num==0)
 						{
-							user.getFaviourte().get(i).getComment().setDistance(comment.get(i1).getDistance());
+							user.getFaviourte().get(i).getComment().setDistance(getDistance(user.getFaviourte().get(i).getComment().getLatitude(), user.getFaviourte().get(i).getComment().getLongitude()));
 							user.getFaviourte().get(i).getComment().setImage(comment.get(i1).getImage_encode());
 							user.getFaviourte().get(i).getComment().setText(comment.get(i1).getSubject_comment());
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
@@ -205,7 +209,7 @@ public class Favourite extends Activity {
 						}
 										
 						FavouriteComment fc = new FavouriteComment();
-						fc.setDistance(comment.get(i1).getDistance());
+						fc.setDistance(getDistance(user.getFaviourte().get(i).getSubComment().get(i1).getLatitude(), user.getFaviourte().get(i).getSubComment().get(i1).getLongitude()));
 						fc.setImage(comment.get(i1).getImage_encode());
 						fc.setText(comment.get(i1).getSubject_comment());
 						fc.setTitle(comment.get(i1).getThe_comment());
@@ -227,6 +231,15 @@ public class Favourite extends Activity {
 			e.printStackTrace();
 		}
 	}
+	
+	public double getDistance(double commentLaiude, double commentLongitude)
+	{
+		Location current_location = null;
+		float DistanceResult [] = new float[10];
+		current_location.distanceBetween(latitude,longitude,commentLaiude,commentLongitude,DistanceResult);
+		return DistanceResult[0];
+	}
+	
 	
 	String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
