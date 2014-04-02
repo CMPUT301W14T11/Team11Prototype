@@ -24,6 +24,13 @@ import android.widget.TextView;
 public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 	private ArrayList<FavouriteComment> fc;
     private Activity activity;
+    
+    /**
+     * 
+     * @param a
+     * @param textViewResourceId
+     * @param entries
+     */
  
     public CustomAdapter(Activity a, int textViewResourceId, ArrayList<FavouriteComment> entries) {
         super(a, textViewResourceId, entries);
@@ -31,7 +38,11 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         this.activity = a;
     }
     
-
+    /**
+     * 
+     * @author zuo2
+     *
+     */
 	public static class ViewHolder{
         public TextView item1; //make a Testview
         public TextView item2; //make a Testview
@@ -40,6 +51,9 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         public ImageView imageview;
     }
 
+	/**
+	 * 
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		

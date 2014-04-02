@@ -4,7 +4,11 @@ import java.util.Comparator;
 
 import Model.Comments;
 
-
+/**
+ * this is for Sorting to comments by compare it with itself.
+ * @author zuo2
+ *
+ */
 public class CommentComparator implements Comparator<Comments>
 {
 	@Override
