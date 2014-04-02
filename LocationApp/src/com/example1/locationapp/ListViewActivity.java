@@ -97,12 +97,13 @@ public class ListViewActivity extends BaseActivity {
 			setListAdapter(adapter);
 			setListShownNoAnimation(true);
 		}
-
+		
+		/**
+		 * to refresh the list view
+		 * round progress bar
+		 */
 		@Override
 		public void onRefreshStarted(View view) {
-
-			// setListShown(false); // This will hide the listview and visible a
-			// round progress bar
 
 			new AsyncTask<Void, Void, Void>() {
 
@@ -125,16 +126,8 @@ public class ListViewActivity extends BaseActivity {
 					super.onPostExecute(result);
 
 					adapter.notifyDataSetChanged();
-					// Notify PullToRefreshLayout that the refresh has finished
 					mPullToRefreshLayout.setRefreshComplete();
 
-					// if you set the "setListShown(false)" then you have to
-					// uncomment the below code segment
-
-					// if (getView() != null) {
-					// // Show the list again
-					// setListShown(true);
-					// }
 				}
 			}.execute();
 

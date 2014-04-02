@@ -75,6 +75,10 @@ public class ChoseImageActivity extends Activity implements
 		pbar.setVisibility(View.GONE);
 
 	}
+	
+	/**
+	 * this method is for user choose the image which already saved.
+	 */
 
 	private void chooseImage() {
 		chooserType = ChooserType.REQUEST_PICK_PICTURE;
@@ -91,6 +95,10 @@ public class ChoseImageActivity extends Activity implements
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * this method for user taking the photo.
+	 */
 
 	private void takePicture() {
 		chooserType = ChooserType.REQUEST_CAPTURE_PICTURE;
@@ -108,6 +116,9 @@ public class ChoseImageActivity extends Activity implements
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK
@@ -121,6 +132,9 @@ public class ChoseImageActivity extends Activity implements
 		}
 	}
 
+	/**
+	 * get the Image 
+	 */
 	@Override
 	public void onImageChosen(final ChosenImage image) {
 		runOnUiThread(new Runnable() {
@@ -159,6 +173,9 @@ public class ChoseImageActivity extends Activity implements
 
 	}
 
+	/**
+	 * to return the the error information to let user know.
+	 */
 	@Override
 	public void onError(final String reason) {
 		runOnUiThread(new Runnable() {

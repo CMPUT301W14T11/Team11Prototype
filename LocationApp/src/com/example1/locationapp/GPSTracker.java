@@ -50,7 +50,10 @@ public class GPSTracker extends Service implements LocationListener{
     }
     
     // function for getting location
-    
+    /**
+     * method for user to get the location.
+     * @return
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext
