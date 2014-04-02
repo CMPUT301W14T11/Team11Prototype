@@ -92,7 +92,7 @@ public class SubCommetsRead extends Activity {
 	private UserModel user;
 	private Comments comment1;
 	private String subCommentsTitle;
-	private int replyFloor=1;
+	private int replyFloor=0;
 
 	private SubCommentController subController = new SubCommentController(
 			comment1);
@@ -106,22 +106,15 @@ public class SubCommetsRead extends Activity {
 		button1 = (Button) findViewById(R.id.buttonSaveSubComments);
 		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
-		
+		user=fileLoder.loadFromFile();
 		ActionBar bar = getActionBar();
 		bar.setDisplayHomeAsUpEnabled(false);
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);
-		// mainComment=intent.getExtra("main");
-		Toast.makeText(getBaseContext(), number + "", Toast.LENGTH_SHORT)
-				.show();
 		id_obj = new IDModel(0);
-		// add an example to test the list
-		// comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new
-		// Date(), null, 123, 123, null));
 		gps = new GPSTracker(this);
-		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,
-				comment_list);
+		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
@@ -166,9 +159,9 @@ public class SubCommetsRead extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
-				replyFloor = arg2+1;
-				editText.setHint("reply to "+replyFloor);
+				
+				replyFloor = arg2;
+				editText.setHint("reply to "+(replyFloor+1));
 			}
 		});
 		listViewSubComment.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -176,7 +169,7 @@ public class SubCommetsRead extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
-				// TODO Auto-generated method stub
+				
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
 				String items[] = { "Edit Comment", "Add Tags","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -208,9 +201,9 @@ public class SubCommetsRead extends Activity {
 									
 									@Override
 									public void onClick(View v) {
-										// TODO Auto-generated method stub
+										
 										comment_list.get(position).setThe_comment(titleedit.getText().toString());
-										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
+										
 										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
 										ListAdapter.notifyDataSetChanged();
 										dialogui.dismiss();
@@ -268,7 +261,7 @@ public class SubCommetsRead extends Activity {
 							{
 								@Override
 								protected void onPostExecute(Void result) {
-									// TODO Auto-generated method stub
+				
 									super.onPostExecute(result);
 									if (flag==0)
 									{
@@ -280,7 +273,7 @@ public class SubCommetsRead extends Activity {
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												// TODO Auto-generated method stub
+								
 												dialog.cancel();
 												
 											}
@@ -352,47 +345,7 @@ public class SubCommetsRead extends Activity {
 				return false;
 			}
 		});
-		/*listViewSubComment.setOnScrollListener(new OnScrollListener() {
-			
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
-				boolean mIsLoadingNewData=false;
-				final boolean needLoading =!mIsLoadingNewData&& firstVisibleItem + visibleItemCount >= ListAdapter.getCount() - 1;
-			    mIsLoadingNewData=true;
-			    if(needLoading)
-			    {
-			    	
-			    	new AsyncTask<Void, Void, Void>()
-			    	{
-
-						@Override
-						protected Void doInBackground(Void... params) {
-							// TODO Auto-generated method stub
-							comment_list.clear();
-							get_comments("get comments");
-							return null;
-						}
-
-						@Override
-						protected void onPostExecute(Void result) {
-							// TODO Auto-generated method stub
-							super.onPostExecute(result);
-							ListAdapter.notifyDataSetChanged();
-						}
-			    		
-			    	}.execute();
-			    	
-			    }
-			}
-		});*/
+		
 		listViewSubComment.setAdapter(ListAdapter);
 		footerView.setOnClickListener(new OnClickListener() {
 
@@ -488,6 +441,7 @@ public class SubCommetsRead extends Activity {
 				fc.setImage(comment_list.get(0).getImage_encode());
 				fc.setDistance(comment_list.get(0).getDistance());
 				fc.setUserName(comment_list.get(0).getUserName());
+				fc.setLocation(location.getLatitude(), location.getLongitude());
 				fc.setID(number);
 				
 				for (int i =1;i<comment_list.size();i++)
@@ -498,6 +452,7 @@ public class SubCommetsRead extends Activity {
 					sub.setImage(comment_list.get(i).getImage_encode());
 					sub.setDistance(comment_list.get(i).getDistance());
 					sub.setUserName(comment_list.get(i).getUserName());
+					sub.setLocation(location.getLatitude(), location.getLongitude());
 					subcomment.add(sub);
 				}
 					
@@ -610,30 +565,28 @@ public class SubCommetsRead extends Activity {
 								subCommentsTitle=subCoId+". Relpy to ";
 								user = fileLoder.loadFromFile();
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+replyFloor).toString(), editText.getText()
+										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
-								replyFloor =1;
+								replyFloor =0;
 							} else {
 								System.out.println("image posted");
 								subCommentsTitle=subCoId+". Relpy to ";
 								String encode_image = convert_image_to_string(bitmap);
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+replyFloor), editText.getText()
+										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
-								replyFloor =1;
+								replyFloor =0;
 								
 							}
 							
-							
-							startActivity(getIntent());
-							SubCommetsRead.this.finish();
+					
 							return null;
 						}
 
@@ -803,8 +756,7 @@ public class SubCommetsRead extends Activity {
 		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		try {
-			ArrayList<Comments> lat_object = new ArrayList<Comments>();
-			ArrayList<Comments> lon_object = new ArrayList<Comments>();
+			
 			String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
 					+ number + "}}} }}";
 			StringEntity entity = new StringEntity(query_range2);
@@ -829,6 +781,9 @@ public class SubCommetsRead extends Activity {
 													// the arary
 					if (com.getMaster_ID() == comms.getMaster_ID()) {
 						flag = 1;
+						float DistanceResult [] = new float[10];
+						Location.distanceBetween(location.getLatitude(),location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+						comms.setDistance(DistanceResult[0]);
 						comment_list.add(comms);
 						break;
 					}

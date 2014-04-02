@@ -24,6 +24,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,28 +46,31 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class Favourite extends Activity {
-	private Context content;
 	private UserModel user;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private LocalFileSaver fs = new LocalFileSaver(this);
 	private ArrayList<FavouriteModel> favourite;
 	private ArrayList<FavouriteComment> matchlist;
-	private FavouriteComment fc;
 	private CustomAdapter adapter;
 	private ListView list;
 	private HttpClient httpclient;
 	private int code;
-
+	private Location current_location;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		content = this;
 		setContentView(R.layout.activity_favourite);
 		matchlist = new ArrayList<FavouriteComment>();
 		user = new UserModel();
 		user = fl.loadFromFile();
 		httpclient = new DefaultHttpClient();
+		GPSTracker gps = new GPSTracker(Favourite.this);
+		if(gps.canGetLocation)
+		{
+			current_location = gps.getLocation();
+		}
+		
 		Intent intent = getIntent();
 		code = intent.getIntExtra("code", 0);
 		
@@ -158,6 +162,10 @@ public class Favourite extends Activity {
 		});
 
 	}
+	/**
+	 * Refresh the favorite comments everytime when that comments have some change. (when the phone connect the internet).
+	 * @param url
+	 */
 	
 	public void get_comments(String url) {
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
@@ -197,7 +205,7 @@ public class Favourite extends Activity {
 					{
 						if (num==0)
 						{
-							user.getFaviourte().get(i).getComment().setDistance(comment.get(i1).getDistance());
+							user.getFaviourte().get(i).getComment().setDistance(getDistance(user.getFaviourte().get(i).getComment().getLatitude(), user.getFaviourte().get(i).getComment().getLongitude()));
 							user.getFaviourte().get(i).getComment().setImage(comment.get(i1).getImage_encode());
 							user.getFaviourte().get(i).getComment().setText(comment.get(i1).getSubject_comment());
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
@@ -205,7 +213,7 @@ public class Favourite extends Activity {
 						}
 										
 						FavouriteComment fc = new FavouriteComment();
-						fc.setDistance(comment.get(i1).getDistance());
+						fc.setDistance(getDistance(comment.get(i1).getLat(), comment.get(i1).getLon()));
 						fc.setImage(comment.get(i1).getImage_encode());
 						fc.setText(comment.get(i1).getSubject_comment());
 						fc.setTitle(comment.get(i1).getThe_comment());
@@ -227,6 +235,15 @@ public class Favourite extends Activity {
 			e.printStackTrace();
 		}
 	}
+	
+	public double getDistance(double commentLaiude, double commentLongitude)
+	{
+		//Location current_location = null;
+		float DistanceResult [] = new float[10];
+		current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),commentLaiude,commentLongitude,DistanceResult);
+		return DistanceResult[0];
+	}
+	
 	
 	String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
