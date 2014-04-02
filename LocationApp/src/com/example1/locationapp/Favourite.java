@@ -57,8 +57,9 @@ public class Favourite extends Activity {
 	private ListView list;
 	private HttpClient httpclient;
 	private int code;
-	private double latitude, longitude;
-
+	private double latitude;
+	private double longitude;
+	private Location current_location;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,6 +70,12 @@ public class Favourite extends Activity {
 		user = new UserModel();
 		user = fl.loadFromFile();
 		httpclient = new DefaultHttpClient();
+		GPSTracker gps = new GPSTracker(Favourite.this);
+		if(gps.canGetLocation)
+		{
+			current_location = gps.getLocation();
+		}
+		
 		Intent intent = getIntent();
 		code = intent.getIntExtra("code", 0);
 		latitude = intent.getDoubleExtra("latitude", 0);
@@ -209,7 +216,7 @@ public class Favourite extends Activity {
 						}
 										
 						FavouriteComment fc = new FavouriteComment();
-						fc.setDistance(getDistance(user.getFaviourte().get(i).getSubComment().get(i1).getLatitude(), user.getFaviourte().get(i).getSubComment().get(i1).getLongitude()));
+						fc.setDistance(getDistance(comment.get(i1).getLat(), comment.get(i1).getLon()));
 						fc.setImage(comment.get(i1).getImage_encode());
 						fc.setText(comment.get(i1).getSubject_comment());
 						fc.setTitle(comment.get(i1).getThe_comment());
@@ -234,9 +241,9 @@ public class Favourite extends Activity {
 	
 	public double getDistance(double commentLaiude, double commentLongitude)
 	{
-		Location current_location = null;
+		//Location current_location = null;
 		float DistanceResult [] = new float[10];
-		current_location.distanceBetween(latitude,longitude,commentLaiude,commentLongitude,DistanceResult);
+		current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),commentLaiude,commentLongitude,DistanceResult);
 		return DistanceResult[0];
 	}
 	
