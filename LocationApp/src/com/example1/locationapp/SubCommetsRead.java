@@ -92,7 +92,7 @@ public class SubCommetsRead extends Activity {
 	private UserModel user;
 	private Comments comment1;
 	private String subCommentsTitle;
-	private int replyFloor=1;
+	private int replyFloor=0;
 
 	private SubCommentController subController = new SubCommentController(
 			comment1);
@@ -112,16 +112,9 @@ public class SubCommetsRead extends Activity {
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);
-		// mainComment=intent.getExtra("main");
-		Toast.makeText(getBaseContext(), number + "", Toast.LENGTH_SHORT)
-				.show();
 		id_obj = new IDModel(0);
-		// add an example to test the list
-		// comment_list.add(new Comments(1,0,0, 0, "It works", "Tesing", new
-		// Date(), null, 123, 123, null));
 		gps = new GPSTracker(this);
-		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,
-				comment_list);
+		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
@@ -167,8 +160,8 @@ public class SubCommetsRead extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				replyFloor = arg2+1;
-				editText.setHint("reply to "+replyFloor);
+				replyFloor = arg2;
+				editText.setHint("reply to "+(replyFloor+1));
 			}
 		});
 		listViewSubComment.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -488,6 +481,7 @@ public class SubCommetsRead extends Activity {
 				fc.setImage(comment_list.get(0).getImage_encode());
 				fc.setDistance(comment_list.get(0).getDistance());
 				fc.setUserName(comment_list.get(0).getUserName());
+				fc.setLocation(location.getLatitude(), location.getLongitude());
 				fc.setID(number);
 				
 				for (int i =1;i<comment_list.size();i++)
@@ -498,6 +492,7 @@ public class SubCommetsRead extends Activity {
 					sub.setImage(comment_list.get(i).getImage_encode());
 					sub.setDistance(comment_list.get(i).getDistance());
 					sub.setUserName(comment_list.get(i).getUserName());
+					sub.setLocation(location.getLatitude(), location.getLongitude());
 					subcomment.add(sub);
 				}
 					
@@ -610,30 +605,28 @@ public class SubCommetsRead extends Activity {
 								subCommentsTitle=subCoId+". Relpy to ";
 								user = fileLoder.loadFromFile();
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+replyFloor).toString(), editText.getText()
+										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
-								replyFloor =1;
+								replyFloor =0;
 							} else {
 								System.out.println("image posted");
 								subCommentsTitle=subCoId+". Relpy to ";
 								String encode_image = convert_image_to_string(bitmap);
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+replyFloor), editText.getText()
+										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());
 								subController.insertMaster(new_comment, ServerID);
 								subCoId++;
-								replyFloor =1;
+								replyFloor =0;
 								
 							}
 							
-							
-							startActivity(getIntent());
-							SubCommetsRead.this.finish();
+					
 							return null;
 						}
 
