@@ -3,6 +3,7 @@ package com.example1.locationapp;
 import java.util.Collection;
 
 /**
+ * this is GSP method using for loaction in our app
 * This code has been taken and modified from:
 * https://github.com/rayzhangcl/ESDemo
 *

@@ -27,6 +27,11 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * This activity for user search the comment by time.
+ * @author zuo2
+ *
+ */
 public class SearchActivity extends Activity {
     cutadapter adapter2;
     ArrayList<Comments> comment_list;
