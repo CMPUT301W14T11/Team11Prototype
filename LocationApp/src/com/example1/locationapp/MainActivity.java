@@ -858,8 +858,9 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		}
 	}
 	public void sortByDate() {
-
-		new AsyncTask<Void, Void, Void>() {
+		Collections.sort(comment_array,new datesort());
+		adapter.notifyDataSetChanged();
+		/*new AsyncTask<Void, Void, Void>() {
 
 			@Override
 			protected void onPostExecute(Void result) {
@@ -892,7 +893,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 				return null;
 			}
 
-		}.execute();
+		}.execute();*/
 
 	}
 
