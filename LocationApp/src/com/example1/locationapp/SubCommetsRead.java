@@ -106,7 +106,7 @@ public class SubCommetsRead extends Activity {
 		button1 = (Button) findViewById(R.id.buttonSaveSubComments);
 		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
-		
+		user=fileLoder.loadFromFile();
 		ActionBar bar = getActionBar();
 		bar.setDisplayHomeAsUpEnabled(false);
 		httpclient = new DefaultHttpClient();
@@ -159,7 +159,7 @@ public class SubCommetsRead extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
+				
 				replyFloor = arg2;
 				editText.setHint("reply to "+(replyFloor+1));
 			}
@@ -169,7 +169,7 @@ public class SubCommetsRead extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
-				// TODO Auto-generated method stub
+				
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
 				String items[] = { "Edit Comment", "Add Tags","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -201,9 +201,9 @@ public class SubCommetsRead extends Activity {
 									
 									@Override
 									public void onClick(View v) {
-										// TODO Auto-generated method stub
+										
 										comment_list.get(position).setThe_comment(titleedit.getText().toString());
-										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
+										
 										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
 										ListAdapter.notifyDataSetChanged();
 										dialogui.dismiss();
@@ -261,7 +261,7 @@ public class SubCommetsRead extends Activity {
 							{
 								@Override
 								protected void onPostExecute(Void result) {
-									// TODO Auto-generated method stub
+				
 									super.onPostExecute(result);
 									if (flag==0)
 									{
@@ -273,7 +273,7 @@ public class SubCommetsRead extends Activity {
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												// TODO Auto-generated method stub
+								
 												dialog.cancel();
 												
 											}
@@ -345,47 +345,7 @@ public class SubCommetsRead extends Activity {
 				return false;
 			}
 		});
-		/*listViewSubComment.setOnScrollListener(new OnScrollListener() {
-			
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
-				boolean mIsLoadingNewData=false;
-				final boolean needLoading =!mIsLoadingNewData&& firstVisibleItem + visibleItemCount >= ListAdapter.getCount() - 1;
-			    mIsLoadingNewData=true;
-			    if(needLoading)
-			    {
-			    	
-			    	new AsyncTask<Void, Void, Void>()
-			    	{
-
-						@Override
-						protected Void doInBackground(Void... params) {
-							// TODO Auto-generated method stub
-							comment_list.clear();
-							get_comments("get comments");
-							return null;
-						}
-
-						@Override
-						protected void onPostExecute(Void result) {
-							// TODO Auto-generated method stub
-							super.onPostExecute(result);
-							ListAdapter.notifyDataSetChanged();
-						}
-			    		
-			    	}.execute();
-			    	
-			    }
-			}
-		});*/
+		
 		listViewSubComment.setAdapter(ListAdapter);
 		footerView.setOnClickListener(new OnClickListener() {
 
@@ -796,8 +756,7 @@ public class SubCommetsRead extends Activity {
 		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		try {
-			ArrayList<Comments> lat_object = new ArrayList<Comments>();
-			ArrayList<Comments> lon_object = new ArrayList<Comments>();
+			
 			String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
 					+ number + "}}} }}";
 			StringEntity entity = new StringEntity(query_range2);
@@ -822,6 +781,9 @@ public class SubCommetsRead extends Activity {
 													// the arary
 					if (com.getMaster_ID() == comms.getMaster_ID()) {
 						flag = 1;
+						float DistanceResult [] = new float[10];
+						Location.distanceBetween(location.getLatitude(),location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+						comms.setDistance(DistanceResult[0]);
 						comment_list.add(comms);
 						break;
 					}
