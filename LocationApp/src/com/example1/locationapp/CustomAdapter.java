@@ -63,8 +63,8 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         final FavouriteComment custom = fc.get(position);
         if (custom != null) {
         	DecimalFormat format = new DecimalFormat("###.#");
-            holder.item1.setText(custom.getTitle());
-            holder.item2.setText(custom.getText());
+            holder.item1.setText(custom.getText());
+            holder.item2.setText(custom.getTitle());
             holder.item3.setText(format.format(custom.getDistance())+"m");
             
             if(custom.getUserName()==null)

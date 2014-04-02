@@ -20,6 +20,7 @@ import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.UserModel;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +69,13 @@ public class Favourite extends Activity {
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		code = intent.getIntExtra("code", 0);
+		
+		ActionBar bar = getActionBar();
+		if (code == 0)
+			bar.setTitle("Faviourite");
+		else
+			bar.setTitle("Personal Saving");
+		
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
