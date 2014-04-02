@@ -16,7 +16,7 @@ public class Comments implements Serializable{
 	//Location comment_location;
 	private Date comment_date;
 	private boolean master_comment;
-	private Location comment_location ;
+	//private Location comment_location ;
 	private double lon ;
 	private double lat;
 	private double distance;
@@ -34,7 +34,7 @@ public class Comments implements Serializable{
 	}
 
 	//consturctor for creating a master comment
-	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,Location location,double lon,double lat, String userName)
+	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,double lon,double lat, String userName)
 	{   
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
@@ -44,7 +44,7 @@ public class Comments implements Serializable{
 		this.the_comment=title;
 		this.subject_comment=subject;
 		this.master_comment=true;
-		this.comment_location=location;
+		//this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
 		this.userID=user_id;
@@ -63,7 +63,7 @@ public class Comments implements Serializable{
 	}*/
 	
 	// make a comments with image in them
-	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,Location location,double lon,double lat,String encode, String userName)
+	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,double lon,double lat,String encode, String userName)
 	{   
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
@@ -73,7 +73,7 @@ public class Comments implements Serializable{
 		this.the_comment=title;
 		this.subject_comment=subject;
 		this.master_comment=true;
-		this.comment_location=location;
+		//this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
 		this.image_encode=encode;
@@ -152,13 +152,13 @@ public class Comments implements Serializable{
 		this.master_comment = master_comment;
 	}
 
-	public Location getComment_location() {
+	/*public Location getComment_location() {
 		return comment_location;
 	}
 
 	public void setComment_location(Location comment_location) {
 		this.comment_location = comment_location;
-	}
+	}*/
 
 	public double getLon() {
 		return lon;
