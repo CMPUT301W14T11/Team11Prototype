@@ -766,8 +766,9 @@ public class MainActivity extends Activity implements OnRefreshListener,
 				}
 				// if flag not turned on then add the object into the arraylsit
 				if (flag == 0) {
-					comms.setDistance(current_location.distanceTo(comms
-							.getComment_location()));
+					float DistanceResult [] = new float[10];
+					current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+					comms.setDistance(DistanceResult[0]);
 					comment_array.add(comms);
 				}
 				Collections.sort(comment_array, new compara());

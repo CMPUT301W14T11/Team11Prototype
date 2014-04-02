@@ -28,6 +28,7 @@ import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.IDModel;
 import Model.UserModel;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -102,7 +103,8 @@ public class SubCommetsRead extends Activity {
 		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
 		
-		
+		ActionBar bar = getActionBar();
+		bar.setDisplayHomeAsUpEnabled(false);
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);

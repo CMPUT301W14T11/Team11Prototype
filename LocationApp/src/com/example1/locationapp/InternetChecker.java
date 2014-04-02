@@ -53,7 +53,7 @@ public class InternetChecker extends BroadcastReceiver {
 					.setContentTitle("New Comments")
 					.setContentText("Hey, you got new comments!");
 			// Creates an explicit intent for an Activity in your app
-			try{
+			/*try{
 			SharedPreferences sharedPref = ((Activity) context).getPreferences(Context.MODE_PRIVATE);
 			HashSet<String> the_set =  (HashSet<String>) sharedPref.getStringSet("comments",new HashSet<String>());
 			
@@ -93,7 +93,7 @@ public class InternetChecker extends BroadcastReceiver {
 			{
 				System.out.println("can't get shared preference");
 			}
-			
+			*/
 			
 			//upload saved comment to internet;
 			Intent resultIntent = new Intent(context, MainActivity.class);
