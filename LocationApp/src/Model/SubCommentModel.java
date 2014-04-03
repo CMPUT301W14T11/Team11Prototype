@@ -1,4 +1,4 @@
-package Controller;
+package Model;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -28,8 +28,6 @@ import android.widget.Toast;
 import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
-import Model.Comments;
-import Model.IDModel;
 
 public class SubCommentModel {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";

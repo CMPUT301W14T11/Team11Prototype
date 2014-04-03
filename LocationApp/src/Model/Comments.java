@@ -38,7 +38,8 @@ public class Comments implements Serializable{
 		TagsList = tagsList;
 	}
 
-	//consturctor for creating a master comment
+
+	
 	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,double lon,double lat, String userName)
 	{   
 		this.master_ID=masterid;

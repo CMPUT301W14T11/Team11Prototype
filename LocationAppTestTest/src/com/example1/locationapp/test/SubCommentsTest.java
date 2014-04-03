@@ -5,8 +5,8 @@ import java.util.Date;
 
 import com.example1.locationapp.SubCommetsRead;
 
-import Controller.SubCommentModel;
 import Model.Comments;
+import Model.SubCommentModel;
 import android.provider.Settings.System;
 import android.test.ActivityInstrumentationTestCase2;
 

@@ -10,9 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -22,21 +19,19 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.BitmapConverter;
-import Controller.IDController;
 import Controller.LocalFileLoder;
 import InternetConnection.ElasticSearchResponse;
 import Model.Comments;
+import Model.CommentsModel;
 import Model.IDModel;
 import Model.UserModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -61,7 +56,7 @@ import com.google.gson.reflect.TypeToken;
  * @author qyu4
  *
  */
-public class EnterCommentsActivity extends Activity implements IDController,
+public class EnterCommentsActivity extends Activity implements 
 		Serializable {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
@@ -81,7 +76,8 @@ public class EnterCommentsActivity extends Activity implements IDController,
 	String mCurrentPhotoPath;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private UserModel user;
-
+	private CommentsModel commentsModel = new CommentsModel();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -192,7 +188,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 									.getText().toString(), new Date(),
 							location.getLongitude(),location.getLatitude(), user.getUser_name());
 					System.out.println("this is so cool");
-					insertMaster(new_comment);
+					commentsModel.insertMaster(new_comment,number);
 					System.out.println("this is so cool2!" + number);
 				} else {
 					user = fl.loadFromFile();
@@ -205,7 +201,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 									.getText().toString(), new Date(),
 							location.getLongitude(),location.getLatitude(), encode_image,
 							user.getUser_name());
-					insertMaster(new_comment);
+					commentsModel.insertMaster(new_comment,number);
 
 				}
 
@@ -284,29 +280,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 		return super.onOptionsItemSelected(item);
 	}
 
-	// insert function for httppost comments
-	public void insertMaster(Comments comm) {
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(SERVER + MASTERCOMMENT + number);
-		try {
-			StringEntity data = new StringEntity(gson.toJson(comm));
-			httpPost.setEntity(data);
-			httpPost.setHeader("Accept", "application/json");
-			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(response.getStatusLine().toString() + "testing");
-			System.out.println("chenggong " + number);
-		} catch (UnsupportedEncodingException e) {
-
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	// chose picture request for picture is 5
 	public void addPicture(View view) {
@@ -416,7 +390,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 		return bitmap;
 	}
 
-	@Override
+
 	public void insert(IDModel id) throws IllegalStateException, IOException {
 
 		HttpClient httpclient = new DefaultHttpClient();
@@ -463,7 +437,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 
 	}
 
-	@Override
+	
 	public int get_id() {
 
 		IDModel id_toReturn;// this is ID object from server

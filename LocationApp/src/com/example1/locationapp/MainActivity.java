@@ -21,7 +21,6 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import Controller.CommentController;
-import Controller.IDController;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.PicSort;
@@ -75,7 +74,7 @@ import com.google.gson.reflect.TypeToken;
  * 
  */
 public class MainActivity extends Activity implements OnRefreshListener,
-		CommentController, IDController {
+		CommentController {
 	CommentUser someuser;
 	SearchView sec_search;
 	int flag_location;
@@ -892,10 +891,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 	}
 
-	@Override
-	public void insertMaster(Comments com) {
-
-	}
 	public void sortByPicture()
 	{
 		Iterator<Comments> iter = comment_array.iterator();
@@ -948,15 +943,16 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 	}
 
-	@Override
-	public void insert(IDModel id) throws IllegalStateException, IOException {
 
+
+
+
+
+	@Override
+	public void insertMaster(Comments com) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Override
-	public int get_id() {
-
-		return 0;
-	}
 
 }

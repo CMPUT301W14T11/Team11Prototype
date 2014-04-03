@@ -7,9 +7,9 @@ import com.example1.locationapp.MainActivity;
 import com.example1.locationapp.SubCommetsRead;
 
 
-import Controller.SubCommentModel;
 import Model.Comments;
 import Model.IDModel;
+import Model.SubCommentModel;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
