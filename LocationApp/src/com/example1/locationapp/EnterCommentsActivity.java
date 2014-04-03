@@ -357,38 +357,10 @@ public class EnterCommentsActivity extends Activity implements
 	}
 
 	// convert the bitmap image to base64 string
-	public String convert_image_to_string(Bitmap bitmap) {
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-		byte[] byteArray = byteArrayOutputStream.toByteArray();
-		String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
-		return encoded;
-	}
+	
 
 	// decrease size of the image
-	Bitmap ShrinkBitmap(String file, int width, int height) {
-
-		BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-		bmpFactoryOptions.inJustDecodeBounds = true;
-		Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
-
-		int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight
-				/ (float) height);
-		int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
-				/ (float) width);
-
-		if (heightRatio > 1 || widthRatio > 1) {
-			if (heightRatio > widthRatio) {
-				bmpFactoryOptions.inSampleSize = heightRatio;
-			} else {
-				bmpFactoryOptions.inSampleSize = widthRatio;
-			}
-		}
-
-		bmpFactoryOptions.inJustDecodeBounds = false;
-		bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
-		return bitmap;
-	}
+	
 
 
 	public void insert(IDModel id) throws IllegalStateException, IOException {

@@ -44,5 +44,13 @@ public class CommentsModel {
 
 	}
 	
+	
+	public String convert_image_to_string(Bitmap bitmap) {
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+		byte[] byteArray = byteArrayOutputStream.toByteArray();
+		String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+		return encoded;
+	}
 
 }

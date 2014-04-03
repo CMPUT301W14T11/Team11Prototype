@@ -22,7 +22,7 @@ public class BitmapConverter implements JsonDeserializer<Bitmap>,JsonSerializer<
 			JsonSerializationContext arg2) {
 		// TODO Auto-generated method stub
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		arg0.compress(Bitmap.CompressFormat.JPEG,100, stream);
+		arg0.compress(Bitmap.CompressFormat.JPEG,10, stream);
 		String base64Encoded = Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP);
 		return new JsonPrimitive(base64Encoded);
 		

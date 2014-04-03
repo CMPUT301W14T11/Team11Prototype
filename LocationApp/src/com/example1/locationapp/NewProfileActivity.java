@@ -11,6 +11,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import Model.CommentUser;
+import Model.CommentsModel;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -121,7 +122,7 @@ public class NewProfileActivity extends Activity {
 		NewUser.setBio(Ebio.getText().toString());
 		if(bitmap!=null)
 		{
-			NewUser.setImageEncode(new EnterCommentsActivity().convert_image_to_string(bitmap));
+			NewUser.setImageEncode(new CommentsModel().convert_image_to_string(bitmap));
 		}
 		UUID NewID = UUID.randomUUID();
 		final String string_ID = NewID.toString();
