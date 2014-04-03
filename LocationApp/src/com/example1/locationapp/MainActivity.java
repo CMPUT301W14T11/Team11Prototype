@@ -44,6 +44,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -515,10 +516,38 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		case R.id.item2:
 			// this is to start change location activity
 			// request code is 7
-			Intent intent2 = new Intent(MainActivity.this, Playtube.class);
+			final Dialog dialogui = new Dialog(content);
+			dialogui.setContentView(R.layout.dialogui);
+			dialogui.setTitle("Change Location");
+			dialogui.show();
+			
+			final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
+			final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
+			Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
+			Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
+			final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
+			final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+			locationview.setText("Enter Latitude");
+			locationview2.setText("Enter Longitude");
+			titleedit.setHint("Lat");
+			subjectedit.setHint("Lon");
+			Changebutton.setVisibility(View.INVISIBLE);
+			Locationbutton.setText("Change Location");
+			Locationbutton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					current_location.setLatitude(Double.parseDouble(titleedit.getText().toString()));
+					current_location.setLongitude(Double.parseDouble(subjectedit.getText().toString()));
+					dialogui.dismiss();
+					Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
+				}
+			});
+			/*Intent intent2 = new Intent(MainActivity.this, Playtube.class);
 			intent2.putExtra("lat", current_location.getLatitude());
 			intent2.putExtra("lon", current_location.getLongitude());
-			startActivityForResult(intent2, 7);
+			startActivityForResult(intent2, 7);*/
 			break;
 		case R.id.item3:
 			sortByDate();
