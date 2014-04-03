@@ -18,6 +18,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import Controller.BitmapConverter;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.SubCommentModel;
@@ -57,6 +58,7 @@ import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 /**
  * this class is to control the sub-comments part
@@ -560,7 +562,8 @@ public class SubCommetsRead extends Activity {
 							} else {
 								System.out.println("image posted");
 								subCommentsTitle=subCoId+". Relpy to ";
-								String encode_image = convert_image_to_string(bitmap);
+								//String encode_image = convert_image_to_string(bitmap);
+								JsonElement encode_image = new BitmapConverter().serialize(bitmap, null, null);
 								final Comments new_comment = new Comments(0,
 										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()
 												.toString(), new Date(),

@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.gson.JsonElement;
+
 import android.graphics.Bitmap;
 
 
@@ -7,7 +9,7 @@ public class FavouriteComment
 {
 	private String title;
 	private String text;
-	private String comment_image;
+	private JsonElement comment_image;
 	private String userName;
 	private double distance;
 	private int id;
@@ -84,12 +86,12 @@ public class FavouriteComment
 		this.text = text;
 	}
 	
-	public void setImage(String image)
+	public void setImage(JsonElement image)
 	{
 		this.comment_image = image;
 	}
 	
-	public String getImage()
+	public JsonElement getImage()
 	{
 		return comment_image;
 	}
