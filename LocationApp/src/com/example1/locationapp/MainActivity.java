@@ -59,6 +59,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example1.locationapp.R;
@@ -76,6 +77,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		CommentController, IDController {
 	CommentUser someuser;
 	SearchView sec_search;
+	int flag_location;
 	int location_flag;
 	ListView listview;
 	ArrayList<Comments> comment_array, date_comment_array;
@@ -294,20 +296,46 @@ public class MainActivity extends Activity implements OnRefreshListener,
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
 								dialogui.show();
+								flag_location=0;
+								final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
+								final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
 								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
 								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
 								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+								Locationbutton.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										locationview.setText("Enter Latitude");
+										locationview2.setText("Enter Longitude");
+										titleedit.setHint("Lat");
+										subjectedit.setHint("Lon");
+										flag_location = 1;
+									}
+								});
+								
 								Changebutton.setOnClickListener(new OnClickListener() {
 									
 									@Override
 									public void onClick(View v) {
+										if(flag_location==0)
+										{	
 										comment_array.get(arg2).setThe_comment(titleedit.getText().toString());
 										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
 										comment_array.get(arg2).setSubject_comment(subjectedit.getText().toString());
 										adapter.notifyDataSetChanged();
-										dialogui.dismiss();
 										
+										}
+										if(flag_location==1)
+										{
+											double lat = Double.parseDouble(titleedit.getText().toString()); 
+											double lon = Double.parseDouble(subjectedit.getText().toString());	
+											comment_array.get(arg2).setLat(lat);
+											comment_array.get(arg2).setLon(lon);
+											
+										}
 										new AsyncTask<Void,Void,Void>()
 										{
 
@@ -339,6 +367,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 										}.execute();
 										
 										Toast.makeText(content,"Comment has changed",Toast.LENGTH_SHORT).show();
+										dialogui.dismiss();
 									}
 								});
 							}
@@ -751,7 +780,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					json1, elasticSearchSearchResponseType);
             // new version of array sorting
 			
-			
+			comment_array.clear();
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 				Comments comms = r.getSource();
 				

@@ -8,7 +8,10 @@ import com.google.gson.JsonElement;
 
 import android.graphics.Bitmap;
 import android.location.Location;
-// this is a master comment class
+/**
+* A Comments object contains the user id,master comments id,sub comments id, sub comments title and body,a picture if it has
+* date,location of the comments posted, a userName which published this comment
+*/
 public class Comments implements Serializable{
 	private int master_comment_ID;
 	private int sub_comments_ID;
