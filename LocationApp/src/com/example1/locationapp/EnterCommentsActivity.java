@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -162,38 +163,24 @@ public class EnterCommentsActivity extends Activity implements IDController,
 			ProgressDialog dialog1 = new ProgressDialog(content);
 
 			@Override
-			protected void onPreExecute() {
-
-				// dialog1.setTitle("Loading cause your internet is too slow!");
-				// dialog1.show();
-				super.onPreExecute();
-				new AsyncTask<Void, Void, Void>() {
-
-					@Override
-					protected Void doInBackground(Void... params) {
-
-						number = get_id();
-						number++;
-						return null;
-					}
-
-				}.execute();
-			}
-
-			@Override
 			protected Void doInBackground(Void... params) {
 
 				if (bitmap == null) {
+					UUID id1 = UUID.randomUUID();
+					UUID id2 = UUID.randomUUID();
 					user = fl.loadFromFile();
 					final Comments new_comment = new Comments(0, number, 0, 0,
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),
 							location.getLongitude(),location.getLatitude(), user.getUser_name());
 					System.out.println("this is so cool");
+					new_comment.setTwoUUID(id1.toString()+id2.toString());
 					insertMaster(new_comment);
 					System.out.println("this is so cool2!" + number);
 				} else {
 					user = fl.loadFromFile();
+					UUID id1 = UUID.randomUUID();
+					UUID id2 = UUID.randomUUID();
 					System.out.println("image posted");
 					BitmapConverter ImageConvert = new BitmapConverter();
 					JsonElement encode_image =ImageConvert.serialize(bitmap, null, null);
@@ -203,6 +190,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 									.getText().toString(), new Date(),
 							location.getLongitude(),location.getLatitude(), encode_image,
 							user.getUser_name());
+					new_comment.setTwoUUID(id1.toString()+id2.toString());
 					insertMaster(new_comment);
 
 				}
@@ -210,31 +198,6 @@ public class EnterCommentsActivity extends Activity implements IDController,
 				return null;
 			}
 
-			@Override
-			protected void onPostExecute(Void result) {
-
-				super.onPostExecute(result);
-				new AsyncTask<Void, Void, Void>() {
-
-					@Override
-					protected Void doInBackground(Void... params) {
-
-						id_obj.setId_for_master(number);
-						try {
-							insert(id_obj);
-						} catch (IllegalStateException e) {
-
-							e.printStackTrace();
-						} catch (IOException e) {
-
-							e.printStackTrace();
-						}
-						return null;
-					}
-
-				}.execute();
-
-			}
 
 		}.execute();
 
@@ -285,7 +248,7 @@ public class EnterCommentsActivity extends Activity implements IDController,
 	// insert function for httppost comments
 	public void insertMaster(Comments comm) {
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(SERVER + MASTERCOMMENT + number);
+		HttpPost httpPost = new HttpPost(SERVER + MASTERCOMMENT + comm.getTwoUUID());
 		try {
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);

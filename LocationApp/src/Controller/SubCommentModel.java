@@ -37,10 +37,10 @@ public class SubCommentModel {
 	public SubCommentModel(Comments comment){
 		this.comment=comment;
 	}
-	public void insertMaster(Comments comm, int ServerID)
+	public void insertMaster(Comments comm,String SubUUID)
 	 {
 		 HttpClient httpclient  = new DefaultHttpClient();
-		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+ServerID);
+		 HttpPost httpPost = new HttpPost(SERVER+MASTERCOMMENT+SubUUID);
 		 try {
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);
@@ -119,20 +119,19 @@ public class SubCommentModel {
 	}	
 
 	
-	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1, int mID,HttpClient httpclient) {
+	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1,String MasterUUID,HttpClient httpclient) {
 		HttpPost httpPost = new HttpPost(
 			"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 
 		Gson gson1 = new Gson();
 		try {
-			String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"master_ID\":"
-				+ mID + "}}} }}";
+			String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"TwoUUID\":"
+				+" \""+MasterUUID+ " \""+ "}}} }}";
 			StringEntity entity = new StringEntity(query_range2);
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
 			String json1 = getEntityContent(response);
-			System.out.println(json1 + "holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 			}.getType();
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
@@ -143,21 +142,9 @@ public class SubCommentModel {
 
 			// check weath the comment if already in the arraylist, if not
 			// then add it in there
-			int flag = 0;
-			for (Comments com : comment_list1) { // turn on the flag if
-												// object is already inside
-												// the arary
-				if (com.getMaster_ID() == comms.getMaster_ID()) {
-					flag = 1;
-					comment_list1.add(comms);
-					break;
-				}
-			}
-			// if flag not turned on then add the object into the arraylsit
-			if (flag == 0) {
 
 				comment_list1.add(comms);
-			}
+			
 
 		}
 		// System.out.println(comment_list.size()+"size"+ServerID);

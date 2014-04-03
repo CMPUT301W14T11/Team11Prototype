@@ -3,13 +3,14 @@ package Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import com.google.gson.JsonElement;
-
-import android.graphics.Bitmap;
-import android.location.Location;
 // this is a master comment class
 public class Comments implements Serializable{
+	private UUID Uuid1;
+	private UUID Uuid2;
+	private String TwoUUID;
 	private int master_comment_ID;
 	private int sub_comments_ID;
 	private int master_ID;
@@ -17,6 +18,7 @@ public class Comments implements Serializable{
 	private String the_comment,subject_comment;
 	//Location comment_location;
 	private Date comment_date;
+	private String SubTwoUUID;
 	private boolean master_comment;
 	//private Location comment_location ;
 	private double lon ;
@@ -209,6 +211,38 @@ public class Comments implements Serializable{
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	public UUID getUuid1() {
+		return Uuid1;
+	}
+
+	public void setUuid1(UUID uuid1) {
+		Uuid1 = uuid1;
+	}
+
+	public UUID getUuid2() {
+		return Uuid2;
+	}
+
+	public void setUuid2(UUID uuid2) {
+		Uuid2 = uuid2;
+	}
+
+	public String getTwoUUID() {
+		return TwoUUID;
+	}
+
+	public void setTwoUUID(String twoUUID) {
+		TwoUUID = twoUUID;
+	}
+
+	public String getSubTwoUUID() {
+		return SubTwoUUID;
+	}
+
+	public void setSubTwoUUID(String subTwoUUID) {
+		SubTwoUUID = subTwoUUID;
+	}
+
 	
 
 }

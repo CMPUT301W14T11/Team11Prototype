@@ -250,15 +250,13 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-				int getID = comment_array.get(arg2).getMaster_ID();
+				String uuid = comment_array.get(arg2).getTwoUUID();
+				System.out.println("pass1 uuid:"+uuid);
 				Intent intent1 = new Intent();
-				intent1.putExtra("masterID", getID);
-				// intent1.putExtra("main", comment_array.get(arg2));
+				intent1.putExtra("masterID",uuid);
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
 				MainActivity.this.startActivity(intent1);
-				// Toast.makeText(MainActivity.this,
-				// listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
-				// .show();
+				
 
 			}
 		});
@@ -748,33 +746,17 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					json1, elasticSearchSearchResponseType);
             // new version of array sorting
 			
-			
+			comment_array.clear();
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 				Comments comms = r.getSource();
+
+				float DistanceResult [] = new float[10];
+				current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+				comms.setDistance(DistanceResult[0]);
+				comment_array.add(comms);
 				
-				// check weath the comment if already in the arraylist, if not
-				// then add it in there
-				int flag = 0;
-				for (Comments com : comment_array) { // turn on the flag if
-														// object is already
-														// inside the arary
-					if (com.getMaster_ID() == comms.getMaster_ID()) {
-						flag = 1;
-						break;
-					}
-				}
-				// if flag not turned on then add the object into the arraylsit
-				if (flag == 0) {
-					float DistanceResult [] = new float[10];
-					current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
-					comms.setDistance(DistanceResult[0]);
-					comment_array.add(comms);
-				}
-				Collections.sort(comment_array, new compara());
-				for (Comments com : comment_array) {
-					System.out.println("distance:" + com.getDistance());
-				}
 			}
+			Collections.sort(comment_array, new compara());
 
 		} catch (ClientProtocolException e) {
 

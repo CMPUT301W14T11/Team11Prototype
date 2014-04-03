@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.UUID;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -95,7 +96,8 @@ public class SubCommetsRead extends Activity {
 	private Comments comment1;
 	private String subCommentsTitle;
 	private int replyFloor=0;
-
+	private String MasterUUID;
+	private String SubCommentsUUID;
 	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
 
@@ -108,12 +110,12 @@ public class SubCommetsRead extends Activity {
 		button1 = (Button) findViewById(R.id.buttonSaveSubComments);
 		button1.setText("Send");
 		comment_list = new ArrayList<Comments>();
-		
 		ActionBar bar = getActionBar();
 		bar.setDisplayHomeAsUpEnabled(false);
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
-		number = intent.getIntExtra("masterID", 0);
+		MasterUUID = intent.getStringExtra("masterID");
+		System.out.println("pass in id:"+MasterUUID);
 		id_obj = new IDModel(0);
 		gps = new GPSTracker(this);
 		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
@@ -121,9 +123,9 @@ public class SubCommetsRead extends Activity {
 
 			@Override
 			protected Void doInBackground(Void... params) {
+				comment_list.clear();
+				comment_list =subModel.get_comments(comment_list,MasterUUID,httpclient);
 				
-				comment_list =subModel.get_comments(comment_list, number,httpclient);
-				subCoId=comment_list.size()+1;
 				return null;
 			}
 
@@ -345,8 +347,7 @@ public class SubCommetsRead extends Activity {
 					@Override
 					protected Void doInBackground(Void... params) {
 						comment_list.clear();
-						comment_list=subModel.get_comments(comment_list, number,httpclient);
-						
+						comment_list=subModel.get_comments(comment_list,MasterUUID,httpclient);
 						return null;
 					}
 
@@ -513,7 +514,7 @@ public class SubCommetsRead extends Activity {
 			else
 			{
 				String title = editText.getText().toString();
-				radius = radius + 0.01;
+				
 				if ("".equals(title)) {
 
 					Toast.makeText(getBaseContext(),
@@ -525,53 +526,34 @@ public class SubCommetsRead extends Activity {
 						ProgressDialog dialog1 = new ProgressDialog(content);
 
 						@Override
-						protected void onPreExecute() {
-							
-							dialog1.setTitle("Loading cause your internet is too slow!");
-							dialog1.show();
-							super.onPreExecute();
-							new AsyncTask<Void, Void, Void>() {
-
-								@Override
-								protected Void doInBackground(Void... params) {
-									
-									ServerID = get_id();
-									ServerID++;
-									System.out.println(comment_list.size() + "size"
-											+ ServerID);
-									return null;
-								}
-
-							}.execute();
-
-						}
-
-						@Override
 						protected Void doInBackground(Void... params) {
 							
 							if (bitmap == null) {
 								subCommentsTitle=subCoId+". Relpy to ";
 								user = fileLoder.loadFromFile();
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
+										number, subCoId, 0,null, editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
-								subModel.insertMaster(new_comment, ServerID);
-								subCoId++;
-								replyFloor =0;
+								new_comment.setTwoUUID(MasterUUID);
+								new_comment.setSubTwoUUID(UUID.randomUUID().toString()+UUID.randomUUID().toString());
+								subModel.insertMaster(new_comment,new_comment.getTwoUUID());
+								
 							} else {
-								System.out.println("image posted");
+								
 								subCommentsTitle=subCoId+". Relpy to ";
 								//String encode_image = convert_image_to_string(bitmap);
 								JsonElement encode_image = new BitmapConverter().serialize(bitmap, null, null);
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()
+										number, subCoId, 0,null, editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());
-								subModel.insertMaster(new_comment, ServerID);
-								subCoId++;
-								replyFloor =0;
+								new_comment.setTwoUUID(MasterUUID);
+								new_comment.setSubTwoUUID(UUID.randomUUID().toString()+UUID.randomUUID().toString());
+								subModel.insertMaster(new_comment,new_comment.getTwoUUID());
+								
+								
 								
 							}
 							
@@ -583,28 +565,9 @@ public class SubCommetsRead extends Activity {
 						protected void onPostExecute(Void result) {
 							
 							super.onPostExecute(result);
-							new AsyncTask<Void, Void, Void>() {
-
-								@Override
-								protected Void doInBackground(Void... params) {
-									
-									id_obj.setId_for_master(ServerID);
-									try {
-										subModel.insert(id_obj,content);
-									} catch (IllegalStateException e) {
-										
-										e.printStackTrace();
-									} catch (IOException e) {
-										
-										e.printStackTrace();
-									}
-									return null;
-								}
-
-							}.execute();
-                        dialog1.dismiss();
-                        bitmap=null;
-                        editText.setText("");
+							dialog1.dismiss();
+							bitmap=null;
+							editText.setText("");
 						}
 
 					}.execute();
