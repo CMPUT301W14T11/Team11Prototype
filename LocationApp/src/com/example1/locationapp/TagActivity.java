@@ -2,6 +2,8 @@ package com.example1.locationapp;
 
 import java.util.ArrayList;
 
+import com.example1.locationapp.R;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;

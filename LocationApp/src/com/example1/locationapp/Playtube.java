@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example1.locationapp.R;
 import com.google.android.gms.internal.gm;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;

@@ -3,12 +3,13 @@ package com.example1.locationapp.test;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.example1.locationapp.SubCommetsRead;
+
 import Controller.SubCommentModel;
 import Model.Comments;
 import android.provider.Settings.System;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.example1.locationapp.SubCommetsRead;
 
 public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommetsRead> {
 	public SubCommentsTest() {

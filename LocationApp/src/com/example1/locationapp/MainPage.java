@@ -2,6 +2,8 @@ package com.example1.locationapp;
 
 import java.io.File;
 
+import com.example1.locationapp.R;
+
 import Controller.LocalFileLoder;
 import Model.UserModel;
 import android.app.ActionBar;

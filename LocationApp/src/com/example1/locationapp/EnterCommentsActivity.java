@@ -24,6 +24,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import Controller.BitmapConverter;
 import Controller.IDController;
 import Controller.LocalFileLoder;
+import InternetConnection.ElasticSearchResponse;
 import Model.Comments;
 import Model.IDModel;
 import Model.UserModel;
@@ -49,6 +50,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;

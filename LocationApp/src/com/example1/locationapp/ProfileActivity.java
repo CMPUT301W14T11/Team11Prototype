@@ -1,5 +1,7 @@
 package com.example1.locationapp;
 
+import com.example1.locationapp.R;
+
 import Controller.LocalFileLoder;
 import Model.CommentUser;
 import Model.UserModel;

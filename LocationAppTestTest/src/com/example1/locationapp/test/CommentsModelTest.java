@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.example1.locationapp.EnterCommentsActivity;
 import com.example1.locationapp.MainActivity;
+
 import Model.Comments;
 import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;

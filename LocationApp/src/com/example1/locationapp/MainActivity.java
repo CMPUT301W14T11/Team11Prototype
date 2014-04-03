@@ -27,6 +27,8 @@ import Controller.LocalFileSaver;
 import Controller.PicSort;
 import Controller.compara;
 import Controller.datesort;
+import InternetConnection.ElasticSearchResponse;
+import InternetConnection.ElasticSearchSearchResponse;
 import Model.CommentUser;
 import Model.Comments;
 import Model.IDModel;
@@ -59,6 +61,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

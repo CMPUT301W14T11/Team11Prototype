@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -16,15 +17,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.example1.locationapp.ElasticSearchResponse;
-import com.example1.locationapp.ElasticSearchSearchResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Base64;
 import android.widget.Toast;
 
+import InternetConnection.ConnectToInternet;
+import InternetConnection.ElasticSearchResponse;
+import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
 import Model.IDModel;
 
@@ -33,7 +36,7 @@ public class SubCommentModel {
 	public static final String MASTERCOMMENT = "emouse/";
 	private Comments comment;
 	private Gson gson = new Gson();
-	
+	private ConnectToInternet connect = new ConnectToInternet();
 	public SubCommentModel(Comments comment){
 		this.comment=comment;
 	}
@@ -59,64 +62,6 @@ public class SubCommentModel {
 		}
 		 
 	 }
-	
-	public void insert(IDModel id, Context content) throws IllegalStateException, IOException {
-		
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/testing/lab111/1");
-		StringEntity stringentity = null;
-
-		try {
-			stringentity = new StringEntity(gson.toJson(id));
-		} catch (UnsupportedEncodingException e) {
-			
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		} catch (RuntimeException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		}
-		httpPost.setHeader("Accept", "application/json");
-
-		httpPost.setEntity(stringentity);
-
-		HttpResponse response = null;
-
-		try {
-			response = httpclient.execute(httpPost);
-
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (NullPointerException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		} catch (RuntimeException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		}
-
-	}
-
-	public String getEntityContent(HttpResponse response) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-			(response.getEntity().getContent())));
-		String output;
-		System.err.println("Output from Server -> ");
-		String json = "";
-		while ((output = br.readLine()) != null) {
-			System.err.println(output);
-			json += output;
-		}
-		System.err.println("JSON:" + json);
-		return json;
-	}	
 
 	
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1, int mID,HttpClient httpclient) {
@@ -131,7 +76,7 @@ public class SubCommentModel {
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
-			String json1 = getEntityContent(response);
+			String json1 = connect.getEntityContent(response);
 			System.out.println(json1 + "holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 			}.getType();
@@ -173,4 +118,6 @@ public class SubCommentModel {
 		}
 		return comment_list1;
 	}
+	
+
 }

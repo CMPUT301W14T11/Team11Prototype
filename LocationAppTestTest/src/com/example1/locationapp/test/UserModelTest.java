@@ -2,6 +2,8 @@ package com.example1.locationapp.test;
 
 import java.util.ArrayList;
 
+import com.example1.locationapp.MainActivity;
+
 import Model.Comments;
 import Model.FavouriteModel;
 import Model.UserModel;
@@ -9,7 +11,6 @@ import Model.UserModel;
 import android.test.ActivityInstrumentationTestCase2;
 
 
-import com.example1.locationapp.MainActivity;
 
 public class UserModelTest extends  ActivityInstrumentationTestCase2<MainActivity> {
     private UserModel user;

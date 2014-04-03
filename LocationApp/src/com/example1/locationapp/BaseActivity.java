@@ -1,5 +1,7 @@
 package com.example1.locationapp;
 
+import com.example1.locationapp.R;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;

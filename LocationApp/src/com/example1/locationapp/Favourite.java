@@ -16,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
+import InternetConnection.ElasticSearchResponse;
+import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
@@ -35,6 +37,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

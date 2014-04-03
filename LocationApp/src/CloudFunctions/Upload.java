@@ -14,10 +14,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import InternetConnection.ElasticSearchResponse;
 import Model.Comments;
 import Model.IDModel;
 
-import com.example1.locationapp.ElasticSearchResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

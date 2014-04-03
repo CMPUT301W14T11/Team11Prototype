@@ -17,12 +17,12 @@ import android.content.Context;
 import android.location.Location;
 import android.widget.Toast;
 
-import com.example1.locationapp.ElasticSearchResponse;
-import com.example1.locationapp.ElasticSearchSearchResponse;
 import com.example1.locationapp.GPSTracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import InternetConnection.ElasticSearchResponse;
+import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
 /**
  * the class CommentSort is used to sort comments by date and picture individually.

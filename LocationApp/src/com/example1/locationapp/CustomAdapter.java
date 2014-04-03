@@ -3,6 +3,8 @@ package com.example1.locationapp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.example1.locationapp.R;
+
 import Controller.BitmapConverter;
 import Model.Comments;
 import Model.FavouriteComment;

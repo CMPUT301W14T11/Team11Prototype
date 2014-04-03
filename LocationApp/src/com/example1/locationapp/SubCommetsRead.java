@@ -23,6 +23,9 @@ import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
 import Controller.SubCommentModel;
 import Controller.SubCommentSort;
+import InternetConnection.ConnectToInternet;
+import InternetConnection.ElasticSearchResponse;
+import InternetConnection.ElasticSearchSearchResponse;
 import Model.CommentUser;
 import Model.Comments;
 import Model.FavouriteComment;
@@ -57,6 +60,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
@@ -95,6 +99,7 @@ public class SubCommetsRead extends Activity {
 	private Comments comment1;
 	private String subCommentsTitle;
 	private int replyFloor=0;
+	private ConnectToInternet connect = new ConnectToInternet();
 
 	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
@@ -287,7 +292,7 @@ public class SubCommetsRead extends Activity {
 										httppost.setHeader("Accept", "application/json");
 										httppost.setEntity(entity);
 										HttpResponse response = httpclient.execute(httppost);
-										String json1 = subModel.getEntityContent(response);
+										String json1 = connect.getEntityContent(response);
 										Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
 										}.getType();
 										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
@@ -535,7 +540,7 @@ public class SubCommetsRead extends Activity {
 								@Override
 								protected Void doInBackground(Void... params) {
 									
-									ServerID = get_id();
+									ServerID = connect.get_id(content);
 									ServerID++;
 									System.out.println(comment_list.size() + "size"
 											+ ServerID);
@@ -590,7 +595,7 @@ public class SubCommetsRead extends Activity {
 									
 									id_obj.setId_for_master(ServerID);
 									try {
-										subModel.insert(id_obj,content);
+										connect.insert(id_obj,content);
 									} catch (IllegalStateException e) {
 										
 										e.printStackTrace();
@@ -617,59 +622,8 @@ public class SubCommetsRead extends Activity {
 		}
 	}
 
-	public int get_id() {
-		
-		IDModel id_toReturn;// this is ID object from server
-		int id = 0;
-		try {
-			// IDModel id_toReturn ;// this is ID object from server
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet httpget = new HttpGet(
-					"http://cmput301.softwareprocess.es:8080/testing/lab111/1");
-			httpget.addHeader("Accept", "application/json");
 
-			HttpResponse response = httpclient.execute(httpget);
-
-			String json = subModel.getEntityContent(response);
-
-			// We have to tell GSON what type we expect
-			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<IDModel>>() {
-			}.getType();
-			// Now we expect to get a Recipe response
-			ElasticSearchResponse<IDModel> esResponse = gson.fromJson(json,
-					elasticSearchResponseType);
-			// We get the recipe from it!
-			id_toReturn = esResponse.getSource();
-			System.out.println();
-
-			id = id_toReturn.getId_for_master();
-
-			// System.out.println(recipe.toString());
-			// httpget.releaseConnection();
-		} catch (ClientProtocolException e) {
-			
-			e.printStackTrace();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		} catch (RuntimeException e) {
-			
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
-		}
-		return id;
-
-	}
-
-	public String convert_image_to_string(Bitmap bitmap) {
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-		byte[] byteArray = byteArrayOutputStream.toByteArray();
-		String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
-		return encoded;
-	}
+	
 
 
 	
