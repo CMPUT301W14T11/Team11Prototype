@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
@@ -41,15 +42,12 @@ public class SearchActivity extends Activity {
     ListView listview2;
     HttpClient httpclient;
     Gson gson;
+    private String query;
+    private ConnectToInternet connect = new ConnectToInternet();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_search);
-        
-		/*if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
 		ActionBar bar = getActionBar();
 		bar.setTitle("Search Result");
 		httpclient = new DefaultHttpClient();
@@ -68,7 +66,7 @@ public class SearchActivity extends Activity {
 
 	private void handleIntent(Intent intent) {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			String query = intent.getStringExtra(SearchManager.QUERY);
+			query = intent.getStringExtra(SearchManager.QUERY);
 			System.out.println("query is:"+query);
 			
 			
@@ -87,28 +85,38 @@ public class SearchActivity extends Activity {
 		
 		adapter2 = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
 		listview2.setAdapter(adapter2);
+		comment_list.clear();
 		new AsyncTask<Void,Void,Void>() {
+
+			@Override
+			protected void onPostExecute(Void result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				adapter2.notifyDataSetChanged();
+			}
 
 			@Override
 			protected Void doInBackground(Void... params) {
 				try
 				{
+				System.out.println("doing search");
 				HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-				String query_range2 = "{\"query\":{  }}";
+				String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"terms\":{\"TagsList\":["+"\""+query+"\""+"],minimum_match:1}}}}}";
 				StringEntity entity = new StringEntity(query_range2);
 				httpPost.setHeader("Accept", "application/json");
 				httpPost.setEntity(entity);
 				HttpResponse response = httpclient.execute(httpPost);
-				String json1 = new MainActivity().getEntityContent(response);
+				
+				String json1 = connect.getEntityContent(response);
 				System.out.println(response.getStatusLine().toString() + "status");
-				System.out.println(json1 + "holy");
+				System.out.println("search result is the:"+json1);
 				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 				}.getType();
 				ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(
 						json1, elasticSearchSearchResponseType);
 				for (ElasticSearchResponse<Comments> r : esResponse.getHits())
 				{
-					
+					comment_list.add(r.getSource());
 				}
 				
 				}

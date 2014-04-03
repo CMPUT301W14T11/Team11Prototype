@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import InternetConnection.ConnectToInternet;
 import android.graphics.Bitmap;
 import android.util.Base64;
 
@@ -20,6 +21,7 @@ public class CommentsModel {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	private Gson gson= new Gson();
+	
 	
 	public void insertMaster(Comments comm, int number) {
 		HttpClient httpclient = new DefaultHttpClient();
