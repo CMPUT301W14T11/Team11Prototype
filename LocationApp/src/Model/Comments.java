@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.google.gson.JsonElement;
+
 import android.graphics.Bitmap;
 import android.location.Location;
 // this is a master comment class
@@ -21,7 +23,7 @@ public class Comments implements Serializable{
 	private double lat;
 	private double distance;
 	//private Bitmap comment_image;
-	private String image_encode;
+	private JsonElement image_encode;
 	private int userID;
 	private String userName;
 	private ArrayList<String> TagsList= new ArrayList<String>();
@@ -63,7 +65,7 @@ public class Comments implements Serializable{
 	}*/
 	
 	// make a comments with image in them
-	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,double lon,double lat,String encode, String userName)
+	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,double lon,double lat,JsonElement encode, String userName)
 	{   
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
@@ -192,11 +194,11 @@ public class Comments implements Serializable{
 		this.comment_image = comment_image;
 	}*/
 
-	public String getImage_encode() {
+	public JsonElement getImage_encode() {
 		return image_encode;
 	}
 
-	public void setImage_encode(String image_encode) {
+	public void setImage_encode(JsonElement image_encode) {
 		this.image_encode = image_encode;
 	}
 

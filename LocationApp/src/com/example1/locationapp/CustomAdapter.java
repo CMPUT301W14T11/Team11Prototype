@@ -3,6 +3,7 @@ package com.example1.locationapp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import Controller.BitmapConverter;
 import Model.Comments;
 import Model.FavouriteComment;
 import android.app.Activity;
@@ -92,9 +93,11 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
             
             if(custom.getImage()!=null)
             {   
+            	BitmapConverter ImageConvter = new BitmapConverter();
+            	Bitmap bitmap = ImageConvter.deserialize(custom.getImage(), null, null);
             //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-            	byte[] imageAsBytes = Base64.decode(custom.getImage().getBytes(),Base64.NO_WRAP);
-            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            	//byte[] imageAsBytes = Base64.decode(custom.getImage().getBytes(),Base64.NO_WRAP);
+            	//Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             	
             	if(bitmap!=null)
                 {

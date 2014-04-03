@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -836,15 +837,15 @@ public class MainActivity extends Activity implements OnRefreshListener,
 	}
 	public void sortByPicture()
 	{
-		try
-		{
-		Collections.sort(comment_array, new PicSort());
+		Iterator<Comments> iter = comment_array.iterator();
+
+		while (iter.hasNext()) {
+		    Comments com = iter.next();
+
+		    if (com.getImage_encode()==null)
+		    {    iter.remove();}
+		}
 		adapter.notifyDataSetChanged();
-		}
-		catch(Exception e)
-		{
-			
-		}
 	}
 	public void sortByDate() {
 		Collections.sort(comment_array,new datesort());

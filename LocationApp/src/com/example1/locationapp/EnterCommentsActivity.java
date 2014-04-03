@@ -21,6 +21,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import Controller.BitmapConverter;
 import Controller.IDController;
 import Controller.LocalFileLoder;
 import Model.Comments;
@@ -49,6 +50,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 /**
  * EnterCommentActivity class takes user 
@@ -193,7 +195,9 @@ public class EnterCommentsActivity extends Activity implements IDController,
 				} else {
 					user = fl.loadFromFile();
 					System.out.println("image posted");
-					String encode_image = convert_image_to_string(bitmap);
+					BitmapConverter ImageConvert = new BitmapConverter();
+					JsonElement encode_image =ImageConvert.serialize(bitmap, null, null);
+					//String encode_image = convert_image_to_string(bitmap);
 					final Comments new_comment = new Comments(0, number, 0, 0,
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),

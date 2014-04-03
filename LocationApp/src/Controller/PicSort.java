@@ -9,9 +9,9 @@ public class PicSort implements Comparator<Comments>{
 	@Override
 	public int compare(Comments lhs, Comments rhs) {
 		int result =0;
-		if(lhs.getImage_encode()!=null && rhs.getImage_encode()!=null)
+		/*if(lhs.getImage_encode()!=null && rhs.getImage_encode()!=null)
 		{
-			result =lhs.getImage_encode().compareTo(rhs.getImage_encode()); 
+			result =((Object) lhs.getImage_encode()).compareTo(rhs.getImage_encode()); 
 		}
 		if(lhs.getImage_encode()!=null && rhs.getImage_encode()==null)
 		{
@@ -20,7 +20,7 @@ public class PicSort implements Comparator<Comments>{
 		if(lhs.getImage_encode()==null && rhs.getImage_encode()!=null)
 		{
 			result = -1;
-		}
+		}*/
 		
 		
 		return result;

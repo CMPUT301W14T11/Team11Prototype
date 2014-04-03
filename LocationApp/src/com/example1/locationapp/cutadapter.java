@@ -3,6 +3,7 @@ package com.example1.locationapp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import Controller.BitmapConverter;
 import Model.Comments;
 import Model.FavouriteComment;
 import android.app.Activity;
@@ -65,20 +66,14 @@ public class cutadapter extends ArrayAdapter<Comments>{
             holder.item1.setText(custom.getThe_comment());
             holder.item2.setText(custom.getSubject_comment());
             holder.item3.setText(format.format(custom.getDistance())+"m");
-            if(custom.getUserName()==null)
-         	{
-         		holder.item4.setText("Guest");
-         	}
-            else
-            {
-            	holder.item4.setText(custom.getUserName());
-            }
-            
+            holder.item4.setText(custom.getUserName());
             if(custom.getImage_encode()!=null)
             {   
+            	BitmapConverter ImageConvter = new BitmapConverter();
+            	Bitmap bitmap = ImageConvter.deserialize(custom.getImage_encode(), null, null);
             //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-            	byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
-            	Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            	//byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
+            	//Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             	
             	if(bitmap!=null)
                 {
