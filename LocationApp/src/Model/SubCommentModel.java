@@ -1,43 +1,37 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.fluent.Content;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.content.Context;
+import android.location.Location;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Base64;
-import android.widget.Toast;
-
+import Controller.CommentController;
 import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 
-public class SubCommentModel {
+public class SubCommentModel implements CommentController{
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	private Comments comment;
 	private Gson gson = new Gson();
 	private ConnectToInternet connect = new ConnectToInternet();
 	public SubCommentModel(Comments comment){
-		this.comment=comment;
+		this.setComment(comment);
 	}
+	@Override
 	public void insertMaster(Comments comm, int ServerID)
 	 {
 		 HttpClient httpclient  = new DefaultHttpClient();
@@ -46,6 +40,7 @@ public class SubCommentModel {
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);
 			httpPost.setHeader("Accept","application/json");
+			@SuppressWarnings("unused")
 			HttpResponse response = httpclient.execute(httpPost); 
 			
 		} catch (UnsupportedEncodingException e) {
@@ -115,6 +110,19 @@ public class SubCommentModel {
 			e.printStackTrace();
 		}
 		return comment_list1;
+	}
+	@Override
+	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,
+			Context content, HttpClient httpclient, Location current_location,
+			double radius) {
+
+		return null;
+	}
+	public Comments getComment() {
+		return comment;
+	}
+	public void setComment(Comments comment) {
+		this.comment = comment;
 	}
 	
 

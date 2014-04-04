@@ -3,14 +3,9 @@ package com.example1.locationapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.client.HttpClient;
-
-import com.google.gson.Gson;
-
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -18,7 +13,6 @@ import android.app.ListFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 /**
  * This class manage the functionality in the mainActivity, which shows the

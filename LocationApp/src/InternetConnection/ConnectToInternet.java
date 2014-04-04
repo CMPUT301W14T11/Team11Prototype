@@ -29,6 +29,7 @@ public class ConnectToInternet {
 	private Gson gson = new Gson();
 	
 	
+	@SuppressWarnings("unused")
 	public void insert(IDModel id, Context content) throws IllegalStateException, IOException {
 		
 		HttpClient httpclient = new DefaultHttpClient();
@@ -51,6 +52,7 @@ public class ConnectToInternet {
 		httpPost.setHeader("Accept", "application/json");
 
 		httpPost.setEntity(stringentity);
+
 
 		HttpResponse response = null;
 

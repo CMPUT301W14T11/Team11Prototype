@@ -3,11 +3,8 @@ package com.example1.locationapp;
 import java.io.File;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.test.suitebuilder.TestSuiteBuilder.FailedToCreateTests;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -157,21 +154,7 @@ public class ChoseImageActivity extends Activity implements
 			}
 		});
 
-		/*
-		 * new AsyncTask<Void, Void, Void>() {
-		 * 
-		 * @Override protected Void doInBackground(Void... params) {
-		 * Auto-generated method stub pbar.setVisibility(View.GONE); if (image
-		 * != null) { textViewFile.setText(image.getFilePathOriginal());
-		 * imageViewThumbnail.setImageURI(Uri.parse(new File(image
-		 * .getFileThumbnail()).toString()));
-		 * imageViewThumbSmall.setImageURI(Uri.parse(new File(image
-		 * .getFileThumbnailSmall()).toString())); }
-		 * 
-		 * return null; }
-		 * 
-		 * }.execute();
-		 */
+	
 
 	}
 

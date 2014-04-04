@@ -44,22 +44,11 @@ public class CommentSort {
 		//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		try {
-			ArrayList<Comments> lat_object = new ArrayList<Comments>();
-			ArrayList<Comments> lon_object = new ArrayList<Comments>();
 			double lat_gte = current_location.getLatitude()-radius;
 			double lat_lte = current_location.getLatitude()+radius;
 			double lon_gte = current_location.getLongitude()-radius;
 			double lon_lte = current_location.getLongitude()+radius;
-			String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "+lat_gte+", \"lte\" : "+lat_lte+",\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "+lon_gte+", \"lte\" : "+ lon_lte+", \"boost\":0.0}}}}}}";
 			String query_range2 = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "+lat_gte+", \"lte\" : "+lat_lte+",\"boost\":0.0 }}},\"must\":{\"match\":{\"sub_comments_ID\":0}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "+lon_gte+", \"lte\" : "+ lon_lte+", \"boost\":0.0}}}}}}";
-			// these are unused query , this is just for testing
-			//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-			//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0} }}}";
-			///String query2 = "{\"query\":{\"range\":{\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-			//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":-200,\"lte\":200,\"boost\":0.0} }}}";
-			//String query = "{\"query\":{\"range\":{\"lat\":{\"gte\":"+lat_gte+",\"lte\":"+ lat_lte +",\"boost\":0.0},\"lon\":{\"gte\":"+lon_gte+",\"lte\":"+ lon_lte +",\"boost\":0.0} }}}";
-			//String query1 = "{\"query\":{\"query_string\":{\"default_field\":\"master_ID\",\"query\":15}}}";
-			//String query_location ="{\"query\": {\"geo_shape\": {\"location\": {\"shape\": {\"type\": \"envelope\",\"coordinates\": [[13, 53],[14, 52]]}}}}}";
 			StringEntity entity = new StringEntity(query_range2);
 			httpPost.setHeader("Accept","application/json");
 			httpPost.setEntity(entity);

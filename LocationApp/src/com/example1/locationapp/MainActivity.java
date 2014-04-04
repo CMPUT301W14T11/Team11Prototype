@@ -1,8 +1,8 @@
 package com.example1.locationapp;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
-import Controller.CommentController;
+
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
-import Controller.PicSort;
+
 import Controller.compara;
 import Controller.datesort;
 import InternetConnection.ConnectToInternet;
@@ -31,8 +31,6 @@ import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.CommentUser;
 import Model.Comments;
-import Model.CommentsModel;
-import Model.IDModel;
 import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -45,7 +43,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
-import android.opengl.Visibility;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -70,41 +68,38 @@ import com.google.gson.reflect.TypeToken;
 
 /**
  * this is Main display page for the app which shows main comments of the
- * application and
+ * application and user may edit comments, change location
  * 
- * @author qyu4
+ * 
  * 
  */
 public class MainActivity extends Activity implements OnRefreshListener {
-	CommentUser someuser;
-	SearchView sec_search;
-	int flag_location;
-	int location_flag;
-	ListView listview;
-	ArrayList<Comments> comment_array, date_comment_array;
-	cutadapter adapter;
-	Gson gson;
-	HttpClient httpclient;
-	IDModel theid;
-	int number_of_comments;
+	private CommentUser someuser;
+	private int flag_location;
+	private ListView listview;
+	private ArrayList<Comments> comment_array;
+	private cutadapter adapter;
+	private Gson gson;
+	private HttpClient httpclient;
 	private Location current_location;
-	GPSTracker gps;
-	Context content;
-	ProgressDialog dialog1;
-	Button load_button;
-	double radius = 0.1;
-	int index = 0;
-	public int mode = 0;
+	private GPSTracker gps;
+	private Context content;
+	private ProgressDialog dialog1;
+	private double radius = 0.1;
+	private int index = 0;
 	private LocalFileSaver fileSaver = new LocalFileSaver(this);
 	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private UserModel user;
-	private CommentsModel commentsModel = new CommentsModel();
 	private ConnectToInternet connects = new ConnectToInternet();
 
-	// "1" for enterCommentActivity, so it will bring you to comment entering
-	// activity
-	private PullToRefreshLayout mPullToRefreshLayout;
 
+	private PullToRefreshLayout mPullToRefreshLayout;
+	/**
+	 * onCreate method.
+	 * Once the activity is created, first set the content view, and initialize ActionBar and a Spinner for sort options.
+	 * Then, load the content of the Comment and adapt to the ListView with the Comment replies and set the click listener for 
+	 * sub comments and edit comments choice (location change).
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -113,7 +108,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		
 		bar.setDisplayShowTitleEnabled(false);
 		Intent intent = getIntent();
-		// checking where there is internet or not, if no internet then exit app
 		final ConnectivityManager connMgr = (ConnectivityManager) this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -129,19 +123,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		 */
 		if (wifi.isConnected() || mobile.isConnected()) {
 			System.out.println("connected");
-			// Toast.makeText(this, "Connected to Internet",
-			// Toast.LENGTH_LONG).show();
+
 		} else {
 			System.out.println("outout");
 			Toast.makeText(this, "No Internet!", Toast.LENGTH_LONG).show();
-			//android.os.Process.killProcess(android.os.Process.myPid());
 
 		}
 
-		// load_button = (Button ) findViewById(R.id.refresh_button);
 		content = this;
 		dialog1 = new ProgressDialog(content);
-		// current_location=(Location)getIntent().getSerializableExtra("location");
 		try {
 			// getting location when app starts, so we can search the database
 			// for location, will add use location later
@@ -150,14 +140,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				current_location = gps.getLocation();
 				System.out.println("can get location");
 				gps.stopUsingGPS();
-			} else { // if gps is not turned on then , ask user to turn it on
+			} else { 
+				// if gps is not turned on then , ask user to turn it on
 				gps.showSettingsAlert();
 			}
 		} catch (NullPointerException e) {
 			Toast.makeText(content, "Can't get location please check gps",
 					Toast.LENGTH_SHORT).show();
 		}
-		// check user, if name is not null and not file then make a new file
+
 
 		String name = intent.getStringExtra("name");
 
@@ -165,13 +156,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		if (!fileLoader.exist()) {
 			user = new UserModel();
 			user.setUser_name(name);
-			// user.setUser_location(current_location);
 			fileSaver.saveInFile(user);
 		} else {
 			user = new UserModel();
 			user = fileLoader.loadFromFile();
 			user.setUser_name(name);
-			// user.setUser_location(current_location);
 			fileSaver.saveInFile(user);
 		}
 
@@ -179,8 +168,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		fileSaver.saveInFile(user);
 		user = fileLoader.loadFromFile();
 		fileSaver.saveInFile(user);
-		// start a httpclient for connecting to server
-		// System.out.println("lat="+current_location.getLatitude());
 		httpclient = new DefaultHttpClient();
 
 		comment_array = new ArrayList<Comments>();
@@ -188,29 +175,24 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		gson = new Gson();
 
-		// async task is done
 
 		adapter = new cutadapter(MainActivity.this, R.layout.listlayout,
 				comment_array);
 
-		// add pull to refresh
-		// Now find the PullToRefreshLayout to setup
+
 		mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
 
-		// Now setup the PullToRefreshLayout
+
 		ActionBarPullToRefresh.from(this)
-		// Mark All Children as pullable
+	
 				.allChildrenArePullable()
-				// Set the OnRefreshListener
+		
 				.listener(this)
-				// Finally commit the setup to our PullToRefreshLayout
+	
 				.setup(mPullToRefreshLayout);
-		// done adding pull to refresh
-		// set up footer for the listview
 		View footerView = ((LayoutInflater) this
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
 				R.layout.footlayout, null, false);
-		// listview.addFooterView(footerView);
 		footerView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -251,7 +233,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			}
 		});
 		listview.addFooterView(footerView);
-
+		/**
+		 * Sub comments button click listener
+		 * After you click the Comments you want to see, will jump to sub comments page with 
+		 * corresponding main activity
+		*/
 		listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -261,15 +247,17 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
-				// intent1.putExtra("main", comment_array.get(arg2));
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
 				MainActivity.this.startActivity(intent1);
-				// Toast.makeText(MainActivity.this,
-				// listview.getTag(arg2).toString()+"", Toast.LENGTH_SHORT)
-				// .show();
+				
 
 			}
 		});
+		/**
+		 * Long click listener for comments
+		 * When user want to change location of the comments or edit comments
+		 * User may long click the comments on the list.
+		*/
 		listview.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
@@ -288,13 +276,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 							String CheckName = user.getUser_name();
 							final Comments SelectedComment = comment_array.get(arg2);
 							if(SelectedComment.getUserName().equals(CheckName))
-							{   //request for edit, request code is 18
+							{   
 								System.out.println("edit my comment");
-								/*Intent intent = new Intent();
-								intent.setClass(content, EditActivity.class);
-								intent.putExtra("id", SelectedComment.getMaster_ID());
-								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-								startActivityForResult(intent,1912);*/
 								final Dialog dialogui = new Dialog(content);
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
@@ -441,10 +424,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 										
 										if (flag==1)
 										{
-											// have result , result code 939
 											Intent intent_profile = new Intent();
 											intent_profile.setClass(content, ProfileActivity.class);
-											Bundle bundle = new Bundle();
 											intent_profile.putExtra("name",someuser);
 											startActivityForResult(intent_profile, 939);
 										}
@@ -491,7 +472,10 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		}.execute();
 	}
-
+	/**
+	 * An option window jump out allows user to select
+	 * whether edit comments, add tags as well as view profile
+	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
         System.out.println("idis"+item.getItemId());
@@ -535,7 +519,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			Changebutton.setVisibility(View.INVISIBLE);
 			Locationbutton.setText("Change Location");
 			Locationbutton.setOnClickListener(new OnClickListener() {
-				
+				/**
+				 * Change location of the comments
+				*/
 				@Override
 				public void onClick(View v) {
 					current_location.setLatitude(Double.parseDouble(titleedit.getText().toString()));
@@ -544,10 +530,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
 				}
 			});
-			/*Intent intent2 = new Intent(MainActivity.this, Playtube.class);
-			intent2.putExtra("lat", current_location.getLatitude());
-			intent2.putExtra("lon", current_location.getLongitude());
-			startActivityForResult(intent2, 7);*/
+	
 			break;
 		case R.id.item3:
 			sortByDate();
@@ -582,6 +565,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			
 			new AsyncTask<Void,Void,Void>()
 			{
+				/**
+				 * Get profile out the comments authors
+				*/
 
 				@Override
 				protected Void doInBackground(Void... params) {
@@ -625,7 +611,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 						// have result , result code 939
 						Intent intent_profile = new Intent();
 						intent_profile.setClass(content, ProfileActivity.class);
-						Bundle bundle = new Bundle();
 						intent_profile.putExtra("name",someuser);
 						startActivityForResult(intent_profile, 939);
 					}
@@ -653,7 +638,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 
-	// get result from other activity
+	/**
+	 * Get new array after modified the comments
+	*/
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         
@@ -682,7 +669,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				System.out.println("new current:"
 						+ current_location.getLatitude() + "wocao"
 						+ current_location.getLongitude());
-				location_flag = 1;
+			
 				comment_array.clear();
 				get_comments("get comments using new locaiton");
 				adapter.notifyDataSetChanged();
@@ -699,13 +686,12 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					protected Void doInBackground(Void... params) {
 						try
 						{
-						HttpClient httpclient = new DefaultHttpClient();
 						HttpPut httpPost = new HttpPut("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_array.get(index).getMaster_ID()+"/");
 						StringEntity stringentity = null;
 						stringentity = new StringEntity(gson.toJson(comment_array.get(index)));
 						httpPost.setHeader("Accept", "application/json");
 						httpPost.setEntity(stringentity);
-						HttpResponse response = httpclient.execute(httpPost);
+						httpclient.execute(httpPost);
 						}
 						catch(Exception e)
 						{
@@ -719,23 +705,16 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		
-		//MenuItem searchItem = menu.findItem(R.id.menu_item_search);
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		SearchView searchView = (SearchView) menu.findItem(R.id.menu_item_search).getActionView();
 		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		/*if (null != searchManager) {
-			searchView.setSearchableInfo(searchManager
-					.getSearchableInfo(getComponentName()));
-		}*/
-
 		searchView.setIconifiedByDefault(true);
 		searchView.setSubmitButtonEnabled(true);
 		
@@ -744,20 +723,12 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 
-	// get_comments(String url),get master comments form server, this is sorting
-	// by location
-	// you dont;t have to use Sting url, you can define your own url in the
-	// get_comments(String url) function
 
 	public void get_comments(String url) {
 		HttpPost httpPost = new HttpPost(
 				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-		// HttpGet httpGet = new
-		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		try {
-			ArrayList<Comments> lat_object = new ArrayList<Comments>();
-			ArrayList<Comments> lon_object = new ArrayList<Comments>();
 			double lat_gte = current_location.getLatitude() - radius;
 			double lat_lte = current_location.getLatitude() + radius;
 			double lon_gte = current_location.getLongitude() - radius;
@@ -789,8 +760,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 				Comments comms = r.getSource();
 				
-				// check weath the comment if already in the arraylist, if not
-				// then add it in there
 				int flag = 0;
 				for (Comments com : comment_array) { // turn on the flag if
 														// object is already
@@ -803,7 +772,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				// if flag not turned on then add the object into the arraylsit
 				if (flag == 0) {
 					float DistanceResult [] = new float[10];
-					current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+					Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
 					comms.setDistance(DistanceResult[0]);
 					comment_array.add(comms);
 				}
@@ -826,7 +795,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		} catch (RuntimeException e) {
 
-			//Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+
 		}
 	}
 
@@ -834,7 +803,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	public void onRefreshStarted(View view) {
 
 		new AsyncTask<Void, Void, Void>() {
-			ElasticSearchSearchResponse<Comments> ESresponse;
 
 			@Override
 			protected void onPreExecute() {
@@ -860,7 +828,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				adapter.notifyDataSetChanged();
 				mPullToRefreshLayout.setRefreshComplete();
 				super.onPostExecute(result);
-				// loop through the response
+				
 
 			}
 
@@ -871,65 +839,21 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	public void sortByPicture()
 	{
 		Iterator<Comments> iter = comment_array.iterator();
-
 		while (iter.hasNext()) {
 		    Comments com = iter.next();
-
 		    if (com.getImage_encode()==null)
-		    {    iter.remove();}
+		    {    
+		    	iter.remove();
+		    }
 		}
 		adapter.notifyDataSetChanged();
 	}
 	public void sortByDate() {
 		Collections.sort(comment_array,new datesort());
 		adapter.notifyDataSetChanged();
-		/*new AsyncTask<Void, Void, Void>() {
-
-			@Override
-			protected void onPostExecute(Void result) {
-
-				super.onPostExecute(result);
-				dialog1.dismiss();
-				Collections.sort(comment_array, new datesort());
-				Collections.reverse(comment_array);
-				adapter.notifyDataSetChanged();
-			}
-
-			@Override
-			protected void onPreExecute() {
-
-				super.onPreExecute();
-				comment_array.clear();
-				dialog1.setTitle("Loading cause your internet is too slow!");
-				dialog1.show();
-			}
-
-			@Override
-			protected Void doInBackground(Void... params) {
-
-				System.out.println("unrun");
-				get_comments("get some comments man!");
-
-				radius = radius + 0.1;
-				System.out.println("runned");
-
-				return null;
-			}
-
-		}.execute();*/
-
 	}
 
 
 
 	
-
-	
-
-
-
-
-
-
-
 }

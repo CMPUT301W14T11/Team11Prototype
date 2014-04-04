@@ -1,19 +1,14 @@
 package com.example1.locationapp;
 
-import java.util.HashSet;
-
 import com.example1.locationapp.R;
 
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
@@ -54,47 +49,7 @@ public class InternetChecker extends BroadcastReceiver {
 					context).setSmallIcon(R.drawable.ic_launcher)
 					.setContentTitle("New Comments")
 					.setContentText("Hey, you got new comments!");
-			// Creates an explicit intent for an Activity in your app
-			/*try{
-			SharedPreferences sharedPref = ((Activity) context).getPreferences(Context.MODE_PRIVATE);
-			HashSet<String> the_set =  (HashSet<String>) sharedPref.getStringSet("comments",new HashSet<String>());
-			
-			
-				System.out.println("get shared");
-				new AsyncTask<Void,Void,Void>() {
-					int id;
-					@Override
-					protected void onPreExecute() {
-						super.onPreExecute();
-						new AsyncTask<Void, Void, Void>()
-						{
-
-							@Override
-							protected Void doInBackground(Void... params) {
-
-								id = new EnterCommentsActivity().get_id();
-								System.out.println("got some masterid "+id);
-								return null;
-							}
-							
-						}.execute();
-					}
-
-					@Override
-					protected Void doInBackground(Void... params) {
-			
-						return null;
-					}
-				}.execute();
-			
-			
-			
-			}
-			catch(Exception e)
-			{
-				System.out.println("can't get shared preference");
-			}
-			*/
+		
 			
 			//upload saved comment to internet;
 			Intent resultIntent = new Intent(context, MainActivity.class);
