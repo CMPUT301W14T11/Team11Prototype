@@ -1,4 +1,4 @@
-package Controller;
+package Sort;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +21,7 @@ import com.example1.locationapp.GPSTracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import Controller.compara;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
