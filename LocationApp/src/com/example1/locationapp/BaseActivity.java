@@ -22,7 +22,6 @@ public class BaseActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		// Add the Sample Fragment if there is one
 		Fragment sampleFragment = getSampleFragment();
 		if (sampleFragment != null) {
 			getFragmentManager().beginTransaction()
@@ -55,21 +54,6 @@ public class BaseActivity extends Activity {
 			startActivity(i);
 
 			return true;
-			/*
-			 * case R.id.action_scrollview: Toast.makeText(this,
-			 * "Pull to Refresh in Scroll View", Toast.LENGTH_SHORT).show();
-			 * 
-			 * Intent x=new Intent(this,ScrollViewActivity.class);
-			 * startActivity(x);
-			 * 
-			 * return true; case R.id.action_webview: Toast.makeText(this,
-			 * "Pull to Refresh in Web View", Toast.LENGTH_SHORT).show();
-			 * 
-			 * Intent z=new Intent(this,WebViewActivity.class);
-			 * startActivity(z);
-			 * 
-			 * return true;
-			 */
 		}
 
 		return super.onOptionsItemSelected(item);

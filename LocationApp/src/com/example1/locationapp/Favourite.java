@@ -238,6 +238,13 @@ public class Favourite extends Activity {
 		}
 	}
 	
+	/**
+	 * get the distance between the user and comment sent location
+	 * @param commentLaiude -- latiude of comment sent location
+	 * @param commentLongitude -- longitude of comment sent location
+	 * @return
+	 * the distance between the user and comment sent location
+	 */
 	public double getDistance(double commentLaiude, double commentLongitude)
 	{
 		//Location current_location = null;
