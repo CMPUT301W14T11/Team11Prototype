@@ -762,7 +762,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 	// by location
 	// you dont;t have to use Sting url, you can define your own url in the
 	// get_comments(String url) function
-	@Override
+
 	public void get_comments(String url) {
 		HttpPost httpPost = new HttpPost(
 				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
@@ -943,16 +943,24 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 	}
 
-
-
-
-
-
 	@Override
-	public void insertMaster(Comments com) {
+	public void insertMaster(Comments com, int number) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,
+			Context content, HttpClient httpclient, Location current_location,
+			double radius) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
 
 
 }
