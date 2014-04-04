@@ -2,12 +2,11 @@ package com.example1.locationapp.test;
 
 import java.util.Date;
 
-import com.example1.locationapp.EnterCommentsActivity;
-import com.example1.locationapp.MainActivity;
-
 import Model.Comments;
-import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;
+
+import com.example1.locationapp.EnterCommentsActivity;
+import com.google.gson.JsonElement;
 
 /**
  * in this file comments model will be checked.
@@ -22,7 +21,6 @@ public class CommentsModelTest extends ActivityInstrumentationTestCase2<EnterCom
 	Comments comments;
 	public CommentsModelTest() {
 		super(EnterCommentsActivity.class);
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -92,20 +90,7 @@ public class CommentsModelTest extends ActivityInstrumentationTestCase2<EnterCom
 		assertEquals("set comment not to be master", false, checkMaster);
 		
 	}
-	public void testGetCommentLocaion()
-	{
-		Location  location = comments.getComment_location();
-		assertEquals("default location should be null", null, location);
-	}
-	public void testSetCommentLocaion()
-	{
-		Location loc = new Location("dummyprovider");
-		loc.setLatitude(20.3);
-		loc.setLongitude(52.6);
-		comments.setComment_location(loc);
-		Location getLocationTocheck = comments.getComment_location();
-		assertEquals("two location should equal", loc, getLocationTocheck);
-	}
+
 	public void testGetLon()
 	{
 		double checkLon =  comments.getLon();
@@ -152,14 +137,14 @@ public class CommentsModelTest extends ActivityInstrumentationTestCase2<EnterCom
 	}
 	public void testGetImageEncode()
 	{
-		String getImgEncode = comments.getImage_encode();
+		JsonElement getImgEncode = comments.getImage_encode();
 		assertEquals("Default encode should be null", null, getImgEncode);
 	}
 	public void testSetImageEncode()
 	{
-		String setImageString = "123nf12";
+		JsonElement setImageString = null;
 		comments.setImage_encode(setImageString);
-		String getImageString = comments.getImage_encode();
+		JsonElement getImageString = comments.getImage_encode();
 		assertEquals("String that set should equal", setImageString, getImageString);
 	}
 	public void testGetUserID()
