@@ -691,6 +691,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 						stringentity = new StringEntity(gson.toJson(comment_array.get(index)));
 						httpPost.setHeader("Accept", "application/json");
 						httpPost.setEntity(stringentity);
+						httpclient.execute(httpPost);
 						}
 						catch(Exception e)
 						{
