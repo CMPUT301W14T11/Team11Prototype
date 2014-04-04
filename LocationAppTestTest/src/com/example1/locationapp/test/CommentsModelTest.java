@@ -28,7 +28,7 @@ public class CommentsModelTest extends ActivityInstrumentationTestCase2<EnterCom
 
 	protected void setUp() throws Exception { 
 		super.setUp();
-		comments = new Comments(0, 0, 0, 0, null, null, null, null, 0, 0);
+		comments = new Comments(0, 0, 0, 0, null, null, null, 0, 0, null);
 	}
 	
 	public void testGetMasterCommentID()

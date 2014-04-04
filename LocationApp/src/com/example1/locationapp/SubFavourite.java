@@ -2,33 +2,26 @@ package com.example1.locationapp;
 
 import java.util.ArrayList;
 
-import com.example1.locationapp.R;
-
 import Controller.LocalFileLoder;
-import Controller.LocalFileSaver;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
 import Model.UserModel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
+
 /**
  * This activity for user's off line's sub-comments.
  * @author zuo2
  *
  */
-
 public class SubFavourite extends Activity
 {
 	private UserModel user;
 	private LocalFileLoder fl = new LocalFileLoder(this);
-	private LocalFileSaver fs = new LocalFileSaver(this);
-	private ArrayList<FavouriteModel> favourite;
 	private ArrayList<FavouriteComment> matchlist;
-	private FavouriteComment fc;
 	private CustomAdapter adapter;
 	private ListView list;
 	private int id;
@@ -63,7 +56,6 @@ public class SubFavourite extends Activity
 			}
 		}
 		
-		Log.v("output>>>>>>>>>>>>>>",""+fm.getSubComment().size());
 		for (int i=0; i<fm.getSubComment().size(); i++)
 		{
 			matchlist.add(fm.getSubComment().get(i));

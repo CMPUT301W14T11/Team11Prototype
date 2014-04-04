@@ -25,7 +25,7 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 	Date date = new Date();
 	protected void setUp() throws Exception {
 		super.setUp();
-		comments = new Comments(0, 0, 0, 0, "hello", "sub", date, null, 0, 0,null);
+		comments = new Comments(0, 0, 0, 0, "hello", "sub", date, 0, 0,null);
 		subCon.insertMaster(comments, 0);
 	}
 	/**
@@ -84,7 +84,7 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 	* Tests if we can get location of the above comments;
 	*/
 	public void testLocation(){
-		assertEquals(null,comments.getComment_location());
+		assertEquals(null,comments.getDistance());
 	}
 	/*
 	* Tests if we can get Distance of the above comments;

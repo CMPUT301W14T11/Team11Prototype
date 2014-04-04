@@ -1,17 +1,11 @@
 package com.example1.locationapp.test;
 import java.util.ArrayList;
-import java.util.Date;
+
+import Model.FavouriteComment;
+import Model.FavouriteModel;
+import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.Favourite;
-import com.example1.locationapp.GPSTracker;
-
-
-
-import Model.Comments;
-import Model.FavouriteModel;
-import android.location.Location;
-import android.test.ActivityInstrumentationTestCase2;
-import junit.framework.TestCase;
 
 
 
@@ -19,8 +13,8 @@ import junit.framework.TestCase;
 public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 {
 	private String username ="User_test_name";
-	private Comments comment = null;
-	ArrayList<Comments> subcomment = null;
+	private FavouriteComment comment = null;
+	private ArrayList<FavouriteComment> subcomment = null;
 	
 	private int user_id1 = 111;
 	private int masterid1 = 112;
@@ -28,10 +22,6 @@ public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 	private int subid1 = 113;
 	private String title1 = "gggg";
 	private String subject1 = "ggggjob";
-	private Location location1 = null;
-	
-	private Date the_date1 = new Date(System.currentTimeMillis());
-
 	private double lon1 = 12.3322;
 	private double lat1 = 12.3327;
 	private String encode1 = "sssssss";
@@ -54,8 +44,10 @@ public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 	}
 	
 	public void test_diff_comments(){
-		Comments test = new Comments(user_id1, masterid1, sid1, subid1, title1, subject1, the_date1, location1, lon1, lat1);
-		Comments test1 =  new Comments(user_id1, masterid1, sid1, subid1, title1, subject1, the_date1, location1, lon1, lat1, encode1);
+		FavouriteComment test = new FavouriteComment();
+		FavouriteComment test1 =  new FavouriteComment();
+		test.setID(1);
+		test1.setID(2);
 		
 		
 		FavouriteModel fa = new FavouriteModel(username, test, subcomment);
@@ -72,14 +64,13 @@ public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 	}
 	
 	public void test_subComment_which_is_not_null(){
-		Comments test = new Comments(user_id1, masterid1, sid1, subid1, title1, subject1, the_date1, location1, lon1, lat1);
-		Comments test1 =  new Comments(user_id1, masterid1, sid1, subid1, title1, subject1, the_date1, location1, lon1, lat1, encode1);
-		ArrayList<Comments> test_list = new ArrayList<Comments>();
+		FavouriteComment test = new FavouriteComment();
+		FavouriteComment test1 = new FavouriteComment();
+		ArrayList<FavouriteComment> test_list = new ArrayList<FavouriteComment>();
 	    
 	    test_list.add(test);
 	    test_list.add(test1);
-	    
-		
+	    	
 		FavouriteModel fa = new FavouriteModel(username, comment, test_list);
 		assertEquals("fai should not equal to fa", test_list,fa.getSubComment());
 		

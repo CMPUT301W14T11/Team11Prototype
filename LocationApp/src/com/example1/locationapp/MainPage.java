@@ -1,9 +1,5 @@
 package com.example1.locationapp;
 
-import java.io.File;
-
-import com.example1.locationapp.R;
-
 import Controller.LocalFileLoder;
 import Model.UserModel;
 import android.app.ActionBar;
@@ -16,7 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
+
 /**
  * main page is giving two options for user to use to application.
  * One is with user name; one is without;
@@ -28,9 +24,6 @@ public class MainPage extends Activity {
 	private UserModel user;
 	private Button newUser;
 	private Button guest;
-	private Location current_location;
-	private GPSTracker gps;
-	private Context content;
 	private String name;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 
