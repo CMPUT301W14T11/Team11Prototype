@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.example1.locationapp.R;
@@ -80,6 +82,19 @@ public class SearchActivity extends Activity {
 		// get a Cursor, prepare the ListAdapter
 		// and set it
 		listview2 =(ListView) findViewById(R.id.search_list);
+		listview2.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				int getID = comment_list.get(arg2).getMaster_ID();
+				Intent intent1 = new Intent();
+				intent1.putExtra("masterID", getID);
+				intent1.setClass(SearchActivity.this, SubCommetsRead.class);
+				SearchActivity.this.startActivity(intent1);
+			}
+		});
 		comment_list = new ArrayList<Comments>();
 		
 		
