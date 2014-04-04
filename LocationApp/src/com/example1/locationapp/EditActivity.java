@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import Model.Comments;
 import android.app.Activity;
@@ -44,6 +45,7 @@ public class EditActivity extends Activity {
 	Button location, submit;
 	Comments newcomments;
 	int id;
+	private ConnectToInternet connect = new ConnectToInternet();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class EditActivity extends Activity {
 
 					HttpResponse response = httpclient.execute(httpget);
 
-					String json = getEntityContent(response);
+					String json = connect.getEntityContent(response);
 
 					// We have to tell GSON what type we expect
 					Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<Comments>>() {
@@ -232,18 +234,6 @@ public class EditActivity extends Activity {
 			return rootView;
 		}
 	}
-	String getEntityContent(HttpResponse response) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				(response.getEntity().getContent())));
-		String output;
-		System.err.println("Output from Server -> ");
-		String json = "";
-		while ((output = br.readLine()) != null) {
-			System.err.println(output);
-			json += output;
-		}
-		System.err.println("JSON:" + json);
-		return json;
-	}
+
 
 }

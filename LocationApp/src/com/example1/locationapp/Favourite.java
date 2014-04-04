@@ -20,6 +20,7 @@ import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
+import Model.SaveFavourite;
 import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;

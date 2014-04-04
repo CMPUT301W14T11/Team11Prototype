@@ -1,9 +1,5 @@
-package com.example1.locationapp;
+package Model;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import InternetConnection.ConnectToInternet;
 import android.location.Location;
 
 public class SaveFavourite {
