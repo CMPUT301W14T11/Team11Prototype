@@ -27,14 +27,7 @@ public class Comments implements Serializable{
 	private int userID;
 	private String userName;
 	private ArrayList<String> TagsList= new ArrayList<String>();
-	public ArrayList<String> getTagsList() {
-		return TagsList;
-	}
-
-	public void setTagsList(ArrayList<String> tagsList) {
-		TagsList = tagsList;
-	}
-
+	
 
 	
 	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,double lon,double lat, String userName)
@@ -71,7 +64,14 @@ public class Comments implements Serializable{
 		this.userName = userName;
 	}
 
-	
+	public ArrayList<String> getTagsList() {
+		return TagsList;
+	}
+
+	public void setTagsList(ArrayList<String> tagsList) {
+		TagsList = tagsList;
+	}
+
 	public String getUserName()
 	{
 	
