@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.gson.JsonElement;
-
-import android.graphics.Bitmap;
-import android.location.Location;
 /**
 * A Comments object contains the user id,master comments id,sub comments id, sub comments title and body,a picture if it has
 * date,location of the comments posted, a userName which published this comment
@@ -38,28 +35,17 @@ public class Comments implements Serializable{
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
 		this.sub_ID= subid;
-		//this.comment_location= the_location;
 		this.comment_date=the_date;
 		this.the_comment=title;
 		this.subject_comment=subject;
 		this.master_comment=true;
-		//this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
 		this.userID=user_id;
 		this.userName = userName; 
 		
 	}
-	// constrcutor for creating a sub comment;
-	/*public Comments(int master_commentid,int masterid , int subid, DateTime the_date,String comment,boolean master)
-	{   this.master_comment_ID=master_commentid;
-		this.master_ID=masterid;
-		this.sub_ID= subid;
-		//this.comment_location= the_location;
-		//this.comment_date=the_date;
-		this.the_comment=comment;
-		this.master_comment=false;
-	}*/
+	
 	
 	// make a comments with image in them
 	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,double lon,double lat,JsonElement encode, String userName)
@@ -67,12 +53,10 @@ public class Comments implements Serializable{
 		this.master_ID=masterid;
 		this.sub_comments_ID=sid;
 		this.sub_ID= subid;
-		//this.comment_location= the_location;
 		this.comment_date=the_date;
 		this.the_comment=title;
 		this.subject_comment=subject;
 		this.master_comment=true;
-		//this.comment_location=location;
 		this.lon = lon;
 		this.lat = lat;
 		this.image_encode=encode;
@@ -158,13 +142,7 @@ public class Comments implements Serializable{
 		this.master_comment = master_comment;
 	}
 
-	/*public Location getComment_location() {
-		return comment_location;
-	}
 
-	public void setComment_location(Location comment_location) {
-		this.comment_location = comment_location;
-	}*/
 
 	public double getLon() {
 		return lon;
@@ -190,13 +168,6 @@ public class Comments implements Serializable{
 		this.distance = distance;
 	}
 
-	/*public Bitmap getComment_image() {
-		return comment_image;
-	}
-
-	public void setComment_image(Bitmap comment_image) {
-		this.comment_image = comment_image;
-	}*/
 
 	public JsonElement getImage_encode() {
 		return image_encode;
