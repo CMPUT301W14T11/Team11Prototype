@@ -24,7 +24,6 @@ import Model.FavouriteModel;
 import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -243,7 +242,7 @@ public class Favourite extends Activity {
 	{
 		//Location current_location = null;
 		float DistanceResult [] = new float[10];
-		current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),commentLaiude,commentLongitude,DistanceResult);
+		Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),commentLaiude,commentLongitude,DistanceResult);
 		return DistanceResult[0];
 	}
 	

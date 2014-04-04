@@ -70,25 +70,12 @@ public class CommentsModel implements CommentController{
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,Context content,HttpClient httpclient,Location current_location,double radius) {
 		HttpPost httpPost = new HttpPost(
 				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-		// HttpGet httpGet = new
-		// HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		try {
-			ArrayList<Comments> lat_object = new ArrayList<Comments>();
-			ArrayList<Comments> lon_object = new ArrayList<Comments>();
 			double lat_gte = current_location.getLatitude() - radius;
 			double lat_lte = current_location.getLatitude() + radius;
 			double lon_gte = current_location.getLongitude() - radius;
 			double lon_lte = current_location.getLongitude() + radius;
-			String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "
-					+ lat_gte
-					+ ", \"lte\" : "
-					+ lat_lte
-					+ ",\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "
-					+ lon_gte
-					+ ", \"lte\" : "
-					+ lon_lte
-					+ ", \"boost\":0.0}}}}}}";
 			String query_range2 = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "
 					+ lat_gte
 					+ ", \"lte\" : "
@@ -130,7 +117,7 @@ public class CommentsModel implements CommentController{
 				// if flag not turned on then add the object into the arraylsit
 				if (flag == 0) {
 					float DistanceResult [] = new float[10];
-					current_location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
+					Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
 					comms.setDistance(DistanceResult[0]);
 					comment_array.add(comms);
 				}

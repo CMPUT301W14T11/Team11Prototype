@@ -7,12 +7,9 @@ import com.example1.locationapp.R;
 
 import Controller.BitmapConverter;
 import Model.Comments;
-import Model.FavouriteComment;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +35,21 @@ public class cutadapter extends ArrayAdapter<Comments>{
 	public static class ViewHolder{
         public TextView item1; //make a Testview
         public TextView item2; //make a Testview
-        public TextView item3;
+        public TextView item3;	/*
+		 * new AsyncTask<Void, Void, Void>() {
+		 * 
+		 * @Override protected Void doInBackground(Void... params) {
+		 * Auto-generated method stub pbar.setVisibility(View.GONE); if (image
+		 * != null) { textViewFile.setText(image.getFilePathOriginal());
+		 * imageViewThumbnail.setImageURI(Uri.parse(new File(image
+		 * .getFileThumbnail()).toString()));
+		 * imageViewThumbSmall.setImageURI(Uri.parse(new File(image
+		 * .getFileThumbnailSmall()).toString())); }
+		 * 
+		 * return null; }
+		 * 
+		 * }.execute();
+		 */
         public TextView item4;
         public ImageView imageview;
     }

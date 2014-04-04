@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import com.example1.locationapp.R;
 
 import Controller.BitmapConverter;
-import Model.Comments;
 import Model.FavouriteComment;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
