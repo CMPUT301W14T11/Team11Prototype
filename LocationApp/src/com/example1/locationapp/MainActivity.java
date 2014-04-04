@@ -26,10 +26,12 @@ import Controller.LocalFileSaver;
 import Controller.PicSort;
 import Controller.compara;
 import Controller.datesort;
+import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.CommentUser;
 import Model.Comments;
+import Model.CommentsModel;
 import Model.IDModel;
 import Model.UserModel;
 import android.app.ActionBar;
@@ -73,8 +75,7 @@ import com.google.gson.reflect.TypeToken;
  * @author qyu4
  * 
  */
-public class MainActivity extends Activity implements OnRefreshListener,
-		CommentController {
+public class MainActivity extends Activity implements OnRefreshListener {
 	CommentUser someuser;
 	SearchView sec_search;
 	int flag_location;
@@ -97,6 +98,8 @@ public class MainActivity extends Activity implements OnRefreshListener,
 	private LocalFileSaver fileSaver = new LocalFileSaver(this);
 	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private UserModel user;
+	private CommentsModel commentsModel = new CommentsModel();
+	private ConnectToInternet connects = new ConnectToInternet();
 
 	// "1" for enterCommentActivity, so it will bring you to comment entering
 	// activity
@@ -307,7 +310,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 									
 									@Override
 									public void onClick(View v) {
-										// TODO Auto-generated method stub
 										locationview.setText("Enter Latitude");
 										locationview2.setText("Enter Longitude");
 										titleedit.setHint("Lat");
@@ -421,7 +423,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 										httppost.setHeader("Accept", "application/json");
 										httppost.setEntity(entity);
 										HttpResponse response = httpclient.execute(httppost);
-										String json1 = getEntityContent(response);
+										String json1 = connects.getEntityContent(response);
 										Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
 										}.getType();
 										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
@@ -536,7 +538,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 				
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					current_location.setLatitude(Double.parseDouble(titleedit.getText().toString()));
 					current_location.setLongitude(Double.parseDouble(subjectedit.getText().toString()));
 					dialogui.dismiss();
@@ -594,7 +595,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 					httppost.setHeader("Accept", "application/json");
 					httppost.setEntity(entity);
 					HttpResponse response = httpclient.execute(httppost);
-					String json1 = getEntityContent(response);
+					String json1 = connects.getEntityContent(response);
 					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
 					}.getType();
 					ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
@@ -741,22 +742,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 		return true;
 	}
 
-	/**
-	 * get the http response and return json string
-	 */
-	String getEntityContent(HttpResponse response) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				(response.getEntity().getContent())));
-		String output;
-		System.err.println("Output from Server -> ");
-		String json = "";
-		while ((output = br.readLine()) != null) {
-			System.err.println(output);
-			json += output;
-		}
-		System.err.println("JSON:" + json);
-		return json;
-	}
+
 
 	// get_comments(String url),get master comments form server, this is sorting
 	// by location
@@ -776,15 +762,6 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			double lat_lte = current_location.getLatitude() + radius;
 			double lon_gte = current_location.getLongitude() - radius;
 			double lon_lte = current_location.getLongitude() + radius;
-			String query_range = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "
-					+ lat_gte
-					+ ", \"lte\" : "
-					+ lat_lte
-					+ ",\"boost\":0.0 }}},\"must\" : {\"range\" : {\"lon\" : { \"gte\" : "
-					+ lon_gte
-					+ ", \"lte\" : "
-					+ lon_lte
-					+ ", \"boost\":0.0}}}}}}";
 			String query_range2 = "{\"query\":{\"bool\" : {\"must\" : {\"range\" : {\"lat\" : { \"gte\" : "
 					+ lat_gte
 					+ ", \"lte\" : "
@@ -799,7 +776,7 @@ public class MainActivity extends Activity implements OnRefreshListener,
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
-			String json1 = getEntityContent(response);
+			String json1 = connects.getEntityContent(response);
 			System.out.println(response.getStatusLine().toString() + "status");
 			System.out.println(json1 + "holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
@@ -943,19 +920,11 @@ public class MainActivity extends Activity implements OnRefreshListener,
 
 	}
 
-	@Override
-	public void insertMaster(Comments com, int number) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,
-			Context content, HttpClient httpclient, Location current_location,
-			double radius) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
+
+	
 
 
 
