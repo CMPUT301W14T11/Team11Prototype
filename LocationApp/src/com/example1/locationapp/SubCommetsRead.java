@@ -214,7 +214,7 @@ public class SubCommetsRead extends Activity {
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
 													HttpResponse response = httpclient.execute(httpPost);
-													System.out.println(response.getStatusLine().toString() + "testing");
+													
 													
 												} catch (UnsupportedEncodingException e) {
 
