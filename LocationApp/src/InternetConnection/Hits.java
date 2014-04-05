@@ -1,8 +1,7 @@
-package com.example1.locationapp;
+package InternetConnection;
 
 import java.util.Collection;
 
-import InternetConnection.ElasticSearchResponse;
 
 /**
  * this is GSP method using for loaction in our app
