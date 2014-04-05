@@ -66,6 +66,7 @@ public class CommentsModel implements CommentController{
 		String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 		return encoded;
 	}
+	
 	@Override
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,Context content,HttpClient httpclient,Location current_location,double radius) {
 		HttpPost httpPost = new HttpPost(

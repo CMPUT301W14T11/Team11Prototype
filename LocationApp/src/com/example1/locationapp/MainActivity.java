@@ -31,6 +31,7 @@ import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.CommentUser;
 import Model.Comments;
+import Model.SubCommentModel;
 import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -46,6 +47,7 @@ import android.net.ConnectivityManager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,7 +93,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private UserModel user;
 	private ConnectToInternet connects = new ConnectToInternet();
-
+	
 
 	private PullToRefreshLayout mPullToRefreshLayout;
 	/**
@@ -750,8 +752,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
 			String json1 = connects.getEntityContent(response);
-			System.out.println(response.getStatusLine().toString() + "status");
-			System.out.println(json1 + "holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 			}.getType();
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
@@ -779,11 +779,21 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					comms.setDistance(DistanceResult[0]);
 					comment_array.add(comms);
 				}
-				Collections.sort(comment_array, new compara());
-				for (Comments com : comment_array) {
-					System.out.println("distance:" + com.getDistance());
-				}
+				Collections.sort(comment_array, new compara());				
 			}
+			
+			user = fileLoader.loadFromFile();		
+			user.getComment().clear();
+			for (int i = 0 ; i<comment_array.size(); i++)
+			{
+				Comments comment1 = null;
+				ArrayList<Comments> helper = new ArrayList<Comments>();
+				SubCommentModel scm = new SubCommentModel(comment1);
+				comment_array.get(i).setSubComment(scm.get_comments(helper, comment_array.get(i).getMaster_ID(), httpclient));				
+				user.addComment(comment_array.get(i));
+			}
+			Log.v("hahahhaha", ""+user.getComment().get(1).getSubComment().size());
+			fileSaver.saveInFile(user);
 		
 
 		} catch (ClientProtocolException e) {

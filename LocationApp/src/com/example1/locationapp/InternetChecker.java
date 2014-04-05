@@ -1,7 +1,5 @@
 package com.example1.locationapp;
 
-import com.example1.locationapp.R;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -25,9 +23,32 @@ public class InternetChecker extends BroadcastReceiver {
 	 * 
 	 */
 	
+	private boolean connect = false;
+	
+	public boolean connected(Context context)
+	{
+		final ConnectivityManager connMgr = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		final android.net.NetworkInfo wifi = connMgr
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		final android.net.NetworkInfo mobile = connMgr
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		if (wifi.isConnected() || mobile.isConnected()) 
+		{
+			return true;
+		}
+		else
+			return connect;
+	}
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
+<<<<<<< HEAD
+=======
+		connect = true;
+>>>>>>> 92546f440ad746b76f0a8929b933ccfebd362b5a
 		final ConnectivityManager connMgr = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
