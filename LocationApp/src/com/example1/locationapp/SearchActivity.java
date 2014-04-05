@@ -1,17 +1,11 @@
 package com.example1.locationapp;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import InternetConnection.ConnectToInternet;
-import InternetConnection.ElasticSearchResponse;
-import InternetConnection.ElasticSearchSearchResponse;
+import InternetConnection.LoadFromServer;
 import Model.Comments;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -31,7 +25,6 @@ import android.widget.ListView;
 
 import com.example1.locationapp.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * This activity for user search the comment by time.
@@ -39,13 +32,13 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class SearchActivity extends Activity {
-    cutadapter adapter2;
-    ArrayList<Comments> comment_list;
-    ListView listview2;
-    HttpClient httpclient;
-    Gson gson;
+    private cutadapter adapter2;
+    private ArrayList<Comments> comment_list;
+    private ListView listview2;
+    private HttpClient httpclient;
+    private Gson gson;
     private String query;
-    private ConnectToInternet connect = new ConnectToInternet();
+    private LoadFromServer load = new LoadFromServer();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,7 +108,7 @@ public class SearchActivity extends Activity {
 			
 
 				String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"terms\":{\"TagsList\":["+"\""+query+"\""+"],minimum_match:1}}}}}";
-				comment_list=search(comment_list,query_range2);
+				comment_list=load.search(comment_list,query_range2);
 				return null;
 			
 			}
@@ -160,29 +153,6 @@ public class SearchActivity extends Activity {
 			return rootView;
 		}
 	}
-	public ArrayList<Comments> search(ArrayList<Comments> comment_list2, String query_range2){
-		try{
-		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-		StringEntity entity = new StringEntity(query_range2);
-		httpPost.setHeader("Accept", "application/json");
-		httpPost.setEntity(entity);
-		HttpResponse response = httpclient.execute(httpPost);
-		
-		String json1 = connect.getEntityContent(response);
-		System.out.println(response.getStatusLine().toString() + "status");
-		System.out.println("search result is the:"+json1);
-		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
-		}.getType();
-		ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(
-				json1, elasticSearchSearchResponseType);
-		for (ElasticSearchResponse<Comments> r : esResponse.getHits())
-		{
-			comment_list2.add(r.getSource());
-		}
-		}catch (Exception e) {
-		}
-		
-		return comment_list2;
-	}
+
 
 }
