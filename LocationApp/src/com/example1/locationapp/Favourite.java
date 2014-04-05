@@ -1,8 +1,6 @@
 package com.example1.locationapp;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,11 +14,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
+import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
 import Model.FavouriteComment;
 import Model.FavouriteModel;
+import Model.SaveFavourite;
 import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -33,9 +33,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,6 +55,8 @@ public class Favourite extends Activity {
 	private HttpClient httpclient;
 	private int code;
 	private Location current_location;
+	private ConnectToInternet connects = new ConnectToInternet();
+	private SaveFavourite save = new SaveFavourite();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -87,7 +86,7 @@ public class Favourite extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				
-				get_comments("get some comments man!");
+				get_comments(user,code);
 				return null;
 			}
 
@@ -143,33 +142,9 @@ public class Favourite extends Activity {
 
 	}
 
-	/**
-	 * is working for when you click the list of view.
-	 */
-	private void registerClickCallback() {
-		ListView list = (ListView) findViewById(R.id.favouritelist);
-		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> paret, View viewClicked,
-					int position, long id) {
-
-				TextView textView = (TextView) viewClicked;
-				String massage = "You Clicked #" + position
-						+ ", which is string:" + textView.getText().toString();
-				Toast.makeText(Favourite.this, massage, Toast.LENGTH_LONG)
-						.show();
-
-			}
-		});
-
-	}
-	/**
-	 * Refresh the favorite comments everytime when that comments have some change. (when the phone connect the internet).
-	 * @param url
-	 */
 	
-	public void get_comments(String url) {
+	
+	public void get_comments(UserModel user, int code) {
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		
@@ -185,7 +160,7 @@ public class Favourite extends Activity {
 					httpPost.setHeader("Accept", "application/json");
 					httpPost.setEntity(entity);
 					HttpResponse response = httpclient.execute(httpPost);
-					String json1 = getEntityContent(response);
+					String json1 = connects.getEntityContent(response);
 					
 					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 					}.getType();
@@ -207,7 +182,7 @@ public class Favourite extends Activity {
 					{
 						if (num==0)
 						{
-							user.getFaviourte().get(i).getComment().setDistance(getDistance(user.getFaviourte().get(i).getComment().getLatitude(), user.getFaviourte().get(i).getComment().getLongitude()));
+							user.getFaviourte().get(i).getComment().setDistance(save.getDistance(user.getFaviourte().get(i).getComment().getLatitude(), user.getFaviourte().get(i).getComment().getLongitude(), current_location));
 							user.getFaviourte().get(i).getComment().setImage(comment.get(i1).getImage_encode());
 							user.getFaviourte().get(i).getComment().setText(comment.get(i1).getSubject_comment());
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
@@ -215,7 +190,7 @@ public class Favourite extends Activity {
 						}
 										
 						FavouriteComment fc = new FavouriteComment();
-						fc.setDistance(getDistance(comment.get(i1).getLat(), comment.get(i1).getLon()));
+						fc.setDistance(save.getDistance(comment.get(i1).getLat(), comment.get(i1).getLon(), current_location));
 						fc.setImage(comment.get(i1).getImage_encode());
 						fc.setText(comment.get(i1).getSubject_comment());
 						fc.setTitle(comment.get(i1).getThe_comment());
@@ -238,35 +213,10 @@ public class Favourite extends Activity {
 		}
 	}
 	
-	/**
-	 * get the distance between the user and comment sent location
-	 * @param commentLaiude -- latiude of comment sent location
-	 * @param commentLongitude -- longitude of comment sent location
-	 * @return
-	 * the distance between the user and comment sent location
-	 */
-	public double getDistance(double commentLaiude, double commentLongitude)
-	{
-		//Location current_location = null;
-		float DistanceResult [] = new float[10];
-		Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),commentLaiude,commentLongitude,DistanceResult);
-		return DistanceResult[0];
-	}
+
+
 	
-	
-	String getEntityContent(HttpResponse response) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				(response.getEntity().getContent())));
-		String output;
-		System.err.println("Output from Server -> ");
-		String json = "";
-		while ((output = br.readLine()) != null) {
-			System.err.println(output);
-			json += output;
-		}
-		System.err.println("JSON:" + json);
-		return json;
-	}
+
 	
 
 	@Override

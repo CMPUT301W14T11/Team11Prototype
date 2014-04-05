@@ -43,6 +43,7 @@ import com.google.gson.JsonElement;
  */
 public class EnterCommentsActivity extends Activity implements 
 		Serializable {
+	private EnterCommentsActivityProduct enterCommentsActivityProduct = new EnterCommentsActivityProduct();
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	File photoFile;
@@ -58,7 +59,6 @@ public class EnterCommentsActivity extends Activity implements
 	Context content;
 	Bitmap bitmap;
 	IDModel id_obj;
-	String mCurrentPhotoPath;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private UserModel user;
 	private CommentsModel commentsModel = new CommentsModel();
@@ -296,23 +296,6 @@ public class EnterCommentsActivity extends Activity implements
 	    }*/
 	}
 
-	private File createImageFile() throws IOException {
-	    // Create an image file name
-		
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    String imageFileName = "JPEG_" + timeStamp + "_";
-	    File storageDir = Environment.getExternalStoragePublicDirectory(
-	            Environment.DIRECTORY_PICTURES);
-	    File image = File.createTempFile(
-	        imageFileName,  /* prefix */
-	        ".jpg",         /* suffix */
-	        storageDir      /* directory */
-	    );
-
-	    // Save a file: path for use with ACTION_VIEW intents
-	    mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-	    return image;
-	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		/*if (requestCode==200 && resultCode==RESULT_OK)

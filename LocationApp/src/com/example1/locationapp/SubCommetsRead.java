@@ -214,7 +214,7 @@ public class SubCommetsRead extends Activity {
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
 													HttpResponse response = httpclient.execute(httpPost);
-													System.out.println(response.getStatusLine().toString() + "testing");
+													
 													
 												} catch (UnsupportedEncodingException e) {
 
@@ -405,14 +405,7 @@ public class SubCommetsRead extends Activity {
 		}
 		else
 		{
-			for (int i=0; i<user.getFaviourte().size(); i++)
-			{
-				if (user.getFaviourte().get(i).getID()==number && user.getFaviourte().get(i).getUsername().equals(user.getUser_name()) && user.getFaviourte().get(i).getCode() == code)
-				{
-					saved=true;
-				}
-			}
-			
+			saved = saved(code, saved);
 			if (saved == true)
 			{
 				Toast.makeText(SubCommetsRead.this,
@@ -453,6 +446,18 @@ public class SubCommetsRead extends Activity {
 			}
 			
 		}
+	}
+
+	private boolean saved(int code, boolean saved) {
+		for (int i = 0; i < user.getFaviourte().size(); i++) {
+			if (user.getFaviourte().get(i).getID() == number
+					&& user.getFaviourte().get(i).getUsername()
+							.equals(user.getUser_name())
+					&& user.getFaviourte().get(i).getCode() == code) {
+				saved = true;
+			}
+		}
+		return saved;
 	}
 	
 	@Override

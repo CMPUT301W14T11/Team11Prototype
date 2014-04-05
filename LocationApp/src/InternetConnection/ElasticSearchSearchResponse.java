@@ -4,7 +4,6 @@ package InternetConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.example1.locationapp.Hits;
 
 
 /**
