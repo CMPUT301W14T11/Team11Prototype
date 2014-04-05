@@ -88,7 +88,7 @@ public class ConnectToInternet {
 		return json;
 	}	
 	
-public int get_id(Context content) {
+	public int get_id(Context content) {
 		
 		IDModel id_toReturn;// this is ID object from server
 		int id = 0;

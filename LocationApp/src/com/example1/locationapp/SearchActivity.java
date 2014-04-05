@@ -112,36 +112,14 @@ public class SearchActivity extends Activity {
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				try
-				{
-				System.out.println("doing search");
-				HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
+			
+
 				String query_range2 = "{\"query\":{\"bool\":{\"must\":{\"terms\":{\"TagsList\":["+"\""+query+"\""+"],minimum_match:1}}}}}";
-				StringEntity entity = new StringEntity(query_range2);
-				httpPost.setHeader("Accept", "application/json");
-				httpPost.setEntity(entity);
-				HttpResponse response = httpclient.execute(httpPost);
-				
-				String json1 = connect.getEntityContent(response);
-				System.out.println(response.getStatusLine().toString() + "status");
-				System.out.println("search result is the:"+json1);
-				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
-				}.getType();
-				ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(
-						json1, elasticSearchSearchResponseType);
-				for (ElasticSearchResponse<Comments> r : esResponse.getHits())
-				{
-					comment_list.add(r.getSource());
-				}
-				
-				}
-				catch(Exception e)
-				{
-					
-				}
+				comment_list=search(comment_list,query_range2);
 				return null;
+			
 			}
-		}.execute();
+			}.execute();
 		
 		
 	}
@@ -181,6 +159,30 @@ public class SearchActivity extends Activity {
 					container, false);
 			return rootView;
 		}
+	}
+	public ArrayList<Comments> search(ArrayList<Comments> comment_list2, String query_range2){
+		try{
+		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
+		StringEntity entity = new StringEntity(query_range2);
+		httpPost.setHeader("Accept", "application/json");
+		httpPost.setEntity(entity);
+		HttpResponse response = httpclient.execute(httpPost);
+		
+		String json1 = connect.getEntityContent(response);
+		System.out.println(response.getStatusLine().toString() + "status");
+		System.out.println("search result is the:"+json1);
+		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
+		}.getType();
+		ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(
+				json1, elasticSearchSearchResponseType);
+		for (ElasticSearchResponse<Comments> r : esResponse.getHits())
+		{
+			comment_list2.add(r.getSource());
+		}
+		}catch (Exception e) {
+		}
+		
+		return comment_list2;
 	}
 
 }
