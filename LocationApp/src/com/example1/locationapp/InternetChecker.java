@@ -28,7 +28,6 @@ public class InternetChecker extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		System.out.println("rrrr");
 		final ConnectivityManager connMgr = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -76,6 +75,12 @@ public class InternetChecker extends BroadcastReceiver {
 			Toast.makeText(context, "No Internet!", Toast.LENGTH_LONG).show();
 		}
 
+	}
+	
+	public Object checkIntenetConnection(Context context, Intent intent){
+		
+		
+		return null;
 	}
 
 }
