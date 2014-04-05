@@ -92,10 +92,13 @@ public class cutadapter extends ArrayAdapter<Comments>{
                 {
                 	//custom.setComment_image(bitmap);
                 	holder.imageview.setImageBitmap(bitmap);
-                    System.out.println("imageset");
-                    bitmap=null;
+                   // bitmap=null;
                 }
             	
+            }
+            else
+            {
+            	holder.imageview.setImageBitmap(null);
             }
             
         }

@@ -104,6 +104,10 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
                     System.out.println("imageset");            
                 }
             }
+            else
+            {
+            	holder.imageview.setImageBitmap(null);
+            }
             
         }
         return v;
