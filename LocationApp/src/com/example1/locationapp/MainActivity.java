@@ -205,6 +205,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					protected void onPostExecute(Void result) {
 
 						super.onPostExecute(result);
+						//get_comments("get some comments man!");
 						dialog1.dismiss();
 						adapter.notifyDataSetChanged();
 					}
@@ -671,6 +672,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 						+ current_location.getLongitude());
 			
 				comment_array.clear();
+				adapter.notifyDataSetChanged();
 				get_comments("get comments using new locaiton");
 				adapter.notifyDataSetChanged();
 			}
@@ -757,6 +759,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
             // new version of array sorting
 			
 			comment_array.clear();
+			
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 				Comments comms = r.getSource();
 				
@@ -781,6 +784,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					System.out.println("distance:" + com.getDistance());
 				}
 			}
+		
 
 		} catch (ClientProtocolException e) {
 
@@ -838,14 +842,20 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 	public void sortByPicture()
 	{
+		
+		ArrayList<Comments> nonPictureComment = new ArrayList<Comments>();
 		Iterator<Comments> iter = comment_array.iterator();
 		while (iter.hasNext()) {
 		    Comments com = iter.next();
 		    if (com.getImage_encode()==null)
 		    {    
+		    	nonPictureComment.add(com);
 		    	iter.remove();
 		    }
+		    
 		}
+		//adapter.clear();
+		comment_array.addAll(nonPictureComment);
 		adapter.notifyDataSetChanged();
 	}
 	public void sortByDate() {
