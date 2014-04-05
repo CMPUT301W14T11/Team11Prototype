@@ -39,6 +39,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -93,10 +95,9 @@ public class SubCommetsRead extends Activity {
 	private String subCommentsTitle;
 	private int replyFloor=0;
 	private ConnectToInternet connect = new ConnectToInternet();
-
 	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,12 +116,33 @@ public class SubCommetsRead extends Activity {
 		id_obj = new IDModel(0);
 		gps = new GPSTracker(this);
 		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
+		content = this;
+		ConnectivityManager cm =
+		        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);
+		 
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null &&
+		                      activeNetwork.isConnectedOrConnecting();
+			
+		if (isConnected)
+		{
 		new AsyncTask<Void, Void, Void>() {
-
 			@Override
 			protected Void doInBackground(Void... params) {
 				
 				comment_list =subModel.get_comments(comment_list, number,httpclient);
+				
+				if (comment_list.size() == 0)
+				{
+					user = fileLoder.loadFromFile();
+					for (int i = 0; i < user.getComment().size(); i++)
+					{
+						if (user.getComment().get(i).getMaster_ID() == number)
+						{
+							comment_list = user.getComment().get(i).getSubComment();
+						}
+					}
+				}
 				subCoId=comment_list.size()+1;
 				return null;
 			}
@@ -135,7 +157,12 @@ public class SubCommetsRead extends Activity {
 
 		}.execute();
 
-		content = this;
+		}
+		else
+		{
+			setDisconnectComment();
+		}
+	
 		if (gps.canGetLocation) {
 			location = gps.getLocation();
 			System.out.println(location + "wocao");
@@ -144,7 +171,6 @@ public class SubCommetsRead extends Activity {
 			gps.showSettingsAlert();
 		}
 
-		System.out.println("lol" + location);
 
 		longitude = location.getLongitude();
 		latitude = location.getLatitude();
@@ -338,29 +364,43 @@ public class SubCommetsRead extends Activity {
 
 			public void onClick(View v) {
 				editText.setHint("reply to 1");
-				new AsyncTask<Void, Void, Void>() {
-					
-					@Override
-					protected Void doInBackground(Void... params) {
-						comment_list.clear();
-						comment_list=subModel.get_comments(comment_list, number,httpclient);
+				ConnectivityManager cm =
+				        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);
+				 
+				NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+				boolean isConnected = activeNetwork != null &&
+				                      activeNetwork.isConnectedOrConnecting();
+				if (isConnected)
+				{
+					new AsyncTask<Void, Void, Void>() {
 						
-						return null;
-					}
+						@Override
+						protected Void doInBackground(Void... params) {
+							comment_list.clear();					
+							comment_list=subModel.get_comments(comment_list, number,httpclient);					
+							return null;
+						}
 
-					@Override
-					protected void onPostExecute(Void result) {
-						
-						super.onPostExecute(result);
-						Collections.sort(comment_list, new SubCommentSort());
-						ListAdapter.notifyDataSetChanged();
-					}
+						@Override
+						protected void onPostExecute(Void result) {
+							
+							super.onPostExecute(result);
+							Collections.sort(comment_list, new SubCommentSort());
+							ListAdapter.notifyDataSetChanged();
+						}
 
-				}.execute();
+					}.execute();
+				}
+				else
+				{
+					setDisconnectComment();
+				}
 			}
 		});
 
 		button1.setOnClickListener(new MyButton1Listener());
+		
+		
 	}
 
 	/**
@@ -423,7 +463,7 @@ public class SubCommetsRead extends Activity {
 				fc.setUserName(comment_list.get(0).getUserName());
 				fc.setLocation(location.getLatitude(), location.getLongitude());
 				fc.setID(number);
-				
+				subcomment.add(fc);
 				for (int i =1;i<comment_list.size();i++)
 				{
 					FavouriteComment sub = new FavouriteComment();
@@ -620,6 +660,27 @@ public class SubCommetsRead extends Activity {
 		}
 	}
 
+	public void setDisconnectComment()
+	{
+
+			user = fileLoder.loadFromFile();
+			for (int i = 0; i < user.getComment().size(); i++)
+			{
+				if (user.getComment().get(i).getMaster_ID() == number)
+				{
+					comment_list = user.getComment().get(i).getSubComment();
+					
+				}
+			}
+			
+			Collections.sort(comment_list, new SubCommentSort());
+			subCoId=comment_list.size()+1;
+			ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
+			listViewSubComment.setAdapter(ListAdapter);
+			ListAdapter.notifyDataSetChanged();
+	}
+	
+		
 
 	
 

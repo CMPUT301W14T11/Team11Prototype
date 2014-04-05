@@ -10,7 +10,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.content.Context;
 import android.location.Location;
 
@@ -28,6 +27,7 @@ public class SubCommentModel implements CommentController{
 	private Comments comment;
 	private Gson gson = new Gson();
 	private ConnectToInternet connect = new ConnectToInternet();
+	
 	public SubCommentModel(Comments comment){
 		this.setComment(comment);
 	}

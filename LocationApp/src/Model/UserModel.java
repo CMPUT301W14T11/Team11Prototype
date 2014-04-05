@@ -11,7 +11,7 @@ public class UserModel {
     
     private ArrayList<FavouriteModel> faviourte = new ArrayList<FavouriteModel>();
     private String user_name;
-    
+    private ArrayList<Comments> comment = new ArrayList<Comments>();
     /**
      * Constructor of the UserModel, initial with "" to be username
      */
@@ -20,6 +20,25 @@ public class UserModel {
     	user_name = "";
     }
 
+    /**
+     * add a comment to comment array
+     * @param c -- the comment needs to be added
+     */
+    public void addComment(Comments c)
+    {
+    	comment.add(c);
+    }
+    
+    /**
+     * get the comments array
+     * @return
+     * the comments array
+     */
+    public ArrayList<Comments> getComment()
+    {
+    	return comment;
+    }
+    
     /**
      * get current login username
      * @return

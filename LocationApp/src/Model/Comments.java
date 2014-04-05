@@ -27,7 +27,7 @@ public class Comments implements Serializable{
 	private int userID;
 	private String userName;
 	private ArrayList<String> TagsList= new ArrayList<String>();
-	
+	private ArrayList<Comments> subComment = new ArrayList<Comments>();
 
 	
 	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,double lon,double lat, String userName)
@@ -64,6 +64,16 @@ public class Comments implements Serializable{
 		this.userName = userName;
 	}
 
+	public void setSubComment(ArrayList<Comments> s)
+	{
+		subComment = s;
+	}
+	
+	public ArrayList<Comments> getSubComment()
+	{
+		return subComment;
+	}
+	
 	public ArrayList<String> getTagsList() {
 		return TagsList;
 	}

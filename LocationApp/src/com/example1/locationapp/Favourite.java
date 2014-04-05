@@ -24,8 +24,11 @@ import Model.SaveFavourite;
 import Model.UserModel;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -57,6 +60,7 @@ public class Favourite extends Activity {
 	private Location current_location;
 	private ConnectToInternet connects = new ConnectToInternet();
 	private SaveFavourite save = new SaveFavourite();
+	private Context content = this;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -81,37 +85,65 @@ public class Favourite extends Activity {
 		else
 			bar.setTitle("Personal Saving");
 		
-		new AsyncTask<Void, Void, Void>() {
+		ConnectivityManager cm =
+		        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);
+		 
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null &&
+		                      activeNetwork.isConnectedOrConnecting();
+		if(isConnected)
+		{
+			new AsyncTask<Void, Void, Void>() {
 
-			@Override
-			protected Void doInBackground(Void... params) {
-				
-				get_comments(user,code);
-				return null;
-			}
+				@Override
+				protected Void doInBackground(Void... params) {
+					
+					get_comments(user,code);
+					return null;
+				}
 
-			@Override
-			protected void onPostExecute(Void result)
-			{
+				@Override
+				protected void onPostExecute(Void result)
+				{
 
-				populateListView();
-				
-				list.setOnItemClickListener(new OnItemClickListener() {
+					populateListView();
+					
+					list.setOnItemClickListener(new OnItemClickListener() {
 
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-							long arg3) {
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+								long arg3) {
 
-						int getID = matchlist.get(arg2).getID();
-						Intent intent1 = new Intent();
-						intent1.putExtra("masterID", getID);
-						intent1.setClass(Favourite.this, SubFavourite.class);
-						Favourite.this.startActivity(intent1);
-					}
-				});
-				super.onPostExecute(result);
-			}
-		}.execute();
+							int getID = matchlist.get(arg2).getID();
+							Intent intent1 = new Intent();
+							intent1.putExtra("masterID", getID);
+							intent1.setClass(Favourite.this, SubFavourite.class);
+							Favourite.this.startActivity(intent1);
+						}
+					});
+					super.onPostExecute(result);
+				}
+			}.execute();
+		}
+		else
+		{
+			populateListView();
+			
+			list.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+						long arg3) {
+
+					int getID = matchlist.get(arg2).getID();
+					Intent intent1 = new Intent();
+					intent1.putExtra("masterID", getID);
+					intent1.setClass(Favourite.this, SubFavourite.class);
+					Favourite.this.startActivity(intent1);
+				}
+			});
+		}
+		
 	
 	}
 	
