@@ -1,8 +1,6 @@
 package com.example1.locationapp;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
 import org.apache.http.HttpResponse;
@@ -42,6 +40,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class EditActivity extends Activity {
 	private EditText title , subject;
+	@SuppressWarnings("unused")
 	private Button location, submit;
 	private Comments newcomments;
 	private int id;
@@ -141,7 +140,7 @@ public class EditActivity extends Activity {
 							HttpDelete httpDelete = new HttpDelete("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+id);
 							httpDelete.addHeader("Accept","application/json");
 							try {
-								HttpResponse responsedelete = httpclient.execute(httpDelete);
+								httpclient.execute(httpDelete);
 							} catch (ClientProtocolException e) {
 								e.printStackTrace();
 							} catch (IOException e) {

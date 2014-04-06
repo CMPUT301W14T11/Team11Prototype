@@ -2,9 +2,6 @@ package com.example1.locationapp;
 
 import java.util.ArrayList;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import InternetConnection.LoadFromServer;
 import Model.Comments;
 import android.app.ActionBar;
@@ -24,7 +21,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.example1.locationapp.R;
-import com.google.gson.Gson;
 
 /**
  * This activity for user search the comment by time.
@@ -35,8 +31,6 @@ public class SearchActivity extends Activity {
     private cutadapter adapter2;
     private ArrayList<Comments> comment_list;
     private ListView listview2;
-    private HttpClient httpclient;
-    private Gson gson;
     private String query;
     private LoadFromServer load = new LoadFromServer();
 	@Override
@@ -45,8 +39,6 @@ public class SearchActivity extends Activity {
 		setContentView(R.layout.fragment_search);
 		ActionBar bar = getActionBar();
 		bar.setTitle("Search Result");
-		httpclient = new DefaultHttpClient();
-		gson = new Gson();
 		handleIntent(getIntent());
 	}
 	/**

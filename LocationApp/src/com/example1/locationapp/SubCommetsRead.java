@@ -123,7 +123,7 @@ public class SubCommetsRead extends Activity {
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null &&
 		                      activeNetwork.isConnectedOrConnecting();
-			
+		user = fileLoder.loadFromFile();
 		if (isConnected)
 		{
 		new AsyncTask<Void, Void, Void>() {
@@ -207,13 +207,13 @@ public class SubCommetsRead extends Activity {
 							final Comments SelectedComment = comment_list.get(position);
 							if(SelectedComment.getUserName().equals(CheckName))
 							{  
-								System.out.println("edit my comment");
 							
 								final Dialog dialogui = new Dialog(content);
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
 								dialogui.show();
 								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
+								@SuppressWarnings("unused")
 								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
 								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
@@ -222,7 +222,6 @@ public class SubCommetsRead extends Activity {
 									@Override
 									public void onClick(View v) {
 										comment_list.get(position).setThe_comment(titleedit.getText().toString());
-										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
 										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
 										ListAdapter.notifyDataSetChanged();
 										dialogui.dismiss();
