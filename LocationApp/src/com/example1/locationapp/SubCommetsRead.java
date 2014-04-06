@@ -70,6 +70,7 @@ public class SubCommetsRead extends Activity {
 	public static final String MASTERCOMMENT = "emouse/";
 	private ListView listViewSubComment;
 	private EditText editText;
+	@SuppressWarnings("unused")
 	private int index;
 	private Button button1;
 	private cutadapter ListAdapter;
@@ -123,7 +124,7 @@ public class SubCommetsRead extends Activity {
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null &&
 		                      activeNetwork.isConnectedOrConnecting();
-			
+		user = fileLoder.loadFromFile();
 		if (isConnected)
 		{
 		new AsyncTask<Void, Void, Void>() {
@@ -207,13 +208,13 @@ public class SubCommetsRead extends Activity {
 							final Comments SelectedComment = comment_list.get(position);
 							if(SelectedComment.getUserName().equals(CheckName))
 							{  
-								System.out.println("edit my comment");
 							
 								final Dialog dialogui = new Dialog(content);
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
 								dialogui.show();
 								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
+								@SuppressWarnings("unused")
 								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
 								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
@@ -222,7 +223,6 @@ public class SubCommetsRead extends Activity {
 									@Override
 									public void onClick(View v) {
 										comment_list.get(position).setThe_comment(titleedit.getText().toString());
-										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
 										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
 										ListAdapter.notifyDataSetChanged();
 										dialogui.dismiss();
@@ -234,12 +234,12 @@ public class SubCommetsRead extends Activity {
 											protected Void doInBackground(
 													Void... params) {
 												HttpClient httpclient = new DefaultHttpClient();
-												HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_list.get(position).getMaster_ID());
+												HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+comment_list.get(position).getSub_ID());
 												try {
 													StringEntity data = new StringEntity(gson.toJson(comment_list.get(position)));
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
-													HttpResponse response = httpclient.execute(httpPost);
+													httpclient.execute(httpPost);
 													
 													
 												} catch (UnsupportedEncodingException e) {
@@ -332,7 +332,7 @@ public class SubCommetsRead extends Activity {
 											// have result , result code 939
 											Intent intent_profile = new Intent();
 											intent_profile.setClass(content, ProfileActivity.class);
-											Bundle bundle = new Bundle();
+											
 											intent_profile.putExtra("name",someuser);
 											startActivityForResult(intent_profile, 939);
 										}
@@ -604,7 +604,7 @@ public class SubCommetsRead extends Activity {
 								subCommentsTitle=subCoId+". Relpy to ";
 								user = fileLoder.loadFromFile();
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
+										number, subCoId,ServerID, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, user.getUser_name());
 								subModel.insertMaster(new_comment, ServerID);
@@ -616,7 +616,7 @@ public class SubCommetsRead extends Activity {
 								//String encode_image = convert_image_to_string(bitmap);
 								JsonElement encode_image = new BitmapConverter().serialize(bitmap, null, null);
 								final Comments new_comment = new Comments(0,
-										number, subCoId, 0, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()
+										number, subCoId, ServerID, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()
 												.toString(), new Date(),
 										longitude, latitude, encode_image,
 										user.getUser_name());

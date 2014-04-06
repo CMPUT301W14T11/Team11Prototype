@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 * A Comments object contains the user id,master comments id,sub comments id, sub comments title and body,a picture if it has
 * date,location of the comments posted, a userName which published this comment
 */
+@SuppressWarnings("serial")
 public class Comments implements Serializable{
 	private int master_comment_ID;
 	private int sub_comments_ID;
@@ -31,16 +32,16 @@ public class Comments implements Serializable{
 
 	/**
 	 * constructor for comment with no picture
-	 * @param user_id
-	 * @param masterid
-	 * @param sid
-	 * @param subid
-	 * @param title
-	 * @param subject
-	 * @param the_date
-	 * @param lon
-	 * @param lat
-	 * @param userName
+	 * @param user_id    User's ID
+	 * @param masterid   comments' master ID
+	 * @param sid        SubComments ID
+	 * @param subid      SubComments' subcomment ID
+	 * @param title      Title of the comments
+	 * @param subject    Body of the comments
+	 * @param the_date   date posted 
+	 * @param lon        location when user post comments
+	 * @param lat        location when user post comments
+	 * @param userName   User's name
 	 */
 	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,double lon,double lat, String userName)
 	{   

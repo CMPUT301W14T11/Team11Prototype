@@ -3,11 +3,7 @@ package com.example1.locationapp;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import Controller.BitmapConverter;
 import Controller.LocalFileLoder;
 import InternetConnection.ConnectToInternet;

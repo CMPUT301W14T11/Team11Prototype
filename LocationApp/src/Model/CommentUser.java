@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 import android.graphics.Bitmap;
 /**
- * this class is make profile for the user
+ * this class is making profile for the user
  * @author yazhou
  *
  */
+@SuppressWarnings("serial")
 public class CommentUser implements Serializable{
 
 	    private String name;
