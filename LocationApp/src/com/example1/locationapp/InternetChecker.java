@@ -1,11 +1,14 @@
 package com.example1.locationapp;
 
+import java.util.HashSet;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
@@ -54,6 +57,20 @@ public class InternetChecker extends BroadcastReceiver {
 
 		final android.net.NetworkInfo mobile = connMgr
 				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		/**
+		 * check for local comments, if there is local saved comments then push to server
+		 * 
+		 */
+		try
+		{
+		SharedPreferences sharedPref = new EnterCommentsActivity().getPreferences(Context.MODE_PRIVATE);
+		
+
+		}
+		catch(Exception e)
+		{
+			System.out.println("no local saved commens");
+		} 
 
 		/**
 		 * checking the internet connection

@@ -3,8 +3,11 @@ package com.example1.locationapp;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import Controller.BitmapConverter;
 import Controller.LocalFileLoder;
 import InternetConnection.ConnectToInternet;
@@ -16,12 +19,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +34,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 /**
@@ -107,6 +109,7 @@ public class EnterCommentsActivity extends Activity implements
 	// send comment to server
 	public void send(View view) {
 		String title = title_edit.getText().toString();
+		
 		if ("".equals(title)) {
 
 			Toast.makeText(getBaseContext(),
@@ -116,6 +119,30 @@ public class EnterCommentsActivity extends Activity implements
 		}
 		String subject = subject_edit.getText().toString();
 		// do not delete this comment, it might be usefull
+		InternetChecker check = new InternetChecker();
+		if(!check.connected(getApplicationContext()))
+		{
+			Toast.makeText(getApplicationContext(), "No internet right now, Comement will be send later",Toast.LENGTH_LONG).show();
+			SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPref.edit();
+			editor.putString("title", title);
+			editor.putString("subject", subject);
+			
+			
+			//Set<String> the_set = new HashSet<String>();
+			//the_set.add(title);
+			//the_set.add(subject);
+			if(bitmap!=null)
+			{	
+				BitmapConverter ImageConvert = new BitmapConverter();
+				JsonElement encode_image =ImageConvert.serialize(bitmap, null, null);
+				editor.putString("image",encode_image.toString());
+			}
+			
+			editor.commit();
+			finish();
+		}
+		
 		/*final ConnectivityManager connMgr = (ConnectivityManager) EnterCommentsActivity.this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
