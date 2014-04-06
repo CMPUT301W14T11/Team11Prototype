@@ -45,10 +45,7 @@ public class InternetChecker extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-<<<<<<< HEAD
-=======
 		connect = true;
->>>>>>> 92546f440ad746b76f0a8929b933ccfebd362b5a
 		final ConnectivityManager connMgr = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
