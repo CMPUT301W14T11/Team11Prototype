@@ -93,7 +93,9 @@ public class EnterCommentsActivity extends Activity implements
 		latitude = intent.getDoubleExtra("lat", 0);
 		longitude = intent.getDoubleExtra("lon", 0);
 		number = 0;
-
+		LocalFileLoder loader = new LocalFileLoder(this);
+		user = loader.loadFromFile();
+		
 		/*try {
 			location.setLatitude(latitude);
 			location.setLongitude(longitude);

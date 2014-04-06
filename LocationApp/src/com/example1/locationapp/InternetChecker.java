@@ -1,10 +1,12 @@
 package com.example1.locationapp;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 
 import InternetConnection.ConnectToInternet;
 import Model.Comments;
+import Model.IDModel;
 import Model.SubCommentModel;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -76,9 +78,9 @@ public class InternetChecker extends BroadcastReceiver {
 		String picture = sharedPref.getString("image", "");
 		final String name = sharedPref.getString("name", "");
 		if(!title.equals(""))
-		{
+		{	
 			// make new comments
-			if(!picture.equals(""))
+			if(picture.equals(""))
 			{
 				new AsyncTask<Void,Void,Void>() {
 					
@@ -95,6 +97,7 @@ public class InternetChecker extends BroadcastReceiver {
 								// TODO Auto-generated method stub
 								ConnectToInternet con = new ConnectToInternet();
 								MasterId = con.get_id(context);
+								MasterId++;
 								return null;
 							}
 							
@@ -108,7 +111,8 @@ public class InternetChecker extends BroadcastReceiver {
 						// make new comments
 						Comments NewComment = new Comments(0, MasterId, 0, 0, title, subject, new Date(),gps.getLongitude(),gps.getLatitude(),name);
 						SubCommentModel modle = new SubCommentModel(NewComment);
-						
+						modle.insertMaster(NewComment, MasterId);
+						System.out.println("fale");
 						return null;
 					}
 					@Override
@@ -121,6 +125,18 @@ public class InternetChecker extends BroadcastReceiver {
 							@Override
 							protected Void doInBackground(Void... params) {
 								// TODO Auto-generated method stub
+								ConnectToInternet internet = new ConnectToInternet();
+								MasterId++;
+								IDModel id_obj= new IDModel(MasterId);
+								try {
+									internet.insert(id_obj, context);
+								} catch (IllegalStateException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								return null;
 							}
 							
