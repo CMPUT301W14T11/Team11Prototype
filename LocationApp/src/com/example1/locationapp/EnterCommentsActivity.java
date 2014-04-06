@@ -123,11 +123,12 @@ public class EnterCommentsActivity extends Activity implements
 		if(!check.connected(getApplicationContext()))
 		{
 			Toast.makeText(getApplicationContext(), "No internet right now, Comement will be send later",Toast.LENGTH_LONG).show();
-			SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
+			SharedPreferences sharedPref = content.getSharedPreferences("mydata", Context.MODE_PRIVATE);
+			//SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putString("title", title);
 			editor.putString("subject", subject);
-			
+			editor.putString("name", user.getUser_name());
 			
 			//Set<String> the_set = new HashSet<String>();
 			//the_set.add(title);
