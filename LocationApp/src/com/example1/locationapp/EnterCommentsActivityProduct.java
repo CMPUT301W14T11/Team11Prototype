@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import android.os.Environment;
-
+/**
+ * refacter activiy
+ * @author yazhou
+ *
+ */
 public class EnterCommentsActivityProduct {
 	private String mCurrentPhotoPath;
 

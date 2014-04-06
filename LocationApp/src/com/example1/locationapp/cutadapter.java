@@ -24,14 +24,23 @@ import android.widget.TextView;
 public class cutadapter extends ArrayAdapter<Comments>{
 	private ArrayList<Comments> entries;
     private Activity activity;
- 
+    /**
+     * Make a new adapter for listview
+     * @param a pass in activity
+     * @param textViewResourceId
+     * @param entries
+     */
     public cutadapter(Activity a, int textViewResourceId, ArrayList<Comments> entries) {
         super(a, textViewResourceId, entries);
         this.entries = entries;
         this.activity = a;
     }
     
-
+    /**
+     * Make the view for listview
+     * @author yazhou
+     *
+     */
 	public static class ViewHolder{
         public TextView item1; //make a Testview
         public TextView item2; //make a Testview
@@ -53,7 +62,9 @@ public class cutadapter extends ArrayAdapter<Comments>{
         public TextView item4;
         public ImageView imageview;
     }
-
+	/**
+	 * Put the data in th view
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;

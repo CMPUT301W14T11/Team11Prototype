@@ -26,7 +26,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     private Activity activity;
     
     /**
-     * 
+     * to create a adapter for the listview
      * @param a
      * @param textViewResourceId
      * @param entries
@@ -39,7 +39,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     }
     
     /**
-     * 
+     * create a view holder for listview view item
      * @author zuo2
      *
      */
@@ -52,6 +52,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     }
 
 	/**
+	 * Put the data into the view
 	 * 
 	 */
 	@Override

@@ -41,10 +41,10 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class EditActivity extends Activity {
-	EditText title , subject;
-	Button location, submit;
-	Comments newcomments;
-	int id;
+	private EditText title , subject;
+	private Button location, submit;
+	private Comments newcomments;
+	private int id;
 	private ConnectToInternet connect = new ConnectToInternet();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +108,10 @@ public class EditActivity extends Activity {
 			
 		}.execute();
 	}
-    public void changelocation(View v)
-    {
-    	
-    }
+	/**
+	 * click the button to send edit to the cloud
+	 * @param v
+	 */
     public void submit(View v)
     { 
     	String NewTitle = title.getText().toString();

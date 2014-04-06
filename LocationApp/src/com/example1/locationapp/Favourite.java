@@ -175,7 +175,11 @@ public class Favourite extends Activity {
 	}
 
 	
-	
+	/**
+	 * download comment from the server
+	 * @param user
+	 * @param code
+	 */
 	public void get_comments(UserModel user, int code) {
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();

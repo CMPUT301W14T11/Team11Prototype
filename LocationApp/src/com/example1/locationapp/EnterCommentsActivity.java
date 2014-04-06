@@ -48,19 +48,19 @@ public class EnterCommentsActivity extends Activity implements
 	private EnterCommentsActivityProduct enterCommentsActivityProduct = new EnterCommentsActivityProduct();
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
-	File photoFile;
-	EditText title_edit, subject_edit;
-	Button post_button, picture_add_button;
-	Location location;
-	GPSTracker gps;
-	ImageView imageview;
-	int number;
-	double longitude;
-	double latitude;
-	Gson gson;
-	Context content;
-	Bitmap bitmap;
-	IDModel id_obj;
+	private File photoFile;
+	private EditText title_edit, subject_edit;
+	private Button post_button, picture_add_button;
+	private Location location;
+	private GPSTracker gps;
+	private ImageView imageview;
+	private int number;
+	private double longitude;
+	private double latitude;
+	private Gson gson;
+	private Context content;
+	private Bitmap bitmap;
+	private IDModel id_obj;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private UserModel user;
 	private CommentsModel commentsModel = new CommentsModel();
@@ -107,7 +107,10 @@ public class EnterCommentsActivity extends Activity implements
 		gson = new Gson();
 
 	}
-
+	/**
+	 * click to buton to send the comments to the cloud
+	 * @param view
+	 */
 	// send comment to server
 	public void send(View view) {
 		String title = title_edit.getText().toString();
@@ -256,6 +259,9 @@ public class EnterCommentsActivity extends Activity implements
 		finish();
 	}
 
+	/**
+	 * set result for Activity result
+	 */
 	@Override
 	public void onBackPressed() {
 
@@ -297,7 +303,10 @@ public class EnterCommentsActivity extends Activity implements
 	}
 
 	
-
+	/**
+	 * click to add picture, go to image chosser activity
+	 * @param view
+	 */
 	// chose picture request for picture is 5
 	public void addPicture(View view) {
 		//orginnal take picture
