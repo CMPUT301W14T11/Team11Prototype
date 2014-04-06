@@ -39,6 +39,7 @@ public class CommentSort {
 	 * This is for sorting comment by date
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	public ArrayList<Comments> sortByDate(){
 		
 		date_comment_array = new ArrayList<Comments>();
