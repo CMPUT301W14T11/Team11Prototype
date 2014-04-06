@@ -85,7 +85,7 @@ public class SubCommetsRead extends Activity {
 	private int subCoId = 1;
 	private Gson gson = new Gson();
 	private CommentUser someuser;
-	double radius = 0.01;
+	private double radius = 0.01;
 	private IDModel id_obj;
 	private int ServerID;
 	private LocalFileLoder fileLoder = new LocalFileLoder(this);
@@ -487,7 +487,12 @@ public class SubCommetsRead extends Activity {
 			
 		}
 	}
-
+	/**
+	 * this is code to save comments to local
+	 * @param code
+	 * @param saved
+	 * @return
+	 */
 	private boolean saved(int code, boolean saved) {
 		for (int i = 0; i < user.getFaviourte().size(); i++) {
 			if (user.getFaviourte().get(i).getID() == number
@@ -535,7 +540,10 @@ public class SubCommetsRead extends Activity {
 		}
 		
 	}
-
+	/**
+	 * clikc this button to add picture
+	 * @param v
+	 */
 	public void picture(View v)
 	{
 		Intent intent = new Intent(this, ChoseImageActivity.class);
@@ -659,7 +667,9 @@ public class SubCommetsRead extends Activity {
 			
 		}
 	}
-
+	/**
+	 * use this function to load from file, and show comments in listview
+	 */
 	public void setDisconnectComment()
 	{
 
@@ -685,7 +695,9 @@ public class SubCommetsRead extends Activity {
 	
 
 
-	
+	/**
+	 * go back to MainActivty from SUBcomment
+	 */
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();

@@ -727,7 +727,10 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 
-
+	/**
+	 * download form server , to get comment object
+	 * @param url
+	 */
 	public void get_comments(String url) {
 		HttpPost httpPost = new HttpPost(
 				"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
@@ -849,7 +852,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}.execute();
 
 	}
-
+	/**
+	 * sorting this by picture, and show only picture in the comment
+	 */
 	public void sortByPicture()
 	{
 		
@@ -868,6 +873,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		comment_array.addAll(nonPictureComment);
 		adapter.notifyDataSetChanged();
 	}
+	/**
+	 * sort by date, using master id to sort, then add to comment
+	 */
 	public void sortByDate() {
 		Collections.sort(comment_array,new datesort());
 		adapter.notifyDataSetChanged();

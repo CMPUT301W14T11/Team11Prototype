@@ -29,7 +29,19 @@ public class Comments implements Serializable{
 	private ArrayList<String> TagsList= new ArrayList<String>();
 	private ArrayList<Comments> subComment = new ArrayList<Comments>();
 
-	
+	/**
+	 * constructor for comment with no picture
+	 * @param user_id
+	 * @param masterid
+	 * @param sid
+	 * @param subid
+	 * @param title
+	 * @param subject
+	 * @param the_date
+	 * @param lon
+	 * @param lat
+	 * @param userName
+	 */
 	public Comments(int user_id,int masterid , int sid, int subid,String title, String subject,Date the_date,double lon,double lat, String userName)
 	{   
 		this.master_ID=masterid;
@@ -46,7 +58,20 @@ public class Comments implements Serializable{
 		
 	}
 	
-	
+	/**
+	 * use constructor to make comments with picture
+	 * @param user_id
+	 * @param masterid
+	 * @param sid
+	 * @param subid
+	 * @param title
+	 * @param subject
+	 * @param the_date
+	 * @param lon
+	 * @param lat
+	 * @param encode
+	 * @param userName
+	 */
 	// make a comments with image in them
 	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,double lon,double lat,JsonElement encode, String userName)
 	{   

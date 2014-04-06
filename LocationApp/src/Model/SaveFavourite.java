@@ -1,11 +1,21 @@
 package Model;
 
 import android.location.Location;
-
+/**
+ * use this class if you want to get distance for offline comments
+ * @author yazhou
+ *
+ */
 public class SaveFavourite {
 	
 	
-	
+	/**
+	 * function for compute the distance of the comment
+	 * @param commentLaiude
+	 * @param commentLongitude
+	 * @param current_location
+	 * @return
+	 */
 	public double getDistance(double commentLaiude, double commentLongitude, Location current_location)
 	{
 		//Location current_location = null;

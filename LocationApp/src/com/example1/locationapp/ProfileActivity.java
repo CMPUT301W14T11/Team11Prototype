@@ -28,10 +28,10 @@ import android.widget.Toast;
  */
 
 public class ProfileActivity extends Activity {
-    CommentUser goduser;
-    TextView textview1,textview2,textview3,textview4,textview5,textview6,textview7;
-    ImageView imageview;
-    Bitmap bitmap;
+	private CommentUser goduser;
+	private TextView textview1,textview2,textview3,textview4,textview5,textview6,textview7;
+	private ImageView imageview;
+	private Bitmap bitmap;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,8 +1,15 @@
 package Model;
-
+/**
+ * Use this class to construct a IDModel
+ * @author yazhou
+ *
+ */
 public class IDModel {
        private int id_for_master;
-
+       /**
+        * constuctor to make a IDModel object
+        * @param idMaster
+        */
        public IDModel(int idMaster)
        {
     	   this.id_for_master=idMaster;

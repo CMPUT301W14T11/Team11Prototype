@@ -49,16 +49,21 @@ public class SearchActivity extends Activity {
 		gson = new Gson();
 		handleIntent(getIntent());
 	}
-
+	/**
+	 * this function is used to call handIntent
+	 */
 	public void onNewIntent(Intent intent) {
 		setIntent(intent);
 		handleIntent(intent);
 	}
-
+	
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// call detail activity for clicked entry
 	}
-
+	/**
+	 * get intent form MainActiviy
+	 * @param intent
+	 */
 	private void handleIntent(Intent intent) {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			query = intent.getStringExtra(SearchManager.QUERY);
@@ -70,7 +75,10 @@ public class SearchActivity extends Activity {
 		}
 		//listview2.setAdapter(adapter);
 	}
-
+	/**
+	 * do seach from the server and put the result into listviw
+	 * @param queryStr
+	 */
 	private void doSearch(String queryStr) {
 		// get a Cursor, prepare the ListAdapter
 		// and set it

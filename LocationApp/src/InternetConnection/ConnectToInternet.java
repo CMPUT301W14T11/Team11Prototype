@@ -20,7 +20,11 @@ import com.google.gson.reflect.TypeToken;
 import Model.IDModel;
 import android.content.Context;
 import android.widget.Toast;
-
+/**
+ * The intetnet controller to upload and download from server
+ * @author yazhou
+ *
+ */
 public class ConnectToInternet {
 
 	
@@ -28,7 +32,13 @@ public class ConnectToInternet {
 	public static final String MASTERCOMMENT = "emouse/";
 	private Gson gson = new Gson();
 	
-	
+	/**
+	 * this is to send IDModel to the server
+	 * @param id
+	 * @param content
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unused")
 	public void insert(IDModel id, Context content) throws IllegalStateException, IOException {
 		
@@ -74,6 +84,12 @@ public class ConnectToInternet {
 		}
 
 	}
+	/**
+	 * from elastic search to get json from the response
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	public String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 			(response.getEntity().getContent())));
@@ -87,7 +103,11 @@ public class ConnectToInternet {
 		System.err.println("JSON:" + json);
 		return json;
 	}	
-	
+	/**
+	 * download IDModel from the server
+	 * @param content
+	 * @return
+	 */
 	public int get_id(Context content) {
 		
 		IDModel id_toReturn;// this is ID object from server

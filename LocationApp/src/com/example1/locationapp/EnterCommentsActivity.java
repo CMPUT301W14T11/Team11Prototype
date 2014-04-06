@@ -3,8 +3,11 @@ package com.example1.locationapp;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import Controller.BitmapConverter;
 import Controller.LocalFileLoder;
 import InternetConnection.ConnectToInternet;
@@ -16,12 +19,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +34,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 /**
@@ -46,19 +48,19 @@ public class EnterCommentsActivity extends Activity implements
 	private EnterCommentsActivityProduct enterCommentsActivityProduct = new EnterCommentsActivityProduct();
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
-	File photoFile;
-	EditText title_edit, subject_edit;
-	Button post_button, picture_add_button;
-	Location location;
-	GPSTracker gps;
-	ImageView imageview;
-	int number;
-	double longitude;
-	double latitude;
-	Gson gson;
-	Context content;
-	Bitmap bitmap;
-	IDModel id_obj;
+	private File photoFile;
+	private EditText title_edit, subject_edit;
+	private Button post_button, picture_add_button;
+	private Location location;
+	private GPSTracker gps;
+	private ImageView imageview;
+	private int number;
+	private double longitude;
+	private double latitude;
+	private Gson gson;
+	private Context content;
+	private Bitmap bitmap;
+	private IDModel id_obj;
 	private LocalFileLoder fl = new LocalFileLoder(this);
 	private UserModel user;
 	private CommentsModel commentsModel = new CommentsModel();
@@ -91,7 +93,9 @@ public class EnterCommentsActivity extends Activity implements
 		latitude = intent.getDoubleExtra("lat", 0);
 		longitude = intent.getDoubleExtra("lon", 0);
 		number = 0;
-
+		LocalFileLoder loader = new LocalFileLoder(this);
+		user = loader.loadFromFile();
+		
 		/*try {
 			location.setLatitude(latitude);
 			location.setLongitude(longitude);
@@ -103,10 +107,14 @@ public class EnterCommentsActivity extends Activity implements
 		gson = new Gson();
 
 	}
-
+	/**
+	 * click to buton to send the comments to the cloud
+	 * @param view
+	 */
 	// send comment to server
 	public void send(View view) {
 		String title = title_edit.getText().toString();
+		
 		if ("".equals(title)) {
 
 			Toast.makeText(getBaseContext(),
@@ -116,6 +124,31 @@ public class EnterCommentsActivity extends Activity implements
 		}
 		String subject = subject_edit.getText().toString();
 		// do not delete this comment, it might be usefull
+		InternetChecker check = new InternetChecker();
+		if(!check.connected(getApplicationContext()))
+		{
+			Toast.makeText(getApplicationContext(), "No internet right now, Comement will be send later",Toast.LENGTH_LONG).show();
+			SharedPreferences sharedPref = content.getSharedPreferences("mydata", Context.MODE_PRIVATE);
+			//SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPref.edit();
+			editor.putString("title", title);
+			editor.putString("subject", subject);
+			editor.putString("name", user.getUser_name());
+			
+			//Set<String> the_set = new HashSet<String>();
+			//the_set.add(title);
+			//the_set.add(subject);
+			if(bitmap!=null)
+			{	
+				BitmapConverter ImageConvert = new BitmapConverter();
+				JsonElement encode_image =ImageConvert.serialize(bitmap, null, null);
+				editor.putString("image",encode_image.toString());
+			}
+			
+			editor.commit();
+			finish();
+		}
+		
 		/*final ConnectivityManager connMgr = (ConnectivityManager) EnterCommentsActivity.this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -226,6 +259,9 @@ public class EnterCommentsActivity extends Activity implements
 		finish();
 	}
 
+	/**
+	 * set result for Activity result
+	 */
 	@Override
 	public void onBackPressed() {
 
@@ -267,7 +303,10 @@ public class EnterCommentsActivity extends Activity implements
 	}
 
 	
-
+	/**
+	 * click to add picture, go to image chosser activity
+	 * @param view
+	 */
 	// chose picture request for picture is 5
 	public void addPicture(View view) {
 		//orginnal take picture
