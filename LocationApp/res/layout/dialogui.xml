@@ -38,12 +38,16 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
+        android:background="#00cc00"
+        android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:text="Change" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
+        android:textColor="#FFFFFF"
+        android:background="#3399FF"
         android:layout_height="wrap_content"
         android:text="Location" />
 

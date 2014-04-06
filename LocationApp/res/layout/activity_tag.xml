@@ -27,16 +27,20 @@
 
     <Button
         android:id="@+id/tagbutton2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        
         android:layout_height="wrap_content"
         android:layout_below="@+id/tagedit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
         android:onClick="done"
+        android:textColor="#FFFFFF"
+        android:background="#00cc00"
         android:text="Done" />
 
     <Button
         android:id="@+id/tagbutton1"
+        android:background="@drawable/fast_forward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tagedit"
