@@ -1,4 +1,4 @@
-Team 11 LocalApp
+Team 11 LocationApp
 =====================
 
 Description
