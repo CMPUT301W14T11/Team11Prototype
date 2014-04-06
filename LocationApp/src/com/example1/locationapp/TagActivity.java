@@ -40,6 +40,10 @@ public class TagActivity extends Activity {
 		textview = (TextView) findViewById(R.id.tagtextView1);
 	}
 	//click enter will add tags
+	/**
+	 * use this function to add tags to the comments
+	 * @param v
+	 */
 	public void enter(View v)
 	{
 		
@@ -61,6 +65,10 @@ public class TagActivity extends Activity {
 		}
 	}
 	//click done will go back to MainActivity
+	/**
+	 * go back to MainActivity from tags
+	 * @param v
+	 */
 	public void done(View v)
 	{
 		Intent intent = new Intent();

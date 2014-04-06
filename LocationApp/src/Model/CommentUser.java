@@ -3,7 +3,11 @@ package Model;
 import java.io.Serializable;
 
 import android.graphics.Bitmap;
-
+/**
+ * this class is make profile for the user
+ * @author yazhou
+ *
+ */
 public class CommentUser implements Serializable{
 
 	    private String name;
@@ -16,6 +20,9 @@ public class CommentUser implements Serializable{
 	    private String imageEncode;
 	    private String bio;
 	    private String ProfileEncode;
+	    /**
+	     * constructor for make a user profile
+	     */
 	    public CommentUser()
 	    {
 	    	

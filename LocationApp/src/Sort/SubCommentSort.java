@@ -3,7 +3,11 @@ package Sort;
 import java.util.Comparator;
 
 import Model.Comments;
-
+/**
+ * This is for soring the sub comment by master id
+ * @author yazhou
+ *
+ */
 public class SubCommentSort implements Comparator<Comments>{
 
 	@Override

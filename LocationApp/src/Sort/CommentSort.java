@@ -29,13 +29,16 @@ import Model.Comments;
  * the class CommentSort is used to sort comments by date and picture individually.
  */
 public class CommentSort {
-	Location current_location;
-	double radius= 0.01;
-	HttpClient httpclient;
-	ArrayList<Comments> date_comment_array;
-	Context content;
-    GPSTracker gps ;
-	
+	private Location current_location;
+	private double radius= 0.01;
+	private HttpClient httpclient;
+	private ArrayList<Comments> date_comment_array;
+	private Context content;
+	private GPSTracker gps ;
+	/**
+	 * This is for sorting comment by date
+	 * @return
+	 */
 	public ArrayList<Comments> sortByDate(){
 		
 		date_comment_array = new ArrayList<Comments>();

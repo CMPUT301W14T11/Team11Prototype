@@ -14,9 +14,13 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
+/**
+ * use this class to convert Bitmap to Json, and vice-versa
+ * @author yazhou
+ *
+ */
 public class BitmapConverter implements JsonDeserializer<Bitmap>,JsonSerializer<Bitmap>{
-
+	
 	@Override
 	public JsonElement serialize(Bitmap arg0, Type arg1,
 			JsonSerializationContext arg2) {

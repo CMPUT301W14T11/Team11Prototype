@@ -27,13 +27,19 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
+/**
+ * CommentsModel controller for upload comments
+ * @author yazhou
+ *
+ */
 public class CommentsModel implements CommentController{
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	private Gson gson= new Gson();
 	private ConnectToInternet connect = new ConnectToInternet();
-	
+	/**
+	 * upload comments to server
+	 */
 	@Override
 	public void insertMaster(Comments comm, int number) {
 		HttpClient httpclient = new DefaultHttpClient();
@@ -58,7 +64,11 @@ public class CommentsModel implements CommentController{
 
 	}
 	
-	
+	/**
+	 * conver bitmap to Base64 string
+	 * @param bitmap
+	 * @return
+	 */
 	public String convert_image_to_string(Bitmap bitmap) {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
@@ -66,7 +76,9 @@ public class CommentsModel implements CommentController{
 		String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 		return encoded;
 	}
-	
+	/**
+	 * download from server using location based query
+	 */
 	@Override
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,Context content,HttpClient httpclient,Location current_location,double radius) {
 		HttpPost httpPost = new HttpPost(

@@ -13,7 +13,11 @@ import Model.Comments;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
+/**
+ * use this function to download comments from the serer
+ * @author yazhou
+ *
+ */
 public class LoadFromServer {
 	private Gson gson= new Gson();
 	private HttpClient httpclient= new DefaultHttpClient();

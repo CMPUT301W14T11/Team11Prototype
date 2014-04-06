@@ -7,7 +7,12 @@ import android.content.Context;
 import android.location.Location;
 
 import Model.Comments;
-
+/**
+ * interface for upload comments to server
+ * 
+ * @author yazhou
+ *
+ */
 public interface CommentController {
           
 	public void insertMaster(Comments com, int number);

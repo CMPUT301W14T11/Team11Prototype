@@ -3,7 +3,11 @@ package Controller;
 import java.util.Comparator;
 
 import Model.Comments;
-
+/**
+ * To use this to compare comments by distance 
+ * @author yazhou
+ *
+ */
 public class compara implements Comparator<Comments>{
 
 	@Override

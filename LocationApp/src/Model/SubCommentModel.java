@@ -20,7 +20,11 @@ import Controller.CommentController;
 import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
-
+/**
+ * Subcomments controller for internet upload and download
+ * @author yazhou
+ *
+ */
 public class SubCommentModel implements CommentController{
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
@@ -31,6 +35,9 @@ public class SubCommentModel implements CommentController{
 	public SubCommentModel(Comments comment){
 		this.setComment(comment);
 	}
+	/**
+	 * this is for insert comment to the server
+	 */
 	@Override
 	public void insertMaster(Comments comm, int ServerID)
 	 {
@@ -56,7 +63,13 @@ public class SubCommentModel implements CommentController{
 		 
 	 }
 
-	
+	/**
+	 * use this function for download comments from the server
+	 * @param comment_list1
+	 * @param mID
+	 * @param httpclient
+	 * @return
+	 */
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1, int mID,HttpClient httpclient) {
 		HttpPost httpPost = new HttpPost(
 			"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
