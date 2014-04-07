@@ -11,7 +11,10 @@ public class Compara implements Comparator<Comments>{
 
 	@Override
 	public int compare(Comments lhs, Comments rhs) {
-		return (int) (lhs.getDistance()-rhs.getDistance());
+		 if (lhs.getDistance() > rhs.getDistance())
+			 return 1;
+		 else
+			 return -1;
 	}
 
 }

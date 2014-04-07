@@ -1,6 +1,8 @@
 package com.example1.locationapp;
 
 import java.io.File;
+
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -44,7 +46,8 @@ public class ChoseImageActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chose_image);
-
+		ActionBar bar = getActionBar();
+		bar.hide();
 		Button buttonTakePicture = (Button) findViewById(R.id.buttonTakePicture);
 		buttonTakePicture.setOnClickListener(new OnClickListener() {
 

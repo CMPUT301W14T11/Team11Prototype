@@ -5,6 +5,7 @@ import com.example1.locationapp.R;
 import Controller.LocalFileLoder;
 import Model.CommentUser;
 import Model.UserModel;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -36,7 +37,8 @@ public class ProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_profile);
-
+		ActionBar bar = getActionBar();
+		bar.setTitle("My Profile");
 		Intent intent = getIntent();
 		goduser= (CommentUser) intent.getSerializableExtra("name");
 		textview1 = (TextView) findViewById(R.id.textView188);

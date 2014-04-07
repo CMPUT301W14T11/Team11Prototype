@@ -108,7 +108,7 @@ public class SubCommetsRead extends Activity {
 		comment_list = new ArrayList<Comments>();
 		
 		ActionBar bar = getActionBar();
-		bar.setDisplayHomeAsUpEnabled(false);
+		bar.setHomeButtonEnabled(false);
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);
@@ -123,8 +123,14 @@ public class SubCommetsRead extends Activity {
 		boolean isConnected = activeNetwork != null &&
 		                      activeNetwork.isConnectedOrConnecting();
 		user = fileLoder.loadFromFile();
+		
+		if (user.getUser_name().equals(""))
+			bar.setTitle("Welcome, Guest");
+		else
+			bar.setTitle("Welcome, " + user.getUser_name());
 		if (isConnected)
 		{
+			
 		new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected Void doInBackground(Void... params) {
@@ -150,6 +156,12 @@ public class SubCommetsRead extends Activity {
 			protected void onPostExecute(Void result) {
 				
 				super.onPostExecute(result);
+				for (int i = 0; i<comment_list.size(); i++)
+				{
+					float DistanceResult [] = new float[10];
+					Location.distanceBetween(location.getLatitude(),location.getLongitude(),comment_list.get(i).getLat(),comment_list.get(i).getLon(),DistanceResult);
+					comment_list.get(i).setDistance(DistanceResult[0]);	
+				}
 				Collections.sort(comment_list, new SubCommentSort());
 				ListAdapter.notifyDataSetChanged();
 			}
@@ -169,7 +181,8 @@ public class SubCommetsRead extends Activity {
 			gps.showSettingsAlert();
 		}
 
-
+		location.setLatitude(intent.getDoubleExtra("latitude",0));
+		location.setLongitude(intent.getDoubleExtra("longitude",0));		
 		longitude = location.getLongitude();
 		latitude = location.getLatitude();
 		View footerView = ((LayoutInflater) this
@@ -377,7 +390,7 @@ public class SubCommetsRead extends Activity {
 						@Override
 						protected Void doInBackground(Void... params) {
 							comment_list.clear();					
-							comment_list=subModel.get_comments(comment_list, number,httpclient);					
+							comment_list=subModel.get_comments(comment_list, number,httpclient);
 							return null;
 						}
 
@@ -385,6 +398,12 @@ public class SubCommetsRead extends Activity {
 						protected void onPostExecute(Void result) {
 							
 							super.onPostExecute(result);
+							for (int i = 0; i<comment_list.size(); i++)
+							{
+								float DistanceResult [] = new float[10];
+								Location.distanceBetween(location.getLatitude(),location.getLongitude(),comment_list.get(i).getLat(),comment_list.get(i).getLon(),DistanceResult);
+								comment_list.get(i).setDistance(DistanceResult[0]);	
+							}
 							Collections.sort(comment_list, new SubCommentSort());
 							ListAdapter.notifyDataSetChanged();
 						}

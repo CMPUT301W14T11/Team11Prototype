@@ -31,7 +31,7 @@ public class GPSTracker extends Service implements LocationListener{
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; 
  
     // The minimum time between updates in milliseconds  (1 second)
-    private static final long MIN_TIME_BW_UPDATES = 1000*60;
+    private static final long MIN_TIME_BW_UPDATES = 1000;
  
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -107,13 +107,16 @@ public class GPSTracker extends Service implements LocationListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
- 
+
         return location;
     }
     
     
     
-    
+ 
+
+ 
+
     
     
     

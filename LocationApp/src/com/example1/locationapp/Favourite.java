@@ -77,10 +77,12 @@ public class Favourite extends Activity {
 		}
 		
 		Intent intent = getIntent();
-		code = intent.getIntExtra("code", 0);		
+		code = intent.getIntExtra("code", 0);
+		current_location.setLatitude(intent.getDoubleExtra("latitude",0));
+		current_location.setLongitude(intent.getDoubleExtra("longitude",0));
 		ActionBar bar = getActionBar();
 		if (code == 0)
-			bar.setTitle("Faviourite");
+			bar.setTitle("Favourite");
 		else
 			bar.setTitle("Personal Saving");
 		
@@ -205,6 +207,7 @@ public class Favourite extends Activity {
 							json1, elasticSearchSearchResponseType);
 					int num = 0;
 					user.getFaviourte().get(i).clean();
+					
 					ArrayList<Comments> comment = new ArrayList<Comments>();
 					for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 						Comments comms = r.getSource();
@@ -217,7 +220,8 @@ public class Favourite extends Activity {
 					{
 						if (num==0)
 						{
-							user.getFaviourte().get(i).getComment().setDistance(save.getDistance(user.getFaviourte().get(i).getComment().getLatitude(), user.getFaviourte().get(i).getComment().getLongitude(), current_location));
+							user.getFaviourte().get(i).getComment().setDistance(save.getDistance(comment.get(i1).getLat(),
+									comment.get(i1).getLon(), current_location));
 							user.getFaviourte().get(i).getComment().setImage(comment.get(i1).getImage_encode());
 							user.getFaviourte().get(i).getComment().setText(comment.get(i1).getSubject_comment());
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());

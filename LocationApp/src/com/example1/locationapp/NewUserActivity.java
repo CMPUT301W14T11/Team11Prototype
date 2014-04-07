@@ -2,6 +2,7 @@ package com.example1.locationapp;
 
 import com.example1.locationapp.R;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class NewUserActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_user);
+		ActionBar bar = getActionBar();
+		bar.hide();
 		name = (EditText) findViewById(R.id.editText1);
 		submit = (Button) findViewById(R.id.Submit);
 		submit.setOnClickListener(new OnClickListener() {
