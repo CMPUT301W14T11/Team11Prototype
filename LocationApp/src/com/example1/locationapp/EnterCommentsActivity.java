@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+
 import Controller.BitmapConverter;
 import Controller.LocalFileLoder;
 import InternetConnection.ConnectToInternet;
@@ -30,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 /**
  * EnterCommentActivity class takes user 
@@ -51,9 +51,6 @@ public class EnterCommentsActivity extends Activity implements
 	private GPSTracker gps;
 	private ImageView imageview;
 	private int number;
-	private double longitude;
-	private double latitude;
-	private Gson gson;
 	private Context content;
 	private Bitmap bitmap;
 	private IDModel id_obj;
@@ -85,9 +82,6 @@ public class EnterCommentsActivity extends Activity implements
 			gps.stopUsingGPS();
 		}
 
-		Intent intent = getIntent();
-		latitude = intent.getDoubleExtra("lat", 0);
-		longitude = intent.getDoubleExtra("lon", 0);
 		number = 0;
 		LocalFileLoder loader = new LocalFileLoder(this);
 		user = loader.loadFromFile();
@@ -100,7 +94,6 @@ public class EnterCommentsActivity extends Activity implements
 			Toast.makeText(content, "Can't get location", Toast.LENGTH_LONG)
 					.show();
 		}*/
-		gson = new Gson();
 
 	}
 	/**

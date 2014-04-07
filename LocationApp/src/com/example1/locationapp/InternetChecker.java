@@ -19,7 +19,6 @@ import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
@@ -31,8 +30,7 @@ public class InternetChecker extends BroadcastReceiver {
 	
 	private int MasterId;
 	private boolean connect = false;
-	private double lat;
-	private double lon;
+
 	/**
 	 * this is trying to received network states, if the app is connected to
 	 * Internet then it will start loading in Main-activity

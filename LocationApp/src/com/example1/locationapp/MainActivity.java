@@ -123,10 +123,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		 * @author zuo2
 		 */
 		if (wifi.isConnected() || mobile.isConnected()) {
-			System.out.println("connected");
 
 		} else {
-			System.out.println("outout");
 			Toast.makeText(this, "No Internet!", Toast.LENGTH_LONG).show();
 
 		}
@@ -139,7 +137,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			gps = new GPSTracker(this);
 			if (gps.canGetLocation) {
 				current_location = gps.getLocation();
-				System.out.println("can get location");
 				gps.stopUsingGPS();
 			} else { 
 				// if gps is not turned on then , ask user to turn it on
@@ -199,7 +196,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			@Override
 			public void onClick(View v) {
 
-				System.out.println("footer clicked");
 				new AsyncTask<Void, Void, Void>() {
 
 					@Override
@@ -222,10 +218,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					@Override
 					protected Void doInBackground(Void... params) {
 
-						System.out.println("unrun");
 						get_comments("get some comments man!");
 						radius = radius + 0.1;
-						System.out.println("runned");
 
 						return null;
 					}
@@ -279,7 +273,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 							final Comments SelectedComment = comment_array.get(arg2);
 							if(SelectedComment.getUserName().equals(CheckName))
 							{   
-								System.out.println("edit my comment");
 								final Dialog dialogui = new Dialog(content);
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
@@ -310,7 +303,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 										if(flag_location==0)
 										{	
 										comment_array.get(arg2).setThe_comment(titleedit.getText().toString());
-										//System.out.println("comment has changed"+comment_array.get(arg2).getThe_comment());
 										comment_array.get(arg2).setSubject_comment(subjectedit.getText().toString());
 										adapter.notifyDataSetChanged();
 										
@@ -417,7 +409,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 											flag=1;
 											break;
 										}
-										System.out.println(json1+"profilehehe");
 										
 										
 										if (flag==1)
@@ -474,10 +465,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("idis"+item.getItemId());
         switch (item.getItemId()) {
 		case R.id.item1:
-			System.out.println("new is clicked");
 			user = fileLoader.loadFromFile();
 			if (user.getUser_name().equals("")) {
 				Toast.makeText(MainActivity.this,
@@ -497,36 +486,44 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		case R.id.item2:
 			// this is to start change location activity
 			// request code is 7
-			final Dialog dialogui = new Dialog(content);
-			dialogui.setContentView(R.layout.dialogui);
-			dialogui.setTitle("Change Location");
-			dialogui.show();
-			
-			final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
-			final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
-			Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
-			Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
-			final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
-			final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
-			locationview.setText("Enter Latitude");
-			locationview2.setText("Enter Longitude");
-			titleedit.setHint("Lat");
-			subjectedit.setHint("Lon");
-			Changebutton.setVisibility(View.INVISIBLE);
-			Locationbutton.setText("Change Location");
-			Locationbutton.setOnClickListener(new OnClickListener() {
-				/**
-				 * Change location of the comments
-				*/
-				@Override
-				public void onClick(View v) {
-					current_location.setLatitude(Double.parseDouble(titleedit.getText().toString()));
-					current_location.setLongitude(Double.parseDouble(subjectedit.getText().toString()));
-					dialogui.dismiss();
-					Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
-				}
-			});
-	
+			user = fileLoader.loadFromFile();
+			if (user.getUser_name().equals("")) {
+				Toast.makeText(MainActivity.this,
+						"You don not have right to change location",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				final Dialog dialogui = new Dialog(content);
+				dialogui.setContentView(R.layout.dialogui);
+				dialogui.setTitle("Change Location");
+				dialogui.show();
+				
+				final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
+				final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
+				Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
+				Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
+				final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
+				final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+				locationview.setText("Enter Latitude");
+				locationview2.setText("Enter Longitude");
+				titleedit.setHint("Lat");
+				subjectedit.setHint("Lon");
+				Changebutton.setVisibility(View.INVISIBLE);
+				Locationbutton.setText("Change Location");
+				Locationbutton.setOnClickListener(new OnClickListener() {
+					/**
+					 * Change location of the comments
+					*/
+					@Override
+					public void onClick(View v) {
+						current_location.setLatitude(Double.parseDouble(titleedit.getText().toString()));
+						current_location.setLongitude(Double.parseDouble(subjectedit.getText().toString()));
+						dialogui.dismiss();
+						Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
+					}
+				});
+			}	
 			break;
 		case R.id.item3:
 			sortByDate();
@@ -536,92 +533,115 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			break;
 			
 		case R.id.item5:
-			Intent intent3 = new Intent(MainActivity.this, Favourite.class);
-			intent3.putExtra("code", 0);
-			startActivityForResult(intent3, 9);
+			user = fileLoader.loadFromFile();
+			if (user.getUser_name().equals("")) {
+				Toast.makeText(MainActivity.this,
+						"Guest has no right to use this feature",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				Intent intent3 = new Intent(MainActivity.this, Favourite.class);
+				intent3.putExtra("code", 0);
+				startActivityForResult(intent3, 9);
+			}	
 			break;
 		
 		case R.id.item6:
-			Intent intent6 = new Intent(MainActivity.this, Favourite.class);
-			intent6.putExtra("code", 1);
-			startActivity(intent6);
+			user = fileLoader.loadFromFile();
+			if (user.getUser_name().equals("")) {
+				Toast.makeText(MainActivity.this,
+						"Guest has no right to use this feature",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				Intent intent6 = new Intent(MainActivity.this, Favourite.class);
+				intent6.putExtra("code", 1);
+				startActivity(intent6);
+			}			
 			break;
 			
 		case R.id.item7:
 			Intent intent7 = new Intent(MainActivity.this, MainPage.class);
 			intent7.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			user.setUser_name("");
-			// user.setUser_location(null);
 			fileSaver.saveInFile(user);
 			startActivity(intent7);
 			break;
 		case R.id.item99:
 			final String UserName = user.getUser_name();
-			System.out.println("name is:"+UserName);
-			
-			new AsyncTask<Void,Void,Void>()
+			if (user.getUser_name().equals("")) {
+				Toast.makeText(MainActivity.this,
+						"Guest has no right to use this feature",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
 			{
-				/**
-				 * Get profile out the comments authors
-				 * @return null
-				*/
+				new AsyncTask<Void,Void,Void>()
+				{
+					/**
+					 * Get profile out the comments authors
+					 * @return null
+					*/
 
-				@Override
-				protected Void doInBackground(Void... params) {
-					try{
-					Gson gson = new Gson();
-					
-					HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
-					String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
-					StringEntity entity;
-					entity = new StringEntity(query_profile);
-					httppost.setHeader("Accept", "application/json");
-					httppost.setEntity(entity);
-					HttpResponse response = httpclient.execute(httppost);
-					String json1 = connects.getEntityContent(response);
-					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
-					}.getType();
-					ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
-							json1, elasticSearchSearchResponseType);
-					int flag = 0;
-					
-					for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
-					{   // get some result, then flag is 1
-						someuser = r.getSource();
-						flag=1;
-						break;
+					@Override
+					protected Void doInBackground(Void... params) {
+						try{
+						Gson gson = new Gson();
+						
+						HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
+						String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
+						StringEntity entity;
+						entity = new StringEntity(query_profile);
+						httppost.setHeader("Accept", "application/json");
+						httppost.setEntity(entity);
+						HttpResponse response = httpclient.execute(httppost);
+						String json1 = connects.getEntityContent(response);
+						Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
+						}.getType();
+						ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
+								json1, elasticSearchSearchResponseType);
+						int flag = 0;
+						
+						for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
+						{   // get some result, then flag is 1
+							someuser = r.getSource();
+							flag=1;
+							break;
+						}
+						
+						if (flag==0)
+						{
+						
+							//no result, result code 12345
+							Intent intent = new Intent();
+							intent.putExtra("username",UserName);
+							intent.setClass(content, NewProfileActivity.class);
+							startActivityForResult(intent, 12345);
+						
+						}
+						if (flag==1)
+						{
+							// have result , result code 939
+							Intent intent_profile = new Intent();
+							intent_profile.setClass(content, ProfileActivity.class);
+							intent_profile.putExtra("name",someuser);
+							startActivityForResult(intent_profile, 939);
+						}
+						
+						}
+						 catch (ClientProtocolException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						return null;
 					}
-					System.out.println(json1+"profilehehe");
 					
-					if (flag==0)
-					{
-					
-						//no result, result code 12345
-						Intent intent = new Intent();
-						intent.putExtra("username",UserName);
-						intent.setClass(content, NewProfileActivity.class);
-						startActivityForResult(intent, 12345);
-					
-					}
-					if (flag==1)
-					{
-						// have result , result code 939
-						Intent intent_profile = new Intent();
-						intent_profile.setClass(content, ProfileActivity.class);
-						intent_profile.putExtra("name",someuser);
-						startActivityForResult(intent_profile, 939);
-					}
-					
-					}
-					 catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					return null;
-				}
-				
-			}.execute();
+				}.execute();
+			}
+			
 			break;
 		case R.id.menu_item_search:
 			
@@ -646,7 +666,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         
 		super.onActivityResult(requestCode, resultCode, data);
-		System.out.println("code is " + requestCode);
 		switch (requestCode) {
 		case 1:
 
@@ -662,14 +681,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				double lon = data.getDoubleExtra("lon",
 						current_location.getLongitude());
 
-				System.out.println("current:" + current_location.getLatitude()
-						+ "wocao" + current_location.getLongitude());
 				current_location.setLatitude(lat);
-				current_location.setLongitude(lon);
-				System.out.println("new current:"
-						+ current_location.getLatitude() + "wocao"
-						+ current_location.getLongitude());
-			
+				current_location.setLongitude(lon);		
 				comment_array.clear();
 				adapter.notifyDataSetChanged();
 				get_comments("get comments using new locaiton");
@@ -799,11 +812,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		} catch (ClientProtocolException e) {
 
-			System.out.println("client exe");
 			e.printStackTrace();
 		} catch (IOException e) {
-
-			System.out.println("IO exe");
+			
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 
@@ -832,12 +843,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			@Override
 			protected Void doInBackground(Void... params) {
 
-				System.out.println("okay123");
 				get_comments("get from server");
-				// comment_array.add(new Comments(0,0,new
-				// DateTime(),"Title:How are you","Things around you that called life are build by people no smarter than you,eveyone can achieve great result if they work hard",current_location,current_location.getLongitude(),current_location.getLatitude()));
 				radius = radius + 0.1;
-				System.out.println("okay1234");
 				return null;
 			}
 
