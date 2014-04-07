@@ -45,7 +45,6 @@ public class Playtube extends Activity {
 			@Override
 			public void onMapLongClick(LatLng arg0) {
 				
-				System.out.println("long clicked");
 				map.addMarker(new MarkerOptions()
 						.position(arg0)
 						.title("new location")
@@ -59,7 +58,6 @@ public class Playtube extends Activity {
 			public boolean onMarkerClick(Marker arg0) {
 				
 				new_positon = arg0.getPosition();
-				System.out.println("markerclicked");
 				Intent intent = new Intent();
 				intent.putExtra("lat", new_positon.latitude);
 				intent.putExtra("lon", new_positon.longitude);

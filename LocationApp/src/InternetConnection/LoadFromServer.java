@@ -30,8 +30,6 @@ public class LoadFromServer {
 		HttpResponse response = httpclient.execute(httpPost);
 		
 		String json1 = connect.getEntityContent(response);
-		System.out.println(response.getStatusLine().toString() + "status");
-		System.out.println("search result is the:"+json1);
 		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 		}.getType();
 		ElasticSearchSearchResponse<Comments> esResponse = gson.fromJson(

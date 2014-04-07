@@ -81,8 +81,6 @@ public class EditActivity extends Activity {
 							elasticSearchResponseType);
 					// We get the recipe from it!
 					newcomments = esResponse.getSource();
-					// System.out.println(recipe.toString());
-					// httpget.releaseConnection();
 				} catch (ClientProtocolException e) {
 
 					e.printStackTrace();
@@ -169,9 +167,7 @@ public class EditActivity extends Activity {
     	    		stringentity = new StringEntity(gson.toJson(newcomments));
     	    		httpPost.setHeader("Accept", "application/json");
     	    		httpPost.setEntity(stringentity);
-    	    		HttpResponse response = null;
-    	    		response = httpclient.execute(httpPost);
-    	    		System.out.println("put response:"+response.getStatusLine());
+    	    		httpclient.execute(httpPost);
     	    		}
     	    		 catch (ClientProtocolException e) {
     	    			e.printStackTrace();

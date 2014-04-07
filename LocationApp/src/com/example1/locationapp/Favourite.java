@@ -218,11 +218,9 @@ public class Favourite extends Activity {
 			
 		} catch (ClientProtocolException e) {
 			
-			System.out.println("client exe");
 			e.printStackTrace();
 		} catch (IOException e) {
 			
-			System.out.println("IO exe");
 			e.printStackTrace();
 		}
 	}

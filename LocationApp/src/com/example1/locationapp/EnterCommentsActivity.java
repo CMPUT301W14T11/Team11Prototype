@@ -1,6 +1,5 @@
 package com.example1.locationapp;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,7 +12,6 @@ import Model.CommentsModel;
 import Model.IDModel;
 import Model.UserModel;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,7 +42,6 @@ public class EnterCommentsActivity extends Activity implements
 	private EnterCommentsActivityProduct enterCommentsActivityProduct = new EnterCommentsActivityProduct();
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
-	private File photoFile;
 	private EditText title_edit, subject_edit;
 	private Button post_button, picture_add_button;
 	private Location location;
@@ -64,7 +61,6 @@ public class EnterCommentsActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_comments);
 		// Show the Up button in the action bar.
-		// setupActionBar();
 		id_obj = new IDModel(0);
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		picture_add_button = (Button) findViewById(R.id.button2);
@@ -86,14 +82,7 @@ public class EnterCommentsActivity extends Activity implements
 		LocalFileLoder loader = new LocalFileLoder(this);
 		user = loader.loadFromFile();
 		
-		/*try {
-			location.setLatitude(latitude);
-			location.setLongitude(longitude);
-			System.out.println("cclocation" + latitude + "   " + longitude);
-		} catch (NullPointerException e) {
-			Toast.makeText(content, "Can't get location", Toast.LENGTH_LONG)
-					.show();
-		}*/
+
 
 	}
 	/**
@@ -118,15 +107,11 @@ public class EnterCommentsActivity extends Activity implements
 		{
 			Toast.makeText(getApplicationContext(), "No internet right now, Comement will be send later",Toast.LENGTH_LONG).show();
 			SharedPreferences sharedPref = content.getSharedPreferences("mydata", Context.MODE_PRIVATE);
-			//SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putString("title", title);
 			editor.putString("subject", subject);
 			editor.putString("name", user.getUser_name());
 			
-			//Set<String> the_set = new HashSet<String>();
-			//the_set.add(title);
-			//the_set.add(subject);
 			if(bitmap!=null)
 			{	
 				BitmapConverter ImageConvert = new BitmapConverter();
@@ -138,40 +123,12 @@ public class EnterCommentsActivity extends Activity implements
 			finish();
 		}
 		
-		/*final ConnectivityManager connMgr = (ConnectivityManager) EnterCommentsActivity.this
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		final android.net.NetworkInfo wifi = connMgr
-				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-		final android.net.NetworkInfo mobile = connMgr
-				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		if(!wifi.isConnected() || !mobile.isConnected())
-		{
-			Toast.makeText(getApplicationContext(), "No internet right now, Comement will be send later",Toast.LENGTH_LONG).show();
-			SharedPreferences sharedPref = EnterCommentsActivity.this.getPreferences(Context.MODE_PRIVATE);
-			SharedPreferences.Editor editor = sharedPref.edit();
-			Set<String> the_set = new HashSet<String>();
-			the_set.add(title);
-			the_set.add(subject);
-			if(bitmap!=null)
-			{
-				String encode = convert_image_to_string(bitmap);
-				the_set.add(encode);
-			}
-			editor.putStringSet("comments",the_set);
-			editor.commit();
-			finish();
-		}*/
 		
 		new AsyncTask<Void, Void, Void>() {
-			ProgressDialog dialog1 = new ProgressDialog(content);
 
 			@Override
 			protected void onPreExecute() {
 
-				// dialog1.setTitle("Loading cause your internet is too slow!");
-				// dialog1.show();
 				super.onPreExecute();
 				new AsyncTask<Void, Void, Void>() {
 
@@ -195,15 +152,11 @@ public class EnterCommentsActivity extends Activity implements
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),
 							location.getLongitude(),location.getLatitude(), user.getUser_name());
-					System.out.println("this is so cool");
 					commentsModel.insertMaster(new_comment,number);
-					System.out.println("this is so cool2!" + number);
 				} else {
 					user = fl.loadFromFile();
-					System.out.println("image posted");
 					BitmapConverter ImageConvert = new BitmapConverter();
 					JsonElement encode_image =ImageConvert.serialize(bitmap, null, null);
-					//String encode_image = convert_image_to_string(bitmap);
 					final Comments new_comment = new Comments(0, number, 0, 0,
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),
@@ -306,50 +259,18 @@ public class EnterCommentsActivity extends Activity implements
 		//orginnal take picture
 		Intent intent = new Intent(this, ChoseImageActivity.class);
 		startActivityForResult(intent, 5);
-		//originnal take picture
-		/*int REQUEST_IMAGE_CAPTURE = 200;
-		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    // Ensure that there's a camera activity to handle the intent
-	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-	        // Create the File where the photo should go
-	        photoFile = null;
-	        try {
-	            photoFile = createImageFile();
-	        } catch (IOException ex) {
-	            // Error occurred while creating the File
-	            System.out.println("file saving error");
-	        }
-	        // Continue only if the File was successfully created
-	        if (photoFile != null) {
-	            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-	                    Uri.fromFile(photoFile));
-	            
-	            startActivityForResult(takePictureIntent,200);
-	        }
-	    }*/
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		/*if (requestCode==200 && resultCode==RESULT_OK)
-		{   System.out.println("absulute path is:"+mCurrentPhotoPath);
-			bitmap = BitmapFactory.decodeFile(photoFile.getAbsoluteFile().getAbsolutePath());
-			
-			//Bundle extras = data.getExtras();
-			//Bitmap imageBitmap = (Bitmap) extras.get("data");
-			
-			imageview.setImageBitmap(bitmap);
-			
-		}*/
+
 		if (resultCode == RESULT_OK) {
 			String file = data.getStringExtra("image");
 			String file2 = data.getStringExtra("choseimage");
 			if (file != null) {
 				bitmap = BitmapFactory.decodeFile(file);
-				System.out.println("haha" + file);
 			} else {
 				bitmap = BitmapFactory.decodeFile(file2);
-				System.out.println("haha2" + file);
 			}
 
 			imageview.setImageBitmap(bitmap);

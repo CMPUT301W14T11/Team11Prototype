@@ -89,7 +89,6 @@ public class ChoseImageActivity extends Activity implements
 		try {
 			pbar.setVisibility(View.VISIBLE);
 			filePath = imageChooserManager.choose();
-			System.out.println("gotiamge" + filePath);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -145,7 +144,6 @@ public class ChoseImageActivity extends Activity implements
 				if (image != null) {
 					textViewFile.setText(image.getFilePathOriginal());
 					filePath = image.getFilePathOriginal();
-					System.out.println(filePath + "theout");
 					filepath2 = filePath;
 					imageViewThumbnail.setImageURI(Uri.parse(new File(image
 							.getFileThumbnail()).toString()));
