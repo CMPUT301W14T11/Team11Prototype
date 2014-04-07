@@ -57,7 +57,7 @@ public class NewProfileActivity extends Activity {
 		godusr = (CommentUser) intent.getSerializableExtra("object");
 		if(user_uuid!=null)
 		{
-		flag=1;
+			flag=1;
 		}
 		httpclient = new DefaultHttpClient();
 		imageview = (ImageView) findViewById(R.id.imageView1);
@@ -71,6 +71,22 @@ public class NewProfileActivity extends Activity {
 				startActivityForResult(intent, 654);
 			}
 		});
+		Eage = (EditText) findViewById(R.id.EditText010);
+		Efacebook = (EditText) findViewById(R.id.EditText030);
+		Elinkedin = (EditText) findViewById(R.id.EditText040);
+		Ephone = (EditText) findViewById(R.id.EditText050);
+		Eemail = (EditText) findViewById(R.id.editText20);
+		Ebio = (EditText) findViewById(R.id.editText1);
+		CreateButton = (Button) findViewById(R.id.new_profile_button);
+		if(godusr!=null)
+		{
+			Eage.setText(godusr.getAge());
+			Efacebook.setText(godusr.getFacebook());
+			Elinkedin.setText(godusr.getLinkedIn());
+			Ephone.setText(godusr.getPhone());
+			Eemail.setText(godusr.getEmail());
+			Ebio.setText(godusr.getBio());
+		}
 		
 	}
 	
@@ -103,18 +119,7 @@ public class NewProfileActivity extends Activity {
      */
 	public void upload_profile(View v)
 	{   
-	Eage = (EditText) findViewById(R.id.EditText010);
-	Efacebook = (EditText) findViewById(R.id.EditText030);
-	Elinkedin = (EditText) findViewById(R.id.EditText040);
-	Ephone = (EditText) findViewById(R.id.EditText050);
-	Eemail = (EditText) findViewById(R.id.editText20);
-	Ebio = (EditText) findViewById(R.id.editText1);
-	CreateButton = (Button) findViewById(R.id.new_profile_button);
-	if(godusr!=null)
-	{
-		Eage.setText(godusr.getAge());
-		Efacebook.setText(godusr.getFacebook());
-	}
+	
 		final CommentUser NewUser =new CommentUser();
 		NewUser.setAge(Eage.getText().toString());
 		NewUser.setName(theUsername);
@@ -132,6 +137,7 @@ public class NewProfileActivity extends Activity {
 		if(flag==1)
 		{
 			NewUser.setUudi(user_uuid);
+			
 		}
 		else
 		{
