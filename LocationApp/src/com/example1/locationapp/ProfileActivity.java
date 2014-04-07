@@ -96,6 +96,7 @@ public class ProfileActivity extends Activity {
 				intent.setClass(getApplicationContext(), NewProfileActivity.class);
 				intent.putExtra("username",user.getUser_name());
 				intent.putExtra("uuid",uuid);
+				intent.putExtra("object", goduser);
 				startActivity(intent);
 				ProfileActivity.this.finish();
 			}
