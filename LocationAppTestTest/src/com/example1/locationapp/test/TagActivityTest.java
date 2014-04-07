@@ -10,6 +10,7 @@ import android.widget.Button;
 
 
 public class TagActivityTest extends ActivityInstrumentationTestCase2<TagActivity> {
+	@SuppressWarnings("unused")
 	private Instrumentation instrumentation;
 	private Activity activity;
 	public TagActivityTest() {

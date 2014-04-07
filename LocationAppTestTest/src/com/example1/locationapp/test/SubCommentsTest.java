@@ -13,12 +13,13 @@ import com.example1.locationapp.SubCommetsRead;
 public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommetsRead> {
 	public SubCommentsTest() {
 		super(SubCommetsRead.class);
-		// TODO Auto-generated constructor stub
 	}
 
 
 	private Comments comments ;
+	@SuppressWarnings("unused")
 	private SubCommetsRead subc = new SubCommetsRead();
+	@SuppressWarnings("unused")
 	private ArrayList<Comments> comm = new ArrayList<Comments>();
 	private SubCommentModel subCon= new SubCommentModel(comments);
 	private Date date = new Date();

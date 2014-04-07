@@ -3,13 +3,10 @@ package com.example1.locationapp.test;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import Model.Comments;
 import Model.SubCommentModel;
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.os.AsyncTask;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.MainActivity;
