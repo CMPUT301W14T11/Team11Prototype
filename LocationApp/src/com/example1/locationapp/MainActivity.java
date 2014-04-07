@@ -534,7 +534,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			user = fileLoader.loadFromFile();
 			if (user.getUser_name().equals("")) {
 				Toast.makeText(MainActivity.this,
-						"You don not have right to change location",
+						"You don not have right to use this feature",
 						Toast.LENGTH_SHORT).show();
 			}
 			else
@@ -546,9 +546,18 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			break;
 		
 		case R.id.item6:
-			Intent intent6 = new Intent(MainActivity.this, Favourite.class);
-			intent6.putExtra("code", 1);
-			startActivity(intent6);
+			user = fileLoader.loadFromFile();
+			if (user.getUser_name().equals("")) {
+				Toast.makeText(MainActivity.this,
+						"You don not have right to use this feature",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				Intent intent6 = new Intent(MainActivity.this, Favourite.class);
+				intent6.putExtra("code", 1);
+				startActivity(intent6);
+			}
 			break;
 			
 		case R.id.item7:
@@ -561,68 +570,78 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		case R.id.item99:
 			final String UserName = user.getUser_name();
 			
-			new AsyncTask<Void,Void,Void>()
-			{
-				/**
-				 * Get profile out the comments authors
-				 * @return null
-				*/
 
-				@Override
-				protected Void doInBackground(Void... params) {
-					try{
-					Gson gson = new Gson();
-					
-					HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
-					String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
-					StringEntity entity;
-					entity = new StringEntity(query_profile);
-					httppost.setHeader("Accept", "application/json");
-					httppost.setEntity(entity);
-					HttpResponse response = httpclient.execute(httppost);
-					String json1 = connects.getEntityContent(response);
-					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
-					}.getType();
-					ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
-							json1, elasticSearchSearchResponseType);
-					int flag = 0;
-					
-					for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
-					{   // get some result, then flag is 1
-						someuser = r.getSource();
-						flag=1;
-						break;
+			if (user.getUser_name().equals("")) {
+				Toast.makeText(MainActivity.this,
+						"You don not have right to add profile",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				new AsyncTask<Void,Void,Void>()
+				{
+					/**
+					 * Get profile out the comments authors
+					 * @return null
+					*/
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						try{
+						Gson gson = new Gson();
+						
+						HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
+						String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
+						StringEntity entity;
+						entity = new StringEntity(query_profile);
+						httppost.setHeader("Accept", "application/json");
+						httppost.setEntity(entity);
+						HttpResponse response = httpclient.execute(httppost);
+						String json1 = connects.getEntityContent(response);
+						Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
+						}.getType();
+						ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
+								json1, elasticSearchSearchResponseType);
+						int flag = 0;
+						
+						for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
+						{   // get some result, then flag is 1
+							someuser = r.getSource();
+							flag=1;
+							break;
+						}
+						
+						if (flag==0)
+						{
+						
+							//no result, result code 12345
+							Intent intent = new Intent();
+							intent.putExtra("username",UserName);
+							intent.setClass(content, NewProfileActivity.class);
+							startActivityForResult(intent, 12345);
+						
+						}
+						if (flag==1)
+						{
+							// have result , result code 939
+							Intent intent_profile = new Intent();
+							intent_profile.setClass(content, ProfileActivity.class);
+							intent_profile.putExtra("name",someuser);
+							startActivityForResult(intent_profile, 939);
+						}
+						
+						}
+						 catch (ClientProtocolException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						return null;
 					}
 					
-					if (flag==0)
-					{
-					
-						//no result, result code 12345
-						Intent intent = new Intent();
-						intent.putExtra("username",UserName);
-						intent.setClass(content, NewProfileActivity.class);
-						startActivityForResult(intent, 12345);
-					
-					}
-					if (flag==1)
-					{
-						// have result , result code 939
-						Intent intent_profile = new Intent();
-						intent_profile.setClass(content, ProfileActivity.class);
-						intent_profile.putExtra("name",someuser);
-						startActivityForResult(intent_profile, 939);
-					}
-					
-					}
-					 catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					return null;
-				}
-				
-			}.execute();
+				}.execute();			
+			}
+			
 			break;
 		case R.id.menu_item_search:
 			
