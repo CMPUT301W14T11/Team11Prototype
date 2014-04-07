@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+
 import Controller.BitmapConverter;
 import Controller.LocalFileLoder;
 import InternetConnection.ConnectToInternet;
@@ -30,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 /**
  * EnterCommentActivity class takes user 
@@ -51,9 +51,6 @@ public class EnterCommentsActivity extends Activity implements
 	private GPSTracker gps;
 	private ImageView imageview;
 	private int number;
-	private double longitude;
-	private double latitude;
-	private Gson gson;
 	private Context content;
 	private Bitmap bitmap;
 	private IDModel id_obj;
@@ -85,9 +82,6 @@ public class EnterCommentsActivity extends Activity implements
 			gps.stopUsingGPS();
 		}
 
-		Intent intent = getIntent();
-		latitude = intent.getDoubleExtra("lat", 0);
-		longitude = intent.getDoubleExtra("lon", 0);
 		number = 0;
 		LocalFileLoder loader = new LocalFileLoder(this);
 		user = loader.loadFromFile();
@@ -100,7 +94,6 @@ public class EnterCommentsActivity extends Activity implements
 			Toast.makeText(content, "Can't get location", Toast.LENGTH_LONG)
 					.show();
 		}*/
-		gson = new Gson();
 
 	}
 	/**
@@ -273,25 +266,30 @@ public class EnterCommentsActivity extends Activity implements
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
-
+	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.enter_comments, menu);
 		return true;
 	}
-
+	
+	
+	/**
+	 * This ID represents the Home or Up button. In the case of this
+	 * activity, the Up button is shown. Use NavUtils to allow users
+	 * to navigate up one level in the application structure. For
+	 * more details, see the Navigation pattern on Android Design:
+	 * http://developer.android.com/design/patterns/navigation.html#up-vs-back
+	 * @param item
+	 * @author zuo2
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}

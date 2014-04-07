@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 /**
  * Used to load file from local
  * @author bqi
- *
  */
 public class LocalFileLoder
 {
@@ -40,7 +39,7 @@ public class LocalFileLoder
 	public void Exist()
 	{
 		 try {
-             FileInputStream fis = context.openFileInput(FILENAME);
+             context.openFileInput(FILENAME);
              fileExist=true;
              
 		 } catch (FileNotFoundException e) {

@@ -11,9 +11,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 /**
  * this class is the base of the mainActivity
- * It has the frame action bar and refresh part;
- * @author qyu4
- *
+ * It has the frame action bar
+ * when you pull the action bar the list view will refreshed
+ * @author zuo2
+ * 
  */
 public class BaseActivity extends Activity {
 
@@ -40,9 +41,8 @@ public class BaseActivity extends Activity {
 	@Override
 	/**
 	 *  This method is for menu. This menu items will appear in all
-		 activities extends this class. I have use this menus to navigate
-		 between activities. You can change this code as you wish
-		
+	 *  activities extends this class. I have use this menus to navigate
+	 *  between activities.
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -59,8 +59,9 @@ public class BaseActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	/**
-	 This method will override by child class. Then base class can get the
-	 fragment
+	 *This method will override by child class. Then base class can get the
+	 *fragment
+	 *@return null
 	 */
 	protected Fragment getSampleFragment() {
 		return null;

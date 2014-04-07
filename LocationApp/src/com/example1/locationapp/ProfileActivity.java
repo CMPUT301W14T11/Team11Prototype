@@ -24,7 +24,6 @@ import android.widget.Toast;
 /**
  * for user owner or other user to watch the information of the user.
  * @author zuo2
- *
  */
 
 public class ProfileActivity extends Activity {
@@ -32,6 +31,7 @@ public class ProfileActivity extends Activity {
 	private TextView textview1,textview2,textview3,textview4,textview5,textview6,textview7;
 	private ImageView imageview;
 	private Bitmap bitmap;
+	private String uuid="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,6 +50,7 @@ public class ProfileActivity extends Activity {
 		textview5 = (TextView) findViewById(R.id.textView488);
 		textview6 = (TextView) findViewById(R.id.textView688);
 		textview7 = (TextView) findViewById(R.id.textView8);
+		uuid = goduser.getUudi();
 		textview1.setText(goduser.getName());
 		textview2.setText(goduser.getAge());
 		textview3.setText(goduser.getFacebook());
@@ -66,20 +67,28 @@ public class ProfileActivity extends Activity {
     	bitmap=null;
 		}
 	}
+	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return true
+	 */
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.profile, menu);
 		return true;
 	}
 
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 * @param item
+	 * @return boolean
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			LocalFileLoder loader = new LocalFileLoder(getApplicationContext());
@@ -90,6 +99,7 @@ public class ProfileActivity extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(getApplicationContext(), NewProfileActivity.class);
 				intent.putExtra("username",user.getUser_name());
+				intent.putExtra("uuid",uuid);
 				startActivity(intent);
 				ProfileActivity.this.finish();
 			}

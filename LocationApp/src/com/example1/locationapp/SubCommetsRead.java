@@ -54,6 +54,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -63,7 +64,6 @@ import com.google.gson.reflect.TypeToken;
  * this class is to control the sub-comments part
  * It will find sub-comment of the master comment
  * @author qyu4
- *
  */
 public class SubCommetsRead extends Activity {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
@@ -98,7 +98,7 @@ public class SubCommetsRead extends Activity {
 	private ConnectToInternet connect = new ConnectToInternet();
 	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
-	
+	private int flag_location=0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -196,7 +196,7 @@ public class SubCommetsRead extends Activity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
-				String items[] = { "Edit Comment", "Add Tags","View profile" };
+				String items[] = { "Edit Comment","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 
 					@Override
@@ -213,15 +213,38 @@ public class SubCommetsRead extends Activity {
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
 								dialogui.show();
+								final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
+								final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
 								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
 								@SuppressWarnings("unused")
 								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
 								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+								Locationbutton.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										locationview.setText("Enter Latitude");
+										locationview2.setText("Enter Longitude");
+										titleedit.setHint("Lat");
+										subjectedit.setHint("Lon");
+										flag_location = 1;
+									}
+								});
 								Changebutton.setOnClickListener(new OnClickListener() {
 									
 									@Override
 									public void onClick(View v) {
+										if(flag_location==1)
+										{
+											double lat = Double.parseDouble(titleedit.getText().toString()); 
+											double lon = Double.parseDouble(subjectedit.getText().toString());	
+											comment_list.get(position).setLat(lat);
+											comment_list.get(position).setLon(lon);
+											flag_location = 0;
+											
+										}
 										comment_list.get(position).setThe_comment(titleedit.getText().toString());
 										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
 										ListAdapter.notifyDataSetChanged();
@@ -240,8 +263,6 @@ public class SubCommetsRead extends Activity {
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
 													httpclient.execute(httpPost);
-													
-													
 												} catch (UnsupportedEncodingException e) {
 
 													e.printStackTrace();
@@ -266,14 +287,14 @@ public class SubCommetsRead extends Activity {
 								Toast.makeText(content,"You can only edit your own comment",Toast.LENGTH_SHORT).show();
 							}
 							break;
-						case 1:
+						/*case 1:
 							Intent intent = new Intent();
 							intent.setClass(SubCommetsRead.this,
 									TagActivity.class);
 							index = position;
 							startActivityForResult(intent, 1258);
-							break;
-						case 2:
+							break;*/
+						case 1:
 							final String name = comment_list.get(position).getUserName();
 							new AsyncTask<Void, Void, Void>()
 							{
@@ -290,8 +311,7 @@ public class SubCommetsRead extends Activity {
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												dialog.cancel();
-												
+												dialog.cancel();	
 											}
 										});
 										AlertDialog adialog = builder.create();
@@ -317,16 +337,13 @@ public class SubCommetsRead extends Activity {
 										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
 												json1, elasticSearchSearchResponseType);
 										
-										
 										for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
 										{   // get some result, then flag is 1
 											someuser = r.getSource();
 											flag=1;
 											break;
 										}
-										System.out.println(json1+"profilehehe");
-										
-										
+										System.out.println(json1+"profilehehe");		
 										if (flag==1)
 										{
 											// have result , result code 939
@@ -336,21 +353,17 @@ public class SubCommetsRead extends Activity {
 											intent_profile.putExtra("name",someuser);
 											startActivityForResult(intent_profile, 939);
 										}
-										
 										}
 										 catch (ClientProtocolException e) {
 											e.printStackTrace();
 										} catch (IOException e) {
 											e.printStackTrace();
 										}
-										return null;
-									
-								}
-								
+										return null;	
+								}		
 							}.execute();
 							break;
 						}
-
 					}
 				});
 				AlertDialog dialog = builder.create();
@@ -397,34 +410,25 @@ public class SubCommetsRead extends Activity {
 				}
 			}
 		});
-
 		button1.setOnClickListener(new MyButton1Listener());
-		
-		
 	}
 
 	/**
 	 * there are two sub-munu list which is using for saving favourite and
 	 * another is using for save, it will help us save the comments and
 	 * sub-comments in the file.
+	 * @param item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.fav:
-			
 			faviSaving(0);
-			
 			break;
-
 		case R.id.save:
-			
 			faviSaving(1);
-
 			break;
-
 		}
-		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -475,7 +479,6 @@ public class SubCommetsRead extends Activity {
 					sub.setLocation(location.getLatitude(), location.getLongitude());
 					subcomment.add(sub);
 				}
-					
 
 				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
 						subcomment);
@@ -504,10 +507,11 @@ public class SubCommetsRead extends Activity {
 		}
 		return saved;
 	}
-	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.sub_commets_read, menu);
 		return true;
 	}
@@ -535,10 +539,8 @@ public class SubCommetsRead extends Activity {
 					}
 					//imageview.setImageBitmap(bitmap);
 					break;
-				}
-					
+				}			
 		}
-		
 	}
 	/**
 	 * clikc this button to add picture
@@ -596,7 +598,6 @@ public class SubCommetsRead extends Activity {
 							}.execute();
 
 						}
-
 						@Override
 						protected Void doInBackground(Void... params) {
 							
@@ -624,12 +625,9 @@ public class SubCommetsRead extends Activity {
 								subCoId++;
 								replyFloor =0;
 								
-							}
-							
-					
+							}	
 							return null;
 						}
-
 						@Override
 						protected void onPostExecute(Void result) {
 							
@@ -651,17 +649,13 @@ public class SubCommetsRead extends Activity {
 									}
 									return null;
 								}
-
 							}.execute();
                         dialog1.dismiss();
                         bitmap=null;
                         editText.setText("");
 						}
-
 					}.execute();
-
 					setResult(RESULT_OK);
-					
 				}
 			}
 			
@@ -689,11 +683,6 @@ public class SubCommetsRead extends Activity {
 			listViewSubComment.setAdapter(ListAdapter);
 			ListAdapter.notifyDataSetChanged();
 	}
-	
-		
-
-	
-
 
 	/**
 	 * go back to MainActivty from SUBcomment
@@ -702,10 +691,6 @@ public class SubCommetsRead extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		Intent intent = new Intent();
-		intent.setClass(SubCommetsRead.this, MainActivity.class);
-		
+		intent.setClass(SubCommetsRead.this, MainActivity.class);	
 	}
-
-	
-
 }

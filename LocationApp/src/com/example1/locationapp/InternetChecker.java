@@ -19,26 +19,25 @@ import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 /**
  * This class will check the if the Internet service in on or not.
- * 
  * @author qyu4
- * 
  */
 public class InternetChecker extends BroadcastReceiver {
-	/**
-	 * this is trying to received network states, if the app is connected to
-	 * internet then it will start loading in mainactivity
-	 * 
-	 */
+	
 	private int MasterId;
 	private boolean connect = false;
-	private double lat;
-	private double lon;
+
+	/**
+	 * this is trying to received network states, if the app is connected to
+	 * Internet then it will start loading in Main-activity
+	 * @param context
+	 * @return boolean
+	 * @author zuo2
+	 */
 	public boolean connected(Context context)
 	{
 		final ConnectivityManager connMgr = (ConnectivityManager) context
@@ -88,7 +87,6 @@ public class InternetChecker extends BroadcastReceiver {
 					
 					@Override
 					protected void onPreExecute() {
-						// TODO Auto-generated method stub
 						super.onPreExecute();
 						// get master ID
 						new AsyncTask<Void, Void, Void>()
@@ -96,7 +94,6 @@ public class InternetChecker extends BroadcastReceiver {
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								// TODO Auto-generated method stub
 								ConnectToInternet con = new ConnectToInternet();
 								MasterId = con.get_id(context);
 								MasterId++;
@@ -109,7 +106,6 @@ public class InternetChecker extends BroadcastReceiver {
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						// TODO Auto-generated method stub
 						// make new comments
 						Comments NewComment = new Comments(0, MasterId, 0, 0, title, subject, new Date(),gps.getLongitude(),gps.getLatitude(),name);
 						SubCommentModel modle = new SubCommentModel(NewComment);
@@ -119,24 +115,20 @@ public class InternetChecker extends BroadcastReceiver {
 					}
 					@Override
 					protected void onPostExecute(Void result) {
-						// TODO Auto-generated method stub
 						super.onPostExecute(result);
 						new AsyncTask<Void,Void	,Void>()
 						{
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								// TODO Auto-generated method stub
 								ConnectToInternet internet = new ConnectToInternet();
 								MasterId++;
 								IDModel id_obj= new IDModel(MasterId);
 								try {
 									internet.insert(id_obj, context);
 								} catch (IllegalStateException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								return null;
@@ -146,7 +138,6 @@ public class InternetChecker extends BroadcastReceiver {
 					}
 				}.execute();
 			}
-			// no picture
 			else
 			{
 
@@ -154,7 +145,6 @@ public class InternetChecker extends BroadcastReceiver {
 					
 					@Override
 					protected void onPreExecute() {
-						// TODO Auto-generated method stub
 						super.onPreExecute();
 						// get master ID
 						new AsyncTask<Void, Void, Void>()
@@ -162,7 +152,6 @@ public class InternetChecker extends BroadcastReceiver {
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								// TODO Auto-generated method stub
 								ConnectToInternet con = new ConnectToInternet();
 								MasterId = con.get_id(context);
 								MasterId++;
@@ -172,12 +161,11 @@ public class InternetChecker extends BroadcastReceiver {
 						}.execute();
 					}
 
-
+					/**
+					 *  make new comments with picture	
+					 */
 					@Override
 					protected Void doInBackground(Void... params) {
-						// TODO Auto-generated method stub
-						// make new comments with picture
-						
 						JsonElement element = new JsonParser().parse(picture);
 						System.out.println("new picture:"+element.toString());
 						Comments NewComment = new Comments(0, MasterId, 0, 0, title, subject, new Date(),gps.getLongitude(),gps.getLatitude(),element,name);
@@ -187,29 +175,23 @@ public class InternetChecker extends BroadcastReceiver {
 					}
 					@Override
 					protected void onPostExecute(Void result) {
-						// TODO Auto-generated method stub
 						super.onPostExecute(result);
 						new AsyncTask<Void,Void	,Void>()
 						{
-
 							@Override
 							protected Void doInBackground(Void... params) {
-								// TODO Auto-generated method stub
 								ConnectToInternet internet = new ConnectToInternet();
 								MasterId++;
 								IDModel id_obj= new IDModel(MasterId);
 								try {
 									internet.insert(id_obj, context);
 								} catch (IllegalStateException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								return null;
-							}
-							
+							}							
 						}.execute();
 					}
 				}.execute();
@@ -219,7 +201,6 @@ public class InternetChecker extends BroadcastReceiver {
 		sharedPref.edit().clear().commit();
 		/**
 		 * checking the internet connection
-		 * 
 		 */
 		if (wifi.isConnected() || mobile.isConnected()) {
 			Toast.makeText(context, "Connected to Internet", Toast.LENGTH_LONG)
@@ -257,6 +238,12 @@ public class InternetChecker extends BroadcastReceiver {
 
 	}
 	
+	/**
+	 * check if the Internet is connect or not.
+	 * @param context
+	 * @param intent
+	 * @return
+	 */
 	public Object checkIntenetConnection(Context context, Intent intent){
 		
 		

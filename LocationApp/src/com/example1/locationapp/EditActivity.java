@@ -81,10 +81,6 @@ public class EditActivity extends Activity {
 							elasticSearchResponseType);
 					// We get the recipe from it!
 					newcomments = esResponse.getSource();
-					
-
-
-
 					// System.out.println(recipe.toString());
 					// httpget.releaseConnection();
 				} catch (ClientProtocolException e) {
@@ -110,6 +106,8 @@ public class EditActivity extends Activity {
 	/**
 	 * click the button to send edit to the cloud
 	 * @param v
+	 * @return null
+	 * @author zuo2
 	 */
     public void submit(View v)
     { 
@@ -197,19 +195,28 @@ public class EditActivity extends Activity {
     		    	
     	}
     }
+    
+    /**
+     * Inflate the menu; this adds items to the action bar if it is present.
+     * @param menu
+     * @return true
+     * @author zuo2
+     */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.edit, menu);
 		return true;
 	}
-
+	
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 * @param item
+	 * @author zuo2
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -219,12 +226,20 @@ public class EditActivity extends Activity {
 
 	/**
 	 * A placeholder fragment containing a simple view.
+	 * @author zuo2
 	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
 		}
-
+		
+		/**
+		 * @param inflater
+		 * @param container
+		 * @param savedInstanceState
+		 * @return rootView
+		 * @author zuo2
+		 */
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
