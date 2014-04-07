@@ -96,14 +96,10 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
             {   
             	BitmapConverter ImageConvter = new BitmapConverter();
             	Bitmap bitmap = ImageConvter.deserialize(custom.getImage(), null, null);
-            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-            	//byte[] imageAsBytes = Base64.decode(custom.getImage().getBytes(),Base64.NO_WRAP);
-            	//Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             	
             	if(bitmap!=null)
                 {
-                	holder.imageview.setImageBitmap(bitmap);
-                    System.out.println("imageset");            
+                	holder.imageview.setImageBitmap(bitmap);        
                 }
             }
             else

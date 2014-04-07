@@ -166,7 +166,6 @@ public class SubCommetsRead extends Activity {
 	
 		if (gps.canGetLocation) {
 			location = gps.getLocation();
-			System.out.println(location + "wocao");
 			gps.stopUsingGPS();
 		} else {
 			gps.showSettingsAlert();
@@ -216,7 +215,6 @@ public class SubCommetsRead extends Activity {
 								final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
 								final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
 								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
-								@SuppressWarnings("unused")
 								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
 								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
@@ -224,7 +222,6 @@ public class SubCommetsRead extends Activity {
 									
 									@Override
 									public void onClick(View v) {
-										// TODO Auto-generated method stub
 										locationview.setText("Enter Latitude");
 										locationview2.setText("Enter Longitude");
 										titleedit.setHint("Lat");
@@ -287,13 +284,6 @@ public class SubCommetsRead extends Activity {
 								Toast.makeText(content,"You can only edit your own comment",Toast.LENGTH_SHORT).show();
 							}
 							break;
-						/*case 1:
-							Intent intent = new Intent();
-							intent.setClass(SubCommetsRead.this,
-									TagActivity.class);
-							index = position;
-							startActivityForResult(intent, 1258);
-							break;*/
 						case 1:
 							final String name = comment_list.get(position).getUserName();
 							new AsyncTask<Void, Void, Void>()
@@ -342,8 +332,7 @@ public class SubCommetsRead extends Activity {
 											someuser = r.getSource();
 											flag=1;
 											break;
-										}
-										System.out.println(json1+"profilehehe");		
+										}	
 										if (flag==1)
 										{
 											// have result , result code 939
@@ -528,16 +517,13 @@ public class SubCommetsRead extends Activity {
 					String file2 = data.getStringExtra("choseimage");
 					if (file != null) {
 						bitmap = BitmapFactory.decodeFile(file);
-						System.out.println("haha" + file);
 					} else {
 						bitmap = BitmapFactory.decodeFile(file2);
-						System.out.println("haha2" + file);
 					}
 					if(bitmap!=null)
 					{
 						Toast.makeText(SubCommetsRead.this, "Picture added", Toast.LENGTH_SHORT).show();
 					}
-					//imageview.setImageBitmap(bitmap);
 					break;
 				}			
 		}
@@ -590,8 +576,6 @@ public class SubCommetsRead extends Activity {
 									
 									ServerID = connect.get_id(content);
 									ServerID++;
-									System.out.println(comment_list.size() + "size"
-											+ ServerID);
 									return null;
 								}
 
@@ -612,9 +596,7 @@ public class SubCommetsRead extends Activity {
 								subCoId++;
 								replyFloor =0;
 							} else {
-								System.out.println("image posted");
 								subCommentsTitle=subCoId+". Relpy to ";
-								//String encode_image = convert_image_to_string(bitmap);
 								JsonElement encode_image = new BitmapConverter().serialize(bitmap, null, null);
 								final Comments new_comment = new Comments(0,
 										number, subCoId, ServerID, (subCommentsTitle+" "+(replyFloor+1)), editText.getText()

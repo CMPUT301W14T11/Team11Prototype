@@ -158,21 +158,7 @@ public class GPSTracker extends Service implements LocationListener{
   
         gPSTrackerContent.showSettingsAlert();
     }	/*
-	 * new AsyncTask<Void, Void, Void>() {
-	 * 
-	 * @Override protected Void doInBackground(Void... params) {
-	 * Auto-generated method stub pbar.setVisibility(View.GONE); if (image
-	 * != null) { textViewFile.setText(image.getFilePathOriginal());
-	 * imageViewThumbnail.setImageURI(Uri.parse(new File(image
-	 * .getFileThumbnail()).toString()));
-	 * imageViewThumbSmall.setImageURI(Uri.parse(new File(image
-	 * .getFileThumbnailSmall()).toString())); }
-	 * 
-	 * return null; }
-	 * 
-	 * }.execute();
-	 */
-    
+
     /**
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app

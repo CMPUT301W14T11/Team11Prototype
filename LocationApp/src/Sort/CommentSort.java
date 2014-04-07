@@ -47,7 +47,6 @@ public class CommentSort {
 		current_location = gps.getLocation();
 		
 		HttpPost httpPost= new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
-		//HttpGet  httpGet = new HttpGet("http://cmput301.softwareprocess.es:8080/testing/emouse/_search?pretty=1");
 		Gson gson1 = new Gson();
 		try {
 			double lat_gte = current_location.getLatitude()-radius;
@@ -60,8 +59,6 @@ public class CommentSort {
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
 			String json1 = getEntityContent(response);
-			System.out.println(response.getStatusLine().toString()+"status");
-			System.out.println(json1+"holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>(){}.getType();
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(json1, elasticSearchSearchResponseType);
 
@@ -87,21 +84,15 @@ public class CommentSort {
 				  date_comment_array.add(comms);
 				}
 				Collections.sort(date_comment_array, new compara());
-				for(Comments com : date_comment_array)
-				{
-				  System.out.println("distance:"+com.getDistance());
-				}
 			    }
 			
 			
 			}
 	      catch (ClientProtocolException e) {
 
-			System.out.println("client exe");
 			e.printStackTrace();
 		} catch (IOException e) {
 
-			System.out.println("IO exe");
 			e.printStackTrace();}
 		  catch (NullPointerException e) {
 
@@ -127,13 +118,10 @@ public class CommentSort {
 		BufferedReader br = new BufferedReader(
 				new InputStreamReader((response.getEntity().getContent())));
 		String output;
-		System.err.println("Output from Server -> ");
 		String json = "";
 		while ((output = br.readLine()) != null) {
-			System.err.println(output);
 			json += output;
 		}
-		System.err.println("JSON:"+json);
 		return json;
 	}
 

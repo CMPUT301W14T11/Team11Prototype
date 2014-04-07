@@ -110,7 +110,6 @@ public class InternetChecker extends BroadcastReceiver {
 						Comments NewComment = new Comments(0, MasterId, 0, 0, title, subject, new Date(),gps.getLongitude(),gps.getLatitude(),name);
 						SubCommentModel modle = new SubCommentModel(NewComment);
 						modle.insertMaster(NewComment, MasterId);
-						System.out.println("fale");
 						return null;
 					}
 					@Override
@@ -167,7 +166,6 @@ public class InternetChecker extends BroadcastReceiver {
 					@Override
 					protected Void doInBackground(Void... params) {
 						JsonElement element = new JsonParser().parse(picture);
-						System.out.println("new picture:"+element.toString());
 						Comments NewComment = new Comments(0, MasterId, 0, 0, title, subject, new Date(),gps.getLongitude(),gps.getLatitude(),element,name);
 						SubCommentModel modle = new SubCommentModel(NewComment);
 						modle.insertMaster(NewComment, MasterId);
@@ -197,7 +195,6 @@ public class InternetChecker extends BroadcastReceiver {
 				}.execute();
 			}
 		}
-		System.out.println("title is:"+title);
 		sharedPref.edit().clear().commit();
 		/**
 		 * checking the internet connection
