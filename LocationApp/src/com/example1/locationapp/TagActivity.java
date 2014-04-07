@@ -37,6 +37,15 @@ public class TagActivity extends Activity {
 		donebutton= (Button) findViewById(R.id.tagbutton2);
 		textview = (TextView) findViewById(R.id.tagtextView1);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * use this function to add tags to the comments
 	 * @param v
@@ -61,6 +70,14 @@ public class TagActivity extends Activity {
 			editText.setText(null);
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * go back to MainActivity from tags
 	 * @param v
@@ -73,6 +90,14 @@ public class TagActivity extends Activity {
 		finish();
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
@@ -83,6 +108,14 @@ public class TagActivity extends Activity {
 		getMenuInflater().inflate(R.menu.tag, menu);
 		return true;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Handle action bar item clicks here. The action bar will
@@ -99,6 +132,14 @@ public class TagActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

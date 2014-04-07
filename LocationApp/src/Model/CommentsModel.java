@@ -15,7 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import Controller.CommentController;
-import Controller.compara;
+import Controller.Compara;
 import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
@@ -61,6 +61,15 @@ public class CommentsModel implements CommentController{
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * conver bitmap to Base64 string
 	 * @param bitmap
@@ -73,6 +82,16 @@ public class CommentsModel implements CommentController{
 		String encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 		return encoded;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * download from server using location based query
 	 * @param comment_array
@@ -134,7 +153,7 @@ public class CommentsModel implements CommentController{
 					comms.setDistance(DistanceResult[0]);
 					comment_array.add(comms);
 				}
-				Collections.sort(comment_array, new compara());
+				Collections.sort(comment_array, new Compara());
 			}
 
 		} catch (ClientProtocolException e) {

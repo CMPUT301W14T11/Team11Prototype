@@ -14,22 +14,18 @@ import android.util.Log;
  * open source code from http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
  * @author qyu4
  */
-
 public class GPSTracker extends Service implements LocationListener{
 
     private GPSTrackerContent gPSTrackerContent;
 
 	// flag for GPS status
-    boolean isGPSEnabled = false;
- 
+    boolean isGPSEnabled = false; 
     // flag for network status
     boolean isNetworkEnabled = false;
- 
-    boolean canGetLocation = false;
-    
-    Location location; 
-    double latitude; 
-    double longitude; 
+    boolean canGetLocation = false;    
+    private Location location; 
+    private double latitude; 
+    private double longitude; 
  
     // The minimum distance to change Updates in meters (10 meters)
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; 
@@ -112,7 +108,16 @@ public class GPSTracker extends Service implements LocationListener{
             e.printStackTrace();
         }
  
-        return location;}
+        return location;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * Function to get latitude
@@ -127,6 +132,14 @@ public class GPSTracker extends Service implements LocationListener{
         return latitude;
     }
      
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Function to get longitude
      * @return longitude
@@ -134,11 +147,19 @@ public class GPSTracker extends Service implements LocationListener{
     public double getLongitude(){
         if(location != null){
             longitude = location.getLongitude();
-        }
-         
+        }         
         // return longitude
         return longitude;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Function to check if best network provider
      * @return boolean
@@ -147,17 +168,31 @@ public class GPSTracker extends Service implements LocationListener{
         return this.canGetLocation;
     }
      
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Function to show settings alert dialog
      * */
     public void showSettingsAlert(){
         
   
-        // Setting Icon to Dialog
-        //alertDialog.setIcon(R.drawable.delete);
-  
+        // Setting Icon to Dialog  
         gPSTrackerContent.showSettingsAlert();
     }	/*
+
+
+
+
+
+
+
+
 
     /**
      * Stop using GPS listener
@@ -168,6 +203,13 @@ public class GPSTracker extends Service implements LocationListener{
             locationManager.removeUpdates(GPSTracker.this);
         }      
     }
+    
+    
+    
+    
+    
+    
+    
     
 	@Override
 	public void onLocationChanged(Location location) {

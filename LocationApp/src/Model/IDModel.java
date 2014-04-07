@@ -13,6 +13,16 @@ public class IDModel {
        {
     	   this.id_for_master=idMaster;
        }
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
        /**
         * to get the master id
         * @return
@@ -20,6 +30,15 @@ public class IDModel {
        public int getId_for_master() {
     	   return id_for_master;
        }
+       
+       
+       
+       
+       
+       
+       
+       
+       
 	   /**
 	    * to set the master id by given integer
 	    * @param id_for_master

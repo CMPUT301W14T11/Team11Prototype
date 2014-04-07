@@ -25,18 +25,33 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 	private ArrayList<FavouriteComment> fc;
     private Activity activity;
     
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * to create a adapter for the list view
      * @param a
      * @param textViewResourceId
      * @param entries
      */
- 
     public CustomAdapter(Activity a, int textViewResourceId, ArrayList<FavouriteComment> entries) {
         super(a, textViewResourceId, entries);
         this.fc = entries;
         this.activity = a;
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * create a view holder for list view view item
@@ -49,6 +64,14 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         public ImageView imageview;
     }
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Put the data into the view
 	 *@param postion
@@ -110,11 +133,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         }
         return v;
     }
-	
-	
-
-
-	}
+}
     
     
  

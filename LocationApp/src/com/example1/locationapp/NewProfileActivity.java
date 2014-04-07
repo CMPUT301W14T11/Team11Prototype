@@ -24,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,12 +37,10 @@ import com.google.gson.Gson;
  */
 public class NewProfileActivity extends Activity {
     private EditText Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
-    ImageView imageview;
-    Button CreateButton;
-    HttpClient httpclient;
-    String theUsername;
-    String filepath;
-    Bitmap bitmap;
+    private ImageView imageview;
+    private HttpClient httpclient;
+    private String theUsername;
+    private Bitmap bitmap;
     private String user_uuid;
     int flag = 0;
 	@Override
@@ -74,6 +71,15 @@ public class NewProfileActivity extends Activity {
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -98,6 +104,15 @@ public class NewProfileActivity extends Activity {
 		
 	}
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	/**Upload user profile to the server
      * @param v
      */
@@ -109,7 +124,6 @@ public class NewProfileActivity extends Activity {
 	Ephone = (EditText) findViewById(R.id.EditText050);
 	Eemail = (EditText) findViewById(R.id.editText20);
 	Ebio = (EditText) findViewById(R.id.editText1);
-	CreateButton = (Button) findViewById(R.id.new_profile_button);
 		final CommentUser NewUser =new CommentUser();
 		NewUser.setAge(Eage.getText().toString());
 		NewUser.setName(theUsername);
@@ -156,6 +170,15 @@ public class NewProfileActivity extends Activity {
 	bitmap = null;
 	finish();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present
 	 * @param menu
@@ -166,6 +189,15 @@ public class NewProfileActivity extends Activity {
 		return true;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -181,6 +213,15 @@ public class NewProfileActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

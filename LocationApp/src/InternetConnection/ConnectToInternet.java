@@ -84,6 +84,16 @@ public class ConnectToInternet {
 		}
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * from elastic search to get json from the response
 	 * @param response
@@ -100,6 +110,16 @@ public class ConnectToInternet {
 		}
 		return json;
 	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * download IDModel from the server
 	 * @param content

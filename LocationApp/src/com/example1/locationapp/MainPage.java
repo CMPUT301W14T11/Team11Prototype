@@ -70,6 +70,15 @@ public class MainPage extends Activity {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

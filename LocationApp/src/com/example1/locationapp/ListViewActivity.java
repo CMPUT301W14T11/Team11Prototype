@@ -26,6 +26,15 @@ public class ListViewActivity extends BaseActivity {
 		return new SimpleListFragment();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * the SimpleListFragment class is used to control start the listView, pull
 	 * to refresh and shows on the activity;
@@ -71,6 +80,15 @@ public class ListViewActivity extends BaseActivity {
 
 		}
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * Set the List Adapter to display the sample items
 		 * @param savedInstanceState
@@ -85,6 +103,15 @@ public class ListViewActivity extends BaseActivity {
 			setListAdapter(adapter);
 			setListShownNoAnimation(true);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/**
 		 * to refresh the list view

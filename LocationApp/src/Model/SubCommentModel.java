@@ -63,6 +63,16 @@ public class SubCommentModel implements CommentController{
 		 
 	 }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * use this function for download comments from the server
 	 * @param comment_list1
@@ -115,11 +125,9 @@ public class SubCommentModel implements CommentController{
 
 		} catch (ClientProtocolException e) {
 		
-			System.out.println("client exe");
 			e.printStackTrace();
 		} catch (IOException e) {
 		
-			System.out.println("IO exe");
 			e.printStackTrace();
 		}
 		return comment_list1;

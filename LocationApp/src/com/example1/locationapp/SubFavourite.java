@@ -36,6 +36,15 @@ public class SubFavourite extends Activity
 		populateListView();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * load the comment and sub-comment from the local saving file, and the
 	 * result into the list of view.
@@ -64,6 +73,15 @@ public class SubFavourite extends Activity
 		list.setAdapter(adapter);
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.

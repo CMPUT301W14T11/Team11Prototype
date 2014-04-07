@@ -43,7 +43,6 @@ public class EnterCommentsActivity extends Activity implements
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
 	private EditText title_edit, subject_edit;
-	private Button post_button, picture_add_button;
 	private Location location;
 	private GPSTracker gps;
 	private ImageView imageview;
@@ -63,28 +62,30 @@ public class EnterCommentsActivity extends Activity implements
 		// Show the Up button in the action bar.
 		id_obj = new IDModel(0);
 		imageview = (ImageView) findViewById(R.id.imageView1);
-		picture_add_button = (Button) findViewById(R.id.button2);
 		content = this;
-
 		title_edit = (EditText) findViewById(R.id.editText1);
 		subject_edit = (EditText) findViewById(R.id.editText2);
-		post_button = (Button) findViewById(R.id.button1);
 		// get current location of the comments
 
 		gps = new GPSTracker(this);
 		if (gps.canGetLocation) {
 			location = gps.getLocation();
-
 			gps.stopUsingGPS();
 		}
 
 		number = 0;
 		LocalFileLoder loader = new LocalFileLoder(this);
 		user = loader.loadFromFile();
-		
-
-
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * click to buton to send the comments to the cloud
 	 * @param view
@@ -201,6 +202,14 @@ public class EnterCommentsActivity extends Activity implements
 		finish();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set result for Activity result
 	 */
@@ -211,6 +220,14 @@ public class EnterCommentsActivity extends Activity implements
 		setResult(RESULT_CANCELED);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
@@ -228,6 +245,13 @@ public class EnterCommentsActivity extends Activity implements
 		getMenuInflater().inflate(R.menu.enter_comments, menu);
 		return true;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**
@@ -249,6 +273,14 @@ public class EnterCommentsActivity extends Activity implements
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * click to add picture, go to image chosser activity
@@ -278,16 +310,4 @@ public class EnterCommentsActivity extends Activity implements
 		}
 
 	}
-
-	// convert the bitmap image to base64 string
-	
-
-	// decrease size of the image
-	
-
-
-	
-
-	
-
 }

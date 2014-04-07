@@ -55,6 +55,15 @@ public class InternetChecker extends BroadcastReceiver {
 		else
 			return connect;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		final GPSTracker gps = new GPSTracker(context);
@@ -234,6 +243,15 @@ public class InternetChecker extends BroadcastReceiver {
 		}
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * check if the Internet is connect or not.

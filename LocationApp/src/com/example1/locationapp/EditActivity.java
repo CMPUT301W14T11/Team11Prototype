@@ -25,11 +25,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 /**
@@ -40,8 +38,6 @@ import com.google.gson.reflect.TypeToken;
  */
 public class EditActivity extends Activity {
 	private EditText title , subject;
-	@SuppressWarnings("unused")
-	private Button location, submit;
 	private Comments newcomments;
 	private int id;
 	private ConnectToInternet connect = new ConnectToInternet();
@@ -53,8 +49,6 @@ public class EditActivity extends Activity {
 		id = intent.getIntExtra("id", 0);
 		title = (EditText) findViewById(R.id.editText1);
 		subject = (EditText) findViewById(R.id.editText2);
-		location = (Button) findViewById(R.id.button1);
-		submit = (Button) findViewById(R.id.button2);
 		new AsyncTask<Void,Void,Void>() {
 
 			@Override
@@ -68,9 +62,7 @@ public class EditActivity extends Activity {
 					HttpGet httpget = new HttpGet(
 							"http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+id);
 					httpget.addHeader("Accept", "application/json");
-
 					HttpResponse response = httpclient.execute(httpget);
-
 					String json = connect.getEntityContent(response);
 
 					// We have to tell GSON what type we expect
@@ -101,6 +93,15 @@ public class EditActivity extends Activity {
 			
 		}.execute();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * click the button to send edit to the cloud
 	 * @param v
@@ -192,6 +193,14 @@ public class EditActivity extends Activity {
     	}
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Inflate the menu; this adds items to the action bar if it is present.
      * @param menu
@@ -203,6 +212,14 @@ public class EditActivity extends Activity {
 		getMenuInflater().inflate(R.menu.edit, menu);
 		return true;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Handle action bar item clicks here. The action bar will
@@ -220,6 +237,14 @@ public class EditActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 * @author zuo2

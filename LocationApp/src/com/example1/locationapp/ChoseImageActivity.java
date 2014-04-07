@@ -32,18 +32,12 @@ public class ChoseImageActivity extends Activity implements
 		ImageChooserListener {
 
 	private ImageView imageViewThumbnail;
-
 	private ImageView imageViewThumbSmall;
-
 	private TextView textViewFile;
-
 	private ImageChooserManager imageChooserManager;
-
 	private ProgressBar pbar;
-
 	private String filepath2;
 	private String filePath;
-
 	private int chooserType;
 
 	@Override
@@ -77,10 +71,17 @@ public class ChoseImageActivity extends Activity implements
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * user can use this method to choose the image which already saved locally.
 	 */
-
 	private void chooseImage() {
 		chooserType = ChooserType.REQUEST_PICK_PICTURE;
 		imageChooserManager = new ImageChooserManager(this,
@@ -95,6 +96,14 @@ public class ChoseImageActivity extends Activity implements
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * this method for user taking the photo by user.
@@ -117,6 +126,13 @@ public class ChoseImageActivity extends Activity implements
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK
@@ -130,6 +146,14 @@ public class ChoseImageActivity extends Activity implements
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * this method is for the Image what you choose to use.
 	 * @param image  is the image what you want.
@@ -157,6 +181,14 @@ public class ChoseImageActivity extends Activity implements
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * to return the the error information to let user know.
 	 * @param reason   is the string tell to let user understand what's with it.
@@ -174,11 +206,18 @@ public class ChoseImageActivity extends Activity implements
 		});
 	}
 		
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * this method is for when you finish choose you image then you click 
 	 * back button then the app will know that which image you have chosen.
 	 */
-
 	@Override
 	public void onBackPressed() {
 
@@ -192,11 +231,27 @@ public class ChoseImageActivity extends Activity implements
 	}
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void onDestroy() {
 
 		super.onDestroy();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 *Should be called if for some reason the ImageChooserManager is null Due
 	 *to destroying of activity for low memory situations
@@ -208,6 +263,14 @@ public class ChoseImageActivity extends Activity implements
 		imageChooserManager.reinitialize(filePath);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("chooser_type", chooserType);
@@ -215,6 +278,14 @@ public class ChoseImageActivity extends Activity implements
 		super.onSaveInstanceState(outState);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {

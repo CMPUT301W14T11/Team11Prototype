@@ -20,11 +20,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * @author qyu4
  */
 public class Playtube extends Activity {
-	GoogleMap map;
-	double lat, lon;
-	LatLng lat_and_long, new_positon;
-	CameraUpdate camUpdate;
-	MarkerOptions option;
+	private GoogleMap map;
+	private double lat, lon;
+	private LatLng lat_and_long, new_positon;
+	private CameraUpdate camUpdate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,6 @@ public class Playtube extends Activity {
 		// get the map from the map fragment
 		lat_and_long = new LatLng(lat, lon);
 		camUpdate = CameraUpdateFactory.newLatLng(lat_and_long);
-		option = new MarkerOptions();
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
 		map.animateCamera(camUpdate);
@@ -68,18 +66,35 @@ public class Playtube extends Activity {
 		});
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
 	 * @return true
 	 */
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.play_tube, menu);
 		return true;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void onBackPressed() {
 		

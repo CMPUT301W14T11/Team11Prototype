@@ -64,18 +64,35 @@ public class ProfileActivity extends Activity {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
 	 * @return true
 	 */
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.profile, menu);
 		return true;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -108,6 +125,15 @@ public class ProfileActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

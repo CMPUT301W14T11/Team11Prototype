@@ -2,7 +2,6 @@ package com.example1.locationapp;
 
 
 import java.io.IOException;
-
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -20,12 +19,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
-
+import Controller.Compara;
+import Controller.DateSort;
 import Controller.LocalFileLoder;
 import Controller.LocalFileSaver;
-
-import Controller.compara;
-import Controller.datesort;
 import InternetConnection.ConnectToInternet;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
@@ -44,7 +41,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,7 +60,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example1.locationapp.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -78,7 +73,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	private int flag_location;
 	private ListView listview;
 	private ArrayList<Comments> comment_array;
-	private cutadapter adapter;
+	private CutAdapter adapter;
 	private Gson gson;
 	private HttpClient httpclient;
 	private Location current_location;
@@ -167,17 +162,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		user = fileLoader.loadFromFile();
 		fileSaver.saveInFile(user);
 		httpclient = new DefaultHttpClient();
-
 		comment_array = new ArrayList<Comments>();
 		listview = (ListView) findViewById(R.id.ptr_listview1);
-
 		gson = new Gson();
-
-
-		adapter = new cutadapter(MainActivity.this, R.layout.listlayout,
+		adapter = new CutAdapter(MainActivity.this, R.layout.listlayout,
 				comment_array);
-
-
 		mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
 
 
@@ -202,6 +191,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					protected void onPostExecute(Void result) {
 
 						super.onPostExecute(result);
+						//get_comments("get some comments man!");
 						dialog1.dismiss();
 						adapter.notifyDataSetChanged();
 					}
@@ -248,6 +238,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 			}
 		});
+		
 		/**
 		 * Long click listener for comments
 		 * When user want to change location of the comments or edit comments
@@ -327,7 +318,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
 													httpclient.execute(httpPost);
-													
+				
 												} catch (UnsupportedEncodingException e) {
 
 													e.printStackTrace();
@@ -456,6 +447,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		}.execute();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * An option window jump out allows user to select
 	 * whether edit comments, add tags as well as view profile
@@ -534,7 +534,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			user = fileLoader.loadFromFile();
 			if (user.getUser_name().equals("")) {
 				Toast.makeText(MainActivity.this,
-						"Guest has no right to use this feature",
+						"You don not have right to change location",
 						Toast.LENGTH_SHORT).show();
 			}
 			else
@@ -546,18 +546,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			break;
 		
 		case R.id.item6:
-			user = fileLoader.loadFromFile();
-			if (user.getUser_name().equals("")) {
-				Toast.makeText(MainActivity.this,
-						"Guest has no right to use this feature",
-						Toast.LENGTH_SHORT).show();
-			}
-			else
-			{
-				Intent intent6 = new Intent(MainActivity.this, Favourite.class);
-				intent6.putExtra("code", 1);
-				startActivity(intent6);
-			}			
+			Intent intent6 = new Intent(MainActivity.this, Favourite.class);
+			intent6.putExtra("code", 1);
+			startActivity(intent6);
 			break;
 			
 		case R.id.item7:
@@ -569,77 +560,69 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			break;
 		case R.id.item99:
 			final String UserName = user.getUser_name();
-			if (user.getUser_name().equals("")) {
-				Toast.makeText(MainActivity.this,
-						"Guest has no right to use this feature",
-						Toast.LENGTH_SHORT).show();
-			}
-			else
+			
+			new AsyncTask<Void,Void,Void>()
 			{
-				new AsyncTask<Void,Void,Void>()
-				{
-					/**
-					 * Get profile out the comments authors
-					 * @return null
-					*/
+				/**
+				 * Get profile out the comments authors
+				 * @return null
+				*/
 
-					@Override
-					protected Void doInBackground(Void... params) {
-						try{
-						Gson gson = new Gson();
-						
-						HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
-						String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
-						StringEntity entity;
-						entity = new StringEntity(query_profile);
-						httppost.setHeader("Accept", "application/json");
-						httppost.setEntity(entity);
-						HttpResponse response = httpclient.execute(httppost);
-						String json1 = connects.getEntityContent(response);
-						Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
-						}.getType();
-						ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
-								json1, elasticSearchSearchResponseType);
-						int flag = 0;
-						
-						for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
-						{   // get some result, then flag is 1
-							someuser = r.getSource();
-							flag=1;
-							break;
-						}
-						
-						if (flag==0)
-						{
-						
-							//no result, result code 12345
-							Intent intent = new Intent();
-							intent.putExtra("username",UserName);
-							intent.setClass(content, NewProfileActivity.class);
-							startActivityForResult(intent, 12345);
-						
-						}
-						if (flag==1)
-						{
-							// have result , result code 939
-							Intent intent_profile = new Intent();
-							intent_profile.setClass(content, ProfileActivity.class);
-							intent_profile.putExtra("name",someuser);
-							startActivityForResult(intent_profile, 939);
-						}
-						
-						}
-						 catch (ClientProtocolException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						return null;
+				@Override
+				protected Void doInBackground(Void... params) {
+					try{
+					Gson gson = new Gson();
+					
+					HttpPost httppost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/_search?pretty=1");
+					String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
+					StringEntity entity;
+					entity = new StringEntity(query_profile);
+					httppost.setHeader("Accept", "application/json");
+					httppost.setEntity(entity);
+					HttpResponse response = httpclient.execute(httppost);
+					String json1 = connects.getEntityContent(response);
+					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<CommentUser>>() {
+					}.getType();
+					ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
+							json1, elasticSearchSearchResponseType);
+					int flag = 0;
+					
+					for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
+					{   // get some result, then flag is 1
+						someuser = r.getSource();
+						flag=1;
+						break;
 					}
 					
-				}.execute();
-			}
-			
+					if (flag==0)
+					{
+					
+						//no result, result code 12345
+						Intent intent = new Intent();
+						intent.putExtra("username",UserName);
+						intent.setClass(content, NewProfileActivity.class);
+						startActivityForResult(intent, 12345);
+					
+					}
+					if (flag==1)
+					{
+						// have result , result code 939
+						Intent intent_profile = new Intent();
+						intent_profile.setClass(content, ProfileActivity.class);
+						intent_profile.putExtra("name",someuser);
+						startActivityForResult(intent_profile, 939);
+					}
+					
+					}
+					 catch (ClientProtocolException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
+				
+			}.execute();
 			break;
 		case R.id.menu_item_search:
 			
@@ -653,6 +636,13 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Get new array after modified the comments
 	 * @param requestCode
@@ -717,6 +707,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 */
@@ -736,6 +735,13 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * download form server , to get comment object
 	 * @param url
@@ -791,7 +797,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					comms.setDistance(DistanceResult[0]);
 					comment_array.add(comms);
 				}
-				Collections.sort(comment_array, new compara());				
+				Collections.sort(comment_array, new Compara());				
 			}
 			
 			user = fileLoader.loadFromFile();		
@@ -816,11 +822,21 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 
+			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		} catch (RuntimeException e) {
 
 
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * to refresh the view
@@ -858,6 +874,16 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}.execute();
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * sorting this by picture, and show only picture in the comment
 	 */
@@ -878,11 +904,20 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		comment_array.addAll(nonPictureComment);
 		adapter.notifyDataSetChanged();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * sort by date, using master id to sort, then add to comment
 	 */
 	public void sortByDate() {
-		Collections.sort(comment_array,new datesort());
+		Collections.sort(comment_array,new DateSort());
 		adapter.notifyDataSetChanged();
 	}
 }

@@ -4,14 +4,16 @@ import java.util.Comparator;
 
 import Model.Comments;
 /**
- * To use this to compare comments by distance 
+ * this this to compara comments by date
  * @author yazhou
+ *
  */
-public class compara implements Comparator<Comments>{
+public class DateSort implements Comparator<Comments>{
 
 	@Override
 	public int compare(Comments lhs, Comments rhs) {
-		return (int) (lhs.getDistance()-rhs.getDistance());
+		return rhs.getMaster_ID()-lhs.getMaster_ID();
+
 	}
 
 }

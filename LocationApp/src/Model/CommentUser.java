@@ -28,6 +28,15 @@ public class CommentUser implements Serializable{
 	    {
 	    	
 	    }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    /**
 	     * get uuid
 	     * @return
@@ -35,6 +44,15 @@ public class CommentUser implements Serializable{
 	    public String getUudi() {
 			return uudi;
 		}
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    /**
 	     * set uuid
 	     * @param uudi
@@ -43,6 +61,15 @@ public class CommentUser implements Serializable{
 			this.uudi = uudi;
 		}
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 	     * get the profile encode
 	     * @return
@@ -50,6 +77,15 @@ public class CommentUser implements Serializable{
 	    public String getProfileEncode() {
 			return ProfileEncode;
 		}
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    /**
 	     * to set the profile encode by given string
 	     * @param profileEncode
@@ -57,6 +93,15 @@ public class CommentUser implements Serializable{
 		public void setProfileEncode(String profileEncode) {
 			ProfileEncode = profileEncode;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to get the bio
 		 * @return
@@ -64,6 +109,15 @@ public class CommentUser implements Serializable{
 		public String getBio() {
 			return bio;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set bio by given stirng
 		 * @param bio
@@ -72,6 +126,15 @@ public class CommentUser implements Serializable{
 			this.bio = bio;
 		}
 	    
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	    /**
 	     * to get the name
 	     * @return
@@ -79,6 +142,15 @@ public class CommentUser implements Serializable{
 		public String getName() {
 			return name;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set the name by given string
 		 * @param name
@@ -86,6 +158,15 @@ public class CommentUser implements Serializable{
 		public void setName(String name) {
 			this.name = name;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * get the age
 		 * @return
@@ -93,6 +174,16 @@ public class CommentUser implements Serializable{
 		public String getAge() {
 			return age;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set the age 
 		 * @param age
@@ -100,6 +191,15 @@ public class CommentUser implements Serializable{
 		public void setAge(String age) {
 			this.age = age;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to get the facebook
 		 * @return
@@ -107,6 +207,15 @@ public class CommentUser implements Serializable{
 		public String getFacebook() {
 			return facebook;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set the facebook
 		 * @param facebook
@@ -114,6 +223,15 @@ public class CommentUser implements Serializable{
 		public void setFacebook(String facebook) {
 			this.facebook = facebook;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * the get the link
 		 * @return
@@ -121,6 +239,15 @@ public class CommentUser implements Serializable{
 		public String getLinkedIn() {
 			return LinkedIn;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to se the linked in
 		 * @param linkedIn
@@ -128,6 +255,16 @@ public class CommentUser implements Serializable{
 		public void setLinkedIn(String linkedIn) {
 			LinkedIn = linkedIn;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to get the phone number
 		 * @return
@@ -135,6 +272,15 @@ public class CommentUser implements Serializable{
 		public String getPhone() {
 			return Phone;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set the phone number
 		 * @param phone
@@ -142,6 +288,15 @@ public class CommentUser implements Serializable{
 		public void setPhone(String phone) {
 			Phone = phone;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to get the e-mail address
 		 * @return
@@ -149,6 +304,15 @@ public class CommentUser implements Serializable{
 		public String getEmail() {
 			return Email;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set the e-mail address
 		 * @param email
@@ -156,6 +320,16 @@ public class CommentUser implements Serializable{
 		public void setEmail(String email) {
 			Email = email;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * get the picture
 		 * @return
@@ -163,6 +337,16 @@ public class CommentUser implements Serializable{
 		public Bitmap getPicture() {
 			return picture;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set the picture
 		 * @param picture
@@ -170,6 +354,16 @@ public class CommentUser implements Serializable{
 		public void setPicture(Bitmap picture) {
 			this.picture = picture;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * get he image encode
 		 * @return
@@ -177,6 +371,16 @@ public class CommentUser implements Serializable{
 		public String getImageEncode() {
 			return imageEncode;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		 * to set image encode
 		 * @param imageEncode

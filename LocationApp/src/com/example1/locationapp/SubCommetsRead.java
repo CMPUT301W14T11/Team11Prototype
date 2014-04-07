@@ -70,10 +70,8 @@ public class SubCommetsRead extends Activity {
 	public static final String MASTERCOMMENT = "emouse/";
 	private ListView listViewSubComment;
 	private EditText editText;
-	@SuppressWarnings("unused")
-	private int index;
 	private Button button1;
-	private cutadapter ListAdapter;
+	private CutAdapter ListAdapter;
 	private ArrayList<Comments> comment_list;
 	private Bitmap bitmap;
 	private int number;
@@ -116,7 +114,7 @@ public class SubCommetsRead extends Activity {
 		number = intent.getIntExtra("masterID", 0);
 		id_obj = new IDModel(0);
 		gps = new GPSTracker(this);
-		ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
+		ListAdapter = new CutAdapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
 		content = this;
 		ConnectivityManager cm =
 		        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -402,6 +400,15 @@ public class SubCommetsRead extends Activity {
 		button1.setOnClickListener(new MyButton1Listener());
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * there are two sub-munu list which is using for saving favourite and
 	 * another is using for save, it will help us save the comments and
@@ -421,6 +428,14 @@ public class SubCommetsRead extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Save the Faviourite comments into the local file
 	 * @param code - used to determine between faviourite and saving
@@ -479,6 +494,15 @@ public class SubCommetsRead extends Activity {
 			
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * this is code to save comments to local
 	 * @param code
@@ -496,6 +520,15 @@ public class SubCommetsRead extends Activity {
 		}
 		return saved;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 */
@@ -504,6 +537,15 @@ public class SubCommetsRead extends Activity {
 		getMenuInflater().inflate(R.menu.sub_commets_read, menu);
 		return true;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -528,6 +570,16 @@ public class SubCommetsRead extends Activity {
 				}			
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * clikc this button to add picture
 	 * @param v
@@ -643,6 +695,16 @@ public class SubCommetsRead extends Activity {
 			
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * use this function to load from file, and show comments in listview
 	 */
@@ -661,11 +723,20 @@ public class SubCommetsRead extends Activity {
 			
 			Collections.sort(comment_list, new SubCommentSort());
 			subCoId=comment_list.size()+1;
-			ListAdapter = new cutadapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
+			ListAdapter = new CutAdapter(SubCommetsRead.this, R.layout.listlayout,comment_list);
 			listViewSubComment.setAdapter(ListAdapter);
 			ListAdapter.notifyDataSetChanged();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * go back to MainActivty from SUBcomment
 	 */

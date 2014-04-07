@@ -28,6 +28,15 @@ public class FavouriteComment
 		this.longitude = longitude;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * get the latitude of the comment
 	 * @return
@@ -37,6 +46,15 @@ public class FavouriteComment
 	{
 		return latitude;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the longitude of the comment 
@@ -48,6 +66,15 @@ public class FavouriteComment
 		return longitude;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the comment's id
 	 * @param id -- the comment's master id
@@ -56,6 +83,15 @@ public class FavouriteComment
 	{
 		this.id = id;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get comment's master id
@@ -67,6 +103,15 @@ public class FavouriteComment
 		return id;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the distance from the comment's sending location
 	 * @param distance -- the distance from the comment's sending location
@@ -75,6 +120,15 @@ public class FavouriteComment
 	{
 		this.distance = distance;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the distance from the comment's sending location
@@ -86,6 +140,15 @@ public class FavouriteComment
 		return distance;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the username who store this comment
 	 * @param userName -- username  of who store this comment
@@ -94,6 +157,15 @@ public class FavouriteComment
 	{
 		this.userName = userName;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the username who store this comment
@@ -104,6 +176,15 @@ public class FavouriteComment
 	{
 		return userName;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the title of this comment
@@ -116,6 +197,15 @@ public class FavouriteComment
 		return title;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the title of this comment
 	 * @param title -- the title of this comment
@@ -125,6 +215,15 @@ public class FavouriteComment
 	
 		this.title = title;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the content of the comment
@@ -137,6 +236,15 @@ public class FavouriteComment
 		return text;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the content of the comment
 	 * @param text -- the content of the comment
@@ -147,6 +255,15 @@ public class FavouriteComment
 		this.text = text;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the image of the comment
 	 * @param image -- the string of image of the comment
@@ -155,6 +272,15 @@ public class FavouriteComment
 	{
 		this.comment_image = image;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the image string of the comment

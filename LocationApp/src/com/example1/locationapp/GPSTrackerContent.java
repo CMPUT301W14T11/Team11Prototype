@@ -18,10 +18,26 @@ public class GPSTrackerContent {
 		this.mContext = context;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	public Context getMContext() {
 		return mContext;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Function to show settings alert dialog
 	 */

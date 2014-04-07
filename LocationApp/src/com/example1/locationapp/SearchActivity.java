@@ -27,7 +27,7 @@ import com.example1.locationapp.R;
  * @author zuo2
  */
 public class SearchActivity extends Activity {
-    private cutadapter adapter2;
+    private CutAdapter adapter2;
     private ArrayList<Comments> comment_list;
     private ListView listview2;
     private String query;
@@ -40,6 +40,16 @@ public class SearchActivity extends Activity {
 		bar.setTitle("Search Result");
 		handleIntent(getIntent());
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * this function is used to call handIntent
 	 * @param intent
@@ -49,8 +59,15 @@ public class SearchActivity extends Activity {
 		handleIntent(intent);
 	}
 	
-	public void onListItemClick(ListView l, View v, int position, long id) {
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * get intent form MainActiviy
 	 * @param intent
@@ -61,6 +78,15 @@ public class SearchActivity extends Activity {
 			doSearch(query);
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * do seach from the server and put the result into listviw
 	 * @param queryStr
@@ -79,7 +105,7 @@ public class SearchActivity extends Activity {
 			}
 		});
 		comment_list = new ArrayList<Comments>();
-		adapter2 = new cutadapter(SearchActivity.this,R.layout.listlayout, comment_list);
+		adapter2 = new CutAdapter(SearchActivity.this,R.layout.listlayout, comment_list);
 		listview2.setAdapter(adapter2);
 		comment_list.clear();
 		new AsyncTask<Void,Void,Void>() {
@@ -96,18 +122,36 @@ public class SearchActivity extends Activity {
 			}
 			}.execute();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
 	 * @return true
 	 */
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.search, menu);
 		return true;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -123,6 +167,15 @@ public class SearchActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

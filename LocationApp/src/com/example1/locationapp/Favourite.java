@@ -77,8 +77,7 @@ public class Favourite extends Activity {
 		}
 		
 		Intent intent = getIntent();
-		code = intent.getIntExtra("code", 0);
-		
+		code = intent.getIntExtra("code", 0);		
 		ActionBar bar = getActionBar();
 		if (code == 0)
 			bar.setTitle("Faviourite");
@@ -138,13 +137,20 @@ public class Favourite extends Activity {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * load the comment and sub-comment from the local saving file, and the
 	 * result into the list of view.
 	 */
 	private void populateListView() {
 		
-
 		list = (ListView) findViewById(R.id.favouritelist);
 		user = new UserModel();
 		user = fl.loadFromFile();
@@ -162,6 +168,14 @@ public class Favourite extends Activity {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * download comment from the server
 	 * @param user
@@ -225,13 +239,20 @@ public class Favourite extends Activity {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set the information for Favourite Comments.
 	 * @param comment
 	 * @param i1
 	 * @return fc
 	 */
-
 	private FavouriteComment fileC(ArrayList<Comments> comment, int i1) {
 		FavouriteComment fc = new FavouriteComment();
 		fc.setDistance(save.getDistance(comment.get(i1).getLat(),
@@ -243,6 +264,14 @@ public class Favourite extends Activity {
 		return fc;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu

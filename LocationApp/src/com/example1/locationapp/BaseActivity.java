@@ -31,6 +31,15 @@ public class BaseActivity extends Activity {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -38,6 +47,14 @@ public class BaseActivity extends Activity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	/**
 	 *  This method is for menu. This menu items will appear in all
@@ -58,6 +75,15 @@ public class BaseActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 *This method will override by child class. Then base class can get the
 	 *fragment

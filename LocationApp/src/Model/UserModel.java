@@ -20,6 +20,15 @@ public class UserModel {
     	user_name = "";
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * add a comment to comment array
      * @param c -- the comment needs to be added
@@ -28,6 +37,15 @@ public class UserModel {
     {
     	comment.add(c);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * get the comments array
@@ -38,6 +56,16 @@ public class UserModel {
     {
     	return comment;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * get current login username
@@ -50,6 +78,15 @@ public class UserModel {
 		return user_name;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * set username when user change
 	 * @param user_name -- nuew user name
@@ -59,6 +96,15 @@ public class UserModel {
 	
 		this.user_name = user_name;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * get the Favourite list
@@ -70,6 +116,15 @@ public class UserModel {
 	
 		return faviourte;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * add a favourite model to the user

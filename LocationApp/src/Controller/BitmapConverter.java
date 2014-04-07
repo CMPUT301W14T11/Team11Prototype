@@ -30,6 +30,14 @@ public class BitmapConverter implements JsonDeserializer<Bitmap>,JsonSerializer<
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Bitmap deserialize(JsonElement arg0, Type arg1,
 			JsonDeserializationContext arg2) throws JsonParseException {

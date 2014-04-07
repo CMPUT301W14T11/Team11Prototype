@@ -33,6 +33,14 @@ public class LocalFileLoder
 		this.context = context;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * used to determine if local file existed
 	 */
@@ -47,6 +55,14 @@ public class LocalFileLoder
 		 }
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * return if local file existed
 	 * @return
@@ -56,6 +72,14 @@ public class LocalFileLoder
 	{
 		return fileExist;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * load UserModel from the local file

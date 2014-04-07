@@ -21,7 +21,7 @@ import com.example1.locationapp.GPSTracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import Controller.compara;
+import Controller.Compara;
 import InternetConnection.ElasticSearchResponse;
 import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
@@ -83,7 +83,7 @@ public class CommentSort {
 				  comms.setDistance(DistanceResult[0]);
 				  date_comment_array.add(comms);
 				}
-				Collections.sort(date_comment_array, new compara());
+				Collections.sort(date_comment_array, new Compara());
 			    }
 			
 			
@@ -108,6 +108,14 @@ public class CommentSort {
 	
 
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * get the http response and return json string
 	 * @param response
