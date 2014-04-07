@@ -361,7 +361,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 									if (flag==0)
 									{
 										AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-										builder.setTitle("User has did not create profile");
+										builder.setTitle("This user does not have profile");
 										builder.setMessage("Please check back later");
 										builder.setCancelable(true);
 										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
