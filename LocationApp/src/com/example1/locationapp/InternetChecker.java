@@ -34,9 +34,9 @@ public class InternetChecker extends BroadcastReceiver {
 	/**
 	 * this is trying to received network states, if the app is connected to
 	 * Internet then it will start loading in Main-activity
-	 * @param context
-	 * @return boolean
-	 * @author zuo2
+	 * @param context -- context of a activity
+	 * @return
+	 * true if connect to internet, false else.
 	 */
 	public boolean connected(Context context)
 	{
@@ -252,7 +252,7 @@ public class InternetChecker extends BroadcastReceiver {
 	
 	/**
 	 * check if the Internet is connect or not.
-	 * @param context
+	 * @param context -- context of the activity
 	 * @param intent
 	 * @return
 	 */

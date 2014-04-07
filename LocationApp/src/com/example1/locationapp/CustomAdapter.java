@@ -29,9 +29,9 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 
     /**
      * to create activity adapter for the list view
-     * @param activity
-     * @param textViewResourceId
-     * @param entries
+     * @param activity -- activity uses this adapter
+     * @param textViewResourceId -- the layout
+     * @param entries -- the entry that will be displaied
      */
     public CustomAdapter(Activity activity, int textViewResourceId, ArrayList<FavouriteComment> entries) {
         super(activity, textViewResourceId, entries);
@@ -59,7 +59,8 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 	 *@param postion
 	 *@param converView
 	 *@param parent
-	 *@return view  which is View type
+	 *@return 
+	 *view which is View type
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -116,10 +117,4 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         return view;
     }
 }
-    
-    
- 
-    
-
-
-
+   

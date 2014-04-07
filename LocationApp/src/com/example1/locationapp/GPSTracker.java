@@ -46,6 +46,7 @@ public class GPSTracker extends Service implements LocationListener{
     /**
      * method for user to get the location.
      * @return
+     * current location
      */
     public Location getLocation() {
         try {
@@ -112,7 +113,8 @@ public class GPSTracker extends Service implements LocationListener{
 
     /**
      * Function to get latitude
-     * @return latitude
+     * @return 
+     * current latitude
      * */
     public double getLatitude(){
         if(location != null){
@@ -127,7 +129,8 @@ public class GPSTracker extends Service implements LocationListener{
 
     /**
      * Function to get longitude
-     * @return longitude
+     * @return 
+     * current longitude
      * */
     public double getLongitude(){
         if(location != null){

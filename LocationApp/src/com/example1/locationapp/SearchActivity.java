@@ -69,7 +69,7 @@ public class SearchActivity extends Activity {
 
 	/**
 	 * do seach from the server and put the result into listviw
-	 * @param queryStr
+	 * @param queryStr -- searching query
 	 */
 	private void doSearch(String queryStr) {
 		listview2 =(ListView) findViewById(R.id.search_list);
@@ -108,7 +108,8 @@ public class SearchActivity extends Activity {
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
-	 * @return true
+	 * @return
+	 * true
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,7 +123,7 @@ public class SearchActivity extends Activity {
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
 	 * as you specify a parent activity in AndroidManifest.xml.
-	 * @param item
+	 * @param item -- selected item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

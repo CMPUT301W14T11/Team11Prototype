@@ -67,10 +67,11 @@ public class SubCommentModel implements CommentController{
 
 	/**
 	 * use this function for download comments from the server
-	 * @param comment_list1
-	 * @param mID
-	 * @param httpclient
+	 * @param comment_list1 -- the comment_list that will store the comments
+	 * @param mID -- master id
+	 * @param httpclient -- http client
 	 * @return
+	 * a comment_list that store the comments
 	 */
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_list1, int mID,HttpClient httpclient) {
 		HttpPost httpPost = new HttpPost(

@@ -121,9 +121,9 @@ public class NewProfileActivity extends Activity {
 
     
 	/**Upload user profile to the server
-     * @param v
+     * @param view
      */
-	public void upload_profile(View v)
+	public void upload_profile(View view)
 	{   
 
 		final CommentUser NewUser =new CommentUser();
@@ -192,7 +192,7 @@ public class NewProfileActivity extends Activity {
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
 	 * as you specify a parent activity in AndroidManifest.xml.
-	 * @param item
+	 * @param item -- selected item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

@@ -74,7 +74,8 @@ public class SubFavourite extends Activity
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
-	 * @return boolean
+	 * @return
+	 * true
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

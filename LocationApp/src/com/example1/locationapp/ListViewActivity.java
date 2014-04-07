@@ -96,7 +96,8 @@ public class ListViewActivity extends BaseActivity {
 		 * to refresh the list view
 		 * round progress bar
 		 * @param view
-		 * @return null
+		 * @return 
+		 * null
 		 */
 		@Override
 		public void onRefreshStarted(View view) {

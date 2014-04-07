@@ -114,7 +114,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		/**
 		 * checking the location
-		 * @author zuo2
 		 */
 		if (wifi.isConnected() || mobile.isConnected()) {
 
@@ -478,7 +477,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	/**
 	 * An option window jump out allows user to select
 	 * whether edit comments, add tags as well as view profile
-	 * @param item
+	 * @param item -- selected item
 	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -841,7 +840,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	 * @param view
 	 */
 	@Override
-	public void onRefreshStarted(View view) {
+	public void onRefreshStarted(View v) {
 
 		new AsyncTask<Void, Void, Void>() {
 

@@ -70,7 +70,6 @@ public class ChoseImageActivity extends Activity implements
 		imageViewThumbnail = (ImageView) findViewById(R.id.imageViewThumb);
 		imageViewThumbSmall = (ImageView) findViewById(R.id.imageViewThumbSmall);
 		textViewFile = (TextView) findViewById(R.id.textViewFile);
-
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		progressBar.setVisibility(View.GONE);
 
@@ -101,7 +100,6 @@ public class ChoseImageActivity extends Activity implements
 	/**
 	 * this method for user taking the photo by user.
 	 */
-
 	private void takePicture() {
 		chooserType = ChooserType.REQUEST_CAPTURE_PICTURE;
 		imageChooserManager = new ImageChooserManager(this,
@@ -136,8 +134,8 @@ public class ChoseImageActivity extends Activity implements
 	
 	
 	/**
-	 * this method is for the Image what you choose to use.
-	 * @param image  is the image what you want.
+	 * this method is for the Image what user choose to use.
+	 * @param image -- the image what user want to use.
 	 */
 	@Override
 	public void onImageChosen(final ChosenImage image) {
@@ -163,7 +161,7 @@ public class ChoseImageActivity extends Activity implements
 
 	/**
 	 * to return the the error information to let user know.
-	 * @param reason   is the string tell to let user understand what's with it.
+	 * @param reason -- the string tell to let user understand what's with it.
 	 */
 	@Override
 	public void onError(final String reason) {

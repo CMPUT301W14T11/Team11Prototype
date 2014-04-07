@@ -63,7 +63,8 @@ public class NewUserActivity extends Activity
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
-	 * @return true
+	 * @return 
+	 * true
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

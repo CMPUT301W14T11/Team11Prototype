@@ -35,8 +35,8 @@ public class ConnectToInternet {
 	
 	/**
 	 * this is to send IDModel to the server
-	 * @param id
-	 * @param content
+	 * @param id -- model id
+	 * @param content -- context of activity
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
@@ -109,8 +109,9 @@ public class ConnectToInternet {
 
 	/**
 	 * download IDModel from the server
-	 * @param content
+	 * @param content -- context of activity
 	 * @return
+	 * id
 	 */
 	public int get_id(Context content) {
 		

@@ -61,17 +61,17 @@ public class Comments implements Serializable{
 	
 	/**
 	 * use constructor to make comments with picture
-	 * @param user_id
-	 * @param masterid
-	 * @param sid
-	 * @param subid
-	 * @param title
-	 * @param subject
-	 * @param the_date
-	 * @param lon
-	 * @param lat
-	 * @param encode
-	 * @param userName
+	 * @param user_id    User's ID
+	 * @param masterid   comments' master ID
+	 * @param sid        SubComments ID
+	 * @param subid      SubComments' subcomment ID
+	 * @param title      Title of the comments
+	 * @param subject    Body of the comments
+	 * @param the_date   date posted 
+	 * @param lon        location when user post comments
+	 * @param lat        location when user post comments
+	 * @param userName   User's name
+	 * @param encode     Picture
 	 */
 	public Comments(int user_id,int masterid , int sid,int subid,String title, String subject,Date the_date,double lon,double lat,JsonElement encode, String userName)
 	{   
@@ -93,7 +93,7 @@ public class Comments implements Serializable{
 
     /**
      * to set the sub comments
-     * @param s
+     * @param subComments -- updated subComment
      */
 	public void setSubComment(ArrayList<Comments> subComments)
 	{
@@ -105,6 +105,7 @@ public class Comments implements Serializable{
 	/**
 	 * to get the subcomment list
 	 * @return
+	 * the subcomment list
 	 */
 	public ArrayList<Comments> getSubComment()
 	{
@@ -114,8 +115,9 @@ public class Comments implements Serializable{
 	
 
 	/**
-	 * to get the lag list
+	 * to get the tag list
 	 * @return
+	 * the tag list
 	 */
 	public ArrayList<String> getTagsList() {
 		return TagsList;
@@ -125,7 +127,7 @@ public class Comments implements Serializable{
 
     /**
      * setting the tag list 
-     * @param tagsList
+     * @param tagsList -- tag list
      */
 	public void setTagsList(ArrayList<String> tagsList) {
 		TagsList = tagsList;
@@ -136,6 +138,7 @@ public class Comments implements Serializable{
 	/**
 	 * get the string of user name
 	 * @return
+	 * the string of user name
 	 */
 	public String getUserName()
 	{
@@ -148,6 +151,7 @@ public class Comments implements Serializable{
 	/**
 	 * to get master comment ID
 	 * @return
+	 * master comment ID
 	 */
 	public int getMaster_comment_ID() {
 		return master_comment_ID;
@@ -157,7 +161,7 @@ public class Comments implements Serializable{
 
     /**
      * seting the master comment id
-     * @param master_comment_ID
+     * @param master_comment_ID -- the mater comment id
      */
 	public void setMaster_comment_ID(int master_comment_ID) {
 		this.master_comment_ID = master_comment_ID;
@@ -168,6 +172,7 @@ public class Comments implements Serializable{
 	/**
 	 * get the sub comment id
 	 * @return
+	 * the sub comment id
 	 */
 	public int getSub_comments_ID() {
 		return sub_comments_ID;
@@ -177,7 +182,7 @@ public class Comments implements Serializable{
 
     /**
      * seting sub comment id
-     * @param sub_comments_ID
+     * @param sub_comments_ID -- the sub comment id
      */
 	public void setSub_comments_ID(int sub_comments_ID) {
 		this.sub_comments_ID = sub_comments_ID;
@@ -188,6 +193,7 @@ public class Comments implements Serializable{
     /**
      * get the master id
      * @return
+     * the master id
      */
 	public int getMaster_ID() {
 		return master_ID;
@@ -197,7 +203,7 @@ public class Comments implements Serializable{
 
     /**
      * set the master id
-     * @param master_ID
+     * @param master_ID -- master id
      */
 	public void setMaster_ID(int master_ID) {
 		this.master_ID = master_ID;
@@ -208,6 +214,7 @@ public class Comments implements Serializable{
     /**
      * get the sub id
      * @return
+     * the sub id
      */
 	public int getSub_ID() {
 		return sub_ID;
@@ -217,7 +224,7 @@ public class Comments implements Serializable{
 
 	/**
 	 * to set the sub_id
-	 * @param sub_ID
+	 * @param sub_ID -- sub id of comment
 	 */
 	public void setSub_ID(int sub_ID) {
 		this.sub_ID = sub_ID;
@@ -228,6 +235,7 @@ public class Comments implements Serializable{
     /**
      * to get the comment
      * @return
+     * the comment
      */
 	public String getThe_comment() {
 		return the_comment;
@@ -237,7 +245,7 @@ public class Comments implements Serializable{
 	
     /**
      * the set the comment by given string
-     * @param the_comment
+     * @param the_comment -- the comment need to be set
      */
 	public void setThe_comment(String the_comment) {
 		this.the_comment = the_comment;
@@ -248,6 +256,7 @@ public class Comments implements Serializable{
     /**
      * get the subject comment
      * @return
+     * the comment's subject
      */
 	public String getSubject_comment() {
 		return subject_comment;
@@ -256,8 +265,8 @@ public class Comments implements Serializable{
 	
 
     /**
-     * set teh subject comment by given string
-     * @param subject_comment
+     * set the subject comment by given string
+     * @param subject_comment -- the subject of comment
      */
 	public void setSubject_comment(String subject_comment) {
 		this.subject_comment = subject_comment;
@@ -266,8 +275,9 @@ public class Comments implements Serializable{
 	
 
     /**
-     * get the comments date
+     * get the comment's date
      * @return
+     * the comment's date
      */
 	public Date getComment_date() {
 		return comment_date;
@@ -277,7 +287,7 @@ public class Comments implements Serializable{
 
     /**
      * to set the comment date
-     * @param comment_date
+     * @param comment_date -- date of comment
      */
 	public void setComment_date(Date comment_date) {
 		this.comment_date = comment_date;
@@ -288,6 +298,7 @@ public class Comments implements Serializable{
     /**
      * get the master comments
      * @return
+     * the master comments
      */
 	public boolean isMaster_comment() {
 		return master_comment;
@@ -297,7 +308,7 @@ public class Comments implements Serializable{
 
     /**
      * the set he master commetns by given boolean
-     * @param master_comment
+     * @param master_comment -- given boolean
      */
 	public void setMaster_comment(boolean master_comment) {
 		this.master_comment = master_comment;
@@ -308,6 +319,7 @@ public class Comments implements Serializable{
 	/**
 	 * get the longitude
 	 * @return
+	 * the longitude of comment
 	 */
 	public double getLon() {
 		return lon;
@@ -317,7 +329,7 @@ public class Comments implements Serializable{
 
 	/**
 	 * set the longitude
-	 * @param lon
+	 * @param lon -- the longitude of comment
 	 */
 	public void setLon(double lon) {
 		this.lon = lon;
@@ -328,6 +340,7 @@ public class Comments implements Serializable{
     /**
      * get the latitude
      * @return
+     * the latitude of comment
      */
 	public double getLat() {
 		return lat;
@@ -337,7 +350,7 @@ public class Comments implements Serializable{
 
     /**
      * to set the latitude
-     * @param lat
+     * @param lat -- the latitude of comment
      */
 	public void setLat(double lat) {
 		this.lat = lat;
@@ -348,6 +361,7 @@ public class Comments implements Serializable{
 	/**
 	 * to the distance
 	 * @return
+	 * the distance
 	 */
 	public double getDistance() {
 		return distance;
@@ -357,7 +371,7 @@ public class Comments implements Serializable{
 
 	/**
 	 * to set the distance by give double value
-	 * @param distance
+	 * @param distance -- the distance
 	 */
 	public void setDistance(double distance) {
 		this.distance = distance;
@@ -368,6 +382,7 @@ public class Comments implements Serializable{
 	/**
 	 * get the image encode
 	 * @return
+	 * the image encode
 	 */
 	public JsonElement getImage_encode() {
 		return image_encode;
@@ -377,7 +392,7 @@ public class Comments implements Serializable{
 
 	/**
 	 * set the image encode
-	 * @param image_encode
+	 * @param image_encode -- the image encode
 	 */
 	public void setImage_encode(JsonElement image_encode) {
 		this.image_encode = image_encode;
@@ -388,6 +403,7 @@ public class Comments implements Serializable{
     /**
      * get the user ID
      * @return
+     * the user ID
      */
 	public int getUserID() {
 		return userID;
@@ -397,7 +413,7 @@ public class Comments implements Serializable{
 
 	/**
 	 * set the user ID by given int
-	 * @param userID
+	 * @param userID -- the user ID
 	 */
 	public void setUserID(int userID) {
 		this.userID = userID;

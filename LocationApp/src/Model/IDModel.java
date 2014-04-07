@@ -19,6 +19,7 @@ public class IDModel {
        /**
         * to get the master id
         * @return
+        * the master id
         */
        public int getId_for_master() {
     	   return id_for_master;
@@ -28,7 +29,7 @@ public class IDModel {
        
 	   /**
 	    * to set the master id by given integer
-	    * @param id_for_master
+	    * @param id_for_master -- the master id
 	    */
        public void setId_for_master(int id_for_master) {
     	   this.id_for_master = id_for_master;

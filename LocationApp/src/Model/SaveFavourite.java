@@ -11,9 +11,9 @@ public class SaveFavourite {
 	
 	/**
 	 * function for compute the distance of the comment
-	 * @param commentLaiude
-	 * @param commentLongitude
-	 * @param current_location
+	 * @param commentLatiude -- the latitude of the comment
+	 * @param commentLongitude -- the longitude of the comment
+	 * @param current_location -- user's current location
 	 * @return
 	 */
 	public double getDistance(double commentLaiude, double commentLongitude, Location current_location)

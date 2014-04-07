@@ -54,7 +54,6 @@ public class EditActivity extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				
-				
 				try {
 					// IDModel id_toReturn ;// this is ID object from server
 					Gson gson = new Gson();
@@ -83,7 +82,6 @@ public class EditActivity extends Activity {
 
 					
 				} catch (RuntimeException e) {
-
 					
 				}
 				return null;
@@ -99,10 +97,10 @@ public class EditActivity extends Activity {
 	/**
 	 * click the button to send edit to the cloud
 	 * @param v
-	 * @return null
-	 * @author zuo2
+	 * @return
+	 * null
 	 */
-    public void submit(View v)
+    public void submit(View view)
     { 
     	String NewTitle = title.getText().toString();
     	String NewSubject = subject.getText().toString();
@@ -206,8 +204,7 @@ public class EditActivity extends Activity {
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
 	 * as you specify a parent activity in AndroidManifest.xml.
-	 * @param item
-	 * @author zuo2
+	 * @param item -- selected item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -222,7 +219,6 @@ public class EditActivity extends Activity {
 	
 	/**
 	 * A placeholder fragment containing a simple view.
-	 * @author zuo2
 	 */
 	public static class PlaceholderFragment extends Fragment {
 
@@ -234,7 +230,6 @@ public class EditActivity extends Activity {
 		 * @param container
 		 * @param savedInstanceState
 		 * @return rootView
-		 * @author zuo2
 		 */
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,

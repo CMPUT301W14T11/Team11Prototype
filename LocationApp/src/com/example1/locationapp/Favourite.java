@@ -171,8 +171,8 @@ public class Favourite extends Activity {
 
 	/**
 	 * download comment from the server
-	 * @param user
-	 * @param code
+	 * @param user -- current user
+	 * @param code -- 0 - favourite, 1 - personal saving
 	 */
 	public void get_comments(UserModel user, int code) {
 		HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/_search?pretty=1");
@@ -238,9 +238,10 @@ public class Favourite extends Activity {
 
 	/**
 	 * set the information for Favourite Comments.
-	 * @param comment
-	 * @param i1
-	 * @return favouriteComment
+	 * @param comment -- arraylist of comments
+	 * @param i1 -- the position of comment in the array
+	 * @return
+	 * update favourite comment
 	 */
 	private FavouriteComment fileC(ArrayList<Comments> comment, int i1) {
 		FavouriteComment favouriteComment = new FavouriteComment();

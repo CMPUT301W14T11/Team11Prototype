@@ -441,7 +441,7 @@ public class SubCommetsRead extends Activity {
 	 * there are two subFavouriteComment-munu list which is using for saving favourite and
 	 * another is using for save, it will help us save the comments and
 	 * subFavouriteComment-comments in the file.
-	 * @param item
+	 * @param item -- selected item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -460,7 +460,7 @@ public class SubCommetsRead extends Activity {
 
 	/**
 	 * Save the Faviourite comments into the local file
-	 * @param code - used to determine between faviourite and saving
+	 * @param code -- used to determine between faviourite and saving
 	 */
 	public void faviSaving(int code)
 	{
@@ -521,9 +521,10 @@ public class SubCommetsRead extends Activity {
 
 	/**
 	 * this is code to save comments to local
-	 * @param code
-	 * @param saved
+	 * @param code -- 0 for favourite 1 for personal saving
+	 * @param saved -- true -- it has been saved, false else
 	 * @return
+	 * true -- it has been saved, false else
 	 */
 	private boolean saved(int code, boolean saved) {
 		for (int i = 0; i < user.getFaviourte().size(); i++) {
@@ -578,9 +579,9 @@ public class SubCommetsRead extends Activity {
 
 	/**
 	 * clikc this button to add picture
-	 * @param v
+	 * @param view
 	 */
-	public void picture(View v)
+	public void picture(View view)
 	{
 		Intent intent = new Intent(this, ChoseImageActivity.class);
 		startActivityForResult(intent,2828);

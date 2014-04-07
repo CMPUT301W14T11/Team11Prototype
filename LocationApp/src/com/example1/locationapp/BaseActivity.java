@@ -40,12 +40,12 @@ public class BaseActivity extends Activity {
 
 		
 	
-	@Override
 	/**
 	 *  This method is for menu. This menu items will appear in all
 	 *  activities extends this class. I have use this menus to navigate
 	 *  between activities.
 	 */
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
@@ -66,7 +66,8 @@ public class BaseActivity extends Activity {
 	/**
 	 *This method will override by child class. Then base class can get the
 	 *fragment
-	 *@return null
+	 *@return
+	 *null
 	 */
 	protected Fragment getSampleFragment() {
 		return null;

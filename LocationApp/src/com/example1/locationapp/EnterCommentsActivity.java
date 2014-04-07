@@ -247,8 +247,7 @@ public class EnterCommentsActivity extends Activity implements
 	 * to navigate up one level in the application structure. For
 	 * more details, see the Navigation pattern on Android Design:
 	 * http://developer.android.com/design/patterns/navigation.html#up-vs-back
-	 * @param item
-	 * @author zuo2
+	 * @param item -- selected item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

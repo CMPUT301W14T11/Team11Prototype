@@ -24,11 +24,13 @@ import android.widget.TextView;
 public class CutAdapter extends ArrayAdapter<Comments>{
 	private ArrayList<Comments> entries;
     private Activity activity;
+    
+    
     /**
-     * Make activity new adapter for listview
-     * @param activity pass in activity
-     * @param textViewResourceId
-     * @param entries
+     * to create activity adapter for the list view
+     * @param activity -- activity uses this adapter
+     * @param textViewResourceId -- the layout
+     * @param entries -- the entry that will be displaied
      */
     public CutAdapter(Activity activity, int textViewResourceId, ArrayList<Comments> entries) {
         super(activity, textViewResourceId, entries);

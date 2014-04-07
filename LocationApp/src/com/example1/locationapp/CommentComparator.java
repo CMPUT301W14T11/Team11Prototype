@@ -13,9 +13,10 @@ public class CommentComparator implements Comparator<Comments>
 	
 	/**
 	 * basic method of sorting
-	 * @param comment1  Comments model 
-	 * @param comment2  Comments model
-	 * @return give the result that which ID is bigger.
+	 * @param comment1 -- first comment
+	 * @param comment2 -- second comment
+	 * @return
+	 * result that which ID is bigger.
 	 */
 	@Override
     public int compare(Comments comment1, Comments comment2) {
