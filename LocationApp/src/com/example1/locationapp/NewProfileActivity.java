@@ -39,24 +39,28 @@ import com.google.gson.Gson;
  * @author zuo2
  */
 public class NewProfileActivity extends Activity {
-    EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
+    private EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
     ImageView imageview;
     Button CreateButton;
     HttpClient httpclient;
     String theUsername;
     String filepath;
     Bitmap bitmap;
+    private String user_uuid;
+    int flag = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_new_profile);
-
-		/*if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
 		Intent intent = getIntent();
 		theUsername= intent.getStringExtra("username");
+		
+		user_uuid = intent.getStringExtra("uuid");
+		if(user_uuid!=null)
+		{
+		flag=1;
+		}
+		
 		httpclient = new DefaultHttpClient();
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		imageview.setOnClickListener(new OnClickListener() {
@@ -122,8 +126,19 @@ public class NewProfileActivity extends Activity {
 		{
 			NewUser.setImageEncode(new CommentsModel().convert_image_to_string(bitmap));
 		}
+		
 		UUID NewID = UUID.randomUUID();
-		final String string_ID = NewID.toString();
+		System.out.println("flag deng yu:"+flag);
+		System.out.println("uuid is "+user_uuid);
+		if(flag==1)
+		{
+			NewUser.setUudi(user_uuid);
+		}
+		else
+		{
+			NewUser.setUudi(NewID.toString());
+		}
+		
 		   final Gson gson = new Gson();
 			
 		   new AsyncTask<Void,Void,Void>(){
@@ -131,10 +146,8 @@ public class NewProfileActivity extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				try{
-					   HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/"+string_ID);
-					
-						
-						StringEntity data = new StringEntity(gson.toJson(NewUser));
+					   HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/"+NewUser.getUudi());
+					   StringEntity data = new StringEntity(gson.toJson(NewUser));
 						httpPost.setEntity(data);
 						httpPost.setHeader("Accept", "application/json");
 						HttpResponse response = httpclient.execute(httpPost);

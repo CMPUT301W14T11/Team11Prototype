@@ -20,6 +20,7 @@ public class CommentUser implements Serializable{
 	    private String imageEncode;
 	    private String bio;
 	    private String ProfileEncode;
+	    private String uudi;
 	    /**
 	     * constructor for make a user profile
 	     */
@@ -28,6 +29,21 @@ public class CommentUser implements Serializable{
 	    	
 	    }
 	    /**
+	     * get uuid
+	     * @return
+	     */
+	    public String getUudi() {
+			return uudi;
+		}
+	    /**
+	     * set uuid
+	     * @param uudi
+	     */
+		public void setUudi(String uudi) {
+			this.uudi = uudi;
+		}
+
+		/**
 	     * get the profile encode
 	     * @return
 	     */

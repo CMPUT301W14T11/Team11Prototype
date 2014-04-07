@@ -31,6 +31,7 @@ public class ProfileActivity extends Activity {
 	private TextView textview1,textview2,textview3,textview4,textview5,textview6,textview7;
 	private ImageView imageview;
 	private Bitmap bitmap;
+	private String uuid="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class ProfileActivity extends Activity {
 		textview5 = (TextView) findViewById(R.id.textView488);
 		textview6 = (TextView) findViewById(R.id.textView688);
 		textview7 = (TextView) findViewById(R.id.textView8);
+		uuid = goduser.getUudi();
 		textview1.setText(goduser.getName());
 		textview2.setText(goduser.getAge());
 		textview3.setText(goduser.getFacebook());
@@ -97,6 +99,7 @@ public class ProfileActivity extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(getApplicationContext(), NewProfileActivity.class);
 				intent.putExtra("username",user.getUser_name());
+				intent.putExtra("uuid",uuid);
 				startActivity(intent);
 				ProfileActivity.this.finish();
 			}
