@@ -42,6 +42,7 @@ public class NewProfileActivity extends Activity {
     private String theUsername;
     private Bitmap bitmap;
     private String user_uuid;
+    private CommentUser godusr;
     int flag = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,12 @@ public class NewProfileActivity extends Activity {
 		setContentView(R.layout.fragment_new_profile);
 		Intent intent = getIntent();
 		theUsername= intent.getStringExtra("username");
-		
 		user_uuid = intent.getStringExtra("uuid");
+		godusr = (CommentUser) intent.getSerializableExtra("object");
 		if(user_uuid!=null)
 		{
-		flag=1;
+			flag=1;
 		}
-		
 		httpclient = new DefaultHttpClient();
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		imageview.setOnClickListener(new OnClickListener() {
@@ -68,6 +68,22 @@ public class NewProfileActivity extends Activity {
 				startActivityForResult(intent, 654);
 			}
 		});
+		Eage = (EditText) findViewById(R.id.EditText010);
+		Efacebook = (EditText) findViewById(R.id.EditText030);
+		Elinkedin = (EditText) findViewById(R.id.EditText040);
+		Ephone = (EditText) findViewById(R.id.EditText050);
+		Eemail = (EditText) findViewById(R.id.editText20);
+		Ebio = (EditText) findViewById(R.id.editText1);
+		CreateButton = (Button) findViewById(R.id.new_profile_button);
+		if(godusr!=null)
+		{
+			Eage.setText(godusr.getAge());
+			Efacebook.setText(godusr.getFacebook());
+			Elinkedin.setText(godusr.getLinkedIn());
+			Ephone.setText(godusr.getPhone());
+			Eemail.setText(godusr.getEmail());
+			Ebio.setText(godusr.getBio());
+		}
 		
 	}
 	
@@ -118,12 +134,16 @@ public class NewProfileActivity extends Activity {
      */
 	public void upload_profile(View v)
 	{   
+<<<<<<< HEAD
 	Eage = (EditText) findViewById(R.id.EditText010);
 	Efacebook = (EditText) findViewById(R.id.EditText030);
 	Elinkedin = (EditText) findViewById(R.id.EditText040);
 	Ephone = (EditText) findViewById(R.id.EditText050);
 	Eemail = (EditText) findViewById(R.id.editText20);
 	Ebio = (EditText) findViewById(R.id.editText1);
+=======
+	
+>>>>>>> 311cb88cbe07a37a3e66b1cc244834ade40bd5ba
 		final CommentUser NewUser =new CommentUser();
 		NewUser.setAge(Eage.getText().toString());
 		NewUser.setName(theUsername);
@@ -141,6 +161,7 @@ public class NewProfileActivity extends Activity {
 		if(flag==1)
 		{
 			NewUser.setUudi(user_uuid);
+			
 		}
 		else
 		{
