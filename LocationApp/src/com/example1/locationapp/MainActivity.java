@@ -547,6 +547,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			{
 				Intent intent3 = new Intent(MainActivity.this, Favourite.class);
 				intent3.putExtra("code", 0);
+				intent3.putExtra("latitude", current_location.getLatitude());
+				intent3.putExtra("longitude", current_location.getLongitude());
 				startActivityForResult(intent3, 9);
 			}	
 			break;
@@ -562,6 +564,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			{
 				Intent intent6 = new Intent(MainActivity.this, Favourite.class);
 				intent6.putExtra("code", 1);
+				intent6.putExtra("latitude", current_location.getLatitude());
+				intent6.putExtra("longitude", current_location.getLongitude());
 				startActivity(intent6);
 			}
 			break;
