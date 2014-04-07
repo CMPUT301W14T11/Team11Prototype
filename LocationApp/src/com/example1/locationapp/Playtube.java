@@ -18,7 +18,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**
  * This class is to change location on the bit map in the application;
  * @author qyu4
- *
  */
 public class Playtube extends Activity {
 	GoogleMap map;
@@ -70,10 +69,15 @@ public class Playtube extends Activity {
 			}
 		});
 	}
+	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return true
+	 */
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.play_tube, menu);
 		return true;
 	}

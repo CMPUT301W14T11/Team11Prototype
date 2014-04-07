@@ -9,7 +9,6 @@ import android.os.Environment;
 /**
  * refacter activiy
  * @author yazhou
- *
  */
 public class EnterCommentsActivityProduct {
 	private String mCurrentPhotoPath;

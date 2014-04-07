@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 /**
+ * class for GPSTrackerContent reference from the 
  * open source code from http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
  * @author qyu4
- *
  */
 public class GPSTrackerContent {
 	private final Context mContext;

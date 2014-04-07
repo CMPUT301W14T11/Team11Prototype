@@ -15,7 +15,6 @@ import android.widget.ListView;
 /**
  * This activity for user's off line's sub-comments.
  * @author zuo2
- *
  */
 public class SubFavourite extends Activity
 {
@@ -66,12 +65,14 @@ public class SubFavourite extends Activity
 
 	}
 	
-	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return boolean
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.sub_favourite, menu);
 		return true;
 	}

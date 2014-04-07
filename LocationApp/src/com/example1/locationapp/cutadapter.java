@@ -38,32 +38,17 @@ public class cutadapter extends ArrayAdapter<Comments>{
     
     /**
      * Make the view for listview
-     * @author yazhou
-     *
      */
 	public static class ViewHolder{
-        public TextView item1; //make a Testview
-        public TextView item2; //make a Testview
-        public TextView item3;	/*
-		 * new AsyncTask<Void, Void, Void>() {
-		 * 
-		 * @Override protected Void doInBackground(Void... params) {
-		 * Auto-generated method stub pbar.setVisibility(View.GONE); if (image
-		 * != null) { textViewFile.setText(image.getFilePathOriginal());
-		 * imageViewThumbnail.setImageURI(Uri.parse(new File(image
-		 * .getFileThumbnail()).toString()));
-		 * imageViewThumbSmall.setImageURI(Uri.parse(new File(image
-		 * .getFileThumbnailSmall()).toString())); }
-		 * 
-		 * return null; }
-		 * 
-		 * }.execute();
-		 */
+        public TextView item1; 
+        public TextView item2; 
+        public TextView item3;	
         public TextView item4;
         public ImageView imageview;
     }
+	
 	/**
-	 * Put the data in th view
+	 * Put the data into the  view
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -95,15 +80,10 @@ public class cutadapter extends ArrayAdapter<Comments>{
             {   
             	BitmapConverter ImageConvter = new BitmapConverter();
             	Bitmap bitmap = ImageConvter.deserialize(custom.getImage_encode(), null, null);
-            //  we need to convert base64 string back to bitmap , and add bitmap to the comment object
-            	//byte[] imageAsBytes = Base64.decode(custom.getImage_encode().getBytes(),Base64.NO_WRAP);
-            	//Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             	
             	if(bitmap!=null)
                 {
-                	//custom.setComment_image(bitmap);
                 	holder.imageview.setImageBitmap(bitmap);
-                   // bitmap=null;
                 }
             	
             }

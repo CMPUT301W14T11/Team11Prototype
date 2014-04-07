@@ -27,6 +27,7 @@ import InternetConnection.ElasticSearchSearchResponse;
 import Model.Comments;
 /**
  * the class CommentSort is used to sort comments by date and picture individually.
+ * @author zuo2
  */
 public class CommentSort {
 	private Location current_location;
@@ -118,6 +119,9 @@ public class CommentSort {
 
 	/**
 	 * get the http response and return json string
+	 * @param response
+	 * @throws IOException
+	 * @return json -string
 	 */
 	String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(

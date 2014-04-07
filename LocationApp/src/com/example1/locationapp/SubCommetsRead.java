@@ -63,7 +63,6 @@ import com.google.gson.reflect.TypeToken;
  * this class is to control the sub-comments part
  * It will find sub-comment of the master comment
  * @author qyu4
- *
  */
 public class SubCommetsRead extends Activity {
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
@@ -290,8 +289,7 @@ public class SubCommetsRead extends Activity {
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												dialog.cancel();
-												
+												dialog.cancel();	
 											}
 										});
 										AlertDialog adialog = builder.create();
@@ -317,16 +315,13 @@ public class SubCommetsRead extends Activity {
 										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
 												json1, elasticSearchSearchResponseType);
 										
-										
 										for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
 										{   // get some result, then flag is 1
 											someuser = r.getSource();
 											flag=1;
 											break;
 										}
-										System.out.println(json1+"profilehehe");
-										
-										
+										System.out.println(json1+"profilehehe");		
 										if (flag==1)
 										{
 											// have result , result code 939
@@ -336,21 +331,17 @@ public class SubCommetsRead extends Activity {
 											intent_profile.putExtra("name",someuser);
 											startActivityForResult(intent_profile, 939);
 										}
-										
 										}
 										 catch (ClientProtocolException e) {
 											e.printStackTrace();
 										} catch (IOException e) {
 											e.printStackTrace();
 										}
-										return null;
-									
-								}
-								
+										return null;	
+								}		
 							}.execute();
 							break;
 						}
-
 					}
 				});
 				AlertDialog dialog = builder.create();
@@ -397,34 +388,25 @@ public class SubCommetsRead extends Activity {
 				}
 			}
 		});
-
 		button1.setOnClickListener(new MyButton1Listener());
-		
-		
 	}
 
 	/**
 	 * there are two sub-munu list which is using for saving favourite and
 	 * another is using for save, it will help us save the comments and
 	 * sub-comments in the file.
+	 * @param item
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.fav:
-			
 			faviSaving(0);
-			
 			break;
-
 		case R.id.save:
-			
 			faviSaving(1);
-
 			break;
-
 		}
-		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -475,7 +457,6 @@ public class SubCommetsRead extends Activity {
 					sub.setLocation(location.getLatitude(), location.getLongitude());
 					subcomment.add(sub);
 				}
-					
 
 				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
 						subcomment);
@@ -504,10 +485,11 @@ public class SubCommetsRead extends Activity {
 		}
 		return saved;
 	}
-	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.sub_commets_read, menu);
 		return true;
 	}
@@ -535,10 +517,8 @@ public class SubCommetsRead extends Activity {
 					}
 					//imageview.setImageBitmap(bitmap);
 					break;
-				}
-					
+				}			
 		}
-		
 	}
 	/**
 	 * clikc this button to add picture
@@ -596,7 +576,6 @@ public class SubCommetsRead extends Activity {
 							}.execute();
 
 						}
-
 						@Override
 						protected Void doInBackground(Void... params) {
 							
@@ -624,12 +603,9 @@ public class SubCommetsRead extends Activity {
 								subCoId++;
 								replyFloor =0;
 								
-							}
-							
-					
+							}	
 							return null;
 						}
-
 						@Override
 						protected void onPostExecute(Void result) {
 							
@@ -651,17 +627,13 @@ public class SubCommetsRead extends Activity {
 									}
 									return null;
 								}
-
 							}.execute();
                         dialog1.dismiss();
                         bitmap=null;
                         editText.setText("");
 						}
-
 					}.execute();
-
 					setResult(RESULT_OK);
-					
 				}
 			}
 			
@@ -689,11 +661,6 @@ public class SubCommetsRead extends Activity {
 			listViewSubComment.setAdapter(ListAdapter);
 			ListAdapter.notifyDataSetChanged();
 	}
-	
-		
-
-	
-
 
 	/**
 	 * go back to MainActivty from SUBcomment
@@ -702,10 +669,6 @@ public class SubCommetsRead extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		Intent intent = new Intent();
-		intent.setClass(SubCommetsRead.this, MainActivity.class);
-		
+		intent.setClass(SubCommetsRead.this, MainActivity.class);	
 	}
-
-	
-
 }

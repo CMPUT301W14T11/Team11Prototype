@@ -86,18 +86,16 @@ public class Favourite extends Activity {
 			bar.setTitle("Personal Saving");
 		
 		ConnectivityManager cm =
-		        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);
-		 
+		        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);		
+		
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null &&
 		                      activeNetwork.isConnectedOrConnecting();
 		if(isConnected)
 		{
 			new AsyncTask<Void, Void, Void>() {
-
 				@Override
-				protected Void doInBackground(Void... params) {
-					
+				protected Void doInBackground(Void... params) {		
 					get_comments(user,code);
 					return null;
 				}
@@ -105,11 +103,8 @@ public class Favourite extends Activity {
 				@Override
 				protected void onPostExecute(Void result)
 				{
-
-					populateListView();
-					
+					populateListView();				
 					list.setOnItemClickListener(new OnItemClickListener() {
-
 						@Override
 						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 								long arg3) {
@@ -127,10 +122,8 @@ public class Favourite extends Activity {
 		}
 		else
 		{
-			populateListView();
-			
+			populateListView();		
 			list.setOnItemClickListener(new OnItemClickListener() {
-
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 						long arg3) {
@@ -143,11 +136,7 @@ public class Favourite extends Activity {
 				}
 			});
 		}
-		
-	
 	}
-	
-	
 
 	/**
 	 * load the comment and sub-comment from the local saving file, and the
@@ -168,13 +157,11 @@ public class Favourite extends Activity {
 				matchlist.add(favourite.get(i).getComment());
 			}
 		}
-
 		adapter = new CustomAdapter(this, R.layout.listlayout, matchlist);
 		list.setAdapter(adapter);
 
 	}
 
-	
 	/**
 	 * download comment from the server
 	 * @param user
@@ -202,15 +189,13 @@ public class Favourite extends Activity {
 					}.getType();
 					ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
 							json1, elasticSearchSearchResponseType);
-					// <<<<<<< HEAD\
 					int num = 0;
 					user.getFaviourte().get(i).clean();
 					ArrayList<Comments> comment = new ArrayList<Comments>();
 					for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
 						Comments comms = r.getSource();
 						comment.add(comms);
-					}
-					
+					}				
 					//Using for sort the subcomments
 					Collections.sort(comment, new CommentComparator());
 					
@@ -223,16 +208,9 @@ public class Favourite extends Activity {
 							user.getFaviourte().get(i).getComment().setText(comment.get(i1).getSubject_comment());
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
 							num++;
-						}
-										
-						FavouriteComment fc = new FavouriteComment();
-						fc.setDistance(save.getDistance(comment.get(i1).getLat(), comment.get(i1).getLon(), current_location));
-						fc.setImage(comment.get(i1).getImage_encode());
-						fc.setText(comment.get(i1).getSubject_comment());
-						fc.setTitle(comment.get(i1).getThe_comment());
-						fc.setUserName(comment.get(i1).getUserName());
-						user.getFaviourte().get(i).addSubComment(fc);
-						
+						}									
+						FavouriteComment fc = fileC(comment, i1);
+						user.getFaviourte().get(i).addSubComment(fc);				
 						fs.saveInFile(user);
 					}
 				}
@@ -248,17 +226,32 @@ public class Favourite extends Activity {
 			e.printStackTrace();
 		}
 	}
-	
 
+	/**
+	 * set the information for Favourite Comments.
+	 * @param comment
+	 * @param i1
+	 * @return fc
+	 */
 
-	
+	private FavouriteComment fileC(ArrayList<Comments> comment, int i1) {
+		FavouriteComment fc = new FavouriteComment();
+		fc.setDistance(save.getDistance(comment.get(i1).getLat(),
+				comment.get(i1).getLon(), current_location));
+		fc.setImage(comment.get(i1).getImage_encode());
+		fc.setText(comment.get(i1).getSubject_comment());
+		fc.setTitle(comment.get(i1).getThe_comment());
+		fc.setUserName(comment.get(i1).getUserName());
+		return fc;
+	}
 
-	
-
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return true
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.favourite, menu);
 		return true;
 	}
