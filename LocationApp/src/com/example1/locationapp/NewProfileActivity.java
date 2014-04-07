@@ -134,12 +134,7 @@ public class NewProfileActivity extends Activity {
 			protected Void doInBackground(Void... params) {
 				try{
 					   HttpPost httpPost = new HttpPost("http://cmput301.softwareprocess.es:8080/cmput301w14t11/profile/"+string_ID);
-						//String query_profile = "{\"query\":{\"match\":{\"name\":\""+UserName+"\"}}}";
-						//StringEntity entity;
-						//entity = new StringEntity(query_profile);
-						//httppost.setHeader("Accept", "application/json");
-						//httppost.setEntity(entity);
-						//HttpResponse response = httpclient.execute(httppost);
+					
 						
 						StringEntity data = new StringEntity(gson.toJson(NewUser));
 						httpPost.setEntity(data);

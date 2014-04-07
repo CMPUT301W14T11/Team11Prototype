@@ -225,12 +225,7 @@ public class Favourite extends Activity {
 							num++;
 						}
 										
-						FavouriteComment fc = new FavouriteComment();
-						fc.setDistance(save.getDistance(comment.get(i1).getLat(), comment.get(i1).getLon(), current_location));
-						fc.setImage(comment.get(i1).getImage_encode());
-						fc.setText(comment.get(i1).getSubject_comment());
-						fc.setTitle(comment.get(i1).getThe_comment());
-						fc.setUserName(comment.get(i1).getUserName());
+						FavouriteComment fc = fileC(comment, i1);
 						user.getFaviourte().get(i).addSubComment(fc);
 						
 						fs.saveInFile(user);
@@ -247,6 +242,19 @@ public class Favourite extends Activity {
 			System.out.println("IO exe");
 			e.printStackTrace();
 		}
+	}
+
+
+
+	private FavouriteComment fileC(ArrayList<Comments> comment, int i1) {
+		FavouriteComment fc = new FavouriteComment();
+		fc.setDistance(save.getDistance(comment.get(i1).getLat(),
+				comment.get(i1).getLon(), current_location));
+		fc.setImage(comment.get(i1).getImage_encode());
+		fc.setText(comment.get(i1).getSubject_comment());
+		fc.setTitle(comment.get(i1).getThe_comment());
+		fc.setUserName(comment.get(i1).getUserName());
+		return fc;
 	}
 	
 
