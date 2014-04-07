@@ -16,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 /**
  * use this function to download comments from the serer
  * @author yazhou
- *
  */
 public class LoadFromServer {
 	private Gson gson= new Gson();

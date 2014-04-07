@@ -37,7 +37,6 @@ import com.google.gson.Gson;
  * This activity is using for create the profile of a user 
  * then other user can check each other's information in the profile.
  * @author zuo2
- *
  */
 public class NewProfileActivity extends Activity {
     EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
@@ -100,7 +99,6 @@ public class NewProfileActivity extends Activity {
 	}
 
 	/**Upload user profile to the server
-     * 
      * @param v
      */
 	public void upload_profile(View v)
@@ -152,19 +150,24 @@ public class NewProfileActivity extends Activity {
 	bitmap = null;
 	finish();
 	}
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present
+	 * @param menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.new_profile, menu);
 		return true;
 	}
 
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 * @param item
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -179,7 +182,6 @@ public class NewProfileActivity extends Activity {
 
 		public PlaceholderFragment() {
 		}
-
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {

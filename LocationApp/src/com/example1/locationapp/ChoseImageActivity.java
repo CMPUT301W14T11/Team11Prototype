@@ -20,11 +20,13 @@ import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 
 /**
- * ChoseImageActivity has two functionalities taking pictures and choose image
- * from local file;
+ * In this ChoseImageActivity there are two main things to do 
+ * 1.take Image
+ *    want you want add image into the app you can choose take the image then it will give the camron then you can take by yourself.
+ * 2.choose Image
+ *    you also can choose the image which saved locally. when you using that it will list all the image that what we have.
  * 
- * @author qyu4
- * 
+ * @author zuo2
  */
 public class ChoseImageActivity extends Activity implements
 		ImageChooserListener {
@@ -76,7 +78,7 @@ public class ChoseImageActivity extends Activity implements
 	}
 	
 	/**
-	 * this method is for user choose the image which already saved.
+	 * user can use this method to choose the image which already saved locally.
 	 */
 
 	private void chooseImage() {
@@ -96,7 +98,7 @@ public class ChoseImageActivity extends Activity implements
 	}
 	
 	/**
-	 * this method for user taking the photo.
+	 * this method for user taking the photo by user.
 	 */
 
 	private void takePicture() {
@@ -115,9 +117,7 @@ public class ChoseImageActivity extends Activity implements
 		}
 	}
 
-	/**
-	 * 
-	 */
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK
@@ -132,7 +132,8 @@ public class ChoseImageActivity extends Activity implements
 	}
 
 	/**
-	 * get the Image 
+	 * this method is for the Image what you choose to use.
+	 * @param image  is the image what you want.
 	 */
 	@Override
 	public void onImageChosen(final ChosenImage image) {
@@ -160,6 +161,7 @@ public class ChoseImageActivity extends Activity implements
 
 	/**
 	 * to return the the error information to let user know.
+	 * @param reason   is the string tell to let user understand what's with it.
 	 */
 	@Override
 	public void onError(final String reason) {
@@ -173,6 +175,11 @@ public class ChoseImageActivity extends Activity implements
 			}
 		});
 	}
+		
+	/**
+	 * this method is for when you finish choose you image then you click 
+	 * back button then the app will know that which image you have chosen.
+	 */
 
 	@Override
 	public void onBackPressed() {
@@ -185,6 +192,7 @@ public class ChoseImageActivity extends Activity implements
 		super.onBackPressed();
 
 	}
+	
 
 	@Override
 	public void onDestroy() {
@@ -192,9 +200,8 @@ public class ChoseImageActivity extends Activity implements
 		super.onDestroy();
 	}
 	/**
-	 Should be called if for some reason the ImageChooserManager is null (Due
-	 
-	 to destroying of activity for low memory situations)
+	 *Should be called if for some reason the ImageChooserManager is null Due
+	 *to destroying of activity for low memory situations
 	 */
 	private void reinitializeImageChooser() {
 		imageChooserManager = new ImageChooserManager(this, chooserType,

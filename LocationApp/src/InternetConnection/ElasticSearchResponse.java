@@ -3,6 +3,7 @@ package InternetConnection;
 /**
 * Represents a search response from ElasticSearch.
 * Taken from https://github.com/rayzhangcl/ESDemo
+* @author zuo2
 */
 public class ElasticSearchResponse<T> {
     String _index;

@@ -20,9 +20,7 @@ import android.widget.Toast;
 
 
 /**
- * This acitvity for user add Tag in the app.
- * @author zuo2
- *
+ * This acitvity for user add Tag in the and searching by tag
  */
 public class TagActivity extends Activity {
     ArrayList<String> taglist;
@@ -39,7 +37,6 @@ public class TagActivity extends Activity {
 		donebutton= (Button) findViewById(R.id.tagbutton2);
 		textview = (TextView) findViewById(R.id.tagtextView1);
 	}
-	//click enter will add tags
 	/**
 	 * use this function to add tags to the comments
 	 * @param v
@@ -64,7 +61,6 @@ public class TagActivity extends Activity {
 			editText.setText(null);
 		}
 	}
-	//click done will go back to MainActivity
 	/**
 	 * go back to MainActivity from tags
 	 * @param v
@@ -76,20 +72,26 @@ public class TagActivity extends Activity {
 		setResult(RESULT_OK, intent);
 		finish();
 	}
-
+	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return boolean
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.tag, menu);
 		return true;
 	}
-
+	
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 * @param item
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;

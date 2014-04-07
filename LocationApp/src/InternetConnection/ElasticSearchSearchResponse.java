@@ -9,6 +9,7 @@ import java.util.Collection;
 /**
 * Represents a search response from ElasticSearch.
 * Taken from https://github.com/rayzhangcl/ESDemo
+* @author zuo2
 */
 public class ElasticSearchSearchResponse<T> {
     int took;

@@ -17,8 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 /**
- *  custom listview adapter for making a listview adapter
- * @author qyu4
+ *  custom list view adapter for making a list view adapter
+ * @author zuo2
  *
  */
 public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
@@ -26,7 +26,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     private Activity activity;
     
     /**
-     * to create a adapter for the listview
+     * to create a adapter for the list view
      * @param a
      * @param textViewResourceId
      * @param entries
@@ -39,9 +39,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     }
     
     /**
-     * create a view holder for listview view item
-     * @author zuo2
-     *
+     * create a view holder for list view view item
      */
 	public static class ViewHolder{
         public TextView item1; //make a Testview
@@ -53,7 +51,10 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 
 	/**
 	 * Put the data into the view
-	 * 
+	 *@param postion
+	 *@param converView
+	 *@param parent
+	 *@return v  which is View type
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

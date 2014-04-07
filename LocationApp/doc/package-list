@@ -1,5 +1,7 @@
 Controller
+InternetConnection
 Model
+Sort
 com.example1.locationapp
 com.google.android.gms
 fr.castorflex.android.smoothprogressbar

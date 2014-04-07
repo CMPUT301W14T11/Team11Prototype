@@ -15,9 +15,7 @@ import android.widget.Toast;
  * NewUserActivity take user input user name
  * allowing user to continue to use the application.
  * in particular, user can post, edit, tag and etc. comments
- * 
  * @author qyu4
- *
  */
 public class NewUserActivity extends Activity
 {
@@ -49,18 +47,19 @@ public class NewUserActivity extends Activity
 	            {
 	            	intent.putExtra("name", username);
 	 	            startActivity(intent);
-	            }
-	           
+	            } 
 			}
-			
 			});
 	}
 
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return true
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.sign_in, menu);
 		return true;
 	}

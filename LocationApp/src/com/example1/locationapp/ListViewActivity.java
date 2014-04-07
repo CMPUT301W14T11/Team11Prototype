@@ -17,9 +17,7 @@ import android.widget.ArrayAdapter;
 /**
  * This class manage the functionality in the mainActivity, which shows the
  * listView all comments.
- * 
  * @author qyu4
- * 
  */
 public class ListViewActivity extends BaseActivity {
 
@@ -31,9 +29,6 @@ public class ListViewActivity extends BaseActivity {
 	/**
 	 * the SimpleListFragment class is used to control start the listView, pull
 	 * to refresh and shows on the activity;
-	 * 
-	 * @author qyu4
-	 * 
 	 */
 	public static class SimpleListFragment extends ListFragment implements
 			OnRefreshListener {
@@ -60,19 +55,16 @@ public class ListViewActivity extends BaseActivity {
 			super.onViewCreated(view, savedInstanceState);
 			ViewGroup viewGroup = (ViewGroup) view;
 
-			// As we're using a ListFragment we create a PullToRefreshLayout
-			// manually
+			// As we're using a ListFragment we create a PullToRefreshLayout manually
 			mPullToRefreshLayout = new PullToRefreshLayout(
 					viewGroup.getContext());
 
 			// We can now setup the PullToRefreshLayout
 			ActionBarPullToRefresh
 					.from(getActivity())
-					// We need to insert the PullToRefreshLayout into the
-					// Fragment's ViewGroup
+					// We need to insert the PullToRefreshLayout into the Fragment's ViewGroup
 					.insertLayoutInto(viewGroup)
-					// Here we mark just the ListView and it's Empty View as
-					// pullable
+					// Here we mark just the ListView and it's Empty View as pullable
 					.theseChildrenArePullable(android.R.id.list,
 							android.R.id.empty).listener(this)
 					.setup(mPullToRefreshLayout);
@@ -81,6 +73,7 @@ public class ListViewActivity extends BaseActivity {
 
 		/**
 		 * Set the List Adapter to display the sample items
+		 * @param savedInstanceState
 		 */
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
@@ -96,6 +89,8 @@ public class ListViewActivity extends BaseActivity {
 		/**
 		 * to refresh the list view
 		 * round progress bar
+		 * @param view
+		 * @return null
 		 */
 		@Override
 		public void onRefreshStarted(View view) {

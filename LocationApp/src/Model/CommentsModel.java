@@ -30,7 +30,6 @@ import com.google.gson.reflect.TypeToken;
 /**
  * CommentsModel controller for upload comments
  * @author yazhou
- *
  */
 public class CommentsModel implements CommentController{
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
@@ -78,6 +77,11 @@ public class CommentsModel implements CommentController{
 	}
 	/**
 	 * download from server using location based query
+	 * @param comment_array
+	 * @param content
+	 * @param httpclient
+	 * @param current_location
+	 * @param radius
 	 */
 	@Override
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,Context content,HttpClient httpclient,Location current_location,double radius) {
