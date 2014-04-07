@@ -11,6 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import Model.CommentUser;
 import Model.CommentsModel;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -48,6 +49,8 @@ public class NewProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_new_profile);
+		ActionBar bar = getActionBar();
+		bar.setTitle("Edit Profile");
 		Intent intent = getIntent();
 		theUsername= intent.getStringExtra("username");
 		user_uuid = intent.getStringExtra("uuid");

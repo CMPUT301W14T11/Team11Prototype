@@ -11,6 +11,7 @@ import Model.Comments;
 import Model.CommentsModel;
 import Model.IDModel;
 import Model.UserModel;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +25,6 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -58,7 +58,9 @@ public class EnterCommentsActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_enter_comments);
+		setContentView(R.layout.activity_enter_comments);		
+		ActionBar bar = getActionBar();
+		bar.setTitle("New Comment");
 		// Show the Up button in the action bar.
 		id_obj = new IDModel(0);
 		imageview = (ImageView) findViewById(R.id.imageView1);
@@ -72,7 +74,9 @@ public class EnterCommentsActivity extends Activity implements
 			location = gps.getLocation();
 			gps.stopUsingGPS();
 		}
-
+		Intent intent = getIntent();
+		location.setLatitude(intent.getDoubleExtra("latitude",0));
+		location.setLongitude(intent.getDoubleExtra("longitude",0));
 		number = 0;
 		LocalFileLoder loader = new LocalFileLoder(this);
 		user = loader.loadFromFile();

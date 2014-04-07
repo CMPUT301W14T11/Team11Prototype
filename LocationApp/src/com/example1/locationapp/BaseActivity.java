@@ -1,7 +1,5 @@
 package com.example1.locationapp;
 
-import com.example1.locationapp.R;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -22,7 +20,6 @@ public class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
 		Fragment sampleFragment = getSampleFragment();
 		if (sampleFragment != null) {
 			getFragmentManager().beginTransaction()

@@ -43,7 +43,6 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,7 +85,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private UserModel user;
 	private ConnectToInternet connects = new ConnectToInternet();
-	
 
 	private PullToRefreshLayout mPullToRefreshLayout;
 	/**
@@ -102,7 +100,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		setContentView(R.layout.activity_main);
 		ActionBar bar = getActionBar();
 		
-		bar.setDisplayShowTitleEnabled(false);
 		Intent intent = getIntent();
 		final ConnectivityManager connMgr = (ConnectivityManager) this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -126,13 +123,14 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		content = this;
 		dialog1 = new ProgressDialog(content);
+		
+		
 		try {
 			// getting location when app starts, so we can search the database
 			// for location, will add use location later
 			gps = new GPSTracker(this);
 			if (gps.canGetLocation) {
 				current_location = gps.getLocation();
-				gps.stopUsingGPS();
 			} else { 
 				// if gps is not turned on then , ask user to turn it on
 				gps.showSettingsAlert();
@@ -144,7 +142,12 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 		String name = intent.getStringExtra("name");
-
+		
+		if (name.equals(""))
+			bar.setTitle("Welcome, Guest");
+		else
+			bar.setTitle("Welcome, " + name);
+		
 		fileLoader.Exist();
 		if (!fileLoader.exist()) {
 			user = new UserModel();
@@ -184,7 +187,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 			@Override
 			public void onClick(View v) {
-
+				
 				new AsyncTask<Void, Void, Void>() {
 
 					@Override
@@ -206,7 +209,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 					@Override
 					protected Void doInBackground(Void... params) {
-
+						
 						get_comments("get some comments man!");
 						radius = radius + 0.1;
 
@@ -232,6 +235,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				int getID = comment_array.get(arg2).getMaster_ID();
 				Intent intent1 = new Intent();
 				intent1.putExtra("masterID", getID);
+				intent1.putExtra("longitude", current_location.getLongitude());
+				intent1.putExtra("latitude", current_location.getLatitude());
 				intent1.setClass(MainActivity.this, SubCommetsRead.class);
 				MainActivity.this.startActivity(intent1);
 				
@@ -348,6 +353,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 							Intent intent = new Intent();
 							intent.setClass(MainActivity.this,
 									TagActivity.class);
+							
 							index = arg2;
 							startActivityForResult(intent, 1258);
 							break;
@@ -472,8 +478,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 						Toast.LENGTH_SHORT).show();
 			} else {
 				Intent intent = new Intent();
-				intent.putExtra("lat", current_location.getLatitude());
-				intent.putExtra("lon", current_location.getLongitude());
+				intent.putExtra("latitude", current_location.getLatitude());
+				intent.putExtra("longitude", current_location.getLongitude());
 				intent.setClass(MainActivity.this, EnterCommentsActivity.class);
 				startActivityForResult(intent, 1);
 				break;
@@ -541,6 +547,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			{
 				Intent intent3 = new Intent(MainActivity.this, Favourite.class);
 				intent3.putExtra("code", 0);
+				intent3.putExtra("latitude", current_location.getLatitude());
+				intent3.putExtra("longitude", current_location.getLongitude());
 				startActivityForResult(intent3, 9);
 			}	
 			break;
@@ -556,6 +564,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			{
 				Intent intent6 = new Intent(MainActivity.this, Favourite.class);
 				intent6.putExtra("code", 1);
+				intent6.putExtra("latitude", current_location.getLatitude());
+				intent6.putExtra("longitude", current_location.getLongitude());
 				startActivity(intent6);
 			}
 			break;
@@ -796,29 +806,14 @@ public class MainActivity extends Activity implements OnRefreshListener {
             // new version of array sorting
 			
 			comment_array.clear();
-			
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
-				Comments comms = r.getSource();
-				
-				int flag = 0;
-				for (Comments com : comment_array) { // turn on the flag if
-														// object is already
-														// inside the arary
-					if (com.getMaster_ID() == comms.getMaster_ID()) {
-						flag = 1;
-						break;
-					}
-				}
-				// if flag not turned on then add the object into the arraylsit
-				if (flag == 0) {
+					Comments comms = r.getSource();
 					float DistanceResult [] = new float[10];
 					Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
 					comms.setDistance(DistanceResult[0]);
-					comment_array.add(comms);
-				}
-				Collections.sort(comment_array, new Compara());				
+					comment_array.add(comms);			
 			}
-			
+			Collections.sort(comment_array, new Compara());	
 			user = fileLoader.loadFromFile();		
 			user.getComment().clear();
 			for (int i = 0 ; i<comment_array.size(); i++)
@@ -829,7 +824,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				comment_array.get(i).setSubComment(scm.get_comments(helper, comment_array.get(i).getMaster_ID(), httpclient));				
 				user.addComment(comment_array.get(i));
 			}
-			Log.v("hahahhaha", ""+user.getComment().get(1).getSubComment().size());
 			fileSaver.saveInFile(user);
 		
 
