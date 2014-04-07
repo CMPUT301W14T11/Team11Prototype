@@ -47,6 +47,7 @@ public class NewProfileActivity extends Activity {
     String filepath;
     Bitmap bitmap;
     private String user_uuid;
+    private CommentUser godusr;
     int flag = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,12 @@ public class NewProfileActivity extends Activity {
 		setContentView(R.layout.fragment_new_profile);
 		Intent intent = getIntent();
 		theUsername= intent.getStringExtra("username");
-		
 		user_uuid = intent.getStringExtra("uuid");
+		godusr = (CommentUser) intent.getSerializableExtra("object");
 		if(user_uuid!=null)
 		{
 		flag=1;
 		}
-		
 		httpclient = new DefaultHttpClient();
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		imageview.setOnClickListener(new OnClickListener() {
@@ -114,6 +114,11 @@ public class NewProfileActivity extends Activity {
 	Eemail = (EditText) findViewById(R.id.editText20);
 	Ebio = (EditText) findViewById(R.id.editText1);
 	CreateButton = (Button) findViewById(R.id.new_profile_button);
+	if(godusr!=null)
+	{
+		Eage.setText(godusr.getAge());
+		Efacebook.setText(godusr.getFacebook());
+	}
 		final CommentUser NewUser =new CommentUser();
 		NewUser.setAge(Eage.getText().toString());
 		NewUser.setName(theUsername);
