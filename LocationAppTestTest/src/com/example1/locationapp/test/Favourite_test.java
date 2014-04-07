@@ -32,17 +32,23 @@ public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 		super(Favourite.class);
 		// TODO Auto-generated constructor stub
 	}
-	
+	/**
+	 * test user name
+	 */
 	public void test_getusername(){
 		FavouriteModel fa = new FavouriteModel(username, comment, subcomment);
 	    assertEquals("the output should equal to User_test_name", "User_test_name",fa.getUsername());
 	}
-	
+	/**
+	 * test getting comments
+	 */
 	public void test_getComment(){
 		FavouriteModel fa = new FavouriteModel(username, comment, subcomment);
 	    assertEquals("the output should equal to User_test_name", null,fa.getComment());
 	}
-	
+	/**
+	 * test different comments
+	 */
 	public void test_diff_comments(){
 		FavouriteComment test = new FavouriteComment();
 		FavouriteComment test1 =  new FavouriteComment();
@@ -57,12 +63,16 @@ public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 	}
 	
 	
-	
+	/**
+	 * test sub comment 
+	 */
 	public void test_getSubComment_null(){
 		FavouriteModel fa = new FavouriteModel(username, comment, subcomment);
 	    assertEquals("the output should equal to User_test_name", null,fa.getSubComment());
 	}
-	
+	/**
+	 * test sub comment is not null
+	 */
 	public void test_subComment_which_is_not_null(){
 		FavouriteComment test = new FavouriteComment();
 		FavouriteComment test1 = new FavouriteComment();

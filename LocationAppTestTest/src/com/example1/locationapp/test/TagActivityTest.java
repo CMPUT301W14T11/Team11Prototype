@@ -1,23 +1,19 @@
 package com.example1.locationapp.test;
 
-import com.example1.locationapp.NewUserActivity;
 import com.example1.locationapp.R;
-
+import com.example1.locationapp.TagActivity;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.widget.Button;
-import android.widget.EditText;
-import junit.framework.TestCase;
 
-public class NewUserActivityTest extends ActivityInstrumentationTestCase2<NewUserActivity> {
 
+public class TagActivityTest extends ActivityInstrumentationTestCase2<TagActivity> {
 	private Instrumentation instrumentation;
 	private Activity activity;
-	public NewUserActivityTest() {
-		super(NewUserActivity.class);
-		
+	public TagActivityTest() {
+		super(TagActivity.class);
 	}
 
 	protected void setUp() throws Exception {
@@ -25,22 +21,30 @@ public class NewUserActivityTest extends ActivityInstrumentationTestCase2<NewUse
 		activity = getActivity();
 	}
 	/**
-	 * test activity not null
+	 * testing activty
 	 */
 	public void testActivity()
 	{
 		assertNotNull(activity);
 	}
 	/**
-	 * test view exists
+	 * testing tags button
 	 */
-	public void testView()
+	public void testTagDone()
 	{
-		EditText edittext  = (EditText) activity.findViewById(R.id.editText1);
+		Button button  = (Button) activity.findViewById(R.id.tagbutton2);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),
-					        edittext);
+					        button);
 	}
-
+	/**
+	 * testing tag enter button
+	 */
+	public void testTagEnter()
+	{
+		Button button  = (Button) activity.findViewById(R.id.tagbutton1);
+		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),
+					        button);
+	}
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}

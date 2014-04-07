@@ -17,11 +17,11 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 	}
 
 
-	Comments comments ;
-	SubCommetsRead subc = new SubCommetsRead();
-	ArrayList<Comments> comm = new ArrayList<Comments>();
-	SubCommentModel subCon= new SubCommentModel(comments);
-	Date date = new Date();
+	private Comments comments ;
+	private SubCommetsRead subc = new SubCommetsRead();
+	private ArrayList<Comments> comm = new ArrayList<Comments>();
+	private SubCommentModel subCon= new SubCommentModel(comments);
+	private Date date = new Date();
 	protected void setUp() throws Exception {
 		super.setUp();
 		comments = new Comments(0, 0, 0, 0, "hello", "sub", date, 0, 0,null);
@@ -73,12 +73,7 @@ public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommets
 	public void testDate(){
 		assertEquals(date,comments.getComment_date());
 	}
-	/*
-	* Tests if we can get location of the above comments;
-	*/
-	public void testLocation(){
-		assertEquals(null,comments.getDistance());
-	}
+	
 	/*
 	* Tests if we can get Distance of the above comments;
 	*/

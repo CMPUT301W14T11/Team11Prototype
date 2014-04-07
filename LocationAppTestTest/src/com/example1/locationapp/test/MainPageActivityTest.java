@@ -21,24 +21,15 @@ public class MainPageActivityTest extends ActivityInstrumentationTestCase2<MainP
 		super.setUp();
 		activity = getActivity();
 	}
-	
+	/**
+	 * test activity not null 
+	 */
 	public void testActivity()
 	{
 		assertNotNull(activity);
 	}
 	
-	public void testView()
-	{
-		Button button  = (Button) activity.findViewById(R.id.button1);
-		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),
-					        button);
-	}
-	public void testButton()
-	{
-		Button button  = (Button) activity.findViewById(R.id.guest);
-		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),
-					        button);
-	}
+	
 
 	protected void tearDown() throws Exception {
 		super.tearDown();

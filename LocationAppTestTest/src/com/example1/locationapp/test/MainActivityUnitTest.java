@@ -32,11 +32,16 @@ public class MainActivityUnitTest extends ActivityInstrumentationTestCase2<MainA
 		model = new SubCommentModel(new Comments(0, 0, 0, 0, "hello", "hi", new Date(),99,99,"li"));
 		array = new ArrayList<Comments>();
 		}
-
+	/**
+	 * test activity
+	 */
 	public void testActivity()
 	{
 		assertNotNull(model);
 	}
+	/**
+	 * test array for comments
+	 */
 	public void testMasterModel()
 	{
 		assertEquals(0,array.size());
