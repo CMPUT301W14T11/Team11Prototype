@@ -1,18 +1,9 @@
 package com.example1.locationapp.test;
 
-import java.util.ArrayList;
-
-import com.example1.locationapp.EnterCommentsActivity;
-import com.example1.locationapp.MainActivity;
 import com.example1.locationapp.SubCommetsRead;
 
 
-import Model.Comments;
 import Model.IDModel;
-import Model.SubCommentModel;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
@@ -31,9 +22,10 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 
 	public IDModelTest() {
 		super(SubCommetsRead.class);
-		// TODO Auto-generated constructor stub
+	
 	}
 	private int testModel = 2;
+	@SuppressWarnings("unused")
 	private IDModel model = new IDModel(testModel);
 	
 	protected void setUp() throws Exception { 

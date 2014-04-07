@@ -16,16 +16,6 @@ public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>
 	private FavouriteComment comment = null;
 	private ArrayList<FavouriteComment> subcomment = null;
 	
-	private int user_id1 = 111;
-	private int masterid1 = 112;
-	private int sid1 = 114;
-	private int subid1 = 113;
-	private String title1 = "gggg";
-	private String subject1 = "ggggjob";
-	private double lon1 = 12.3322;
-	private double lat1 = 12.3327;
-	private String encode1 = "sssssss";
-	
 	public Favourite_test()
 	{
 
