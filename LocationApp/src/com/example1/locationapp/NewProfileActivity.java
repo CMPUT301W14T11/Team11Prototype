@@ -74,7 +74,6 @@ public class NewProfileActivity extends Activity {
 		Ephone = (EditText) findViewById(R.id.EditText050);
 		Eemail = (EditText) findViewById(R.id.editText20);
 		Ebio = (EditText) findViewById(R.id.editText1);
-		CreateButton = (Button) findViewById(R.id.new_profile_button);
 		if(godusr!=null)
 		{
 			Eage.setText(godusr.getAge());
@@ -134,16 +133,7 @@ public class NewProfileActivity extends Activity {
      */
 	public void upload_profile(View v)
 	{   
-<<<<<<< HEAD
-	Eage = (EditText) findViewById(R.id.EditText010);
-	Efacebook = (EditText) findViewById(R.id.EditText030);
-	Elinkedin = (EditText) findViewById(R.id.EditText040);
-	Ephone = (EditText) findViewById(R.id.EditText050);
-	Eemail = (EditText) findViewById(R.id.editText20);
-	Ebio = (EditText) findViewById(R.id.editText1);
-=======
-	
->>>>>>> 311cb88cbe07a37a3e66b1cc244834ade40bd5ba
+
 		final CommentUser NewUser =new CommentUser();
 		NewUser.setAge(Eage.getText().toString());
 		NewUser.setName(theUsername);
