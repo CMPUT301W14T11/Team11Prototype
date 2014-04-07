@@ -94,13 +94,10 @@ public class ConnectToInternet {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 			(response.getEntity().getContent())));
 		String output;
-		System.err.println("Output from Server -> ");
 		String json = "";
 		while ((output = br.readLine()) != null) {
-			System.err.println(output);
 			json += output;
 		}
-		System.err.println("JSON:" + json);
 		return json;
 	}	
 	/**
@@ -131,12 +128,9 @@ public class ConnectToInternet {
 					elasticSearchResponseType);
 			// We get the recipe from it!
 			id_toReturn = esResponse.getSource();
-			System.out.println();
 
 			id = id_toReturn.getId_for_master();
 
-			// System.out.println(recipe.toString());
-			// httpget.releaseConnection();
 		} catch (ClientProtocolException e) {
 			
 			e.printStackTrace();

@@ -47,9 +47,7 @@ public class CommentsModel implements CommentController{
 			StringEntity data = new StringEntity(gson.toJson(comm));
 			httpPost.setEntity(data);
 			httpPost.setHeader("Accept", "application/json");
-			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(response.getStatusLine().toString() + "testing");
-			System.out.println("chenggong " + number);
+			httpclient.execute(httpPost);
 		} catch (UnsupportedEncodingException e) {
 
 			e.printStackTrace();
@@ -108,8 +106,6 @@ public class CommentsModel implements CommentController{
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
 			String json1 = connect.getEntityContent(response);
-			System.out.println(response.getStatusLine().toString() + "status");
-			System.out.println(json1 + "holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 			}.getType();
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(
@@ -139,25 +135,18 @@ public class CommentsModel implements CommentController{
 					comment_array.add(comms);
 				}
 				Collections.sort(comment_array, new compara());
-				for (Comments com : comment_array) {
-					System.out.println("distance:" + com.getDistance());
-				}
 			}
 
 		} catch (ClientProtocolException e) {
 
-			System.out.println("client exe");
 			e.printStackTrace();
 		} catch (IOException e) {
 
-			System.out.println("IO exe");
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 
 			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		} catch (RuntimeException e) {
-
-			//Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		}
 		return comment_array;
 	}

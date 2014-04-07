@@ -202,7 +202,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					protected void onPostExecute(Void result) {
 
 						super.onPostExecute(result);
-						//get_comments("get some comments man!");
 						dialog1.dismiss();
 						adapter.notifyDataSetChanged();
 					}
@@ -327,8 +326,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 													StringEntity data = new StringEntity(gson.toJson(comment_array.get(arg2)));
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
-													HttpResponse response = httpclient.execute(httpPost);
-													System.out.println(response.getStatusLine().toString() + "testing");
+													httpclient.execute(httpPost);
 													
 												} catch (UnsupportedEncodingException e) {
 
@@ -818,7 +816,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 
-			//Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		} catch (RuntimeException e) {
 
 

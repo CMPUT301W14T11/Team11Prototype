@@ -37,10 +37,6 @@ public class ProfileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_profile);
 
-		/*if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
 		Intent intent = getIntent();
 		goduser= (CommentUser) intent.getSerializableExtra("name");
 		textview1 = (TextView) findViewById(R.id.textView188);

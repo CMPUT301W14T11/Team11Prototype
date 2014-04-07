@@ -3,7 +3,6 @@ package com.example1.locationapp;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -30,7 +29,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example1.locationapp.R;
 import com.google.gson.Gson;
 
 /**
@@ -39,7 +37,7 @@ import com.google.gson.Gson;
  * @author zuo2
  */
 public class NewProfileActivity extends Activity {
-    private EditText Ename,Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
+    private EditText Eage,Efacebook,Elinkedin,Ephone,Eemail,Ebio;
     ImageView imageview;
     Button CreateButton;
     HttpClient httpclient;
@@ -88,10 +86,8 @@ public class NewProfileActivity extends Activity {
 					String file2 = data.getStringExtra("choseimage");
 					if (file != null) {
 						bitmap = BitmapFactory.decodeFile(file);
-						System.out.println("haha" + file);
 					} else {
 						bitmap = BitmapFactory.decodeFile(file2);
-						System.out.println("haha2" + file);
 					}
 
 					imageview.setImageBitmap(bitmap);
@@ -128,8 +124,6 @@ public class NewProfileActivity extends Activity {
 		}
 		
 		UUID NewID = UUID.randomUUID();
-		System.out.println("flag deng yu:"+flag);
-		System.out.println("uuid is "+user_uuid);
 		if(flag==1)
 		{
 			NewUser.setUudi(user_uuid);
@@ -150,8 +144,7 @@ public class NewProfileActivity extends Activity {
 					   StringEntity data = new StringEntity(gson.toJson(NewUser));
 						httpPost.setEntity(data);
 						httpPost.setHeader("Accept", "application/json");
-						HttpResponse response = httpclient.execute(httpPost);
-					    System.out.println(response.getStatusLine().toString() + "testing");
+						httpclient.execute(httpPost);
 						} catch (ClientProtocolException e) {
 							e.printStackTrace();
 						} catch (IOException e) {

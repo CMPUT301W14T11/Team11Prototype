@@ -58,7 +58,6 @@ public class SearchActivity extends Activity {
 	private void handleIntent(Intent intent) {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			query = intent.getStringExtra(SearchManager.QUERY);
-			System.out.println("query is:"+query);
 			doSearch(query);
 		}
 	}
