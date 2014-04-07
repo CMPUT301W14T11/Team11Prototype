@@ -12,6 +12,8 @@ public class UserModel {
     private ArrayList<FavouriteModel> faviourte = new ArrayList<FavouriteModel>();
     private String user_name;
     private ArrayList<Comments> comment = new ArrayList<Comments>();
+    
+    
     /**
      * Constructor of the UserModel, initial with "" to be username
      */
@@ -20,14 +22,7 @@ public class UserModel {
     	user_name = "";
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     /**
      * add a comment to comment array
@@ -38,14 +33,7 @@ public class UserModel {
     	comment.add(comts);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     /**
      * get the comments array
@@ -57,15 +45,7 @@ public class UserModel {
     	return comment;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     /**
      * get current login username
@@ -80,13 +60,6 @@ public class UserModel {
 
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * set username when user change
 	 * @param user_name -- nuew user name
@@ -98,14 +71,7 @@ public class UserModel {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * get the Favourite list
 	 * @return
@@ -116,13 +82,6 @@ public class UserModel {
 	
 		return faviourte;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

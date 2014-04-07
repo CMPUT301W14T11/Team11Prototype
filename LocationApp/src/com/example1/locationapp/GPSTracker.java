@@ -26,15 +26,14 @@ public class GPSTracker extends Service implements LocationListener{
     private Location location; 
     private double latitude; 
     private double longitude; 
- 
     // The minimum distance to change Updates in meters (10 meters)
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; 
- 
     // The minimum time between updates in milliseconds  (1 second)
     private static final long MIN_TIME_BW_UPDATES = 1000;
- 
     // Declaring a Location Manager
     protected LocationManager locationManager;
+    
+    
     
     //protected LocationManager gps_locationManager;
     public GPSTracker(Context context) {
@@ -42,6 +41,8 @@ public class GPSTracker extends Service implements LocationListener{
 		getLocation();
     }
 
+    
+    
     /**
      * method for user to get the location.
      * @return
@@ -69,10 +70,6 @@ public class GPSTracker extends Service implements LocationListener{
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                   
-                    
-                    
-                    Log.d("Network", "Network");
                     if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         
@@ -112,16 +109,7 @@ public class GPSTracker extends Service implements LocationListener{
     }
     
     
-    
- 
 
- 
-
-    
-    
-    
-    
-    
     /**
      * Function to get latitude
      * @return latitude
@@ -136,13 +124,7 @@ public class GPSTracker extends Service implements LocationListener{
     }
      
     
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * Function to get longitude
      * @return longitude
@@ -156,13 +138,7 @@ public class GPSTracker extends Service implements LocationListener{
     }
     
     
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * Function to check if best network provider
      * @return boolean
@@ -172,13 +148,7 @@ public class GPSTracker extends Service implements LocationListener{
     }
      
     
-    
-    
-    
-    
-    
-    
-    
+ 
     /**
      * Function to show settings alert dialog
      * */
@@ -188,12 +158,6 @@ public class GPSTracker extends Service implements LocationListener{
         // Setting Icon to Dialog  
         gPSTrackerContent.showSettingsAlert();
     }	/*
-
-
-
-
-
-
 
 
 
@@ -208,36 +172,39 @@ public class GPSTracker extends Service implements LocationListener{
     }
     
     
-    
-    
-    
-    
-    
-    
+
 	@Override
 	public void onLocationChanged(Location location) {
 
 		
 	}
 
+	
+	
 	@Override
 	public void onProviderDisabled(String provider) {
 
 		
 	}
 
+	
+	
 	@Override
 	public void onProviderEnabled(String provider) {
 
 		
 	}
 
+	
+	
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 
 		
 	}
 
+	
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
 

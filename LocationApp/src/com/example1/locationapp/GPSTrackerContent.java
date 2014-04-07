@@ -14,30 +14,20 @@ import android.provider.Settings;
 public class GPSTrackerContent {
 	private final Context mContext;
 
+	
+	
 	public GPSTrackerContent(Context context) {
 		this.mContext = context;
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	public Context getMContext() {
 		return mContext;
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Function to show settings alert dialog
 	 */

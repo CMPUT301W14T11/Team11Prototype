@@ -30,13 +30,7 @@ public class CommentUser implements Serializable{
 	    }
 	    
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+
 	    /**
 	     * get uuid
 	     * @return
@@ -46,13 +40,7 @@ public class CommentUser implements Serializable{
 		}
 	    
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+
 	    /**
 	     * set uuid
 	     * @param uudi
@@ -62,14 +50,7 @@ public class CommentUser implements Serializable{
 		}
 
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 	     * get the profile encode
 	     * @return
@@ -78,13 +59,7 @@ public class CommentUser implements Serializable{
 			return ProfileEncode;
 		}
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+
 	    
 	    /**
 	     * to set the profile encode by given string
@@ -95,13 +70,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to get the bio
 		 * @return
@@ -111,13 +80,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to set bio by given stirng
 		 * @param bio
@@ -127,14 +90,7 @@ public class CommentUser implements Serializable{
 		}
 	    
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	    /**
 	     * to get the name
 	     * @return
@@ -144,13 +100,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to set the name by given string
 		 * @param name
@@ -160,13 +110,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * get the age
 		 * @return
@@ -176,14 +120,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to set the age 
 		 * @param age
@@ -193,13 +130,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to get the facebook
 		 * @return
@@ -208,13 +139,7 @@ public class CommentUser implements Serializable{
 			return facebook;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		/**
 		 * to set the facebook
@@ -225,13 +150,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * the get the link
 		 * @return
@@ -241,13 +160,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to se the linked in
 		 * @param linkedIn
@@ -257,14 +170,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to get the phone number
 		 * @return
@@ -273,13 +179,7 @@ public class CommentUser implements Serializable{
 			return Phone;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		/**
 		 * to set the phone number
@@ -290,13 +190,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to get the e-mail address
 		 * @return
@@ -306,13 +200,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to set the e-mail address
 		 * @param email
@@ -322,14 +210,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * get the picture
 		 * @return
@@ -339,14 +220,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to set the picture
 		 * @param picture
@@ -356,14 +230,7 @@ public class CommentUser implements Serializable{
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * get he image encode
 		 * @return
@@ -372,14 +239,7 @@ public class CommentUser implements Serializable{
 			return imageEncode;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		/**
 		 * to set image encode

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 /**
  * CommentsModel controller for upload comments
  * @author yazhou
@@ -36,6 +37,8 @@ public class CommentsModel implements CommentController{
 	public static final String MASTERCOMMENT = "emouse/";
 	private Gson gson= new Gson();
 	private ConnectToInternet connect = new ConnectToInternet();
+	
+	
 	/**
 	 * upload comments to server
 	 */
@@ -62,14 +65,7 @@ public class CommentsModel implements CommentController{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * conver bitmap to Base64 string
 	 * @param bitmap
@@ -84,14 +80,7 @@ public class CommentsModel implements CommentController{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * download from server using location based query
 	 * @param comment_array

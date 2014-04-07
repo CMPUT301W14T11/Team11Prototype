@@ -21,20 +21,14 @@ import android.widget.ArrayAdapter;
  */
 public class ListViewActivity extends BaseActivity {
 
+	
 	@Override
 	protected Fragment getSampleFragment() {
 		return new SimpleListFragment();
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * the SimpleListFragment class is used to control start the listView, pull
 	 * to refresh and shows on the activity;
@@ -43,13 +37,12 @@ public class ListViewActivity extends BaseActivity {
 			OnRefreshListener {
 
 		int i = 0;
-
 		private PullToRefreshLayout mPullToRefreshLayout;
-
 		ArrayAdapter<String> adapter;
-
 		List<String> list;
 
+		
+		
 		@Override
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 
@@ -81,14 +74,7 @@ public class ListViewActivity extends BaseActivity {
 		}
 
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * Set the List Adapter to display the sample items
 		 * @param savedInstanceState
@@ -105,14 +91,7 @@ public class ListViewActivity extends BaseActivity {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		/**
 		 * to refresh the list view
 		 * round progress bar

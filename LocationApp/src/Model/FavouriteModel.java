@@ -29,14 +29,7 @@ public class FavouriteModel
 		this.subcomment=subcomment;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * set code for the saving comment
@@ -47,14 +40,7 @@ public class FavouriteModel
 		this.code = code;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * return the favourite's code
@@ -67,15 +53,7 @@ public class FavouriteModel
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * clean the subcomment arraylist
 	 */
@@ -84,14 +62,7 @@ public class FavouriteModel
 		subcomment.clear();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * store the comment's id
@@ -102,15 +73,7 @@ public class FavouriteModel
 		this.id = id;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * get the comment Id
@@ -123,14 +86,7 @@ public class FavouriteModel
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * add a subcomment to the arraylist
 	 * @param sub -- the subcomment need to be added
@@ -140,14 +96,7 @@ public class FavouriteModel
 		subcomment.add(sub);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * get the arraylist of subcomments
@@ -159,15 +108,7 @@ public class FavouriteModel
 		return subcomment;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * get the user of the favourite belongs to
@@ -181,14 +122,7 @@ public class FavouriteModel
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * set the username for the favourite
 	 * @param username -- user who store the favourite
@@ -199,15 +133,7 @@ public class FavouriteModel
 		this.username = username;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * get the main comment of the favourite

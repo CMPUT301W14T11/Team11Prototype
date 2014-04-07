@@ -60,6 +60,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+
 /**
  * this class is to control the subFavouriteComment-comments part
  * It will find subFavouriteComment-comment of the master comment
@@ -97,6 +98,8 @@ public class SubCommetsRead extends Activity {
 	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
 	private int flag_location=0;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -132,6 +135,7 @@ public class SubCommetsRead extends Activity {
 		{
 			
 		new AsyncTask<Void, Void, Void>() {
+			
 			@Override
 			protected Void doInBackground(Void... params) {
 				
@@ -152,6 +156,7 @@ public class SubCommetsRead extends Activity {
 				return null;
 			}
 
+			
 			@Override
 			protected void onPostExecute(Void result) {
 				
@@ -193,6 +198,7 @@ public class SubCommetsRead extends Activity {
 		editText.setHint("reply to 1");
 		listViewSubComment.setOnItemClickListener(new OnItemClickListener() {
 
+			
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -202,6 +208,7 @@ public class SubCommetsRead extends Activity {
 		});
 		listViewSubComment.setOnItemLongClickListener(new OnItemLongClickListener() {
 
+		
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
@@ -209,6 +216,7 @@ public class SubCommetsRead extends Activity {
 				String items[] = { "Edit Comment","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 
+				
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -231,6 +239,7 @@ public class SubCommetsRead extends Activity {
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
 								Locationbutton.setOnClickListener(new OnClickListener() {
 									
+									
 									@Override
 									public void onClick(View v) {
 										locationview.setText("Enter Latitude");
@@ -241,6 +250,7 @@ public class SubCommetsRead extends Activity {
 									}
 								});
 								Changebutton.setOnClickListener(new OnClickListener() {
+									
 									
 									@Override
 									public void onClick(View v) {
@@ -299,6 +309,7 @@ public class SubCommetsRead extends Activity {
 							final String name = comment_list.get(position).getUserName();
 							new AsyncTask<Void, Void, Void>()
 							{
+								
 								@Override
 								protected void onPostExecute(Void result) {
 									super.onPostExecute(result);
@@ -310,6 +321,7 @@ public class SubCommetsRead extends Activity {
 										builder.setCancelable(true);
 										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
 											
+											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
 												dialog.cancel();	
@@ -320,6 +332,8 @@ public class SubCommetsRead extends Activity {
 									}
 								}
 								int flag = 0;
+								
+								
 								@Override
 								protected Void doInBackground(Void... params) {
 									try{
@@ -387,6 +401,7 @@ public class SubCommetsRead extends Activity {
 				{
 					new AsyncTask<Void, Void, Void>() {
 						
+					
 						@Override
 						protected Void doInBackground(Void... params) {
 							comment_list.clear();					
@@ -394,6 +409,7 @@ public class SubCommetsRead extends Activity {
 							return null;
 						}
 
+					
 						@Override
 						protected void onPostExecute(Void result) {
 							
@@ -421,13 +437,6 @@ public class SubCommetsRead extends Activity {
 
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * there are two subFavouriteComment-munu list which is using for saving favourite and
 	 * another is using for save, it will help us save the comments and
@@ -448,13 +457,7 @@ public class SubCommetsRead extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Save the Faviourite comments into the local file
 	 * @param code - used to determine between faviourite and saving
@@ -515,13 +518,7 @@ public class SubCommetsRead extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * this is code to save comments to local
 	 * @param code
@@ -541,13 +538,7 @@ public class SubCommetsRead extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 */
@@ -558,14 +549,7 @@ public class SubCommetsRead extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -591,14 +575,7 @@ public class SubCommetsRead extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * clikc this button to add picture
 	 * @param v
@@ -634,6 +611,7 @@ public class SubCommetsRead extends Activity {
 					new AsyncTask<Void, Void, Void>() {
 						ProgressDialog dialog1 = new ProgressDialog(content);
 
+						
 						@Override
 						protected void onPreExecute() {
 							
@@ -642,6 +620,7 @@ public class SubCommetsRead extends Activity {
 							super.onPreExecute();
 							new AsyncTask<Void, Void, Void>() {
 
+								
 								@Override
 								protected Void doInBackground(Void... params) {
 									
@@ -653,6 +632,8 @@ public class SubCommetsRead extends Activity {
 							}.execute();
 
 						}
+						
+						
 						@Override
 						protected Void doInBackground(Void... params) {
 							
@@ -681,6 +662,8 @@ public class SubCommetsRead extends Activity {
 							}	
 							return null;
 						}
+						
+						
 						@Override
 						protected void onPostExecute(Void result) {
 							
@@ -716,14 +699,7 @@ public class SubCommetsRead extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * use this function to load from file, and show comments in listview
 	 */
@@ -748,14 +724,7 @@ public class SubCommetsRead extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * go back to MainActivty from SUBcomment
 	 */

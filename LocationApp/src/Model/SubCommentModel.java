@@ -64,15 +64,7 @@ public class SubCommentModel implements CommentController{
 	 }
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * use this function for download comments from the server
 	 * @param comment_list1
@@ -131,6 +123,7 @@ public class SubCommentModel implements CommentController{
 		}
 		return comment_list1;
 	}
+	
 	@Override
 	public ArrayList<Comments> get_comments(ArrayList<Comments> comment_array,
 			Context content, HttpClient httpclient, Location current_location,

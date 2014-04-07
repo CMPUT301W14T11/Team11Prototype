@@ -24,6 +24,7 @@ public class MainPage extends Activity {
 	private String name;
 	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		//hide the action bar
@@ -49,6 +50,8 @@ public class MainPage extends Activity {
 		guest = (Button) findViewById(R.id.guest);
 
 		guest.setOnClickListener(new OnClickListener() {
+			
+			
 			@Override
 			public void onClick(View arg0) {
 				name = "";
@@ -60,6 +63,8 @@ public class MainPage extends Activity {
 		});
 
 		newUser.setOnClickListener(new OnClickListener() {
+			
+			
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(MainPage.this, NewUserActivity.class);
@@ -71,14 +76,7 @@ public class MainPage extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

@@ -27,6 +27,8 @@ public class TagActivity extends Activity {
     EditText editText;
     Button enterbutton , donebutton;
     TextView textview;
+    
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,13 +41,7 @@ public class TagActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * use this function to add tags to the comments
 	 * @param v
@@ -71,12 +67,7 @@ public class TagActivity extends Activity {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * go back to MainActivity from tags
@@ -91,13 +82,7 @@ public class TagActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
@@ -110,13 +95,7 @@ public class TagActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -132,13 +111,7 @@ public class TagActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * A placeholder fragment containing a simple view.

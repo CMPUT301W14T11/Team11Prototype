@@ -24,10 +24,11 @@ public class NewUserActivity extends Activity
 	private Button submit;
 	private EditText name;
 	private String username;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
-	{
-
+	{	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_user);
 		ActionBar bar = getActionBar();
@@ -35,6 +36,8 @@ public class NewUserActivity extends Activity
 		name = (EditText) findViewById(R.id.editText1);
 		submit = (Button) findViewById(R.id.Submit);
 		submit.setOnClickListener(new OnClickListener() {
+			
+			
 			@Override
 	        public void onClick(View arg0) {
 	            Intent intent = new Intent(NewUserActivity.this,
@@ -56,14 +59,7 @@ public class NewUserActivity extends Activity
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu

@@ -33,6 +33,8 @@ public class ProfileActivity extends Activity {
 	private ImageView imageview;
 	private Bitmap bitmap;
 	private String uuid="";
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,14 +69,7 @@ public class ProfileActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
@@ -87,14 +82,7 @@ public class ProfileActivity extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -129,14 +117,7 @@ public class ProfileActivity extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -145,6 +126,7 @@ public class ProfileActivity extends Activity {
 		public PlaceholderFragment() {
 		}
 
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {

@@ -85,8 +85,10 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private UserModel user;
 	private ConnectToInternet connects = new ConnectToInternet();
-
 	private PullToRefreshLayout mPullToRefreshLayout;
+	
+	
+	
 	/**
 	 * onCreate method.
 	 * Once the activity is created, first set the content view, and initialize ActionBar and a Spinner for sort options.
@@ -185,11 +187,13 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				R.layout.footlayout, null, false);
 		footerView.setOnClickListener(new OnClickListener() {
 
+			
 			@Override
 			public void onClick(View v) {
 				
 				new AsyncTask<Void, Void, Void>() {
 
+					
 					@Override
 					protected void onPostExecute(Void result) {
 
@@ -199,6 +203,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 						adapter.notifyDataSetChanged();
 					}
 
+					
 					@Override
 					protected void onPreExecute() {
 
@@ -207,12 +212,12 @@ public class MainActivity extends Activity implements OnRefreshListener {
 						dialog1.show();
 					}
 
+					
 					@Override
 					protected Void doInBackground(Void... params) {
 						
 						get_comments("get some comments man!");
 						radius = radius + 0.1;
-
 						return null;
 					}
 
@@ -221,6 +226,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			}
 		});
 		listview.addFooterView(footerView);
+		
+		
 		/**
 		 * Sub comments button click listener
 		 * After you click the Comments you want to see, will jump to sub comments page with 
@@ -244,6 +251,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			}
 		});
 		
+		
 		/**
 		 * Long click listener for comments
 		 * When user want to change location of the comments or edit comments
@@ -259,6 +267,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				String items[] = { "Edit Comment", "Add Tags","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 
+					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -281,6 +290,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
 								Locationbutton.setOnClickListener(new OnClickListener() {
 									
+							
 									@Override
 									public void onClick(View v) {
 										locationview.setText("Enter Latitude");
@@ -293,6 +303,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 								
 								Changebutton.setOnClickListener(new OnClickListener() {
 									
+								
 									@Override
 									public void onClick(View v) {
 										if(flag_location==0)
@@ -313,6 +324,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 										new AsyncTask<Void,Void,Void>()
 										{
 
+									
 											@Override
 											protected Void doInBackground(
 													Void... params) {
@@ -361,6 +373,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 							final String name = comment_array.get(arg2).getUserName();
 							new AsyncTask<Void, Void, Void>()
 							{
+								
 								@Override
 								protected void onPostExecute(Void result) {
 									super.onPostExecute(result);
@@ -371,6 +384,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 										builder.setMessage("Please check back later");
 										builder.setCancelable(true);
 										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+										
+											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
 												dialog.cancel();
@@ -381,6 +396,8 @@ public class MainActivity extends Activity implements OnRefreshListener {
 									}
 								}
 								int flag = 0;
+								
+								
 								@Override
 								protected Void doInBackground(Void... params) {
 									try{
@@ -437,6 +454,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		listview.setAdapter(adapter);
 		new AsyncTask<Void, Void, Void>() {
 
+			
 			@Override
 			protected Void doInBackground(Void... params) {
 
@@ -444,6 +462,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				return null;
 			}
 
+			
 			@Override
 			protected void onPostExecute(Void result) {
 
@@ -455,13 +474,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * An option window jump out allows user to select
 	 * whether edit comments, add tags as well as view profile
@@ -590,11 +603,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			{
 				new AsyncTask<Void,Void,Void>()
 				{
+					
 					/**
 					 * Get profile out the comments authors
 					 * @return null
 					*/
-
 					@Override
 					protected Void doInBackground(Void... params) {
 						try{
@@ -665,13 +678,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 
 
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Get new array after modified the comments
 	 * @param requestCode
@@ -738,13 +744,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 */
@@ -763,13 +762,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
 
 
-
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * download form server , to get comment object
@@ -842,14 +834,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * to refresh the view
@@ -881,7 +866,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				mPullToRefreshLayout.setRefreshComplete();
 				super.onPostExecute(result);
 				
-
 			}
 
 		}.execute();
@@ -889,14 +873,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * sorting this by picture, and show only picture in the comment
 	 */
@@ -919,13 +896,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * sort by date, using master id to sort, then add to comment
 	 */

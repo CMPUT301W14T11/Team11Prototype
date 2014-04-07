@@ -35,12 +35,6 @@ public class LocalFileLoder
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * used to determine if local file existed
 	 */
@@ -56,13 +50,7 @@ public class LocalFileLoder
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * return if local file existed
 	 * @return
@@ -74,13 +62,7 @@ public class LocalFileLoder
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * load UserModel from the local file
 	 * @return

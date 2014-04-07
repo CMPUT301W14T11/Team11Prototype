@@ -32,6 +32,7 @@ public class ConnectToInternet {
 	public static final String MASTERCOMMENT = "emouse/";
 	private Gson gson = new Gson();
 	
+	
 	/**
 	 * this is to send IDModel to the server
 	 * @param id
@@ -85,14 +86,7 @@ public class ConnectToInternet {
 
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * from elastic search to get json from the response
@@ -112,14 +106,7 @@ public class ConnectToInternet {
 	}	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * download IDModel from the server
 	 * @param content

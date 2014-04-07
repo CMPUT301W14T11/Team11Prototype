@@ -55,6 +55,8 @@ public class EnterCommentsActivity extends Activity implements
 	private CommentsModel commentsModel = new CommentsModel();
 	private ConnectToInternet connect = new ConnectToInternet();
 	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,12 +83,6 @@ public class EnterCommentsActivity extends Activity implements
 		LocalFileLoder loader = new LocalFileLoder(this);
 		user = loader.loadFromFile();
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -127,8 +123,7 @@ public class EnterCommentsActivity extends Activity implements
 			editor.commit();
 			finish();
 		}
-		
-		
+				
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
@@ -148,6 +143,8 @@ public class EnterCommentsActivity extends Activity implements
 				}.execute();
 			}
 
+			
+			
 			@Override
 			protected Void doInBackground(Void... params) {
 
@@ -174,6 +171,8 @@ public class EnterCommentsActivity extends Activity implements
 				return null;
 			}
 
+			
+			
 			@Override
 			protected void onPostExecute(Void result) {
 
@@ -207,13 +206,7 @@ public class EnterCommentsActivity extends Activity implements
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * set result for Activity result
 	 */
@@ -225,13 +218,7 @@ public class EnterCommentsActivity extends Activity implements
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
@@ -240,6 +227,8 @@ public class EnterCommentsActivity extends Activity implements
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
+	
+	
 	
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
@@ -251,13 +240,7 @@ public class EnterCommentsActivity extends Activity implements
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * This ID represents the Home or Up button. In the case of this
 	 * activity, the Up button is shown. Use NavUtils to allow users
@@ -278,14 +261,7 @@ public class EnterCommentsActivity extends Activity implements
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * click to add picture, go to image chosser activity
 	 * @param view
@@ -297,6 +273,8 @@ public class EnterCommentsActivity extends Activity implements
 		startActivityForResult(intent, 5);
 	}
 
+	
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -310,8 +288,6 @@ public class EnterCommentsActivity extends Activity implements
 			}
 
 			imageview.setImageBitmap(bitmap);
-
 		}
-
 	}
 }

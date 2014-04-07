@@ -57,13 +57,7 @@ public class InternetChecker extends BroadcastReceiver {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		final GPSTracker gps = new GPSTracker(context);
@@ -113,6 +107,7 @@ public class InternetChecker extends BroadcastReceiver {
 					}
 
 
+					
 					@Override
 					protected Void doInBackground(Void... params) {
 						// make new comments
@@ -121,6 +116,9 @@ public class InternetChecker extends BroadcastReceiver {
 						modle.insertMaster(NewComment, MasterId);
 						return null;
 					}
+					
+					
+					
 					@Override
 					protected void onPostExecute(Void result) {
 						super.onPostExecute(result);
@@ -169,6 +167,8 @@ public class InternetChecker extends BroadcastReceiver {
 						}.execute();
 					}
 
+					
+					
 					/**
 					 *  make new comments with picture	
 					 */
@@ -180,11 +180,15 @@ public class InternetChecker extends BroadcastReceiver {
 						modle.insertMaster(NewComment, MasterId);
 						return null;
 					}
+					
+					
+					
 					@Override
 					protected void onPostExecute(Void result) {
 						super.onPostExecute(result);
 						new AsyncTask<Void,Void	,Void>()
 						{
+							
 							@Override
 							protected Void doInBackground(Void... params) {
 								ConnectToInternet internet = new ConnectToInternet();
@@ -246,13 +250,6 @@ public class InternetChecker extends BroadcastReceiver {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * check if the Internet is connect or not.
 	 * @param context
@@ -260,8 +257,7 @@ public class InternetChecker extends BroadcastReceiver {
 	 * @return
 	 */
 	public Object checkIntenetConnection(Context context, Intent intent){
-		
-		
+				
 		return null;
 	}
 

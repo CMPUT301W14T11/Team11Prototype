@@ -61,6 +61,9 @@ public class Favourite extends Activity {
 	private ConnectToInternet connects = new ConnectToInternet();
 	private SaveFavourite save = new SaveFavourite();
 	private Context content = this;
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -141,12 +144,6 @@ public class Favourite extends Activity {
 
 	
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * load the comment and sub-comment from the local saving file, and the
 	 * result into the list of view.
@@ -171,13 +168,7 @@ public class Favourite extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * download comment from the server
 	 * @param user
@@ -244,13 +235,7 @@ public class Favourite extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * set the information for Favourite Comments.
 	 * @param comment
@@ -269,13 +254,7 @@ public class Favourite extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu

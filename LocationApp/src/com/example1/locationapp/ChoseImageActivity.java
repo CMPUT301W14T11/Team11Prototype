@@ -42,6 +42,8 @@ public class ChoseImageActivity extends Activity implements
 	private String filePath;
 	private int chooserType;
 
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,12 +78,6 @@ public class ChoseImageActivity extends Activity implements
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * user can use this method to choose the image which already saved locally.
 	 */
@@ -99,12 +95,6 @@ public class ChoseImageActivity extends Activity implements
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -130,12 +120,6 @@ public class ChoseImageActivity extends Activity implements
 
 
 	
-	
-	
-	
-	
-	
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK
@@ -149,12 +133,6 @@ public class ChoseImageActivity extends Activity implements
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -179,19 +157,10 @@ public class ChoseImageActivity extends Activity implements
 				}
 			}
 		});
-
-	
-
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to return the the error information to let user know.
 	 * @param reason   is the string tell to let user understand what's with it.
@@ -210,13 +179,7 @@ public class ChoseImageActivity extends Activity implements
 	}
 		
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * this method is for when you finish choose you image then you click 
 	 * back button then the app will know that which image you have chosen.
@@ -235,13 +198,6 @@ public class ChoseImageActivity extends Activity implements
 	
 
 	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void onDestroy() {
 
@@ -249,12 +205,7 @@ public class ChoseImageActivity extends Activity implements
 	}
 	
 	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 *Should be called if for some reason the ImageChooserManager is null Due
 	 *to destroying of activity for low memory situations
@@ -267,13 +218,7 @@ public class ChoseImageActivity extends Activity implements
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("chooser_type", chooserType);
@@ -282,13 +227,7 @@ public class ChoseImageActivity extends Activity implements
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {

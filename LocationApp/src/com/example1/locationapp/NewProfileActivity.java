@@ -45,7 +45,9 @@ public class NewProfileActivity extends Activity {
     private String user_uuid;
     private CommentUser godusr;
     int flag = 0;
-	@Override
+	
+    
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_new_profile);
@@ -62,6 +64,7 @@ public class NewProfileActivity extends Activity {
 		httpclient = new DefaultHttpClient();
 		imageview = (ImageView) findViewById(R.id.imageView1);
 		imageview.setOnClickListener(new OnClickListener() {
+			
 			
 			@Override
 			public void onClick(View v) {
@@ -91,13 +94,6 @@ public class NewProfileActivity extends Activity {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -122,14 +118,7 @@ public class NewProfileActivity extends Activity {
 		
 	}
 
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 	/**Upload user profile to the server
      * @param v
@@ -186,13 +175,7 @@ public class NewProfileActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present
 	 * @param menu
@@ -204,14 +187,7 @@ public class NewProfileActivity extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -228,14 +204,7 @@ public class NewProfileActivity extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

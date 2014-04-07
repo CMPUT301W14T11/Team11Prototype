@@ -96,12 +96,6 @@ public class EditActivity extends Activity {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * click the button to send edit to the cloud
 	 * @param v
@@ -184,7 +178,6 @@ public class EditActivity extends Activity {
     	    			
     	    		} 
     	    	
-
     				return null;
     			}
         		
@@ -194,13 +187,7 @@ public class EditActivity extends Activity {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * Inflate the menu; this adds items to the action bar if it is present.
      * @param menu
@@ -214,13 +201,7 @@ public class EditActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -237,12 +218,6 @@ public class EditActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -269,6 +244,4 @@ public class EditActivity extends Activity {
 			return rootView;
 		}
 	}
-
-
 }

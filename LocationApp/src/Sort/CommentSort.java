@@ -36,6 +36,8 @@ public class CommentSort {
 	private ArrayList<Comments> date_comment_array;
 	private Context content;
 	private GPSTracker gps ;
+	
+	
 	/**
 	 * This is for sorting comment by date
 	 * @return
@@ -108,14 +110,6 @@ public class CommentSort {
 	
 
 
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * get the http response and return json string
 	 * @param response

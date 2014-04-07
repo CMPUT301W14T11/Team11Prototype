@@ -10,6 +10,7 @@ import Model.Comments;
  */
 public class CommentComparator implements Comparator<Comments>
 {
+	
 	/**
 	 * basic method of sorting
 	 * @param comment1  Comments model 

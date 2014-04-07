@@ -28,6 +28,7 @@ public class Comments implements Serializable{
 	private ArrayList<String> TagsList= new ArrayList<String>();
 	private ArrayList<Comments> subComment = new ArrayList<Comments>();
 
+	
 	/**
 	 * constructor for comment with no picture
 	 * @param user_id    User's ID
@@ -56,6 +57,7 @@ public class Comments implements Serializable{
 		this.userName = userName; 
 		
 	}
+	
 	
 	/**
 	 * use constructor to make comments with picture
@@ -88,13 +90,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * to set the sub comments
      * @param s
@@ -105,13 +101,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to get the subcomment list
 	 * @return
@@ -122,13 +112,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to get the lag list
 	 * @return
@@ -138,13 +122,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * setting the tag list 
      * @param tagsList
@@ -154,13 +132,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * get the string of user name
 	 * @return
@@ -172,13 +144,7 @@ public class Comments implements Serializable{
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to get master comment ID
 	 * @return
@@ -188,12 +154,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
+
     /**
      * seting the master comment id
      * @param master_comment_ID
@@ -203,13 +164,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * get the sub comment id
 	 * @return
@@ -219,13 +174,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * seting sub comment id
      * @param sub_comments_ID
@@ -235,13 +184,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the master id
      * @return
@@ -251,13 +194,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * set the master id
      * @param master_ID
@@ -267,13 +204,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the sub id
      * @return
@@ -283,13 +214,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to set the sub_id
 	 * @param sub_ID
@@ -297,12 +222,6 @@ public class Comments implements Serializable{
 	public void setSub_ID(int sub_ID) {
 		this.sub_ID = sub_ID;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -314,13 +233,7 @@ public class Comments implements Serializable{
 		return the_comment;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
     /**
      * the set the comment by given string
@@ -331,13 +244,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the subject comment
      * @return
@@ -347,14 +254,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * set teh subject comment by given string
      * @param subject_comment
@@ -364,13 +264,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the comments date
      * @return
@@ -380,13 +274,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * to set the comment date
      * @param comment_date
@@ -396,13 +284,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the master comments
      * @return
@@ -412,13 +294,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * the set he master commetns by given boolean
      * @param master_comment
@@ -426,12 +302,6 @@ public class Comments implements Serializable{
 	public void setMaster_comment(boolean master_comment) {
 		this.master_comment = master_comment;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -444,13 +314,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * set the longitude
 	 * @param lon
@@ -460,13 +324,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the latitude
      * @return
@@ -476,13 +334,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * to set the latitude
      * @param lat
@@ -492,13 +344,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to the distance
 	 * @return
@@ -508,13 +354,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * to set the distance by give double value
 	 * @param distance
@@ -524,13 +364,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * get the image encode
 	 * @return
@@ -540,13 +374,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * set the image encode
 	 * @param image_encode
@@ -556,13 +384,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
     /**
      * get the user ID
      * @return
@@ -572,13 +394,7 @@ public class Comments implements Serializable{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * set the user ID by given int
 	 * @param userID

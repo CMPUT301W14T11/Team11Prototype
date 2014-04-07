@@ -38,12 +38,6 @@ public class CutAdapter extends ArrayAdapter<Comments>{
     
     
     
-    
-    
-    
-    
-    
-    
     /**
      * Make the view for listview
      */
@@ -54,12 +48,6 @@ public class CutAdapter extends ArrayAdapter<Comments>{
         public TextView item4;
         public ImageView imageview;
     }
-	
-	
-	
-	
-	
-	
 	
 	
 	

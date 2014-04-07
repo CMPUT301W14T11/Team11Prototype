@@ -20,6 +20,7 @@ import com.google.gson.JsonSerializer;
  */
 public class BitmapConverter implements JsonDeserializer<Bitmap>,JsonSerializer<Bitmap>{
 	
+	
 	@Override
 	public JsonElement serialize(Bitmap arg0, Type arg1,
 			JsonSerializationContext arg2) {
@@ -31,13 +32,7 @@ public class BitmapConverter implements JsonDeserializer<Bitmap>,JsonSerializer<
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public Bitmap deserialize(JsonElement arg0, Type arg1,
 			JsonDeserializationContext arg2) throws JsonParseException {
@@ -46,7 +41,5 @@ public class BitmapConverter implements JsonDeserializer<Bitmap>,JsonSerializer<
 		return BitmapFactory.decodeByteArray(data, 0, data.length);
 		
 	}
-
-
 
 }

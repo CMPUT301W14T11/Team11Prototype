@@ -25,6 +25,7 @@ public class Playtube extends Activity {
 	private LatLng lat_and_long, new_positon;
 	private CameraUpdate camUpdate;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class Playtube extends Activity {
 		map.animateCamera(camUpdate);
 		map.setOnMapLongClickListener(new OnMapLongClickListener() {
 
+			
 			@Override
 			public void onMapLongClick(LatLng arg0) {
 				
@@ -52,6 +54,7 @@ public class Playtube extends Activity {
 		});
 		map.setOnMarkerClickListener(new OnMarkerClickListener() {
 
+			
 			@Override
 			public boolean onMarkerClick(Marker arg0) {
 				
@@ -67,14 +70,7 @@ public class Playtube extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
@@ -87,14 +83,7 @@ public class Playtube extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public void onBackPressed() {
 		

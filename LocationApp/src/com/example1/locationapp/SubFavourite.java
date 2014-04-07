@@ -24,6 +24,8 @@ public class SubFavourite extends Activity
 	private CustomAdapter adapter;
 	private ListView list;
 	private int id;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -37,14 +39,7 @@ public class SubFavourite extends Activity
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * load the comment and sub-comment from the local saving file, and the
 	 * result into the list of view.
@@ -75,14 +70,7 @@ public class SubFavourite extends Activity
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu

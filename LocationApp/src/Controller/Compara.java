@@ -9,6 +9,7 @@ import Model.Comments;
  */
 public class Compara implements Comparator<Comments>{
 
+	
 	@Override
 	public int compare(Comments comment1, Comments comment2) {
 		 if (comment1.getDistance() > comment2.getDistance())

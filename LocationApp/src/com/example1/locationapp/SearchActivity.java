@@ -42,14 +42,7 @@ public class SearchActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * this function is used to call handIntent
 	 * @param intent
@@ -60,14 +53,7 @@ public class SearchActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * get intent form MainActiviy
 	 * @param intent
@@ -80,13 +66,7 @@ public class SearchActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * do seach from the server and put the result into listviw
 	 * @param queryStr
@@ -124,14 +104,7 @@ public class SearchActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Inflate the menu; this adds items to the action bar if it is present.
 	 * @param menu
@@ -144,14 +117,7 @@ public class SearchActivity extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Handle action bar item clicks here. The action bar will
 	 * automatically handle clicks on the Home/Up button, so long
@@ -168,14 +134,7 @@ public class SearchActivity extends Activity {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -190,6 +149,5 @@ public class SearchActivity extends Activity {
 			return rootView;
 		}
 	}
-
 
 }

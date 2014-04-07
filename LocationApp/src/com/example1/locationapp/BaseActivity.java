@@ -16,6 +16,7 @@ import android.widget.Toast;
  */
 public class BaseActivity extends Activity {
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -28,14 +29,7 @@ public class BaseActivity extends Activity {
 
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,13 +38,7 @@ public class BaseActivity extends Activity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	@Override
 	/**
@@ -74,13 +62,7 @@ public class BaseActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 *This method will override by child class. Then base class can get the
 	 *fragment

@@ -26,13 +26,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     private Activity activity;
     
     
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * to create activity adapter for the list view
      * @param activity
@@ -46,13 +40,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     }
     
     
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * create activity view holder for list view view item
      */
@@ -64,12 +52,6 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
         public ImageView imageview;
     }
 
-	
-	
-	
-	
-	
-	
 	
 	
 	/**

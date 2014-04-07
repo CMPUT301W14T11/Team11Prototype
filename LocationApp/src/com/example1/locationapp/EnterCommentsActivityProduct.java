@@ -11,16 +11,23 @@ import android.os.Environment;
  * @author yazhou
  */
 public class EnterCommentsActivityProduct {
+	
 	private String mCurrentPhotoPath;
 
+	
+	
 	public String getMCurrentPhotoPath() {
 		return mCurrentPhotoPath;
 	}
 
+	
+	
 	public void setMCurrentPhotoPath(String mCurrentPhotoPath) {
 		this.mCurrentPhotoPath = mCurrentPhotoPath;
 	}
 
+	
+	
 	public File createImageFile() throws IOException {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(new Date());
