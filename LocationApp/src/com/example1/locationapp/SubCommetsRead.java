@@ -54,6 +54,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -97,7 +98,7 @@ public class SubCommetsRead extends Activity {
 	private ConnectToInternet connect = new ConnectToInternet();
 	private SubCommentModel subModel = new SubCommentModel(
 			comment1);
-	
+	private int flag_location=0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -195,7 +196,7 @@ public class SubCommetsRead extends Activity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(content);
-				String items[] = { "Edit Comment", "Add Tags","View profile" };
+				String items[] = { "Edit Comment","View profile" };
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 
 					@Override
@@ -212,15 +213,38 @@ public class SubCommetsRead extends Activity {
 								dialogui.setContentView(R.layout.dialogui);
 								dialogui.setTitle("Edit my comment");
 								dialogui.show();
+								final TextView locationview = (TextView) dialogui.findViewById(R.id.textView1);
+								final TextView locationview2 = (TextView) dialogui.findViewById(R.id.textView2);
 								Button Changebutton = (Button) dialogui.findViewById(R.id.button1);
 								@SuppressWarnings("unused")
 								Button Locationbutton = (Button) dialogui.findViewById(R.id.button2);
 								final EditText titleedit = (EditText) dialogui.findViewById(R.id.editText1);
 								final EditText subjectedit = (EditText) dialogui.findViewById(R.id.editText2);
+								Locationbutton.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										locationview.setText("Enter Latitude");
+										locationview2.setText("Enter Longitude");
+										titleedit.setHint("Lat");
+										subjectedit.setHint("Lon");
+										flag_location = 1;
+									}
+								});
 								Changebutton.setOnClickListener(new OnClickListener() {
 									
 									@Override
 									public void onClick(View v) {
+										if(flag_location==1)
+										{
+											double lat = Double.parseDouble(titleedit.getText().toString()); 
+											double lon = Double.parseDouble(subjectedit.getText().toString());	
+											comment_list.get(position).setLat(lat);
+											comment_list.get(position).setLon(lon);
+											flag_location = 0;
+											
+										}
 										comment_list.get(position).setThe_comment(titleedit.getText().toString());
 										comment_list.get(position).setSubject_comment(subjectedit.getText().toString());
 										ListAdapter.notifyDataSetChanged();
@@ -239,8 +263,6 @@ public class SubCommetsRead extends Activity {
 													httpPost.setEntity(data);
 													httpPost.setHeader("Accept", "application/json");
 													httpclient.execute(httpPost);
-													
-													
 												} catch (UnsupportedEncodingException e) {
 
 													e.printStackTrace();
@@ -265,14 +287,14 @@ public class SubCommetsRead extends Activity {
 								Toast.makeText(content,"You can only edit your own comment",Toast.LENGTH_SHORT).show();
 							}
 							break;
-						case 1:
+						/*case 1:
 							Intent intent = new Intent();
 							intent.setClass(SubCommetsRead.this,
 									TagActivity.class);
 							index = position;
 							startActivityForResult(intent, 1258);
-							break;
-						case 2:
+							break;*/
+						case 1:
 							final String name = comment_list.get(position).getUserName();
 							new AsyncTask<Void, Void, Void>()
 							{
