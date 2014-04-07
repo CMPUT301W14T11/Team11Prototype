@@ -8,6 +8,7 @@
     <issue id="RtlEnabled" severity="warning" />
     <issue id="RtlHardcoded" severity="warning" />
     <issue id="SelectableText" severity="warning" />
+    <issue id="SimpleDateFormat" severity="ignore" />
     <issue id="StopShip" severity="warning" />
     <issue id="TypographyQuotes" severity="warning" />
     <issue id="UnusedIds" severity="warning" />

@@ -37,8 +37,10 @@ import com.google.gson.JsonElement;
  * @author qyu4
  *
  */
+@SuppressWarnings("serial")
 public class EnterCommentsActivity extends Activity implements 
 		Serializable {
+	@SuppressWarnings("unused")
 	private EnterCommentsActivityProduct enterCommentsActivityProduct = new EnterCommentsActivityProduct();
 	public static final String SERVER = "http://cmput301.softwareprocess.es:8080/cmput301w14t11/";
 	public static final String MASTERCOMMENT = "emouse/";
@@ -222,6 +224,7 @@ public class EnterCommentsActivity extends Activity implements
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
+	@SuppressWarnings("unused")
 	private void setupActionBar() {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
