@@ -9,13 +9,18 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.MainActivity;
 
-
+/**
+ * in this file user model will be checked.
+ * @author yazhou
+ *
+ */
 
 public class UserModelTest extends  ActivityInstrumentationTestCase2<MainActivity> {
     private UserModel user;
     private FavouriteModel favourite;
     private ArrayList<FavouriteModel> faviourteList = new ArrayList<FavouriteModel>();
-    private ArrayList<FavouriteModel> faviourteList2;
+    @SuppressWarnings("unused")
+	private ArrayList<FavouriteModel> faviourteList2;
     private FavouriteComment comment;
     private ArrayList<FavouriteComment> comm;
     

@@ -22,7 +22,11 @@ public class IDModelTest extends ActivityInstrumentationTestCase2<SubCommetsRead
 
 	public IDModelTest() {
 		super(SubCommetsRead.class);
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> cdabe15ff3b9c59e2524184062622f29ddac715f
 	}
 	private int testModel = 2;
 	@SuppressWarnings("unused")
