@@ -8,7 +8,11 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.widget.Button;
 
-
+/**
+ * in this file tag activity will be checked.
+ * @author yazhou
+ *
+ */
 public class TagActivityTest extends ActivityInstrumentationTestCase2<TagActivity> {
 	@SuppressWarnings("unused")
 	private Instrumentation instrumentation;

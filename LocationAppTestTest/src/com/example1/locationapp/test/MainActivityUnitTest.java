@@ -10,7 +10,11 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.MainActivity;
-
+/**
+ * in this file comments model will be checked.
+ * @author yazhou
+ *
+ */
 public class MainActivityUnitTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	
 	Instrumentation instrumentation;

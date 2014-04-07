@@ -9,7 +9,11 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.SubCommetsRead;
 
-
+/**
+ * in this file subComments model will be checked.
+ * @author yazhou
+ *
+ */
 public class SubCommentsTest extends ActivityInstrumentationTestCase2<SubCommetsRead> {
 	public SubCommentsTest() {
 		super(SubCommetsRead.class);

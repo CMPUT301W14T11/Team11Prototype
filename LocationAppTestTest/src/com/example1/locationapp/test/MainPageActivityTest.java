@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import com.example1.locationapp.MainPage;
-
+/**
+ * in this file main page will be checked.
+ * @author yazhou
+ *
+ */
 public class MainPageActivityTest extends ActivityInstrumentationTestCase2<MainPage> {
 	Instrumentation instrumentation;
-	Activity activity;
+	private Activity activity;
 	public MainPageActivityTest() {
 		super(MainPage.class);
 		

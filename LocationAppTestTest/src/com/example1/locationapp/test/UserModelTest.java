@@ -9,7 +9,11 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.MainActivity;
 
-
+/**
+ * in this file user model will be checked.
+ * @author yazhou
+ *
+ */
 
 public class UserModelTest extends  ActivityInstrumentationTestCase2<MainActivity> {
     private UserModel user;

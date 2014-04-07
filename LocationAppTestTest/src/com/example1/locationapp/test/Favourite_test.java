@@ -7,7 +7,11 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.example1.locationapp.Favourite;
 
-
+/**
+ * in this file favourite model will be checked.
+ * @author yazhou
+ *
+ */
 
 
 public class Favourite_test extends ActivityInstrumentationTestCase2<Favourite>

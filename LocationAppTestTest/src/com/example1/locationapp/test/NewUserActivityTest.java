@@ -8,7 +8,11 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.widget.EditText;
-
+/**
+ * in this file new user information will be checked.
+ * @author yazhou
+ *
+ */
 public class NewUserActivityTest extends ActivityInstrumentationTestCase2<NewUserActivity> {
 
 	@SuppressWarnings("unused")

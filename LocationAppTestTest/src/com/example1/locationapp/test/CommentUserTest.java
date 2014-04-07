@@ -3,6 +3,11 @@ package com.example1.locationapp.test;
 import Model.CommentUser;
 import junit.framework.TestCase;
 
+/**
+ * in this file comment user will be checked.
+ * @author yazhou
+ *
+ */
 public class CommentUserTest extends TestCase {
 	
 	public CommentUserTest(String name) {
