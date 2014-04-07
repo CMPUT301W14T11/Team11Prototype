@@ -809,7 +809,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 
-			Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(content, "no internet", Toast.LENGTH_SHORT).show();
 		} catch (RuntimeException e) {
 
 
