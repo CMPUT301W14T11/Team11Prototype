@@ -50,7 +50,7 @@ public class EnterCommentsActivity extends Activity implements
 	private Context content;
 	private Bitmap bitmap;
 	private IDModel id_obj;
-	private LocalFileLoder fl = new LocalFileLoder(this);
+	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private UserModel user;
 	private CommentsModel commentsModel = new CommentsModel();
 	private ConnectToInternet connect = new ConnectToInternet();
@@ -152,14 +152,14 @@ public class EnterCommentsActivity extends Activity implements
 			protected Void doInBackground(Void... params) {
 
 				if (bitmap == null) {
-					user = fl.loadFromFile();
+					user = fileLoader.loadFromFile();
 					final Comments new_comment = new Comments(0, number, 0, 0,
 							title_edit.getText().toString(), subject_edit
 									.getText().toString(), new Date(),
 							location.getLongitude(),location.getLatitude(), user.getUser_name());
 					commentsModel.insertMaster(new_comment,number);
 				} else {
-					user = fl.loadFromFile();
+					user = fileLoader.loadFromFile();
 					BitmapConverter ImageConvert = new BitmapConverter();
 					JsonElement encode_image =ImageConvert.serialize(bitmap, null, null);
 					final Comments new_comment = new Comments(0, number, 0, 0,

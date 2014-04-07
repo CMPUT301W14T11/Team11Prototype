@@ -99,9 +99,9 @@ public class Comments implements Serializable{
      * to set the sub comments
      * @param s
      */
-	public void setSubComment(ArrayList<Comments> s)
+	public void setSubComment(ArrayList<Comments> subComments)
 	{
-		subComment = s;
+		subComment = subComments;
 	}
 	
 	

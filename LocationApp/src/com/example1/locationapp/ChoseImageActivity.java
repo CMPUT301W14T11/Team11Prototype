@@ -37,8 +37,8 @@ public class ChoseImageActivity extends Activity implements
 	private ImageView imageViewThumbSmall;
 	private TextView textViewFile;
 	private ImageChooserManager imageChooserManager;
-	private ProgressBar pbar;
-	private String filepath2;
+	private ProgressBar progressBar;
+	private String filePath2;
 	private String filePath;
 	private int chooserType;
 
@@ -69,8 +69,8 @@ public class ChoseImageActivity extends Activity implements
 		imageViewThumbSmall = (ImageView) findViewById(R.id.imageViewThumbSmall);
 		textViewFile = (TextView) findViewById(R.id.textViewFile);
 
-		pbar = (ProgressBar) findViewById(R.id.progressBar);
-		pbar.setVisibility(View.GONE);
+		progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		progressBar.setVisibility(View.GONE);
 
 	}
 	
@@ -91,7 +91,7 @@ public class ChoseImageActivity extends Activity implements
 				ChooserType.REQUEST_PICK_PICTURE, "myfolder", true);
 		imageChooserManager.setImageChooserListener(this);
 		try {
-			pbar.setVisibility(View.VISIBLE);
+			progressBar.setVisibility(View.VISIBLE);
 			filePath = imageChooserManager.choose();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -118,7 +118,7 @@ public class ChoseImageActivity extends Activity implements
 				ChooserType.REQUEST_CAPTURE_PICTURE, "myfolder", true);
 		imageChooserManager.setImageChooserListener(this);
 		try {
-			pbar.setVisibility(View.VISIBLE);
+			progressBar.setVisibility(View.VISIBLE);
 			filePath = imageChooserManager.choose();
 
 		} catch (IllegalArgumentException e) {
@@ -145,7 +145,7 @@ public class ChoseImageActivity extends Activity implements
 			}
 			imageChooserManager.submit(requestCode, data);
 		} else {
-			pbar.setVisibility(View.GONE);
+			progressBar.setVisibility(View.GONE);
 		}
 	}
 
@@ -167,11 +167,11 @@ public class ChoseImageActivity extends Activity implements
 
 			@Override
 			public void run() {
-				pbar.setVisibility(View.GONE);
+				progressBar.setVisibility(View.GONE);
 				if (image != null) {
 					textViewFile.setText(image.getFilePathOriginal());
 					filePath = image.getFilePathOriginal();
-					filepath2 = filePath;
+					filePath2 = filePath;
 					imageViewThumbnail.setImageURI(Uri.parse(new File(image
 							.getFileThumbnail()).toString()));
 					imageViewThumbSmall.setImageURI(Uri.parse(new File(image
@@ -202,7 +202,7 @@ public class ChoseImageActivity extends Activity implements
 
 			@Override
 			public void run() {
-				pbar.setVisibility(View.GONE);
+				progressBar.setVisibility(View.GONE);
 				Toast.makeText(ChoseImageActivity.this, reason,
 						Toast.LENGTH_LONG).show();
 			}
@@ -226,7 +226,7 @@ public class ChoseImageActivity extends Activity implements
 
 		Intent intent = new Intent();
 		intent.putExtra("image", filePath);
-		intent.putExtra("choseimage", filepath2);
+		intent.putExtra("choseimage", filePath2);
 		setResult(RESULT_OK, intent);
 		finish();
 		super.onBackPressed();

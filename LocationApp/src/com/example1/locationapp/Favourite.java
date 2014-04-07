@@ -49,10 +49,10 @@ import com.google.gson.reflect.TypeToken;
  */
 public class Favourite extends Activity {
 	private UserModel user;
-	private LocalFileLoder fl = new LocalFileLoder(this);
-	private LocalFileSaver fs = new LocalFileSaver(this);
+	private LocalFileLoder fileLoader = new LocalFileLoder(this);
+	private LocalFileSaver fileSaver = new LocalFileSaver(this);
 	private ArrayList<FavouriteModel> favourite;
-	private ArrayList<FavouriteComment> matchlist;
+	private ArrayList<FavouriteComment> matchList;
 	private CustomAdapter adapter;
 	private ListView list;
 	private HttpClient httpclient;
@@ -66,9 +66,9 @@ public class Favourite extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_favourite);
-		matchlist = new ArrayList<FavouriteComment>();
+		matchList = new ArrayList<FavouriteComment>();
 		user = new UserModel();
-		user = fl.loadFromFile();
+		user = fileLoader.loadFromFile();
 		httpclient = new DefaultHttpClient();
 		GPSTracker gps = new GPSTracker(Favourite.this);
 		if(gps.canGetLocation)
@@ -86,10 +86,10 @@ public class Favourite extends Activity {
 		else
 			bar.setTitle("Personal Saving");
 		
-		ConnectivityManager cm =
+		ConnectivityManager connectivityManager =
 		        (ConnectivityManager)content.getSystemService(Context.CONNECTIVITY_SERVICE);		
 		
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null &&
 		                      activeNetwork.isConnectedOrConnecting();
 		if(isConnected)
@@ -110,7 +110,7 @@ public class Favourite extends Activity {
 						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 								long arg3) {
 
-							int getID = matchlist.get(arg2).getID();
+							int getID = matchList.get(arg2).getID();
 							Intent intent1 = new Intent();
 							intent1.putExtra("masterID", getID);
 							intent1.setClass(Favourite.this, SubFavourite.class);
@@ -129,7 +129,7 @@ public class Favourite extends Activity {
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 						long arg3) {
 
-					int getID = matchlist.get(arg2).getID();
+					int getID = matchList.get(arg2).getID();
 					Intent intent1 = new Intent();
 					intent1.putExtra("masterID", getID);
 					intent1.setClass(Favourite.this, SubFavourite.class);
@@ -155,17 +155,17 @@ public class Favourite extends Activity {
 		
 		list = (ListView) findViewById(R.id.favouritelist);
 		user = new UserModel();
-		user = fl.loadFromFile();
+		user = fileLoader.loadFromFile();
 		String username = user.getUser_name();
 		favourite = user.getFaviourte();
 		int len = favourite.size();
 
 		for (int i = 0; i < len; i++) {
 			if (username.equals(favourite.get(i).getUsername()) && favourite.get(i).getCode() == code) {
-				matchlist.add(favourite.get(i).getComment());
+				matchList.add(favourite.get(i).getComment());
 			}
 		}
-		adapter = new CustomAdapter(this, R.layout.listlayout, matchlist);
+		adapter = new CustomAdapter(this, R.layout.listlayout, matchList);
 		list.setAdapter(adapter);
 
 	}
@@ -227,9 +227,9 @@ public class Favourite extends Activity {
 							user.getFaviourte().get(i).getComment().setTitle(comment.get(i1).getThe_comment());
 							num++;
 						}									
-						FavouriteComment fc = fileC(comment, i1);
-						user.getFaviourte().get(i).addSubComment(fc);				
-						fs.saveInFile(user);
+						FavouriteComment favouriteComment = fileC(comment, i1);
+						user.getFaviourte().get(i).addSubComment(favouriteComment);				
+						fileSaver.saveInFile(user);
 					}
 				}
 			}
@@ -255,17 +255,17 @@ public class Favourite extends Activity {
 	 * set the information for Favourite Comments.
 	 * @param comment
 	 * @param i1
-	 * @return fc
+	 * @return favouriteComment
 	 */
 	private FavouriteComment fileC(ArrayList<Comments> comment, int i1) {
-		FavouriteComment fc = new FavouriteComment();
-		fc.setDistance(save.getDistance(comment.get(i1).getLat(),
+		FavouriteComment favouriteComment = new FavouriteComment();
+		favouriteComment.setDistance(save.getDistance(comment.get(i1).getLat(),
 				comment.get(i1).getLon(), current_location));
-		fc.setImage(comment.get(i1).getImage_encode());
-		fc.setText(comment.get(i1).getSubject_comment());
-		fc.setTitle(comment.get(i1).getThe_comment());
-		fc.setUserName(comment.get(i1).getUserName());
-		return fc;
+		favouriteComment.setImage(comment.get(i1).getImage_encode());
+		favouriteComment.setText(comment.get(i1).getSubject_comment());
+		favouriteComment.setTitle(comment.get(i1).getThe_comment());
+		favouriteComment.setUserName(comment.get(i1).getUserName());
+		return favouriteComment;
 	}
 
 	

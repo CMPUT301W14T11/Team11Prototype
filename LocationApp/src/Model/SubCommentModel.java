@@ -93,7 +93,6 @@ public class SubCommentModel implements CommentController{
 			httpPost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httpPost);
 			String json1 = connect.getEntityContent(response);
-			System.out.println(json1 + "holy");
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Comments>>() {
 			}.getType();
 			ElasticSearchSearchResponse<Comments> esResponse = gson1.fromJson(

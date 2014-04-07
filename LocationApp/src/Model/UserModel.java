@@ -33,9 +33,9 @@ public class UserModel {
      * add a comment to comment array
      * @param c -- the comment needs to be added
      */
-    public void addComment(Comments c)
+    public void addComment(Comments comts)
     {
-    	comment.add(c);
+    	comment.add(comts);
     }
     
     
@@ -130,9 +130,9 @@ public class UserModel {
 	 * add a favourite model to the user
 	 * @param f -- favourite model
 	 */
-	public void addFaviourte(FavouriteModel f)
+	public void addFaviourte(FavouriteModel favouriteModel)
 	{
-		faviourte.add(f);
+		faviourte.add(favouriteModel);
 	}
 
 	

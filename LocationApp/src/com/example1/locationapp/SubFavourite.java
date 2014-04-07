@@ -19,7 +19,7 @@ import android.widget.ListView;
 public class SubFavourite extends Activity
 {
 	private UserModel user;
-	private LocalFileLoder fl = new LocalFileLoder(this);
+	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private ArrayList<FavouriteComment> matchlist;
 	private CustomAdapter adapter;
 	private ListView list;
@@ -51,22 +51,22 @@ public class SubFavourite extends Activity
 	 */
 	private void populateListView() {
 		user = new UserModel();
-		user = fl.loadFromFile();
+		user = fileLoader.loadFromFile();
 
 		list = (ListView) findViewById(R.id.listViewSubComments);
 
-		FavouriteModel fm = null;
+		FavouriteModel favouriteModel = null;
 		for (int i=0; i<user.getFaviourte().size(); i++)
 		{
 			if (user.getFaviourte().get(i).getID() == id)
 			{
-				fm = user.getFaviourte().get(i);
+				favouriteModel = user.getFaviourte().get(i);
 			}
 		}
 		
-		for (int i=0; i<fm.getSubComment().size(); i++)
+		for (int i=0; i<favouriteModel.getSubComment().size(); i++)
 		{
-			matchlist.add(fm.getSubComment().get(i));
+			matchlist.add(favouriteModel.getSubComment().get(i));
 		}
 		
 		adapter = new CustomAdapter(this, R.layout.listlayout, matchlist);

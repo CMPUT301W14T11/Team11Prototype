@@ -11,8 +11,8 @@ import Model.Comments;
 public class DateSort implements Comparator<Comments>{
 
 	@Override
-	public int compare(Comments lhs, Comments rhs) {
-		return rhs.getMaster_ID()-lhs.getMaster_ID();
+	public int compare(Comments comment1, Comments comment2) {
+		return comment2.getMaster_ID()-comment1.getMaster_ID();
 
 	}
 

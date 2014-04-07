@@ -38,7 +38,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class EditActivity extends Activity {
 	private EditText title , subject;
-	private Comments newcomments;
+	private Comments newComments;
 	private int id;
 	private ConnectToInternet connect = new ConnectToInternet();
 	@Override
@@ -72,7 +72,7 @@ public class EditActivity extends Activity {
 					ElasticSearchResponse<Comments> esResponse = gson.fromJson(json,
 							elasticSearchResponseType);
 					// We get the recipe from it!
-					newcomments = esResponse.getSource();
+					newComments = esResponse.getSource();
 				} catch (ClientProtocolException e) {
 
 					e.printStackTrace();
@@ -119,8 +119,8 @@ public class EditActivity extends Activity {
     	}
     	else
     	{
-    		newcomments.setThe_comment(NewTitle);
-    		newcomments.setSubject_comment(NewSubject);
+    		newComments.setThe_comment(NewTitle);
+    		newComments.setSubject_comment(NewSubject);
     		new AsyncTask<Void, Void, Void>()
         	{
 
@@ -165,7 +165,7 @@ public class EditActivity extends Activity {
     	    		HttpPut httpPost = new HttpPut("http://cmput301.softwareprocess.es:8080/cmput301w14t11/emouse/"+id);
     	    		StringEntity stringentity = null;
                     Gson gson = new Gson();
-    	    		stringentity = new StringEntity(gson.toJson(newcomments));
+    	    		stringentity = new StringEntity(gson.toJson(newComments));
     	    		httpPost.setHeader("Accept", "application/json");
     	    		httpPost.setEntity(stringentity);
     	    		httpclient.execute(httpPost);

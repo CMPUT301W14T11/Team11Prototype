@@ -61,8 +61,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 /**
- * this class is to control the sub-comments part
- * It will find sub-comment of the master comment
+ * this class is to control the subFavouriteComment-comments part
+ * It will find subFavouriteComment-comment of the master comment
  * @author qyu4
  */
 public class SubCommetsRead extends Activity {
@@ -87,7 +87,7 @@ public class SubCommetsRead extends Activity {
 	private double radius = 0.01;
 	private IDModel id_obj;
 	private int ServerID;
-	private LocalFileLoder fileLoder = new LocalFileLoder(this);
+	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 	private LocalFileSaver fileSaver = new LocalFileSaver(this);
 	private UserModel user;
 	private Comments comment1;
@@ -122,7 +122,7 @@ public class SubCommetsRead extends Activity {
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null &&
 		                      activeNetwork.isConnectedOrConnecting();
-		user = fileLoder.loadFromFile();
+		user = fileLoader.loadFromFile();
 		
 		if (user.getUser_name().equals(""))
 			bar.setTitle("Welcome, Guest");
@@ -139,7 +139,7 @@ public class SubCommetsRead extends Activity {
 				
 				if (comment_list.size() == 0)
 				{
-					user = fileLoder.loadFromFile();
+					user = fileLoader.loadFromFile();
 					for (int i = 0; i < user.getComment().size(); i++)
 					{
 						if (user.getComment().get(i).getMaster_ID() == number)
@@ -429,9 +429,9 @@ public class SubCommetsRead extends Activity {
 	
 	
 	/**
-	 * there are two sub-munu list which is using for saving favourite and
+	 * there are two subFavouriteComment-munu list which is using for saving favourite and
 	 * another is using for save, it will help us save the comments and
-	 * sub-comments in the file.
+	 * subFavouriteComment-comments in the file.
 	 * @param item
 	 */
 	@Override
@@ -462,7 +462,7 @@ public class SubCommetsRead extends Activity {
 	public void faviSaving(int code)
 	{
 		user = new UserModel();
-		user = fileLoder.loadFromFile();
+		user = fileLoader.loadFromFile();
 		boolean saved=false;
 		if (user.getUser_name().equals(""))
 		{
@@ -481,33 +481,33 @@ public class SubCommetsRead extends Activity {
 			}
 			else
 			{
-				FavouriteComment fc = new FavouriteComment();
+				FavouriteComment favouriteComment = new FavouriteComment();
 				ArrayList<FavouriteComment> subcomment = new ArrayList<FavouriteComment>();
-				fc.setText(comment_list.get(0).getSubject_comment());
-				fc.setTitle(comment_list.get(0).getThe_comment());
-				fc.setImage(comment_list.get(0).getImage_encode());
-				fc.setDistance(comment_list.get(0).getDistance());
-				fc.setUserName(comment_list.get(0).getUserName());
-				fc.setLocation(location.getLatitude(), location.getLongitude());
-				fc.setID(number);
-				subcomment.add(fc);
+				favouriteComment.setText(comment_list.get(0).getSubject_comment());
+				favouriteComment.setTitle(comment_list.get(0).getThe_comment());
+				favouriteComment.setImage(comment_list.get(0).getImage_encode());
+				favouriteComment.setDistance(comment_list.get(0).getDistance());
+				favouriteComment.setUserName(comment_list.get(0).getUserName());
+				favouriteComment.setLocation(location.getLatitude(), location.getLongitude());
+				favouriteComment.setID(number);
+				subcomment.add(favouriteComment);
 				for (int i =1;i<comment_list.size();i++)
 				{
-					FavouriteComment sub = new FavouriteComment();
-					sub.setText(comment_list.get(i).getSubject_comment());
-					sub.setTitle(comment_list.get(i).getThe_comment());
-					sub.setImage(comment_list.get(i).getImage_encode());
-					sub.setDistance(comment_list.get(i).getDistance());
-					sub.setUserName(comment_list.get(i).getUserName());
-					sub.setLocation(location.getLatitude(), location.getLongitude());
-					subcomment.add(sub);
+					FavouriteComment subFavouriteComment = new FavouriteComment();
+					subFavouriteComment.setText(comment_list.get(i).getSubject_comment());
+					subFavouriteComment.setTitle(comment_list.get(i).getThe_comment());
+					subFavouriteComment.setImage(comment_list.get(i).getImage_encode());
+					subFavouriteComment.setDistance(comment_list.get(i).getDistance());
+					subFavouriteComment.setUserName(comment_list.get(i).getUserName());
+					subFavouriteComment.setLocation(location.getLatitude(), location.getLongitude());
+					subcomment.add(subFavouriteComment);
 				}
 
-				FavouriteModel favi = new FavouriteModel(user.getUser_name(), fc,
+				FavouriteModel favouriteModel = new FavouriteModel(user.getUser_name(), favouriteComment,
 						subcomment);
-				favi.setID(number);
-				favi.setCode(code);
-				user.addFaviourte(favi);
+				favouriteModel.setID(number);
+				favouriteModel.setCode(code);
+				user.addFaviourte(favouriteModel);
 				fileSaver.saveInFile(user);
 			}
 			
@@ -613,7 +613,7 @@ public class SubCommetsRead extends Activity {
 		@Override
 		public void onClick(View v) {
 			
-			user = fileLoder.loadFromFile();
+			user = fileLoader.loadFromFile();
 			if (user.getUser_name().equals(""))
 			{
 				Toast.makeText(getBaseContext(),
@@ -658,7 +658,7 @@ public class SubCommetsRead extends Activity {
 							
 							if (bitmap == null) {
 								subCommentsTitle=subCoId+". Relpy to ";
-								user = fileLoder.loadFromFile();
+								user = fileLoader.loadFromFile();
 								final Comments new_comment = new Comments(0,
 										number, subCoId,ServerID, (subCommentsTitle+" "+(replyFloor+1)).toString(), editText.getText()
 												.toString(), new Date(),
@@ -730,7 +730,7 @@ public class SubCommetsRead extends Activity {
 	public void setDisconnectComment()
 	{
 
-			user = fileLoder.loadFromFile();
+			user = fileLoader.loadFromFile();
 			for (int i = 0; i < user.getComment().size(); i++)
 			{
 				if (user.getComment().get(i).getMaster_ID() == number)

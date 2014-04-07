@@ -22,7 +22,7 @@ public class MainPage extends Activity {
 	private Button newUser;
 	private Button guest;
 	private String name;
-	private LocalFileLoder fl = new LocalFileLoder(this);
+	private LocalFileLoder fileLoader = new LocalFileLoder(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,10 @@ public class MainPage extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		// Determin if the file exist
-		fl.Exist();
-		if (fl.exist()) {
+		fileLoader.Exist();
+		if (fileLoader.exist()) {
 
-			user = fl.loadFromFile();
+			user = fileLoader.loadFromFile();
 			if (!user.getUser_name().equals("")) {
 				Intent intent = new Intent(MainPage.this, MainActivity.class);
 				intent.putExtra("name", user.getUser_name());

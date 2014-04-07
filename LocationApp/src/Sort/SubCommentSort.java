@@ -11,9 +11,9 @@ import Model.Comments;
 public class SubCommentSort implements Comparator<Comments>{
 
 	@Override
-	public int compare(Comments lhs, Comments rhs) {
+	public int compare(Comments comment1, Comments comment2) {
 
-		return (int) (lhs.getSub_comments_ID()-rhs.getSub_comments_ID());
+		return (int) (comment1.getSub_comments_ID()-comment2.getSub_comments_ID());
 	}
 	
 }

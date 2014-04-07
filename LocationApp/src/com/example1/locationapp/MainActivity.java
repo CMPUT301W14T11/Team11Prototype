@@ -807,11 +807,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			
 			comment_array.clear();
 			for (ElasticSearchResponse<Comments> r : esResponse.getHits()) {
-					Comments comms = r.getSource();
+					Comments comments = r.getSource();
 					float DistanceResult [] = new float[10];
-					Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comms.getLat(),comms.getLon(),DistanceResult);
-					comms.setDistance(DistanceResult[0]);
-					comment_array.add(comms);			
+					Location.distanceBetween(current_location.getLatitude(),current_location.getLongitude(),comments.getLat(),comments.getLon(),DistanceResult);
+					comments.setDistance(DistanceResult[0]);
+					comment_array.add(comments);			
 			}
 			Collections.sort(comment_array, new Compara());	
 			user = fileLoader.loadFromFile();		
@@ -906,10 +906,10 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		ArrayList<Comments> nonPictureComment = new ArrayList<Comments>();
 		Iterator<Comments> iter = comment_array.iterator();
 		while (iter.hasNext()) {
-		    Comments com = iter.next();
-		    if (com.getImage_encode()==null)
+		    Comments comment = iter.next();
+		    if (comment.getImage_encode()==null)
 		    {    
-		    	nonPictureComment.add(com);
+		    	nonPictureComment.add(comment);
 		    	iter.remove();
 		    }
 		    

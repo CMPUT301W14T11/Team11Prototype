@@ -21,7 +21,7 @@ public class LocalFileLoder
 	private static final String FILENAME = "fav1.sav";
 	private Gson gson = new Gson();
 	private Context context;
-	private UserModel um;
+	private UserModel userModel;
 	private boolean fileExist = false;
 	
 	/**
@@ -87,13 +87,13 @@ public class LocalFileLoder
 	 * UserModel from the local file
 	 */
 	public UserModel loadFromFile() {      
-		um = new UserModel();
+		userModel = new UserModel();
         try {
                 FileInputStream fis = context.openFileInput(FILENAME);
                 BufferedReader in = new BufferedReader(new InputStreamReader(fis));
                 String line = in.readLine();
                 while (line != null) {
-                	um = gson.fromJson(line, UserModel.class);                       
+                	userModel = gson.fromJson(line, UserModel.class);                       
                     line = in.readLine();
                 }
 
@@ -104,6 +104,6 @@ public class LocalFileLoder
 
                 e.printStackTrace();
         }
-        return um;
+        return userModel;
 	}	
 }

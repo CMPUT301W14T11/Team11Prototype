@@ -103,8 +103,8 @@ public class InternetChecker extends BroadcastReceiver {
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								ConnectToInternet con = new ConnectToInternet();
-								MasterId = con.get_id(context);
+								ConnectToInternet connect = new ConnectToInternet();
+								MasterId = connect.get_id(context);
 								MasterId++;
 								return null;
 							}
@@ -160,8 +160,8 @@ public class InternetChecker extends BroadcastReceiver {
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								ConnectToInternet con = new ConnectToInternet();
-								MasterId = con.get_id(context);
+								ConnectToInternet connect = new ConnectToInternet();
+								MasterId = connect.get_id(context);
 								MasterId++;
 								return null;
 							}

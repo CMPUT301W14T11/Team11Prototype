@@ -56,9 +56,9 @@ public class ListViewActivity extends BaseActivity {
 			super.onViewCreated(view, savedInstanceState);
 
 			list = new ArrayList<String>();
-			int no = 1;
+			int num = 1;
 			for (int i = 0; i < 5; i++) {
-				list.add("Item No :" + no++);
+				list.add("Item No :" + num++);
 			}
 
 			super.onViewCreated(view, savedInstanceState);

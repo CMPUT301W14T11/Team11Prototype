@@ -17,7 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 /**
- *  custom listview adapter for making a listview adapter
+ *  custom listview adapter for making activity listview adapter
  * @author qyu4
  *
  */
@@ -25,15 +25,15 @@ public class CutAdapter extends ArrayAdapter<Comments>{
 	private ArrayList<Comments> entries;
     private Activity activity;
     /**
-     * Make a new adapter for listview
-     * @param a pass in activity
+     * Make activity new adapter for listview
+     * @param activity pass in activity
      * @param textViewResourceId
      * @param entries
      */
-    public CutAdapter(Activity a, int textViewResourceId, ArrayList<Comments> entries) {
-        super(a, textViewResourceId, entries);
+    public CutAdapter(Activity activity, int textViewResourceId, ArrayList<Comments> entries) {
+        super(activity, textViewResourceId, entries);
         this.entries = entries;
-        this.activity = a;
+        this.activity = activity;
     }
     
     
@@ -68,22 +68,22 @@ public class CutAdapter extends ArrayAdapter<Comments>{
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
+		View view = convertView;
         ViewHolder holder;
-        if (v == null) {
+        if (view == null) {
             LayoutInflater vi =
                 (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.listlayout, null);
+            view = vi.inflate(R.layout.listlayout, null);
             holder = new ViewHolder();
-            holder.item1 = (TextView) v.findViewById(R.id.bigg);
-            holder.item2 = (TextView) v.findViewById(R.id.smalll);
-            holder.item3 = (TextView) v.findViewById(R.id.loca);
-            holder.item4 = (TextView) v.findViewById(R.id.number);
-            holder.imageview = (ImageView) v.findViewById(R.id.imageView88);
-            v.setTag(holder);
+            holder.item1 = (TextView) view.findViewById(R.id.bigg);
+            holder.item2 = (TextView) view.findViewById(R.id.smalll);
+            holder.item3 = (TextView) view.findViewById(R.id.loca);
+            holder.item4 = (TextView) view.findViewById(R.id.number);
+            holder.imageview = (ImageView) view.findViewById(R.id.imageView88);
+            view.setTag(holder);
         }
         else
-            holder=(ViewHolder)v.getTag();
+            holder=(ViewHolder)view.getTag();
  
         final Comments custom = entries.get(position);
         if (custom != null) {
@@ -109,7 +109,7 @@ public class CutAdapter extends ArrayAdapter<Comments>{
             }
             
         }
-        return v;
+        return view;
     }
 }
     

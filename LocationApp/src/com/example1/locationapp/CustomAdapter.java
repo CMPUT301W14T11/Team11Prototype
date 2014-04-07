@@ -17,12 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 /**
- *  custom list view adapter for making a list view adapter
+ *  custom list view adapter for making activity list view adapter
  * @author zuo2
  *
  */
 public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
-	private ArrayList<FavouriteComment> fc;
+	private ArrayList<FavouriteComment> favouriteComment;
     private Activity activity;
     
     
@@ -34,15 +34,15 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     
     
     /**
-     * to create a adapter for the list view
-     * @param a
+     * to create activity adapter for the list view
+     * @param activity
      * @param textViewResourceId
      * @param entries
      */
-    public CustomAdapter(Activity a, int textViewResourceId, ArrayList<FavouriteComment> entries) {
-        super(a, textViewResourceId, entries);
-        this.fc = entries;
-        this.activity = a;
+    public CustomAdapter(Activity activity, int textViewResourceId, ArrayList<FavouriteComment> entries) {
+        super(activity, textViewResourceId, entries);
+        this.favouriteComment = entries;
+        this.activity = activity;
     }
     
     
@@ -54,7 +54,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
     
     
     /**
-     * create a view holder for list view view item
+     * create activity view holder for list view view item
      */
 	public static class ViewHolder{
         public TextView item1; //make a Testview
@@ -77,29 +77,29 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
 	 *@param postion
 	 *@param converView
 	 *@param parent
-	 *@return v  which is View type
+	 *@return view  which is View type
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		View v = convertView;
+		View view = convertView;
         ViewHolder holder;
-        if (v == null) {
+        if (view == null) {
             LayoutInflater vi =
                 (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.listlayout, null);
+            view = vi.inflate(R.layout.listlayout, null);
             holder = new ViewHolder();
-            holder.item1 = (TextView) v.findViewById(R.id.bigg);
-            holder.item2 = (TextView) v.findViewById(R.id.smalll);
-            holder.item3 = (TextView) v.findViewById(R.id.loca);
-            holder.item4 = (TextView) v.findViewById(R.id.number);
-            holder.imageview = (ImageView) v.findViewById(R.id.imageView88);
-            v.setTag(holder);
+            holder.item1 = (TextView) view.findViewById(R.id.bigg);
+            holder.item2 = (TextView) view.findViewById(R.id.smalll);
+            holder.item3 = (TextView) view.findViewById(R.id.loca);
+            holder.item4 = (TextView) view.findViewById(R.id.number);
+            holder.imageview = (ImageView) view.findViewById(R.id.imageView88);
+            view.setTag(holder);
         }
         else
-            holder=(ViewHolder)v.getTag();
+            holder=(ViewHolder)view.getTag();
  
-        final FavouriteComment custom = fc.get(position);
+        final FavouriteComment custom = favouriteComment.get(position);
         if (custom != null) {
         	DecimalFormat format = new DecimalFormat("###.#");
             holder.item1.setText(custom.getTitle());
@@ -131,7 +131,7 @@ public class CustomAdapter extends ArrayAdapter<FavouriteComment>{
             }
             
         }
-        return v;
+        return view;
     }
 }
     
