@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 /**
  * Used to load file from local
  * @author bqi
- *
  */
 public class LocalFileLoder
 {

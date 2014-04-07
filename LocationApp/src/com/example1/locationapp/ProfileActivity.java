@@ -24,7 +24,6 @@ import android.widget.Toast;
 /**
  * for user owner or other user to watch the information of the user.
  * @author zuo2
- *
  */
 
 public class ProfileActivity extends Activity {
@@ -66,20 +65,28 @@ public class ProfileActivity extends Activity {
     	bitmap=null;
 		}
 	}
+	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu
+	 * @return true
+	 */
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.profile, menu);
 		return true;
 	}
 
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 * @param item
+	 * @return boolean
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			LocalFileLoder loader = new LocalFileLoder(getApplicationContext());

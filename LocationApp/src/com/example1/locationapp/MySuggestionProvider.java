@@ -5,7 +5,6 @@ import android.content.SearchRecentSuggestionsProvider;
 /**
  * This activity is using for searching by date.
  * @author zuo2
- *
  */
 public class MySuggestionProvider extends SearchRecentSuggestionsProvider{
 	public final static String AUTHORITY = "com.example1.MySuggestionProvider";

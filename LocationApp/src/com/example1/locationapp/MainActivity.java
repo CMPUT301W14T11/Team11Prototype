@@ -71,9 +71,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * this is Main display page for the app which shows main comments of the
  * application and user may edit comments, change location
- * 
- * 
- * 
+ * @author zuo2
  */
 public class MainActivity extends Activity implements OnRefreshListener {
 	private CommentUser someuser;
@@ -101,6 +99,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	 * Once the activity is created, first set the content view, and initialize ActionBar and a Spinner for sort options.
 	 * Then, load the content of the Comment and adapt to the ListView with the Comment replies and set the click listener for 
 	 * sub comments and edit comments choice (location change).
+	 * @param savedInstanceState
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +120,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		/**
 		 * checking the location
-		 * 
+		 * @author zuo2
 		 */
 		if (wifi.isConnected() || mobile.isConnected()) {
 			System.out.println("connected");
@@ -385,11 +384,9 @@ public class MainActivity extends Activity implements OnRefreshListener {
 										builder.setMessage("Please check back later");
 										builder.setCancelable(true);
 										builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
 												dialog.cancel();
-												
 											}
 										});
 										AlertDialog adialog = builder.create();
@@ -414,8 +411,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 										}.getType();
 										ElasticSearchSearchResponse<CommentUser> esResponse = gson.fromJson(
 												json1, elasticSearchSearchResponseType);
-										
-										
 										for(ElasticSearchResponse<CommentUser> r : esResponse.getHits())
 										{   // get some result, then flag is 1
 											someuser = r.getSource();
@@ -432,7 +427,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 											intent_profile.putExtra("name",someuser);
 											startActivityForResult(intent_profile, 939);
 										}
-										
 										}
 										 catch (ClientProtocolException e) {
 											e.printStackTrace();
@@ -454,8 +448,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 				return false;
 			}
 		});
-
-		// ///////////////////////////////////////////////////////////////////////////////////////////////////
 		listview.setAdapter(adapter);
 		new AsyncTask<Void, Void, Void>() {
 
@@ -478,6 +470,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 	/**
 	 * An option window jump out allows user to select
 	 * whether edit comments, add tags as well as view profile
+	 * @param item
 	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -570,6 +563,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 			{
 				/**
 				 * Get profile out the comments authors
+				 * @return null
 				*/
 
 				@Override
@@ -643,12 +637,15 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 	/**
 	 * Get new array after modified the comments
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 * @return null
 	*/
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         
 		super.onActivityResult(requestCode, resultCode, data);
-		// when use finish choesing location, get it from playtube_activity
 		System.out.println("code is " + requestCode);
 		switch (requestCode) {
 		case 1:
@@ -709,10 +706,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		}
 
 	}
-	
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
@@ -815,7 +813,11 @@ public class MainActivity extends Activity implements OnRefreshListener {
 
 		}
 	}
-
+	
+	/**
+	 * to refresh the view
+	 * @param view
+	 */
 	@Override
 	public void onRefreshStarted(View view) {
 
@@ -869,7 +871,6 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		    }
 		    
 		}
-		//adapter.clear();
 		comment_array.addAll(nonPictureComment);
 		adapter.notifyDataSetChanged();
 	}
@@ -880,8 +881,4 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		Collections.sort(comment_array,new datesort());
 		adapter.notifyDataSetChanged();
 	}
-
-
-
-	
 }

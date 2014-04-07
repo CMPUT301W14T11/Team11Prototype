@@ -17,7 +17,6 @@ import android.widget.Button;
  * main page is giving two options for user to use to application.
  * One is with user name; one is without;
  * @author qyu4
- *
  */
 public class MainPage extends Activity {
 

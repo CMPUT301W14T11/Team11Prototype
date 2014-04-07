@@ -13,7 +13,6 @@ import android.util.Log;
 /**
  * open source code from http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
  * @author qyu4
- *
  */
 
 public class GPSTracker extends Service implements LocationListener{
@@ -28,25 +27,25 @@ public class GPSTracker extends Service implements LocationListener{
  
     boolean canGetLocation = false;
     
-    Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    Location location; 
+    double latitude; 
+    double longitude; 
  
-    // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    // The minimum distance to change Updates in meters (10 meters)
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; 
  
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000*60; // 1 second
+    // The minimum time between updates in milliseconds  (1 second)
+    private static final long MIN_TIME_BW_UPDATES = 1000*60;
  
     // Declaring a Location Manager
     protected LocationManager locationManager;
+    
     //protected LocationManager gps_locationManager;
     public GPSTracker(Context context) {
         this.gPSTrackerContent = new GPSTrackerContent(context);
 		getLocation();
     }
-    
-    // function for getting location
+
     /**
      * method for user to get the location.
      * @return
@@ -65,7 +64,7 @@ public class GPSTracker extends Service implements LocationListener{
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
  
             if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
+                // Inflate the menu; this adds items to the action bar if it is present.ork provider is enabled
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
@@ -117,6 +116,7 @@ public class GPSTracker extends Service implements LocationListener{
     
     /**
      * Function to get latitude
+     * @return latitude
      * */
     public double getLatitude(){
         if(location != null){
@@ -129,6 +129,7 @@ public class GPSTracker extends Service implements LocationListener{
      
     /**
      * Function to get longitude
+     * @return longitude
      * */
     public double getLongitude(){
         if(location != null){
