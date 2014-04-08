@@ -207,7 +207,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 					protected void onPreExecute() {
 
 						super.onPreExecute();
-						dialog1.setTitle("Loading cause your internet is too slow!");
+						dialog1.setTitle("Loading... Please wait");
 						dialog1.show();
 					}
 

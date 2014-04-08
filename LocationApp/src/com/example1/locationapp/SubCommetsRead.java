@@ -616,7 +616,7 @@ public class SubCommetsRead extends Activity {
 						@Override
 						protected void onPreExecute() {
 							
-							dialog1.setTitle("Loading cause your internet is too slow!");
+							dialog1.setTitle("Loading... Please wait");
 							dialog1.show();
 							super.onPreExecute();
 							new AsyncTask<Void, Void, Void>() {
