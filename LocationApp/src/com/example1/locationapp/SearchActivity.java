@@ -32,13 +32,16 @@ public class SearchActivity extends Activity {
     private ListView listview2;
     private String query;
     private LoadFromServer load = new LoadFromServer();
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_search);
 		ActionBar bar = getActionBar();
 		bar.setTitle("Search Result");
+		bar.setHomeButtonEnabled(false);
 		handleIntent(getIntent());
+		
 	}
 	
 	

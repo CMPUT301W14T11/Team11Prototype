@@ -111,7 +111,7 @@ public class SubCommetsRead extends Activity {
 		comment_list = new ArrayList<Comments>();
 		
 		ActionBar bar = getActionBar();
-		bar.setHomeButtonEnabled(false);
+		bar.setDisplayHomeAsUpEnabled(false);
 		httpclient = new DefaultHttpClient();
 		Intent intent = getIntent();
 		number = intent.getIntExtra("masterID", 0);

@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ActionBar bar = getActionBar();
-		
+		bar.setTitle("Topic");
 		Intent intent = getIntent();
 		final ConnectivityManager connMgr = (ConnectivityManager) this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -147,7 +147,7 @@ public class MainActivity extends Activity implements OnRefreshListener {
 		if (name.equals(""))
 			bar.setTitle("Welcome, Guest");
 		else
-			bar.setTitle("Welcome, " + name);
+			bar.setTitle("Geotopic");
 		
 		fileLoader.Exist();
 		if (!fileLoader.exist()) {
